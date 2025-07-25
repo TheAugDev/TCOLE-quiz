@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Study Guide: ID Theft & Financial Offenses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* Light gray-blue background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .flashcard-container {
+            perspective: 1000px;
+        }
+        .flashcard {
+            width: 100%;
+            height: 150px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+        }
+        .flashcard-front {
+            background-color: #0d9488; /* Teal */
+            color: white;
+        }
+        .flashcard-back {
+            background-color: #0f766e; /* Darker Teal */
+            color: white;
+            transform: rotateY(180deg);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #ccfbf1; /* Lighter Teal */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        details > summary:hover {
+            background-color: #99f6e4;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .quiz-option {
+            transition: background-color 0.2s;
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #14b8a6; /* Teal */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">ID Theft & Financial Offenses</h1>
+            <p class="text-lg text-gray-600 mt-2">An Interactive Study Guide</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-id-crime">ID Crime Fundamentals</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-financial-crimes">Financial Crimes</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-abuse">Money Laundering & Abuse</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-prevention">Prevention & Investigation</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- ID Crime Fundamentals Tab -->
+            <div id="tab-id-crime" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">ID Crime Fundamentals</h2>
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Identity Crime</strong></div><div class="flashcard-face flashcard-back rounded-lg">The theft or misuse of personal or financial identifiers to gain something of value or facilitate other criminal activity.</div></div></div>
+                        <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Identity Theft</strong></div><div class="flashcard-face flashcard-back rounded-lg">A type of identity crime where someone uses your personal information (name, SSN, etc.) without permission to commit fraud.</div></div></div>
+                    </div>
+                    <details class="card p-0">
+                        <summary>How Identity Crimes Occur</summary>
+                        <div class="p-6 border-t">
+                            <ul class="list-disc list-inside grid md:grid-cols-2 gap-x-8 text-gray-700">
+                                <li>Stolen wallet, purse, or briefcase</li>
+                                <li>Mail theft or fraudulent change of address</li>
+                                <li>"Dumpster Diving" for discarded documents</li>
+                                <li>Business record theft (internal access or hacking)</li>
+                                <li>Posing as a landlord or employer to get a credit report</li>
+                                <li>Sharing too much personal info online</li>
+                                <li>Phishing, spoofing, and other email/social media scams</li>
+                                <li>"Shoulder surfing" or spy cameras at ATMs</li>
+                                <li>Credit/debit card skimmers</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Crimes Associated with Identity Theft</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-4">Identity crime is often a <strong class="font-semibold">facilitator</strong> for other, more serious offenses.</p>
+                             <div class="grid md:grid-cols-2 gap-6">
+                                <div class="bg-teal-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-lg text-teal-800">Crimes Leading to ID Theft</h4>
+                                    <ul class="list-disc list-inside mt-2 text-teal-700">
+                                        <li>Robbery / Burglary</li>
+                                        <li>Mail Theft</li>
+                                        <li>Theft of Business/Medical Records</li>
+                                        <li>Computer Intrusion</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-red-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-lg text-red-800">Facilitating Crimes</h4>
+                                    <ul class="list-disc list-inside mt-2 text-red-700">
+                                         <li>Narcotics / Weapons Trafficking</li>
+                                         <li>Money Laundering / Mortgage Fraud</li>
+                                         <li>Homicide / Terrorism</li>
+                                         <li>Organized Crime</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Financial Crimes Tab -->
+            <div id="tab-financial-crimes" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Financial Crimes (Penal Code Chapters 31 & 32)</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Fraudulent Use or Possession of Identifying Information (PC 32.51)</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-2">A person commits an offense if, with intent to harm or defraud another, they obtain, possess, transfer, or use the identifying information of another person without consent.</p>
+                            <p class="mb-4">The number of items of identifying information determines the offense level:</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><strong class="font-semibold">Less than 5 items:</strong> State Jail Felony</li>
+                                <li><strong class="font-semibold">5 to 9 items:</strong> 3rd Degree Felony</li>
+                                <li><strong class="font-semibold">10 to 49 items:</strong> 2nd Degree Felony</li>
+                                <li><strong class="font-semibold">50 or more items:</strong> 1st Degree Felony</li>
+                            </ul>
+                             <div class="mt-4 bg-amber-100 border-l-4 border-amber-500 text-amber-800 p-4 rounded-r-lg">
+                                <p><strong class="font-bold">Enhancement:</strong> The offense is increased to the next higher category if the victim is an elderly individual.</p>
+                             </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Check & Payment Card Offenses</summary>
+                        <div class="p-6 border-t divide-y">
+                            <div class="py-3"><strong>Stealing or Receiving Stolen Check (PC 32.24):</strong> Stealing an unsigned check or receiving one knowing it's stolen. A <span class="font-semibold">Class A Misdemeanor</span>.</div>
+                            <div class="py-3"><strong>Issuance of Bad Check (PC 32.41):</strong> Passing a check knowing there are insufficient funds. A <span class="font-semibold">Class C Misdemeanor</span>. Knowledge is presumed if payment is refused and the issuer fails to pay within 10 days of receiving notice.</div>
+                            <div class="py-3"><strong>Credit Card or Debit Card Abuse (PC 32.31):</strong> A broad offense covering fraudulent use, theft, or possession of credit/debit cards. A <span class="font-semibold">State Jail Felony</span>, enhanced to a <span class="font-semibold">3rd Degree Felony</span> if the victim is elderly.</div>
+                            <div class="py-3"><strong>Fraudulent Use/Possession of Credit/Debit Card Info (PC 32.315):</strong> A newer offense targeting skimmers. Possessing counterfeit cards or card info without consent. Punishment ladder is identical to PC 32.51 (SJF for <5 items, up to 1st Degree for 50+).</div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Other Fraud Offenses</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>False Statement to Obtain Property or Credit (PC 32.32):</strong> Intentionally or knowingly making a materially false or misleading written statement to get property or credit (including a mortgage loan). The punishment follows the standard <strong class="font-semibold">theft ladder</strong> based on the value of the property/credit obtained.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Money Laundering & Abuse Tab -->
+            <div id="tab-abuse" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Money Laundering & Exploitation</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Money Laundering (PC 34.02)</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-4">A person commits an offense if they knowingly acquire, possess, transfer, transport, or conduct a transaction with the proceeds of criminal activity.</p>
+                            <h4 class="font-semibold text-lg mb-2">Punishment Ladder:</h4>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><strong>$2,500 to < $30,000:</strong> State Jail Felony</li>
+                                <li><strong>$30,000 to < $150,000:</strong> 3rd Degree Felony</li>
+                                <li><strong>$150,000 to < $300,000:</strong> 2nd Degree Felony</li>
+                                <li><strong>$300,000 or more:</strong> 1st Degree Felony</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Exploitation & Financial Abuse</summary>
+                        <div class="p-6 border-t divide-y">
+                             <div class="py-3"><strong>Exploitation of Child, Elderly, or Disabled Individual (PC 32.53):</strong> The illegal or improper use of a person or their resources for monetary or personal benefit. A <span class="font-semibold">3rd Degree Felony</span>.</div>
+                             <div class="py-3"><strong>Financial Abuse of Elderly Individual (PC 32.55):</strong> Knowingly engaging in the wrongful taking, appropriation, or use of an elderly individual's money or property. This offense has its own unique value ladder, starting at a <span class="font-semibold">Class B Misdemeanor</span> (under $100) and going up to a <span class="font-semibold">1st Degree Felony</span> ($150,000 or more).</div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- Prevention Tab -->
+            <div id="tab-prevention" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Prevention & Investigation</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Security Alerts & Freezes</summary>
+                        <div class="p-6 border-t grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Security Alert</h4>
+                                <p>A notice on a consumer file that alerts creditors that your identity may have been compromised. Must be placed within 24 hours of request and remains for at least 45 days.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Security Freeze</h4>
+                                <p>A notice that prohibits a credit reporting agency from releasing your credit report without your express authorization (usually via a PIN). Must be placed within 5 business days of a written request.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Steps for Victims of ID Crime</summary>
+                        <div class="p-6 border-t">
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><strong>File a Police Report:</strong> This is crucial for credit bureaus and financial institutions to block fraudulent activity.</li>
+                                <li><strong>File a Report with the FTC:</strong> Use IdentityTheft.gov to get a personalized recovery plan.</li>
+                                <li><strong>Contact Credit Bureaus:</strong> Place a fraud alert or security freeze with Equifax, Experian, and TransUnion.</li>
+                                <li><strong>Notify Financial Institutions:</strong> Contact banks and credit card companies to close fraudulent accounts and dispute charges.</li>
+                                <li><strong>Notify Other Agencies:</strong> Contact the Social Security Administration, U.S. Passport Agency, and DPS as needed.</li>
+                            </ul>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Information for an ID Crime Report</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-4">A good report is vital for investigation and for the victim's recovery process.</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>Confirm the offense type (e.g., ID Theft vs. Credit Card Abuse).</li>
+                                <li>Determine jurisdiction (can be where the offense occurred OR where the victim resides).</li>
+                                <li>Document the date of occurrence, all fraudulent account numbers, and the specific personal identifiers used.</li>
+                                <li>Ask the victim to gather all relevant documentation (statements, letters, credit reports).</li>
+                                <li>Have the victim fill out an agency-specific identity crime incident form if available.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8">
+                    <!-- Quiz questions will be injected here by JS -->
+                </div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-teal-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-teal-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+        });
+    });
+
+    // Flashcard functionality
+    const flashcards = document.querySelectorAll('.flashcard');
+    flashcards.forEach(card => {
+        card.addEventListener('click', () => {
+            card.classList.toggle('is-flipped');
+        });
+    });
+
+    // Quiz Functionality
+    const quizData = [
+        {
+            question: "A person possesses 12 items of identifying information belonging to other people with intent to defraud them. What is the offense level?",
+            options: ["State Jail Felony", "3rd Degree Felony", "2nd Degree Felony", "1st Degree Felony"],
+            answer: "2nd Degree Felony",
+            explanation: "<strong>Reference: PC 32.51(c).</strong> Possessing 10 or more but less than 50 items of identifying information is a 2nd Degree Felony."
+        },
+        {
+            question: "What is the theft or misuse of personal or financial identifiers to gain something of value and/or facilitate other criminal activity?",
+            options: ["Identity Theft", "Identity Crime", "Financial Abuse", "Money Laundering"],
+            answer: "Identity Crime",
+            explanation: "<strong>Reference: ID Crime Fundamentals.</strong> 'Identity Crime' is the broad term for the theft or misuse of identifiers. 'Identity Theft' is a specific type of identity crime."
+        },
+        {
+            question: "A person knowingly passes a check for $50 knowing they have insufficient funds. What is the offense?",
+            options: ["Theft by Check (Class B)", "Issuance of Bad Check (Class C)", "Theft (Class C)", "No offense until notice is sent"],
+            answer: "Issuance of Bad Check (Class C)",
+            explanation: "<strong>Reference: PC 32.41(f).</strong> The offense of Issuance of a Bad Check is a Class C Misdemeanor, unless it is for a court-ordered child support payment."
+        },
+        {
+            question: "Which federal agency should be notified if an identity crime involves bank fraud with losses over $100,000?",
+            options: ["U.S. Secret Service", "Federal Trade Commission (FTC)", "FBI", "U.S. Postal Service"],
+            answer: "FBI",
+            explanation: "<strong>Reference: Prevention & Investigation.</strong> The FBI investigates identity crimes involving bank fraud, governmental fraud, or investment schemes with losses exceeding $100,000."
+        },
+        {
+            question: "A notice placed on a consumer file that prohibits the release of a credit report without express authorization is called a:",
+            options: ["Security Alert", "Fraud Alert", "Security Freeze", "Credit Lock"],
+            answer: "Security Freeze",
+            explanation: "<strong>Reference: Prevention & Investigation.</strong> A 'Security Freeze' prohibits the release of a credit report, while a 'Security Alert' only notifies creditors of potential fraud."
+        },
+        {
+            question: "A caregiver convinces an elderly person to sign over their property, valued at $40,000, for the caregiver's personal gain. What is the offense?",
+            options: ["Theft (3rd Degree Felony)", "Financial Abuse of Elderly Individual (2nd Degree Felony)", "Exploitation of Elderly (3rd Degree Felony)", "Financial Abuse of Elderly Individual (3rd Degree Felony)"],
+            answer: "Financial Abuse of Elderly Individual (2nd Degree Felony)",
+            explanation: "<strong>Reference: PC 32.55(d).</strong> This offense has a unique value ladder. A value of $30,000 or more but less than $150,000 constitutes a 2nd Degree Felony."
+        },
+        {
+            question: "A person is found with 7 counterfeit credit cards. What is the offense level under PC 32.315?",
+            options: ["State Jail Felony", "3rd Degree Felony", "2nd Degree Felony", "1st Degree Felony"],
+            answer: "3rd Degree Felony",
+            explanation: "<strong>Reference: PC 32.315(e).</strong> The punishment ladder for this offense is the same as for ID info. Possessing 5 or more but less than 10 items is a 3rd Degree Felony."
+        },
+        {
+            question: "An offense under PC 32.51 (Fraudulent Use of ID Info) can be prosecuted in the county where the offense occurred or in the county where...",
+            options: ["The suspect was arrested", "The victim resides", "The financial institution is located", "The property was recovered"],
+            answer: "The victim resides",
+            explanation: "<strong>Reference: CCP 13A.260.</strong> The law allows for prosecution in either the county where the offense was committed or the county where the victim resides, which helps prevent victims from having to travel."
+        },
+        {
+            question: "Knowingly conducting a transaction involving $5,000 in proceeds from criminal activity is what offense?",
+            options: ["Theft (SJF)", "Money Laundering (SJF)", "Money Laundering (3rd Degree Felony)", "Financial Abuse (3rd Degree Felony)"],
+            answer: "Money Laundering (SJF)",
+            explanation: "<strong>Reference: PC 34.02(e).</strong> The value ladder for Money Laundering begins at the State Jail Felony level for amounts of $2,500 or more but less than $30,000."
+        },
+        {
+            question: "Which of the following is NOT considered 'identifying information' under PC 32.51?",
+            options: ["Name and date of birth", "Unique biometric data", "A person's public social media username", "Social Security number"],
+            answer: "A person's public social media username",
+            explanation: "<strong>Reference: PC 32.51(a)(1).</strong> Identifying information includes items like name, DOB, SSN, biometric data, and financial account numbers. A public username, by itself, is generally not included."
+        },
+        {
+            question: "A person steals an unsigned checkbook from a car. What is the highest offense they have committed at that moment?",
+            options: ["Theft (Class C)", "Burglary of a Vehicle (Class A)", "Stealing or Receiving Stolen Check (Class A)", "No offense until a check is used"],
+            answer: "Stealing or Receiving Stolen Check (Class A)",
+            explanation: "<strong>Reference: PC 32.24.</strong> The act of stealing an unsigned check is itself a Class A Misdemeanor, separate from any potential burglary charge for entering the car."
+        },
+        {
+            question: "The illegal or improper use of a child's resources for monetary or personal benefit is the definition of:",
+            options: ["Theft", "Financial Abuse", "Exploitation", "Money Laundering"],
+            answer: "Exploitation",
+            explanation: "<strong>Reference: PC 32.53(a)(2).</strong> This is the specific definition of 'Exploitation' as it applies to a child, elderly, or disabled individual. The offense is a 3rd Degree Felony."
+        },
+        {
+            question: "A person makes a false written statement on a loan application to obtain a $20,000 car loan. What is the offense level?",
+            options: ["Class A Misdemeanor", "State Jail Felony", "3rd Degree Felony", "2nd Degree Felony"],
+            answer: "State Jail Felony",
+            explanation: "<strong>Reference: PC 32.32(c).</strong> False Statement to Obtain Property or Credit follows the standard theft ladder. A value of $2,500 or more but less than $30,000 is a State Jail Felony."
+        },
+        {
+            question: "Which federal law established penalties for 'aggravated' identity theft, adding mandatory prison sentences for using an ID to commit other felonies?",
+            options: ["Identity Theft and Assumption Deterrence Act (1998)", "Identity Theft Penalty Enhancement Act (2004)", "Identity Theft Enforcement and Restitution Act (2008)", "The Patriot Act"],
+            answer: "Identity Theft Penalty Enhancement Act (2004)",
+            explanation: "<strong>Reference: ID Crime Fundamentals.</strong> The 2004 Penalty Enhancement Act specifically added mandatory two-year sentences (five for terrorism) for aggravated identity theft."
+        },
+        {
+            question: "A person obtains a victim's credit card number using a skimmer at a gas pump. What is the offense for just obtaining the information?",
+            options: ["Unauthorized Acquisition of Financial Info (Class B)", "Credit Card Abuse (SJF)", "Theft (Class C)", "No offense until it's used"],
+            answer: "Unauthorized Acquisition of Financial Info (Class B)",
+            explanation: "<strong>Reference: PC 31.17(b)(1).</strong> The act of obtaining the financial information using a device is a Class B Misdemeanor. Transferring that information to a third party would be a Class A Misdemeanor."
+        },
+        {
+            question: "For an Issuance of Bad Check offense, knowledge of insufficient funds is presumed if payment is refused and the issuer fails to pay within how many days of receiving notice?",
+            options: ["5 days", "10 days", "20 days", "30 days"],
+            answer: "10 days",
+            explanation: "<strong>Reference: PC 32.41(b)(2).</strong> The statute creates a presumption of knowledge if the issuer fails to pay the holder in full within 10 days after receiving notice of the refusal."
+        },
+        {
+            question: "Which entity should a victim of identity theft contact to get a personalized recovery plan and file a centralized report?",
+            options: ["The local police department", "The FBI", "The Federal Trade Commission (FTC)", "The Social Security Administration"],
+            answer: "The Federal Trade Commission (FTC)",
+            explanation: "<strong>Reference: Prevention & Investigation.</strong> The FTC's website, IdentityTheft.gov, is the primary federal resource for victims to report the crime and receive a step-by-step recovery plan."
+        },
+        {
+            question: "Credit Card or Debit Card Abuse is normally a State Jail Felony, but it is enhanced to a 3rd Degree Felony if the victim is...",
+            options: ["A minor", "A disabled individual", "An elderly individual", "A public servant"],
+            answer: "An elderly individual",
+            explanation: "<strong>Reference: PC 32.31(d).</strong> The statute includes a specific enhancement, raising the offense to a 3rd Degree Felony, if it is committed against an elderly individual as defined by PC 22.04."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        const options = document.querySelectorAll('.quiz-option');
+        options.forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.removeEventListener('click', selectAnswer);
+            opt.style.cursor = 'default';
+        });
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+            });
+        }
+        
+        // Show explanation
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        const explanationEl = document.createElement('div');
+        explanationEl.className = 'p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700';
+        explanationEl.innerHTML = currentQuestion.explanation;
+        explanationContainer.appendChild(explanationEl);
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizContainer.classList.add('hidden');
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) {
+                quizScoreEl.style.color = '#16a34a';
+            } else if (percentage >= 50) {
+                quizScoreEl.style.color = '#f59e0b';
+            } else {
+                quizScoreEl.style.color = '#dc2626';
+            }
+        }, 1500);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+
+    buildQuiz();
+});
+</script>
+
+</body>
+</html>
