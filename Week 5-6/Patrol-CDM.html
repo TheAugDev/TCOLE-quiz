@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Patrol & CDM Study Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+        details > summary {
+            list-style: none;
+            cursor: pointer;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] > summary .arrow {
+            transform: rotate(90deg);
+        }
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+        }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+        .flip-card-front {
+            background-color: #ffffff;
+            color: #1e3a8a;
+            border: 1px solid #d1d5db;
+        }
+        .flip-card-back {
+            background-color: #1e3a8a;
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .quiz-option {
+            transition: background-color 0.2s;
+        }
+        .quiz-option.correct {
+            background-color: #16a34a !important;
+            color: white;
+            border-color: #16a34a;
+        }
+        .quiz-option.incorrect {
+            background-color: #dc2626 !important;
+            color: white;
+            border-color: #dc2626;
+        }
+        .feedback {
+            display: none;
+            padding: 0.5rem;
+            margin-top: 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+        }
+        .feedback.correct {
+            display: block;
+            background-color: #dcfce7;
+            color: #166534;
+        }
+        .feedback.incorrect {
+            display: block;
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 p-4 md:p-8">
+
+    <div class="max-w-5xl mx-auto">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-blue-900">Comprehensive Patrol & CDM Study Guide</h1>
+            <p class="text-lg text-gray-600 mt-2">An Interactive Study Guide based on TCOLE Chapters 10, 27, & 35</p>
+        </header>
+
+        <main class="space-y-4">
+            
+            <details class="bg-white p-4 rounded-lg shadow-md transition-all duration-300">
+                <summary class="flex justify-between items-center font-semibold text-xl text-blue-800">
+                    <span>Chapter 35: Patrol Fundamentals</span>
+                    <span class="arrow transition-transform duration-300 transform">&#9654;</span>
+                </summary>
+                <div class="mt-4 border-t pt-4 text-gray-700 space-y-4">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Objectives of Patrol</h3>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Preserve the peace by mere presence and proper action (CCP 2.13).</li>
+                            <li>Prevent crime by opportunity reduction; duty to prevent (CCP 6.06, 6.07).</li>
+                            <li>Suppress crime by timely response to crimes in progress and by properly investigating offenses (CCP 6.05, 6.06).</li>
+                            <li>Apprehend suspects.</li>
+                            <li>Regulate non-criminal conduct by obtaining and maintaining good officer-citizen relationships to protect life and property (CCP 6.07).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Importance of Patrol</h3>
+                        <p><strong class="text-blue-700">Protection:</strong> Prevention of crime is the soundest of all criminological theories.</p>
+                        <p><strong class="text-blue-700">Service:</strong> To the community of which each peace officer is a part.</p>
+                    </div>
+                </div>
+            </details>
+
+            
+            <details class="bg-white p-4 rounded-lg shadow-md transition-all duration-300">
+                <summary class="flex justify-between items-center font-semibold text-xl text-blue-800">
+                    <span>Mental & Physical Preparation</span>
+                    <span class="arrow transition-transform duration-300 transform">&#9654;</span>
+                </summary>
+                <div class="mt-4 border-t pt-4 text-gray-700 space-y-6">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Mental Preparation & Mindset</h3>
+                        <p class="mb-2">The single most important factor in officer survival is <strong class="text-blue-700">mental conditioning</strong>. The transition from civilian to police work requires mental and emotional conditioning to adapt to psychological pressures.</p>
+                        <h4 class="font-semibold mt-4 mb-2">Key Factors in Psychological Preparedness:</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li>Attitude development and preparation.</li>
+                            <li>Sociological and psychological maturity.</li>
+                            <li>Both formal and informal education.</li>
+                            <li>A strong personal value system.</li>
+                        </ul>
+                        <h4 class="font-semibold mt-4 mb-2">Attitudes to Avoid:</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>Isolationism:</strong> Feeling that you can no longer connect with non-police friends and family.</li>
+                            <li><strong>Paranoia:</strong> Regarding all people suspiciously or as would-be criminals.</li>
+                            <li><strong>Withdrawal:</strong> Failing to be a normal part of the community.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Physical Preparation (Before Each Shift)</h3>
+                         <ul class="list-disc list-inside space-y-1">
+                            <li><strong>Personal Grooming:</strong> Cleanliness, uniform tailored and pressed, shined footwear.</li>
+                            <li><strong>Personal Equipment:</strong> Notebook, pen, sidearm (clean, operational, loaded), extra ammunition, foul weather gear, handcuffs (clean, operational with key readily available), body armor (worn at all times on duty), flashlight, traffic whistle.</li>
+                            <li><strong>Personal Actions:</strong> Maintain good posture, keep hands out of pockets, avoid stuffed pockets, do not smoke while confronting the public, wear headgear properly.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-center">Knowledge Check</h4>
+                        <div class="space-y-4" id="prep-quiz-container">
+                            <div>
+                                <p class="font-semibold mb-2">1. Which of the following is an example of a counterproductive attitude an officer must avoid?</p>
+                                <div class="space-y-2">
+                                    <button data-quiz="prep1" data-correct="true" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Isolationism and withdrawing from the community.</button>
+                                    <button data-quiz="prep1" data-correct="false" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Maintaining a high level of situational awareness.</button>
+                                    <button data-quiz="prep1" data-correct="false" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Developing a strong personal value system.</button>
+                                </div>
+                                <div id="prep1-feedback" class="feedback"></div>
+                            </div>
+                            <div>
+                                <p class="font-semibold mb-2">2. According to the handout, what is the single most important factor in officer survival?</p>
+                                <div class="space-y-2">
+                                    <button data-quiz="prep2" data-correct="false" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Physical Preparation</button>
+                                    <button data-quiz="prep2" data-correct="true" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Mental Conditioning</button>
+                                    <button data-quiz="prep2" data-correct="false" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Equipment Readiness</button>
+                                </div>
+                                <div id="prep2-feedback" class="feedback"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            
+            <details class="bg-white p-4 rounded-lg shadow-md transition-all duration-300">
+                <summary class="flex justify-between items-center font-semibold text-xl text-blue-800">
+                    <span>Beat Knowledge & Patrol Hazards</span>
+                    <span class="arrow transition-transform duration-300 transform">&#9654;</span>
+                </summary>
+                <div class="mt-4 border-t pt-4 text-gray-700 space-y-6">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Beat Characteristics</h3>
+                        <p>Knowing your beat increases on-site arrests, officer safety, and decreases response time.</p>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>Geography:</strong> Main streets, businesses, schools, hospitals, street directions (N/S/E/W), block numbers, dead ends, alleys, one-ways, overpasses.</li>
+                            <li><strong>Conditions:</strong> Crime hazards, types of crimes committed, socio-economic characteristics, quality of life issues (e.g., abandoned houses, potholes).</li>
+                            <li><strong>Known Offenders:</strong> Familiarity with their habits and types of crimes (TCIC/NCIC info).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">TCOLE's 3 Kinds of Patrol Hazards (Click to Flip)</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="flip-card h-52" onclick="this.classList.toggle('flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front"><h4 class="text-xl font-bold">1. Silhouetting</h4><p class="text-sm mt-2">(Click to reveal)</p></div>
+                                    <div class="flip-card-back"><p>Placing yourself or your unit in a position that provides the suspect with a definite, identifiable target. Avoid standing in doorways, peering openly through windows, or using flashlights improperly.</p></div>
+                                </div>
+                            </div>
+                            <div class="flip-card h-52" onclick="this.classList.toggle('flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front"><h4 class="text-xl font-bold">2. Telltale Noises</h4><p class="text-sm mt-2">(Click to reveal)</p></div>
+                                    <div class="flip-card-back"><p>Noises that can give away your position: slamming car doors, loud radio, seatbelt buckle pop, jangling keys/equipment. Secure equipment to avoid "jingle jangle" noise.</p></div>
+                                </div>
+                            </div>
+                            <div class="flip-card h-52" onclick="this.classList.toggle('flipped')">
+                                <div class="flip-card-inner">
+                                    <div class="flip-card-front"><h4 class="text-xl font-bold">3. Suspect's Hands</h4><p class="text-sm mt-2">(Click to reveal)</p></div>
+                                    <div class="flip-card-back"><p>A primary hazard. Demand hands are visible (in front, palms up). Do not allow them in pockets, as they could be hiding weapons, contraband, or identifying marks. If hands are already in pockets, do not allow removal without specific tactical considerations.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Cover vs. Concealment</h3>
+                        <p><strong class="text-blue-700">Cover:</strong> Any material reasonably expected to stop a bullet (brick walls, engine block, large tree trunk). PREFERRED.</p>
+                        <p><strong class="text-blue-700">Concealment:</strong> Hides you from view but offers no protection (shrubs, drywall, window blinds). Use at the greatest distance possible if cover is unavailable.</p>
+                    </div>
+                </div>
+            </details>
+            
+            
+            <details class="bg-white p-4 rounded-lg shadow-md transition-all duration-300">
+                <summary class="flex justify-between items-center font-semibold text-xl text-blue-800">
+                    <span>Patrol Modes & Methods</span>
+                    <span class="arrow transition-transform duration-300 transform">&#9654;</span>
+                </summary>
+                <div class="mt-4 border-t pt-4 text-gray-700 space-y-6">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Problem Area Patrols</h3>
+                        <ul class="list-disc list-inside">
+                            <li><strong>Preventive Patrol:</strong> High visibility, random patterns, property checks, questioning suspicious persons. Includes <strong class="text-blue-700">Preventive Enforcement</strong> (varied, random presence) and <strong class="text-blue-700">Selective Patrol</strong> (focusing on specific problems at specific times/locations).</li>
+                            <li><strong>Apprehension Patrol:</strong> Low visibility, surveillance, and covert tactics to catch offenders in the act.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Patrol Modes & Advantages</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-gray-50 p-3 rounded-md"><strong>Bicycle:</strong> High visibility, community relations, flexible in areas cars can't go.</div>
+                            <div class="bg-gray-50 p-3 rounded-md"><strong>Motorcycle:</strong> Quick response, traffic enforcement, escort units.</div>
+                            <div class="bg-gray-50 p-3 rounded-md"><strong>Foot:</strong> Immediate traffic control, person-to-person contact, develop informants, increased knowledge of beat.</div>
+                            <div class="bg-gray-50 p-3 rounded-md"><strong>Automobile:</strong> Speed, mobility, protection, allows for extra equipment.</div>
+                            <div class="bg-gray-50 p-3 rounded-md"><strong>Fixed Wing/Helicopter:</strong> Covers enormous area, sky view of fleeing suspects, great apprehension tool.</div>
+                            <div class="bg-gray-50 p-3 rounded-md"><strong>Mounted (Horse):</strong> Good public relations, mobility in crowds/rough terrain.</div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">One vs. Two Officer Patrol</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                             <div>
+                                <h4 class="font-bold">One-Officer Patrol</h4>
+                                <ul class="list-disc list-inside">
+                                    <li>Doubles preventive enforcement (more cars).</li>
+                                    <li>Officer develops self-reliance.</li>
+                                    <li>Fewer personality clashes.</li>
+                                    <li>More attention devoted to patrol functions.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold">Two-Officer Patrol</h4>
+                                <ul class="list-disc list-inside">
+                                    <li>Greater safety factor.</li>
+                                    <li>Can be a training aid.</li>
+                                    <li>Share driving duties.</li>
+                                    <li>Two pairs of eyes are better than one.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-center">Knowledge Check</h4>
+                        <div class="space-y-4" id="patrol-methods-quiz-container">
+                            <div>
+                                <p class="font-semibold mb-2">1. Focusing patrol resources on a specific problem, at a specific location, and at a specific time is known as:</p>
+                                <div class="space-y-2">
+                                    <button data-quiz="pmethod1" data-correct="false" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Apprehension Patrol</button>
+                                    <button data-quiz="pmethod1" data-correct="true" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Selective Patrol</button>
+                                    <button data-quiz="pmethod1" data-correct="false" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Preventive Enforcement</button>
+                                </div>
+                                <div id="pmethod1-feedback" class="feedback"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+            
+            
+            <details class="bg-white p-4 rounded-lg shadow-md transition-all duration-300">
+                <summary class="flex justify-between items-center font-semibold text-xl text-blue-800">
+                    <span>Pedestrian Stops & Field Interviews</span>
+                    <span class="arrow transition-transform duration-300 transform">&#9654;</span>
+                </summary>
+                <div class="mt-4 border-t pt-4 text-gray-700 space-y-6">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">When to Conduct a Pedestrian Stop</h3>
+                        <p>When a pedestrian is: carrying something suspicious, acting strangely, staying in the same place for no reason, or stopping other people on the street. Until you have reasonable suspicion, it is a consensual encounter.</p>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">How to Perform a Pedestrian Stop</h3>
+                         <ul class="list-disc list-inside space-y-1">
+                            <li><strong>Where:</strong> Note escape routes, gauge officer safety, consider potential for hostages, and report location to dispatch.</li>
+                            <li><strong>How:</strong> Use effective verbal communication, approach carefully, maintain visual contact, watch for furtive movements.</li>
+                            <li><strong>Approach Tactics:</strong>
+                                <ul class="list-disc list-inside ml-4">
+                                    <li><strong>Direct/Front:</strong> Can observe all movements but lose surprise and are vulnerable.</li>
+                                    <li><strong>Rear:</strong> Gain surprise and reduce direct attack probability, but may provoke a defensive physical response.</li>
+                                    <li><strong>Right/Left Side:</strong> Keeps suspect off balance. Right side is often preferred as most people are right-handed.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Positioning:</strong> Gun side away, maintain distance (arm's length+), stay aware of surroundings. Do not get boxed in.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Interviewing Multiple Subjects</h3>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><strong>One Officer, Multiple Subjects:</strong> Assume a safe position for observation and control. Interview separately. Do not perform non-emergency actions without backup.</li>
+                            <li><strong>Two Officers, One Subject:</strong> The contact officer takes the lead. The cover officer takes a position to the right or left rear to avoid crossfire.</li>
+                            <li><strong>Two Officers, Multiple Subjects:</strong> Use a spread "V" formation. The cover officer maintains maximum visibility of all subjects and communicates any threats to the contact officer.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">4 Personal Contact Risk Zones (Scan Continuously)</h3>
+                        <div class="space-y-4">
+                            <!-- Zone 1: Face & Chest -->
+                            <div class="p-4 rounded-md bg-red-50 border border-red-200">
+                                <h4 class="font-bold text-red-800">1. Face & Chest</h4>
+                                <ul class="list-disc list-inside mt-2 space-y-1">
+                                    <li><strong>Friend or Foe?:</strong> Assess their role (cop/victim/witness), look for badges, etc.</li>
+                                    <li><strong>Facial Expression:</strong> What is their intent and purpose? Look for furtive movements upon arrival.</li>
+                                    <li><strong>Behavioral Cues:</strong>
+                                        <ul class="list-disc list-inside ml-4">
+                                            <li>Repetitive aggressive inquiries.</li>
+                                            <li>Voice pace changes (e.g., slowing down could indicate planning/stalling).</li>
+                                            <li>Inappropriate or ignoring responses to questions.</li>
+                                            <li>Looking toward a specific area after a contraband-related question.</li>
+                                            <li>Looking around for escape routes or weapons as interview deteriorates.</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Signs of Influence/Crisis:</strong> Grief, anxiety, fear, anger, mental illness.</li>
+                                    <li><strong>Intoxication Signs:</strong>
+                                        <ul class="list-disc list-inside ml-4">
+                                            <li>Eyes: red, droopy, glassy, dilated, or constricted.</li>
+                                            <li>Presence of paraphernalia.</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Anger/Danger Signs:</strong>
+                                         <ul class="list-disc list-inside ml-4">
+                                            <li>1000-yard stare, profanity, breaking stare to look for targets (your body/weapons).</li>
+                                            <li>Facial color pales, eyebrows drop, lips tighten, growling.</li>
+                                            <li>Head drops forward to protect throat.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Zone 2: Hands -->
+                            <div class="p-4 rounded-md bg-red-50 border border-red-200">
+                                <h4 class="font-bold text-red-800">2. Hands (Most Critical Zone)</h4>
+                                <ul class="list-disc list-inside mt-2 space-y-1">
+                                    <li><strong>Position:</strong> Ideally, hands should be in front and palms up.</li>
+                                    <li><strong>Hands in Pockets/Out of Sight:</strong> Could be nerves, or hiding weapons, contraband, or identifying marks (scars, tattoos).</li>
+                                    <li><strong>Tactical Consideration:</strong> If hands are in pockets, have the person turn their head away, kneel, or even go prone before frisking. Do not let them remove their hands without your control.</li>
+                                    <li><strong>Anxiety/Disinterest Signs:</strong>
+                                        <ul class="list-disc list-inside ml-4">
+                                            <li>Crossing arms, tapping fingers, jangling keys.</li>
+                                            <li>Repeatedly rubbing back of neck, ears, or eyes.</li>
+                                            <li>Grooming (nervous energy), "facial wipe."</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Anger Signs:</strong> Fist making, flailing hands, hands raised above waist.</li>
+                                </ul>
+                            </div>
+                            <!-- Zone 3: Waistband -->
+                            <div class="p-4 rounded-md bg-red-50 border border-red-200">
+                                <h4 class="font-bold text-red-800">3. Waistband</h4>
+                                <ul class="list-disc list-inside mt-2 space-y-1">
+                                    <li>A common place for weapons.</li>
+                                    <li>Can you see the waistline, or is it covered by a shirt/coat?</li>
+                                    <li>Look for unnatural bulges under the shirt or in pockets.</li>
+                                    <li>Keep their hands away from their waistband.</li>
+                                    <li>Look for accelerated breathing, which can be associated with stress or intent.</li>
+                                </ul>
+                            </div>
+                            <!-- Zone 4: Stance -->
+                            <div class="p-4 rounded-md bg-red-50 border border-red-200">
+                                <h4 class="font-bold text-red-800">4. Stance</h4>
+                                <ul class="list-disc list-inside mt-2 space-y-1">
+                                    <li><strong>Pre-Attack Indicators:</strong>
+                                        <ul class="list-disc list-inside ml-4">
+                                            <li>Bobbing up and down or rocking back and forth.</li>
+                                            <li>Bladed stance with shoulders shifted and tense.</li>
+                                            <li>Standing tall to maximize height.</li>
+                                            <li>Kicking the ground.</li>
+                                            <li>Pacing, backing away, or sudden stop-and-start behavior.</li>
+                                            <li>Exaggerated movements.</li>
+                                            <li>Lowering of body before a final attack, especially if out of breath.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Cover Officer Duties & Pursuit Tactics</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-md bg-blue-50 border border-blue-200">
+                                <h4 class="font-bold text-blue-800">Contact & Cover Principles</h4>
+                                <ul class="list-disc list-inside mt-2 space-y-1">
+                                    <li>The Cover Officer is NOT the Contact Officer's servant; their role is protection.</li>
+                                    <li>Maintain a position of maximum visibility of ALL involved parties.</li>
+                                    <li>Avoid lengthy conversations that detract from the primary cover duty.</li>
+                                    <li>Communicate or handle any observed threats immediately.</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 rounded-md bg-yellow-50 border border-yellow-200">
+                                <h4 class="font-bold text-yellow-800">If a Suspect Runs (Pursuit Policy)</h4>
+                                <ul class="list-disc list-inside mt-2 space-y-1">
+                                    <li><strong class="text-red-700">NO PURSUIT:</strong> If you are alone with multiple other subjects. Broadcast a description and direction of travel instead.</li>
+                                    <li><strong class="text-red-700">NO PURSUIT:</strong> If pursuing the suspect leaves your partner in an unsafe situation.</li>
+                                    <li><strong class="text-green-700">PURSUE:</strong> Only if it is safe to do so and within your departmental policy.</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 rounded-md bg-gray-100 border border-gray-300">
+                                <h4 class="font-bold text-gray-800">Foot Pursuit Tactics</h4>
+                                <ul class="list-disc list-inside mt-2 space-y-1">
+                                    <li><strong>Radio First:</strong> In a loud, calm, controlled voice, announce your call sign, "foot pursuit," location, and direction of travel. Follow up with a suspect description.</li>
+                                    <li><strong>Maintain Visuals:</strong> If you cannot catch the suspect, keep them in sight and continue to radio updates.</li>
+                                    <li><strong>Watch for Ambushes:</strong> Be extremely cautious. Do not cut corners without "pie-ing" them (slicing the pie) to check for threats.</li>
+                                    <li><strong>Apprehension:</strong> When you catch up, tripping is often a better tactic than tackling.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            
+            <details class="bg-white p-4 rounded-lg shadow-md transition-all duration-300">
+                <summary class="flex justify-between items-center font-semibold text-xl text-blue-800">
+                    <span>Levels of Police Interaction</span>
+                    <span class="arrow transition-transform duration-300 transform">&#9654;</span>
+                </summary>
+                <div class="mt-4 border-t pt-4 text-gray-700 space-y-4">
+                    <div class="p-4 rounded-md border border-gray-300 bg-gray-50">
+                        <h4 class="font-bold text-lg text-gray-800">Level 0: Consensual Encounter</h4>
+                        <p>Officer is free to approach and ask questions. Person is free to refuse to answer, refuse to ID, and walk away. No suspicion needed.</p>
+                        <p class="text-sm text-gray-500 mt-1">Case Law: Florida v. Royer</p>
+                    </div>
+                    <div class="p-4 rounded-md border border-yellow-400 bg-yellow-50">
+                        <h4 class="font-bold text-lg text-yellow-800">Level 1: Investigative Stop/Detention (Terry Stop)</h4>
+                        <p>Temporary seizure for investigation. Requires <strong class="font-semibold">Reasonable Suspicion</strong>: Articulable facts and circumstances that would lead a reasonable officer to believe that a crime has occurred, is occurring, or is about to occur.</p>
+                        <p class="text-sm text-gray-500 mt-1">Case Law: Terry v. Ohio, Alabama v. White</p>
+                    </div>
+                    <div class="p-4 rounded-md border border-red-400 bg-red-50">
+                        <h4 class="font-bold text-lg text-red-800">Level 2: Arrest</h4>
+                        <p>Taking a person into custody to charge them with a crime. Requires <strong class="font-semibold">Probable Cause</strong>: A reasonable ground to suspect that a person has committed or is committing a crime.</p>
+                        <p class="text-sm text-gray-500 mt-1">Case Law: U.S. v. Mendenhall, Illinois v. Gates</p>
+                    </div>
+                </div>
+            </details>
+            
+            
+            <details class="bg-white p-4 rounded-lg shadow-md transition-all duration-300">
+                <summary class="flex justify-between items-center font-semibold text-xl text-blue-800">
+                    <span>Scenario Analysis</span>
+                    <span class="arrow transition-transform duration-300 transform">&#9654;</span>
+                </summary>
+                <div class="mt-4 border-t pt-4 text-gray-700 space-y-6" id="scenario-container">
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-center">Scenario 1</h4>
+                        <div id="scenario-1">
+                            <p class="mb-3 p-3 bg-white rounded-md">At 1300 hours on a Tuesday, an officer observes a subject who appears to be a juvenile looking into car windows in a store parking lot while school is in session. The subject tries the door handles on two cars. A few moments later, he pulls open the door of a third car and begins to rummage around inside. When contacted, he says the car is his and he lost his keys. The car is registered to someone else who, when contacted, says she does not know the juvenile.</p>
+                            <p class="font-semibold mb-2">At the moment the officer sees the juvenile rummaging in the car, what is the highest level of justification the officer has?</p>
+                            <div class="space-y-2">
+                                <button data-quiz="scen1" data-correct="false" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Consensual Encounter Only</button>
+                                <button data-quiz="scen1" data-correct="true" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Reasonable Suspicion to Detain</button>
+                                <button data-quiz="scen1" data-correct="false" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Probable Cause to Arrest</button>
+                            </div>
+                            <div id="scen1-feedback" class="feedback">The officer has articulable facts (time of day, school in session, looking in windows, trying handles, entering vehicle) to form reasonable suspicion that a Burglary of a Vehicle is in progress, justifying a detention. Probable Cause is developed later when the owner is contacted.</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-center">Scenario 2</h4>
+                        <div id="scenario-2">
+                            <p class="mb-3 p-3 bg-white rounded-md">An officer is dispatched to a family violence call. Upon arrival, the officer knocks but gets no answer. The officer then hears what sounds like someone screaming from the back of the residence.</p>
+                            <p class="font-semibold mb-2">What legal principle allows the officer to enter the residence without a warrant?</p>
+                            <div class="space-y-2">
+                                <button data-quiz="scen2" data-correct="false" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Plain View Doctrine</button>
+                                <button data-quiz="scen2" data-correct="false" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Consent Search</button>
+                                <button data-quiz="scen2" data-correct="true" class="quiz-option w-full text-left p-2 border rounded-md bg-white hover:bg-gray-100">Exigent Circumstances (Emergency Aid)</button>
+                            </div>
+                            <div id="scen2-feedback" class="feedback">Correct. The exigent circumstance of providing emergency aid to prevent serious injury allows the officer to enter. The sound of a scream provides the probable cause to believe someone inside is in danger.</div>
+                        </div>
+                    </div>
+
+                </div>
+            </details>
+
+            
+            <details class="bg-white p-4 rounded-lg shadow-md transition-all duration-300" open>
+                <summary class="flex justify-between items-center font-semibold text-xl text-blue-800">
+                    <span>Chapter 27: The Critical Decision-Making Model (CDM)</span>
+                    <span class="arrow transition-transform duration-300 transform">&#9654;</span>
+                </summary>
+                <div class="mt-4 border-t pt-4 text-gray-700 space-y-6">
+                    <div class="text-center">
+                        <h3 class="font-semibold text-lg mb-2">The CDM: An Overview</h3>
+                        <div class="p-4 bg-blue-900 text-white rounded-lg max-w-lg mx-auto">
+                            <h4 class="font-bold text-xl">Core Principles: The Moral Compass</h4>
+                            <p>Ethics • Values • Proportionality • Sanctity of Human Life</p>
+                            <p class="mt-2 text-sm">These principles are unique to an agency's mission and must guide every step. No action should contradict this core.</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-2 text-center text-blue-800">What Can the CDM Do For Us?</h4>
+                        <ul class="list-disc list-inside space-y-1 text-center max-w-md mx-auto">
+                            <li>Help handle calls more effectively and safely.</li>
+                            <li>Provide an organized and improved approach to decision-making.</li>
+                            <li>Provide more officer options and techniques.</li>
+                            <li>Serve as a problem-solving model for complex community issues.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">The 5 Steps of the CDM (The "Spinning Model")</h3>
+                        <p class="text-sm text-gray-600 mb-4">The CDM is a fluid, "spinning" model. An officer can always spin back to a previous step as a situation evolves. Be aware of <strong class="text-blue-700">implicit bias</strong> (subconscious attitudes) as it can affect understanding and actions at any step.</p>
+                        <div class="space-y-3">
+                            <div class="p-4 bg-gray-100 rounded-md border-l-4 border-blue-500">
+                                <h4 class="font-bold">Step 1: Collect Information</h4>
+                                <p class="mt-1">This is an ongoing process. The foundational goals are to obtain proper <strong class="text-blue-700">CONTEXT</strong> for the call and form the optimal <strong class="text-blue-700">MINDSET</strong>.</p>
+                                <ul class="list-disc list-inside space-y-1 mt-2">
+                                    <li><strong>Sources:</strong> Dispatch, other officers, computer networks, witnesses, family.</li>
+                                    <li><strong>Key Questions:</strong> Who called and why? Are weapons/children/animals present? What is the location's history (previous calls, violence, MH issues)? What further information do I need?</li>
+                                    <li><strong>Legal Math:</strong> While collecting info, constantly assess if the facts amount to reasonable suspicion, probable cause, or nothing at all.</li>
+                                </ul>
+                            </div>
+                             <div class="p-4 bg-gray-100 rounded-md border-l-4 border-yellow-500">
+                                <h4 class="font-bold">Step 2: Assess Situation, Threats, and Risks</h4>
+                                <p class="mt-1">Analyze the information collected to understand the current situation.</p>
+                                <ul class="list-disc list-inside space-y-1 mt-2">
+                                    <li><strong>Key Questions:</strong> What is the threat level (Low/High/Unknown)? Do I need to take immediate action? Am I trained/equipped? What is the source of the subject's aggression (malice, crisis, etc.)?</li>
+                                    <li><strong>Threat Assessment:</strong> Consider the subject's Means, Ability, Opportunity, and Intent.</li>
+                                    <li><strong>Officer Mindset:</strong> Keep complacency and emotions in check. Model the desired behavior and avoid malice transfer.</li>
+                                    <li><strong>Resource Needs:</strong> Do I need a Supervisor, SWAT, Negotiators, K9, or other agencies?</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 bg-gray-100 rounded-md border-l-4 border-green-500">
+                                <h4 class="font-bold">Step 3: Consider Police Powers and Agency Policy</h4>
+                                <p class="mt-1">Understand your legal standing and departmental rules.</p>
+                                 <ul class="list-disc list-inside space-y-1 mt-2">
+                                    <li>What is my legal authority to be here?</li>
+                                    <li>Is this a police matter?</li>
+                                    <li>What legal powers do I have to take action?</li>
+                                    <li>What agency policies control my response?</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 bg-gray-100 rounded-md border-l-4 border-purple-500">
+                                <h4 class="font-bold">Step 4: Identify Options and Determine Best Course of Action</h4>
+                                <p class="mt-1">Develop a plan based on the assessment.</p>
+                                <ul class="list-disc list-inside space-y-1 mt-2">
+                                    <li>Do I have to act now, or can I "spin back" to collect more info?</li>
+                                    <li>How proportional is my planned response to the situation?</li>
+                                    <li>What are my backup plans and contingencies?</li>
+                                </ul>
+                            </div>
+                            <div class="p-4 bg-gray-100 rounded-md border-l-4 border-red-500">
+                                <h4 class="font-bold">Step 5: Act, Review, and Re-assess</h4>
+                                <p class="mt-1">Execute the plan and evaluate its effectiveness.</p>
+                                <ul class="list-disc list-inside space-y-1 mt-2">
+                                    <li>Take action.</li>
+                                    <li>Did it resolve the situation? If not, "spin the model" again to another step.</li>
+                                    <li>After the incident, conduct self-reflection for lessons learned to apply in the future.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                     
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-bold text-lg mb-3 text-center">Benefits of Using the CDM</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Organizes the decision-making process</strong>, which helps officers make better, more sound decisions.</li>
+                            <li>The "spinning model" concept acknowledges the need for urgent, split-second decisions while still providing a framework.</li>
+                            <li><strong>Assists in articulating actions</strong> after an incident by providing a structured, rational, and credible explanation for reports and testimony.
+                                <ul class="list-disc list-inside ml-6 mt-1 text-gray-600 italic">
+                                     <li>"First, I collected the following information..."</li>
+                                     <li>"Next, I assessed the threats and risks, and developed a working strategy..."</li>
+                                     <li>"Then, I considered applicable laws and agency policies..."</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </details>
+            
+            <details class="bg-white p-4 rounded-lg shadow-md transition-all duration-300">
+                <summary class="flex justify-between items-center font-semibold text-xl text-blue-800">
+                    <span>Public Service & Community Resources</span>
+                    <span class="arrow transition-transform duration-300 transform">&#9654;</span>
+                </summary>
+                <div class="mt-4 border-t pt-4 text-gray-700 space-y-6">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Methods to Enhance Public Service</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Visual Presence:</strong> Being seen in a patrol car, on foot, or other modes.</li>
+                            <li><strong>Non-Punitive Interaction:</strong> Getting out of the car and simply talking to people.</li>
+                            <li><strong>Community Involvement:</strong> Public speaking at civic gatherings, participating in clubs or service agencies (e.g., YMCA, Big Brother/Big Sister).</li>
+                            <li><strong>Seeking Citizen Input:</strong> Using informal conversations or formal methods like questionnaires and "Citizen Police Academies" to understand community concerns.</li>
+                            <li><strong>Public Service Announcements:</strong> Using media for crime prevention tips, radar locations, "most wanted" lists, etc.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-2">Emergency Community Resources & Referrals</h3>
+                        <p>A key service role is making appropriate referrals when a problem is not a direct police function. Know your community's resources.</p>
+                        <div class="grid md:grid-cols-2 gap-4 mt-2">
+                            <div class="bg-gray-50 p-3 rounded-md">
+                                <h4 class="font-bold">Referral Examples:</h4>
+                                <ul class="list-disc list-inside">
+                                    <li>Salvation Army / Shelters</li>
+                                    <li>Rape Crisis Centers</li>
+                                    <li>United Way</li>
+                                    <li>Animal Control</li>
+                                    <li>City Services (Code Enforcement)</li>
+                                    <li>Medical Examiner / JP</li>
+                                    <li>State Dept. of Mental Health</li>
+                                    <li>Child/Elderly Protective Services</li>
+                                </ul>
+                            </div>
+                            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md">
+                                <h4 class="font-bold">Important Warning</h4>
+                                <p>Officers should <strong class="uppercase">never</strong> make specific referrals to private businesses like private attorneys or bail bondsmen, as this could lead to liability.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </details>
+
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h2 class="text-2xl font-bold text-center text-blue-900 mb-4">Conclusion & Final Thoughts</h2>
+                <div class="text-center text-gray-700 space-y-3">
+                    <p>Stay vigilant in your careers for signs of apathy, pessimism, isolation, and negative police subculture elements in your work and personal lives.</p>
+                    <p class="font-semibold">Avoid the "us against them" mentality and remember that MOST of the public supports and believes in you and your efforts.</p>
+                </div>
+            </div>
+
+        </main>
+
+        <footer class="text-center mt-12 text-gray-500">
+            <p>&copy; 2025 Comprehensive Patrol & CDM Study Guide. For educational purposes only.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Quiz Logic ---
+            const quizButtons = document.querySelectorAll('.quiz-option');
+            
+            quizButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const quizId = this.dataset.quiz;
+                    const isCorrect = this.dataset.correct === 'true';
+                    const feedbackEl = document.getElementById(`${quizId}-feedback`);
+                    const options = document.querySelectorAll(`button[data-quiz="${quizId}"]`);
+                    const parentContainer = this.closest('div.space-y-2');
+
+                    // Disable all options for this question
+                    options.forEach(opt => {
+                        opt.disabled = true;
+                        // remove hover effects
+                        opt.classList.remove('hover:bg-gray-100');
+                    });
+
+                    if (isCorrect) {
+                        this.classList.add('correct');
+                        feedbackEl.classList.add('correct');
+                        if (feedbackEl.textContent.trim() === '') {
+                           feedbackEl.textContent = 'Correct!';
+                        }
+                    } else {
+                        this.classList.add('incorrect');
+                        feedbackEl.classList.add('incorrect');
+                         if (feedbackEl.textContent.trim() === '') {
+                           feedbackEl.textContent = 'Incorrect. The correct answer is highlighted.';
+                        }
+                        // Highlight the correct answer
+                        options.forEach(opt => {
+                            if (opt.dataset.correct === 'true') {
+                                opt.classList.add('correct');
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

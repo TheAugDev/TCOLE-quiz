@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrest, Search, & Seizure Study Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .card-flip {
+            transform-style: preserve-3d;
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+        }
+        .card-flip.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transition: box-shadow 0.3s;
+        }
+        .card-flip:hover .card-face {
+             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform: rotateY(180deg);
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #4f46e5;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+        .tab-content {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .tab-content.hidden {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .progress-bar-fill {
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8">
+        <header class="text-center mb-10">
+            <div class="inline-flex items-center justify-center bg-indigo-100 text-indigo-600 rounded-full p-3 mb-4">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-900">Arrest, Search, & Seizure</h1>
+            <p class="text-md text-gray-500 mt-2">Interactive Study Tool</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="mb-8 flex justify-center">
+            <nav class="flex justify-center p-1.5 rounded-xl bg-gray-200 space-x-2" id="nav-tabs">
+                <button data-tab="flashcards" class="tab-button py-2 px-6 rounded-lg text-lg font-medium text-gray-600 focus:outline-none active">Flashcards</button>
+                <button data-tab="quiz" class="tab-button py-2 px-6 rounded-lg text-lg font-medium text-gray-600 focus:outline-none">Quiz</button>
+                <button data-tab="scenarios" class="tab-button py-2 px-6 rounded-lg text-lg font-medium text-gray-600 focus:outline-none">Scenarios</button>
+            </nav>
+        </div>
+
+        <!-- Content Area -->
+        <main id="content-area">
+            <!-- Flashcards Section -->
+            <div id="flashcards-content" class="tab-content">
+                <div class="text-center mb-6">
+                    <p class="text-gray-600">Click a card to flip it. Use the buttons to navigate.</p>
+                </div>
+                <div id="flashcard-container" class="relative min-h-[350px] flex items-center justify-center">
+                    <div id="flashcard" class="card-flip w-full max-w-2xl h-80 perspective-[1000px] cursor-pointer group">
+                        <!-- Front of Card -->
+                        <div class="card-face bg-white rounded-2xl shadow-lg flex items-center justify-center p-6 text-center overflow-hidden">
+                             <div class="absolute top-0 left-0 w-full h-full opacity-5" style="background-image: radial-gradient(#4f46e5 1px, transparent 1px); background-size: 16px 16px;"></div>
+                            <div>
+                                <h2 id="flashcard-term" class="text-2xl md:text-3xl font-bold relative z-10"></h2>
+                                <div class="absolute bottom-4 right-4 text-gray-300 group-hover:text-indigo-400 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h5M20 20v-5h-5M4 20h5v-5M20 4h-5v5" /></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Back of Card -->
+                        <div class="card-back bg-gray-800 text-white rounded-2xl shadow-lg flex items-center p-8">
+                            <p id="flashcard-definition" class="text-md md:text-lg w-full"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col items-center mt-8 space-y-4">
+                    <!-- Navigation Controls -->
+                    <div class="flex items-center justify-center bg-white border border-gray-200 rounded-full shadow-sm p-1 space-x-1">
+                        <button id="prev-flashcard" class="p-2 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                        </button>
+                        <span id="flashcard-counter" class="text-gray-700 font-semibold text-lg w-28 text-center px-2"></span>
+                        <button id="next-flashcard" class="p-2 rounded-full hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                            <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+                    <!-- Action Buttons -->
+                    <div class="flex items-center space-x-4">
+                        <button id="shuffle-flashcards" class="flex items-center space-x-2 bg-white text-gray-600 px-4 py-2 rounded-full shadow-sm border border-gray-200 hover:bg-gray-100 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 3h5v5M4 20L20 4M20 16v5h-5M4 4l5 5" /></svg>
+                            <span>Shuffle</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section -->
+            <div id="quiz-content" class="tab-content hidden">
+                <div id="quiz-container" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <!-- Quiz question will be inserted here -->
+                </div>
+                <div id="quiz-results" class="hidden text-center bg-white p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
+                    <h2 class="text-3xl font-bold mb-2 text-gray-800">Quiz Complete!</h2>
+                    <p class="text-6xl font-bold my-6 text-indigo-600" id="quiz-score-percent"></p>
+                    <p class="text-xl mb-8 text-gray-600" id="quiz-score-details"></p>
+                    <button id="restart-quiz" class="bg-indigo-600 text-white px-8 py-3 rounded-lg shadow-md hover:bg-indigo-700 transition-colors text-lg font-semibold">Try Again</button>
+                </div>
+            </div>
+
+            <!-- Scenarios Section -->
+            <div id="scenarios-content" class="tab-content hidden">
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg max-w-4xl mx-auto">
+                    <div id="scenario-container">
+                        <!-- Scenario will be inserted here -->
+                    </div>
+                    <div class="flex justify-between items-center mt-8">
+                        <button id="prev-scenario" class="bg-white text-gray-700 px-5 py-2.5 rounded-lg shadow-sm border border-gray-300 hover:bg-gray-100 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">Previous</button>
+                        <span id="scenario-counter" class="text-gray-700 font-semibold text-lg"></span>
+                        <button id="next-scenario" class="bg-indigo-600 text-white px-5 py-2.5 rounded-lg shadow-md hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">Next</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        // --- DATA FROM HANDOUT ---
+
+        let flashcards = [
+            { term: "4 Conditions for Arrest", definition: "1. Intent: Officer's purpose to take a person into custody. <br>2. Authority: Officer's arrest is under real, lawful authority with probable cause. <br>3. Actual Seizure: Person is taken into custody by physical force or submission. <br>4. Understanding: The person understands the officer's intention to arrest." },
+            { term: "Restraint (CCP 11.22)", definition: "The kind of control which one person exercises over another, not to confine him within certain limits, but to subject him to the general authority and power of the person claiming such right." },
+            { term: "When a Person is Arrested (CCP 15.22)", definition: "A person is arrested when he has been actually placed under restraint or taken into custody by an officer or person executing a warrant of arrest, or by an officer or person arresting without a warrant." },
+            { term: "Custody (PC 38.01)", definition: "Under arrest by a peace officer or under restraint by a public servant pursuant to a court order; or under restraint by an agent of a facility that confines persons (e.g., federal facility)." },
+            { term: "Constructive Custody (CCP 11.21)", definition: "Coercive measures by threats, menaces, or fear of injury, where one person controls another and detains them within certain limits, without actual physical force." },
+            { term: "Resisting Arrest, Search, or Transportation (PC 38.03)", definition: "A person intentionally prevents or obstructs a known peace officer from effecting an arrest, search, or transportation by using force against the officer or another. <br><b>Penalty:</b> Class A Misdemeanor. <br><b>Enhancement:</b> 3rd Degree Felony if a deadly weapon is used." },
+            { term: "Defense for Resisting Arrest (PC 38.03)", definition: "It is NO defense to prosecution that the arrest or search was unlawful." },
+            { term: "Evading Arrest or Detention (PC 38.04)", definition: "A person intentionally flees from a person he knows is a peace officer or federal special investigator attempting lawfully to arrest or detain him. <br><b>Penalty:</b> Class A Misdemeanor. <br><b>Enhancements:</b> State Jail Felony (prior conviction), 3rd Degree Felony (uses vehicle, causes SBI to another), 2nd Degree Felony (causes death to another)." },
+            { term: "Hindering Apprehension or Prosecution (PC 38.05)", definition: "With intent to hinder arrest/prosecution, a person: <br>1. Harbors or conceals the other; <br>2. Provides means of avoiding arrest or escape; or <br>3. Warns the other of impending discovery. <br><b>Penalty:</b> Class A Misdemeanor. <br><b>Enhancement:</b> 3rd Degree Felony if the subject was wanted for a felony." },
+            { term: "Defense for Hindering (PC 38.05)", definition: "It IS a defense if the warning was given in connection with an effort to bring the other person into compliance with the law." },
+            { term: "Escape (PC 38.06)", definition: "A person escapes from custody when under arrest for, charged with, or convicted of an offense; or in custody by a lawful court order. <br><b>Penalty:</b> Class A Misdemeanor. <br><b>Enhancements:</b> 3rd Degree Felony (if arrested for felony/in secure facility), 2nd Degree Felony (causes BI), 1st Degree Felony (causes SBI or uses/threatens deadly weapon)." },
+            { term: "Effect of Unlawful Custody (PC 38.08)", definition: "It is NO defense to prosecution for Escape (38.06) or Permitting/Facilitating Escape (38.07) that the custody was unlawful." },
+            { term: "Permitting or Facilitating Escape (PC 38.07)", definition: "An official knowingly permits/facilitates escape, or any person knowingly causes/facilitates the escape of one in custody. <br><b>Penalty:</b> Class A Misdemeanor. <br><b>Enhancements:</b> 3rd Degree Felony (if person in custody for felony), 2nd Degree Felony (if deadly weapon used)." },
+            { term: "Implements for Escape (PC 38.09)", definition: "With intent to facilitate escape, a person introduces into a correctional facility, or provides an inmate with, a deadly weapon or anything useful for escape. <br><b>Penalty:</b> 3rd Degree Felony. <br><b>Enhancement:</b> 2nd Degree Felony if a deadly weapon is provided." },
+            { term: "Taking/Attempting to Take Weapon from Officer (PC 38.14)", definition: "A person intentionally and with force takes or attempts to take an officer's firearm, nightstick, stun gun, or chemical spray. <br><b>Penalty:</b> State Jail Felony (attempt), 3rd Degree Felony (taken)." },
+            { term: "Defense for Taking Weapon (PC 38.14)", definition: "It IS a defense if the officer was using force against the defendant in excess of the amount permitted by law." },
+            { term: "Interference with Public Duties (PC 38.15)", definition: "With criminal negligence, a person interrupts, disrupts, or impedes a peace officer, EMS, or firefighter performing a duty. Speech alone is a defense. <br><b>Penalty:</b> Class B Misdemeanor." },
+            { term: "Defense for Interference (PC 38.15)", definition: "It IS a defense if the conduct was speech only, or if it was to warn a motorist of a police presence enforcing traffic laws." },
+            { term: "Prohibited Substances in Correctional Facility (PC 38.11)", definition: "A person provides or possesses with intent to provide an alcoholic beverage, controlled substance, dangerous drug, deadly weapon, cell phone, or money to an inmate. <br><b>Penalty:</b> 3rd Degree Felony." },
+            { term: "Deadly Weapon in Penal Institution (PC 46.10)", definition: "A person, while confined in a penal institution, intentionally, knowingly, or recklessly carries, possesses, or conceals a deadly weapon. <br><b>Penalty:</b> 3rd Degree Felony." },
+            { term: "Contraband in Correctional Facility (PC 38.114)", definition: "Providing, introducing, or possessing an item not provided by or authorized by the facility operator. <br><b>Penalty:</b> Class C Misdemeanor. <br><b>Enhancement:</b> Class B Misdemeanor if committed by an employee or volunteer." },
+            { term: "Privilege of Legislators (CCP 1.21)", definition: "Privileged from arrest during a legislative session (and while traveling to/from). Not privileged for treason, felony, or breach of the peace." },
+            { term: "State Military Exemption (GC 437.223)", definition: "Exempt from arrest when en route to or from active duty. Not privileged for treason, felony, or breach of the peace." },
+            { term: "Handcuffing Procedure", definition: "Handcuff, then search. Always double-lock when safe. Check for tightness to avoid excessive force claims." },
+            { term: "Excessive Force & Handcuffs", definition: "Handcuffing too tightly, especially after a suspect complains of pain or a medical condition, may lead to an excessive force claim (e.g., Baskin v. Smith)." },
+            { term: "Handcuffing 2 Suspects, 1 Set of Cuffs", definition: "Have suspects face opposite directions. Cuff right hand to right hand OR left hand to left hand. This makes it difficult for them to run in coordination." },
+            { term: "Handcuffing 2 Suspects, 2 Sets of Cuffs", definition: "Hands to the rear, arms interlocking, palms out, keyholes up, and handcuffs double-locked." },
+            { term: "Searching Procedure: The 'Magic Question'", definition: "Before I search you, do you have any weapons or anything that can poke or cut me?" },
+            { term: "Searching Procedure: 6 Zones", definition: "1. Waistband (start here) <br>2. Upper Right Body <br>3. Lower Right Body <br>4. Upper Left Body <br>5. Lower Left Body <br>6. Head/Hair area. Use bladed hand for sensitive areas, no patting." },
+            { term: "Common Concealment Places", definition: "Clothing, body cavities, belts, shoes/socks, hats, jewelry, bags, hair, under arms, taped to body." },
+            { term: "Escort Method: 1 Officer, 1 Suspect", definition: "Officer to the rear and slightly to one side of the suspect (gun side away). Hold waistband or arm, not the cuffs themselves." },
+            { term: "Transporting without Cage: 1 Officer, 1 Suspect", definition: "Suspect in the right front seat, seat-belted, and door locked." },
+            { term: "Vehicle Search Protocol", definition: "A peace officer should search the seating or carrying area of their vehicle for weapons or contraband when going on duty and after each prisoner transport is completed." }
+        ];
+
+        const quizQuestions = [
+            { question: "Which of the following is NOT one of the four necessary conditions for an arrest?", options: ["Intent", "Authority", "Probable Cause", "Understanding"], answer: "Probable Cause" },
+            { question: "A person intentionally using force against a peace officer to prevent being arrested commits what offense?", options: ["Evading Arrest", "Resisting Arrest", "Hindering Apprehension", "Interference with Public Duties"], answer: "Resisting Arrest" },
+            { question: "What is the base-level penalty for Evading Arrest or Detention on foot?", options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"], answer: "Class A Misdemeanor" },
+            { question: "Yelling 'Run, the police are here!' to someone who has a warrant is an example of what offense?", options: ["Escape", "Hindering Apprehension", "Evading Arrest", "Resisting Arrest"], answer: "Hindering Apprehension" },
+            { question: "What is the penalty for providing a cell phone to an inmate in a correctional facility?", options: ["Class A Misdemeanor", "State Jail Felony", "3rd Degree Felony", "2nd Degree Felony"], answer: "3rd Degree Felony" },
+            { question: "It is a defense to prosecution for Interference with Public Duties if the interference consisted only of:", options: ["Yelling", "Speech", "Running away", "Refusing to identify"], answer: "Speech" },
+            { question: "According to the handout, what is the first step in the arrest procedure after gaining control?", options: ["Search the suspect", "Handcuff the suspect", "Read them their rights", "Place them in the car"], answer: "Handcuff the suspect" },
+            { question: "A legislator is privileged from arrest for what type of offense during a legislative session?", options: ["Any felony", "Any misdemeanor", "A Class C traffic offense", "Breach of the peace"], answer: "A Class C traffic offense" },
+            { question: "What is the penalty for an inmate who possesses a deadly weapon in a penal institution?", options: ["Class A Misdemeanor", "State Jail Felony", "3rd Degree Felony", "1st Degree Felony"], answer: "3rd Degree Felony" },
+            { question: "The 'Magic Question' should be asked before doing what?", options: ["Handcuffing a suspect", "Placing a suspect in a car", "Transporting a suspect", "Searching a suspect"], answer: "Searching a suspect" },
+            { question: "What is the penalty if a person successfully takes a firearm from a peace officer?", options: ["State Jail Felony", "3rd Degree Felony", "2nd Degree Felony", "1st Degree Felony"], answer: "3rd Degree Felony" },
+            { question: "According to CCP 11.21, 'Constructive Custody' can be achieved through...", options: ["Physical force only", "A written court order", "Threats, menaces, or fear of injury", "Verbal command to 'stop'"], answer: "Threats, menaces, or fear of injury" },
+            { question: "What is the penalty for a jail volunteer who provides an unauthorized item, like a deck of cards, to an inmate?", options: ["No offense", "Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor"], answer: "Class B Misdemeanor" },
+            { question: "Evading arrest becomes a 3rd Degree Felony if the actor...", options: ["Has a prior conviction for evading", "Uses a vehicle during the flight", "Is on probation", "Flees into another county"], answer: "Uses a vehicle during the flight" },
+            { question: "Which of the following is a valid defense for Resisting Arrest?", options: ["The arrest was unlawful", "The officer was not in uniform", "The person did not know it was a peace officer", "There is no valid defense listed"], answer: "There is no valid defense listed" },
+            { question: "An inmate who escapes from a secure correctional facility after being convicted of a felony commits what level of offense?", options: ["Class A Misdemeanor", "3rd Degree Felony", "2nd Degree Felony", "1st Degree Felony"], answer: "3rd Degree Felony" },
+            { question: "What is the penalty for a person who provides a deadly weapon to an inmate to help them escape?", options: ["State Jail Felony", "3rd Degree Felony", "2nd Degree Felony", "1st Degree Felony"], answer: "2nd Degree Felony" },
+            { question: "A person who attempts to take a nightstick from a peace officer commits what offense?", options: ["Class A Misdemeanor", "State Jail Felony", "3rd Degree Felony", "2nd Degree Felony"], answer: "State Jail Felony" },
+            { question: "Which of these is NOT considered a 'correctional facility' for the purposes of PC 38.09, Implements for Escape?", options: ["A county jail", "A secure detention facility", "A police station holding cell", "A halfway house"], answer: "A police station holding cell" },
+            { question: "A member of the Texas military forces is exempt from arrest while going to duty, EXCEPT for which offense?", options: ["Speeding", "Public Intoxication", "Breach of the Peace", "Theft under $100"], answer: "Breach of the Peace" },
+            { question: "When transporting one suspect without a cage, where should the suspect be seated?", options: ["Right rear seat", "Left rear seat", "Center rear seat", "Right front seat"], answer: "Right front seat" },
+            { question: "What is the primary reason to hold a suspect's waistband from the rear during a standing search?", options: ["To keep them from falling", "Officer safety", "To access pockets easier", "To comply with policy"], answer: "Officer safety" },
+            { question: "What is the penalty for an inmate who possesses a cell phone in a correctional facility?", options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "3rd Degree Felony"], answer: "3rd Degree Felony" },
+            { question: "Which court case mentioned in the handout deals with handcuffing too tightly and failing to double-lock?", options: ["Terry v. Ohio", "Miranda v. Arizona", "Baskin v. Smith", "Vondrak v. City of Las Cruces"], answer: "Baskin v. Smith" },
+            { question: "A person commits Hindering Apprehension, a 3rd Degree Felony, if the person they hinder is wanted for...", options: ["Any crime", "A Class A Misdemeanor", "A State Jail Felony", "A Felony"], answer: "A Felony" }
+        ];
+
+        const scenarios = [
+            { 
+                scenario: "An officer tells a suspect he is under arrest for DWI. While attempting to place the suspect in the back of the patrol vehicle, the suspect begins kicking at the officer and trying to pull away.",
+                question: "What offense has the suspect committed?",
+                analysis: "<b>Offense:</b> Resisting Arrest, Search, or Transportation (PC 38.03).<br><b>Reasoning:</b> The suspect is using force (kicking, pulling away) against the officer who is effecting an arrest and transportation.<br><b>Penalty:</b> Class A Misdemeanor."
+            },
+            {
+                scenario: "An officer smells marijuana and sees a suspect smoking a hand-rolled cigarette. The officer, in full uniform, orders the suspect to stop. The suspect immediately runs away.",
+                question: "What offense has the suspect committed?",
+                analysis: "<b>Offense:</b> Evading Arrest or Detention (PC 38.04).<br><b>Reasoning:</b> The suspect intentionally fled from a known peace officer who was lawfully attempting to detain him.<br><b>Penalty:</b> Class A Misdemeanor."
+            },
+            {
+                scenario: "An officer approaches a house to serve a warrant. A person at the door sees the officer and yells, 'Run, Joe, it's the police, they're here for you!' Joe then flees out the back door.",
+                question: "What offense(s) have been committed, and by whom?",
+                analysis: "<b>Person at the door:</b> Hindering Apprehension (PC 38.05) for warning the other of impending apprehension.<br><b>Joe:</b> Evading Arrest or Detention (PC 38.04) for fleeing from a known police officer attempting to arrest him.<br><b>Penalties:</b> Both are likely Class A Misdemeanors, but could be enhanced if the original warrant was for a felony."
+            },
+            {
+                scenario: "During a visit at the county jail, a woman is observed passing a cell phone to an inmate.",
+                question: "What offense has the visitor committed?",
+                analysis: "<b>Offense:</b> Prohibited Substances and Items in Correctional Facility (PC 38.11).<br><b>Reasoning:</b> She provided a cellular telephone to a person in the custody of a correctional facility.<br><b>Penalty:</b> 3rd Degree Felony."
+            },
+            {
+                scenario: "An officer makes a traffic stop on a man for speeding. The man informs the officer he is a member of the Texas Congress, on his way to Austin for the legislative session.",
+                question: "Can the officer arrest the man for the speeding ticket?",
+                analysis: "<b>Answer:</b> No, based on legislative privilege (CCP 1.21).<br><b>Reasoning:</b> Legislators are privileged from arrest for minor offenses like traffic violations while the legislature is in session and while traveling to/from. They are NOT privileged from arrest for Treason, Felony, or Breach of the Peace. The officer can issue a citation."
+            },
+            {
+                scenario: "A visitor to the local jail is frisked and found to be in possession of a switchblade knife.",
+                question: "What offense has the visitor committed?",
+                analysis: "<b>Offense:</b> The most appropriate charge is Prohibited Substances and Items in Correctional Facility (PC 38.11) for taking a deadly weapon into the facility. Unlawful Carrying of a Weapon (PC 46.02) could also apply.<br><b>Reasoning:</b> Bringing a prohibited item (deadly weapon) into a correctional facility. A switchblade is a prohibited weapon in certain circumstances.<br><b>Penalty:</b> Bringing the weapon into the facility is a 3rd Degree Felony under 38.11."
+            },
+            {
+                scenario: "Officer Jones sees a car weaving from curb to curb. By the time he gets to the house the driver pulled into, the driver is on the front porch trying to open the door. Upon contact, the male is obviously very intoxicated.",
+                question: "What can/should the officer do?",
+                analysis: "<b>Action:</b> The officer can arrest the male for DWI. <br><b>Reasoning:</b> The officer observed the erratic driving (weaving) which provides reasonable suspicion. The male's intoxication on the porch, a public place, establishes probable cause for Public Intoxication. The combination of observing the driving and the driver's subsequent intoxication provides probable cause for DWI, even though the driver is no longer in the vehicle. The officer does not need to see the person driving to make a DWI arrest if there is sufficient evidence they were the one operating the vehicle while intoxicated."
+            },
+            {
+                scenario: "An officer on foot patrol in a motel parking lot sees a baggie of what appears to be methamphetamine in plain view on the center console of a parked car. Attempts to locate the owner fail.",
+                question: "What can/should the officer do?",
+                analysis: "<b>Action:</b> The officer can enter the car to seize the narcotics. <br><b>Reasoning:</b> This falls under the 'Automobile Exception.' Because the narcotics are in plain view in a readily mobile vehicle, the officer has probable cause to believe the vehicle contains evidence of a crime. This allows for a warrantless search of the vehicle and seizure of the contraband."
+            },
+            {
+                scenario: "An officer stops a teenager for a traffic violation. The teen's father arrives and stands very close to the officer, yelling and arguing, preventing the officer from completing the citation.",
+                question: "What offense has the father committed?",
+                analysis: "<b>Offense:</b> Interference with Public Duties (PC 38.15).<br><b>Reasoning:</b> The father, with criminal negligence, is impeding a peace officer who is performing a duty (issuing a citation). His actions go beyond just speech.<br><b>Penalty:</b> Class B Misdemeanor."
+            },
+            {
+                scenario: "An inmate in a county jail is found to have sharpened the handle of a toothbrush into a pointed, knife-like object.",
+                question: "What offense has the inmate committed?",
+                analysis: "<b>Offense:</b> Deadly Weapon in Penal Institution (PC 46.10).<br><b>Reasoning:</b> The inmate possessed a deadly weapon (an object manifestly designed, made, or adapted for the purpose of inflicting serious bodily injury) while confined in a penal institution.<br><b>Penalty:</b> 3rd Degree Felony."
+            },
+            {
+                scenario: "A person under arrest for a Class C warrant escapes from the back of a patrol car before the officer can close the door.",
+                question: "What offense has the person committed?",
+                analysis: "<b>Offense:</b> Escape (PC 38.06).<br><b>Reasoning:</b> The person escaped from custody while under arrest for an offense.<br><b>Penalty:</b> Class A Misdemeanor."
+            },
+            {
+                scenario: "During a traffic stop, an officer attempts to arrest a driver for DWI. The passenger gets out of the car and physically pulls the officer away from the driver.",
+                question: "What offense has the passenger committed?",
+                analysis: "<b>Offense:</b> Resisting Arrest, Search, or Transportation (PC 38.03).<br><b>Reasoning:</b> The passenger used force against the peace officer to obstruct the arrest of another person (the driver).<br><b>Penalty:</b> Class A Misdemeanor."
+            },
+            {
+                scenario: "A jailer intentionally leaves a cell door unlocked, allowing an inmate charged with robbery (a felony) to walk out.",
+                question: "What offense has the jailer committed?",
+                analysis: "<b>Offense:</b> Permitting or Facilitating Escape (PC 38.07).<br><b>Reasoning:</b> As an official of a correctional facility, the jailer knowingly facilitated the escape of a person in custody.<br><b>Penalty:</b> 3rd Degree Felony, because the inmate was charged with a felony."
+            },
+            {
+                scenario: "While on patrol, an officer observes a person take a package from a known drug dealer. When the officer approaches, the person takes a bladed stance and yells, 'Don't come near me!' refusing to be frisked.",
+                question: "What offenses might be at play, and is the refusal to be frisked itself a crime?",
+                analysis: "<b>Analysis:</b> The refusal to be frisked, combined with the bladed stance, could be interpreted as a prelude to using force. If the officer attempts to detain or arrest and the person uses force, it becomes Resisting Arrest. The verbal warning alone is not an offense. The initial transaction could provide reasonable suspicion for a temporary detention (Terry Frisk), but the refusal to comply verbally is not, by itself, resisting."
+            }
+        ];
+
+        // --- GLOBAL VARIABLES ---
+        let currentFlashcardIndex = 0;
+        let currentQuizQuestionIndex = 0;
+        let currentScenarioIndex = 0;
+        let score = 0;
+        let shuffledQuizQuestions = [];
+
+        // --- DOM ELEMENTS ---
+        const tabs = document.querySelectorAll('.tab-button');
+        const contentAreas = document.querySelectorAll('.tab-content');
+        
+        const flashcardEl = document.getElementById('flashcard');
+        const flashcardTermEl = document.getElementById('flashcard-term');
+        const flashcardDefinitionEl = document.getElementById('flashcard-definition');
+        const flashcardCounter = document.getElementById('flashcard-counter');
+        const prevFlashcardBtn = document.getElementById('prev-flashcard');
+        const nextFlashcardBtn = document.getElementById('next-flashcard');
+        const shuffleFlashcardsBtn = document.getElementById('shuffle-flashcards');
+        
+        const quizContainer = document.getElementById('quiz-container');
+        const quizResultsContainer = document.getElementById('quiz-results');
+        const quizScorePercentEl = document.getElementById('quiz-score-percent');
+        const quizScoreDetailsEl = document.getElementById('quiz-score-details');
+        const restartQuizBtn = document.getElementById('restart-quiz');
+
+        const scenarioContainer = document.getElementById('scenario-container');
+        const scenarioCounter = document.getElementById('scenario-counter');
+        const prevScenarioBtn = document.getElementById('prev-scenario');
+        const nextScenarioBtn = document.getElementById('next-scenario');
+
+        // --- FUNCTIONS ---
+
+        function switchTab(e) {
+            const targetTab = e.currentTarget.dataset.tab;
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+
+            contentAreas.forEach(area => {
+                const isTarget = area.id === `${targetTab}-content`;
+                area.classList.toggle('hidden', !isTarget);
+            });
+        }
+
+        // --- Flashcard Logic ---
+        function renderFlashcard() {
+            // Always reset to front face when rendering a new card
+            if (flashcardEl.classList.contains('is-flipped')) {
+                flashcardEl.classList.remove('is-flipped');
+            }
+            
+            // Allow time for flip-back animation before changing content
+            setTimeout(() => {
+                const cardData = flashcards[currentFlashcardIndex];
+                flashcardTermEl.innerHTML = cardData.term;
+                flashcardDefinitionEl.innerHTML = cardData.definition;
+                updateFlashcardControls();
+            }, 200); // A small delay to ensure the flip animation completes
+        }
+
+        function updateFlashcardControls() {
+            flashcardCounter.textContent = `${currentFlashcardIndex + 1} / ${flashcards.length}`;
+            prevFlashcardBtn.disabled = currentFlashcardIndex === 0;
+            nextFlashcardBtn.disabled = currentFlashcardIndex === flashcards.length - 1;
+        }
+        
+        function shuffleFlashcards() {
+            for (let i = flashcards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [flashcards[i], flashcards[j]] = [flashcards[j], flashcards[i]];
+            }
+            currentFlashcardIndex = 0;
+            renderFlashcard();
+        }
+
+        // --- Quiz Logic ---
+        function startQuiz() {
+            currentQuizQuestionIndex = 0;
+            score = 0;
+            shuffledQuizQuestions = [...quizQuestions].sort(() => Math.random() - 0.5);
+            quizContainer.style.display = 'block';
+            quizResultsContainer.style.display = 'none';
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            if (currentQuizQuestionIndex >= shuffledQuizQuestions.length) {
+                showQuizResults();
+                return;
+            }
+            const progress = ((currentQuizQuestionIndex) / shuffledQuizQuestions.length) * 100;
+            const questionData = shuffledQuizQuestions[currentQuizQuestionIndex];
+            const optionsHtml = questionData.options.map(option => 
+                `<button class="quiz-option w-full text-left p-4 bg-gray-100 rounded-lg border-2 border-transparent hover:bg-indigo-100 hover:border-indigo-300 transition-all focus:outline-none focus:ring-2 focus:ring-indigo-500">${option}</button>`
+            ).join('');
+
+            quizContainer.innerHTML = `
+                <div class="mb-6">
+                    <div class="flex justify-between items-center mb-2 text-sm text-gray-500">
+                        <span>Question ${currentQuizQuestionIndex + 1} of ${shuffledQuizQuestions.length}</span>
+                        <span>${Math.round(progress)}% Complete</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-indigo-600 h-2.5 rounded-full progress-bar-fill" style="width: ${progress}%"></div>
+                    </div>
+                    <h3 class="text-xl md:text-2xl font-semibold mt-6">${questionData.question}</h3>
+                </div>
+                <div class="space-y-3">${optionsHtml}</div>
+                <div id="feedback" class="mt-6 text-lg font-semibold h-8"></div>
+            `;
+
+            document.querySelectorAll('.quiz-option').forEach(button => {
+                button.addEventListener('click', handleAnswer);
+            });
+        }
+
+        function handleAnswer(e) {
+            const selectedOption = e.target.textContent;
+            const correctAnswer = shuffledQuizQuestions[currentQuizQuestionIndex].answer;
+            const feedbackEl = document.getElementById('feedback');
+            
+            document.querySelectorAll('.quiz-option').forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-indigo-100', 'hover:border-indigo-300');
+                if (btn.textContent === correctAnswer) {
+                    btn.classList.add('bg-green-100', 'border-green-400', 'text-green-800', 'font-semibold');
+                }
+            });
+
+            if (selectedOption === correctAnswer) {
+                score++;
+                e.target.classList.add('bg-green-100', 'border-green-400', 'text-green-800', 'font-semibold');
+                feedbackEl.innerHTML = `<span class="text-green-600">Correct!</span>`;
+            } else {
+                e.target.classList.add('bg-red-100', 'border-red-400', 'text-red-800', 'font-semibold');
+                feedbackEl.innerHTML = `<span class="text-red-600">Incorrect.</span>`;
+            }
+
+            setTimeout(() => {
+                currentQuizQuestionIndex++;
+                renderQuizQuestion();
+            }, 2000);
+        }
+
+        function showQuizResults() {
+            quizContainer.style.display = 'none';
+            quizResultsContainer.style.display = 'block';
+            const percentage = Math.round((score / shuffledQuizQuestions.length) * 100);
+            quizScorePercentEl.textContent = `${percentage}%`;
+            quizScoreDetailsEl.textContent = `You answered ${score} out of ${shuffledQuizQuestions.length} questions correctly.`;
+        }
+        
+        // --- Scenario Logic ---
+        function renderScenario() {
+            const scenarioData = scenarios[currentScenarioIndex];
+            scenarioContainer.innerHTML = `
+                <div>
+                    <p class="text-sm font-semibold text-indigo-600 mb-2 uppercase tracking-wide">Scenario</p>
+                    <p class="bg-gray-100 p-4 rounded-lg text-lg mb-5">${scenarioData.scenario}</p>
+                    <p class="font-bold text-lg mb-4 text-gray-800">${scenarioData.question}</p>
+                    <button class="show-answer-btn bg-gray-200 px-5 py-2 rounded-lg hover:bg-gray-300 transition-colors font-semibold">Show Analysis</button>
+                    <div class="answer-content hidden mt-4 p-5 bg-indigo-50 rounded-lg border-l-4 border-indigo-500">
+                        <p class="text-indigo-900">${scenarioData.analysis}</p>
+                    </div>
+                </div>
+            `;
+            const showAnswerBtn = scenarioContainer.querySelector('.show-answer-btn');
+            const answerContent = scenarioContainer.querySelector('.answer-content');
+            showAnswerBtn.addEventListener('click', () => {
+                answerContent.classList.toggle('hidden');
+                showAnswerBtn.textContent = answerContent.classList.contains('hidden') ? 'Show Analysis' : 'Hide Analysis';
+            });
+            updateScenarioControls();
+        }
+
+        function updateScenarioControls() {
+            scenarioCounter.textContent = `${currentScenarioIndex + 1} / ${scenarios.length}`;
+            prevScenarioBtn.disabled = currentScenarioIndex === 0;
+            nextScenarioBtn.disabled = currentScenarioIndex === scenarios.length - 1;
+        }
+
+
+        // --- EVENT LISTENERS ---
+        tabs.forEach(tab => tab.addEventListener('click', switchTab));
+
+        flashcardEl.addEventListener('click', () => flashcardEl.classList.toggle('is-flipped'));
+
+        nextFlashcardBtn.addEventListener('click', () => {
+            if (currentFlashcardIndex < flashcards.length - 1) {
+                currentFlashcardIndex++;
+                renderFlashcard();
+            }
+        });
+
+        prevFlashcardBtn.addEventListener('click', () => {
+            if (currentFlashcardIndex > 0) {
+                currentFlashcardIndex--;
+                renderFlashcard();
+            }
+        });
+        
+        shuffleFlashcardsBtn.addEventListener('click', shuffleFlashcards);
+        
+        restartQuizBtn.addEventListener('click', startQuiz);
+        
+        nextScenarioBtn.addEventListener('click', () => {
+            if (currentScenarioIndex < scenarios.length - 1) {
+                currentScenarioIndex++;
+                renderScenario();
+            }
+        });
+
+        prevScenarioBtn.addEventListener('click', () => {
+            if (currentScenarioIndex > 0) {
+                currentScenarioIndex--;
+                renderScenario();
+            }
+        });
+
+        // --- INITIALIZATION ---
+        function init() {
+            renderFlashcard();
+            startQuiz();
+            renderScenario();
+            
+            // Set default tab to flashcards
+            document.getElementById('flashcards-content').classList.remove('hidden');
+            document.getElementById('quiz-content').classList.add('hidden');
+            document.getElementById('scenarios-content').classList.add('hidden');
+            
+            // Fix initial display issue with quiz
+            quizContainer.style.display = 'block';
+            quizResultsContainer.style.display = 'none';
+        }
+
+        init();
+
+    </script>
+</body>
+</html>

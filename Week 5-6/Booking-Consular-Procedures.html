@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Interactive Study Guide: Booking & Consular Procedures</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f4f5; /* Lighter gray background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #eef2ff; /* Lighter Blue */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.2s ease-in-out;
+        }
+        details[open] > summary::after {
+            transform: rotate(45deg);
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .quiz-option {
+            transition: background-color 0.2s;
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+            color: #15803d;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+            color: #b91c1c;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #4f46e5; /* Indigo */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        dl dt {
+            font-weight: 600;
+            color: #312e81; /* Dark Indigo */
+        }
+        dl dd {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: #4b5563; /* Gray */
+        }
+        .answer-explanation {
+            background-color: #f3f4f6;
+            border-left: 4px solid #6366f1; /* Indigo */
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Booking & Consular Procedures Study Guide</h1>
+            <p class="text-lg text-gray-600 mt-2">A Comprehensive Interactive Guide</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-booking">Booking & Searching</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-consular">Consular & Diplomatic</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-duties">Post-Arrest Duties</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-resources">Quiz & Resources</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Booking Procedures Tab -->
+            <div id="tab-booking" class="tab-pane active space-y-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Booking, Searching, & Related Procedures</h2>
+                <details class="card p-0" open><summary>I. Importance of a Good Search</summary><div class="p-6 border-t"><ul class="list-disc list-inside space-y-2 text-gray-700"><li>To ensure the safety of officers, staff, and other inmates.</li><li>To locate and seize contraband or evidence.</li><li>To maintain the security of the facility.</li><li>To eliminate suicide risks and prevent in-custody deaths (requires suicide screening).</li><li>To properly safeguard the prisoner's personal property.</li></ul></div></details>
+                <details class="card p-0"><summary>II. Maintaining Security in Correctional Facilities (PC 9.53)</summary><div class="p-6 border-t"><p>An officer/employee is justified in using force when they reasonably believe it is necessary to: maintain facility security, ensure the safety of others, or ensure their own safety.</p></div></details>
+                <details class="card p-0"><summary>III. Use of Laser Pointers (PC 42.13)</summary><div class="p-6 border-t"><p>Knowingly directing a laser pointer at a uniformed safety officer is an offense. Classifications:</p><ul class="list-disc list-inside mt-2"><li><strong>Class C Misdemeanor:</strong> General offense.</li><li><strong>3rd Degree Felony:</strong> If it causes bodily injury.</li><li><strong>1st Degree Felony:</strong> If it causes serious bodily injury (SBI).</li></ul></div></details>
+                <details class="card p-0"><summary>IV. Death in Custody (CCP 49.18)</summary><div class="p-6 border-t"><p><strong>Initial Report:</strong> If a person dies in a penal institution, the sheriff must inform the Precinct JP as soon as practicable.</p><p class="mt-2"><strong>Investigation:</strong> If a person dies in peace officer custody or a correctional facility, the agency director must investigate and file a written report on the cause of death with the <strong>Attorney General within 30 days</strong>.</p></div></details>
+                <details class="card p-0"><summary>V. Jail Searching Procedures</summary><div class="p-6 border-t"><h4 class="font-semibold text-lg mb-2">Key Principles:</h4><ul class="list-disc list-inside space-y-2 text-gray-700 mb-4"><li>Perform proper searches on ALL prisoners.</li><li>Let your hands search; eyes should observe for movement. <strong>NO PATTING.</strong></li><li>Except in an emergency, searches must be by an officer of the same sex and out of view of the opposite sex.</li><li>Be systematic: top to bottom. Inspect all property removed (shoes, belt, etc.).</li></ul><div class="bg-amber-100 border-l-4 border-amber-500 text-amber-800 p-4 rounded-r-lg mt-4"><p><strong class="font-bold">Strip Searches (TCJS 265.2(b)):</strong> Only performed when personnel reasonably believe it's necessary to find weapons/contraband that pose a threat. Must be done by same-sex staff in a dignified manner.</p><p class="mt-2"><strong class="font-bold">Florence v. Board (2012):</strong> The Supreme Court ruled that jails can conduct strip searches on all arrestees, even those with minor offenses, without reasonable suspicion, due to significant security interests.</p></div></div></details>
+                <details class="card p-0"><summary>VI. Property Inventory (32.46)</summary><div class="p-6 border-t"><p>Verbally describe property in the prisoner's presence on the correct form. Describe items objectively (e.g., "yellow in color metal ring" not "gold ring"). Detail clothing by type, color, size, labels, etc. Have the prisoner sign the inventory.</p></div></details>
+                <details class="card p-0"><summary>VII & VIII. Recording Data & Info Retrieval</summary><div class="p-6 border-t"><p><strong>Booking Data:</strong> Record comprehensive personal data (name, DOB, address, SSN, etc.), vehicle data, and arrest data (charge, officers, time, etc.).</p><p class="mt-2"><strong>TCIC/NCIC System:</strong> Check for warrants and stolen property. This database includes files for articles, guns, vehicles, wanted persons, criminal history, and more.</p></div></details>
+                <details class="card p-0"><summary>IX & X. Injury & Harassment Procedures</summary><div class="p-6 border-t"><p><strong>Injury:</strong> If a prisoner is injured, call for medical assistance, photograph the prisoner and officer, and write a proper report.</p><p class="mt-2"><strong>Communicable Diseases (CCP 18.22):</strong> A court can order testing if an arrestee causes bodily fluid contact with an officer.</p><p class="mt-2"><strong>Harassment by Persons in Facilities (PC 22.11):</strong> An inmate who, with intent to assault/harass/alarm, causes an officer to contact bodily fluids commits a <strong>3rd Degree Felony</strong>.</p></div></details>
+            </div>
+
+            <!-- Consular Notification Tab -->
+            <div id="tab-consular" class="tab-pane hidden space-y-6">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Consular Notification & Diplomatic Immunity</h2>
+                <details class="card p-0" open><summary>XII. Consular Notification (VCCR)</summary><div class="p-6 border-t"><p class="mb-2"><strong>Purpose:</strong> To ensure a foreign national is not placed in a situation where they cannot receive assistance from their own government.</p><p><strong class="font-semibold">Basic Rule:</strong> A foreign detainee must be informed of their right to have their consulate notified. Their decision must be documented.</p></div></details>
+                <details class="card p-0"><summary>The 4 Steps for a Foreign National Arrest</summary><div class="p-6 border-t"><ol class="list-decimal list-inside space-y-3 text-gray-700"><li><strong>Ask the detainee if they are a U.S. citizen.</strong> If not, determine their country of citizenship.</li><li><strong>Check the list of mandatory notification countries.</strong> If their country is on the list, you MUST notify their consulate without delay (max 72 hours), regardless of the detainee's wishes.</li><li><strong>If NOT a mandatory country, ask if they wish for their consulate to be notified.</strong></li><li><strong>Document everything:</strong> The detainee's response, and if notification is made, record the date, time, method, and person notified.</li></ol></div></details>
+                <details class="card p-0"><summary>XIII. Diplomatic Immunity</summary><div class="p-6 border-t"><p class="mb-4">Diplomatic agents and their families may have immunity from criminal prosecution. Immunity must be verified through the Office of Foreign Missions (OFM).</p><div class="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-r-lg"><h4 class="font-semibold text-lg mb-2">The C.A.N. Principle</h4><ul class="list-disc list-inside"><li><strong class="font-semibold">CALL</strong> the Department of State to verify immunity status.</li><li><strong class="font-semibold">ASSIST</strong> by fully documenting the incident and issuing any relevant citations.</li><li><strong class="font-semibold">NOTIFY</strong> the Department of State by sending them copies of all reports and citations.</li></ul></div></div></details>
+            </div>
+
+            <!-- Post-Arrest Duties Tab -->
+            <div id="tab-duties" class="tab-pane hidden space-y-6">
+                 <h2 class="text-3xl font-bold text-gray-800 mb-6">XIV-XVII. Post-Arrest Duties & Timelines</h2>
+                 <details class="card p-0" open><summary>Taking Before Magistrate (CCP 15.17)</summary><div class="p-6 border-t"><p>Must be done without unnecessary delay, but no later than <strong>48 hours</strong> after arrest. The magistrate must inform the person of charges, right to counsel, right to remain silent, right to terminate interview, and right to an examining trial.</p></div></details>
+                 <details class="card p-0"><summary>Release on Bond if No PC (CCP 17.033)</summary><div class="p-6 border-t"><ul class="list-disc list-inside space-y-2"><li><strong>Misdemeanor:</strong> Release on bond (max $5,000) not later than <strong>24 hours</strong> if no PC determination.</li><li><strong>Felony:</strong> Release on bond (max $10,000) not later than <strong>48 hours</strong> if no PC determination.</li><li>If unable to obtain surety, must be released on personal bond.</li></ul></div></details>
+                 <details class="card p-0"><summary>Commitment & Bail (CCP 16.20, 17.20-22)</summary><div class="p-6 border-t"><p><strong>Commitment:</strong> A magistrate's written order directing a sheriff to receive and place a person in jail.</p><p class="mt-2"><strong>Bail:</strong> In misdemeanors, a sheriff/peace officer/jailer MAY take bail. In felonies, they may only take bail in the amount set by the court (unless court is not in session).</p></div></details>
+                 <details class="card p-0"><summary>Out-of-County Warrants (CCP 15.19-21)</summary><div class="p-6 border-t"><p>If a person is arrested on an out-of-county warrant and does not give bail, the magistrate notifies the sheriff of the county where the offense is alleged.</p><p class="mt-2">If the proper agency does not demand and take charge of the arrested person before the <strong>11th day</strong> after commitment, the magistrate shall release the person on a personal bond.</p></div></details>
+            </div>
+            
+            <!-- Resources Tab -->
+            <div id="tab-resources" class="tab-pane hidden space-y-8">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6">Comprehensive Knowledge Check</h2>
+                    <p class="mb-6 text-gray-600">Answer the questions below to test your knowledge. Click an option to see the correct answer, reference, and explanation.</p>
+                    <div id="quiz-container" class="space-y-8"></div>
+                    <div class="mt-8 text-center">
+                        <button id="reset-quiz" class="bg-indigo-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-indigo-700">Reset Quiz</button>
+                    </div>
+                </div>
+                <div class="card p-6">
+                    <h3 class="text-2xl font-semibold text-indigo-700 mb-4">Glossary of Key Terms</h3>
+                    <dl>
+                        <dt>Booking Process</dt><dd>The administrative procedure of officially registering an arrest, which includes recording information, fingerprinting, photographing, and inventorying property.</dd>
+                        <dt>CCP (Code of Criminal Procedure)</dt><dd>A body of law that outlines the procedures for criminal prosecution in Texas.</dd>
+                        <dt>Commitment</dt><dd>A formal order signed by a magistrate directing a sheriff to receive and place a person into jail.</dd>
+                        <dt>Consular Notification</dt><dd>Informing a foreign detainee of their right to have their consulate notified, or the mandatory notification of certain consulates.</dd>
+                        <dt>Diplomatic Immunity</dt><dd>A privilege providing diplomatic personnel with protection from arrest and prosecution.</dd>
+                        <dt>Florence v. Board (2012)</dt><dd>A U.S. Supreme Court case ruling that strip searches of arrestees entering a jail, even for minor offenses, do not require reasonable suspicion.</dd>
+                        <dt>Harassment by Persons in Certain Facilities (PC 22.11)</dt><dd>An offense where a confined person causes another to contact bodily fluids with intent to assault, harass, or alarm.</dd>
+                        <dt>Mandatory Notification Countries</dt><dd>Countries with treaties requiring their consulates to be notified of a national's arrest, regardless of the detainee’s wishes.</dd>
+                        <dt>PC (Penal Code)</dt><dd>The body of law that defines criminal offenses and their corresponding punishments in Texas.</dd>
+                        <dt>Personal Bond (PR Bond)</dt><dd>A bond where the defendant promises to appear in court and pays no money upfront.</dd>
+                        <dt>TCIC/NCIC</dt><dd>Texas/National Crime Information Center; computerized indexes of criminal justice information.</dd>
+                        <dt>Unnecessary Delay</dt><dd>A legal term defined by specific time limits (e.g., 48 hours in Texas) for bringing an arrestee before a magistrate.</dd>
+                        <dt>VCCR (Vienna Convention on Consular Relations)</dt><dd>An international treaty defining the framework for consular relations, including notification of arrested nationals.</dd>
+                    </dl>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+        });
+    });
+
+    // Quiz Functionality
+    const quizData = [
+        {
+            question: "According to PC 9.53, a correctional officer is justified in using force to maintain security, ensure their own safety, and:",
+            options: ["Punish an inmate for rule violations", "Ensure the safety or security of other persons in custody or employed", "Enforce silence during lockdowns", "Prevent inmates from speaking to each other"],
+            answer: "Ensure the safety or security of other persons in custody or employed",
+            reference: "PC 9.53",
+            explanation: "Penal Code 9.53 specifies that force is justified to maintain security of the facility, for the officer's own safety, and for the safety of other inmates or employees."
+        },
+        {
+            question: "If a person knowingly directs a laser pointer at a uniformed firefighter, causing bodily injury, what is the level of the offense?",
+            options: ["Class C Misdemeanor", "Class A Misdemeanor", "3rd Degree Felony", "1st Degree Felony"],
+            answer: "3rd Degree Felony",
+            reference: "PC 42.13(c)(1)",
+            explanation: "PC 42.13 elevates the offense from a Class C misdemeanor to a 3rd Degree Felony if the act causes bodily injury to the uniformed safety officer."
+        },
+        {
+            question: "If a person dies in the custody of a peace officer, the director of the law enforcement agency must file a written report with which entity?",
+            options: ["The Governor's Office", "The local District Attorney", "The Texas Commission on Jail Standards", "The Attorney General"],
+            answer: "The Attorney General",
+            reference: "CCP 49.18(b)",
+            explanation: "CCP 49.18(b) mandates that a written report of the cause of death be filed with the attorney general no later than the 30th day after the death."
+        },
+        {
+            question: "The Supreme Court case Florence v. Board of Chosen Freeholders established that strip searches for minor offenses in a jail setting:",
+            options: ["Require a search warrant", "Require reasonable suspicion", "Do not require reasonable suspicion", "Are unconstitutional"],
+            answer: "Do not require reasonable suspicion",
+            reference: "Florence v. Board (2012)",
+            explanation: "The court ruled that legitimate penological interests allow correctional officials to conduct strip searches on all arrestees being admitted to the general population without reasonable suspicion."
+        },
+        {
+            question: "An inmate who, with intent to harass an officer, causes the officer to come into contact with their saliva has committed what offense?",
+            options: ["Assault (Class A)", "Disorderly Conduct (Class C)", "Harassment by Persons in Certain Facilities (3rd Degree Felony)", "No offense if no injury occurs"],
+            answer: "Harassment by Persons in Certain Facilities (3rd Degree Felony)",
+            reference: "PC 22.11",
+            explanation: "PC 22.11 makes it a 3rd Degree Felony for a confined person to cause another (including an officer) to contact bodily fluids with the intent to assault, harass, or alarm."
+        },
+        {
+            question: "What is the primary purpose of the Vienna Convention on Consular Relations (VCCR)?",
+            options: ["To grant diplomatic immunity", "To ensure a foreign national can get assistance from their own government", "To facilitate international trade", "To regulate prisoner transfers"],
+            answer: "To ensure a foreign national can get assistance from their own government",
+            reference: "VCCR Article 36",
+            explanation: "The VCCR's purpose is to ensure that foreign nationals arrested or detained in another country are not cut off from their own government and can receive consular assistance."
+        },
+        {
+            question: "You arrest a citizen of China (a mandatory notification country). The detainee insists you do not contact their consulate. What must you do?",
+            options: ["Respect their wishes and do not make contact.", "Notify the consulate anyway, without delay.", "Tell them you will notify the consulate only if they are convicted.", "Contact the U.S. Department of State instead."],
+            answer: "Notify the consulate anyway, without delay.",
+            reference: "VCCR Mandatory Rule",
+            explanation: "For countries on the mandatory notification list, the consulate MUST be notified regardless of the detainee's wishes. This is a requirement of bilateral treaties."
+        },
+        {
+            question: "What is the first step in the 'C.A.N.' Principle when encountering a person claiming diplomatic immunity?",
+            options: ["Arrest them immediately", "Notify your supervisor", "CALL the Department of State to verify status", "ASSIST by writing a report"],
+            answer: "CALL the Department of State to verify status",
+            reference: "OFM C.A.N. Principle",
+            explanation: "The first and most critical step is to CALL the Department of State's 24/7 hotline to verify the person's identity and level of immunity before taking further action."
+        },
+        {
+            question: "According to CCP 15.17, an arrested person must be taken before a magistrate without unnecessary delay, but no later than:",
+            options: ["12 hours", "24 hours", "48 hours", "72 hours"],
+            answer: "48 hours",
+            reference: "CCP 15.17(a)",
+            explanation: "The statute explicitly sets the maximum time limit at 48 hours after the arrest for the person to be brought before a magistrate for their warnings."
+        },
+        {
+            question: "A person is arrested for a misdemeanor without a warrant. Under CCP 17.033, if a magistrate has not made a PC determination, they must be released on bond within:",
+            options: ["12 hours", "24 hours", "48 hours", "72 hours"],
+            answer: "24 hours",
+            reference: "CCP 17.033(a)",
+            explanation: "For misdemeanors, the time limit for a probable cause determination is 24 hours. If not met, the person must be released on a bond not to exceed $5,000."
+        },
+        {
+            question: "A written order from a magistrate directing a sheriff to receive and place a person in jail is called a:",
+            options: ["Warrant", "Subpoena", "Commitment", "Bail Bond"],
+            answer: "Commitment",
+            reference: "CCP 16.20",
+            explanation: "CCP 16.20 defines a 'commitment' as an order signed by a magistrate directing a sheriff to receive and place a person in jail."
+        },
+        {
+            question: "If an agency from another county does not take charge of a prisoner arrested on their warrant before the 11th day, the magistrate shall:",
+            options: ["Release the prisoner on a personal bond", "Hold the prisoner indefinitely", "Double the bail amount", "Transfer the prisoner to a state facility"],
+            answer: "Release the prisoner on a personal bond",
+            reference: "CCP 15.21",
+            explanation: "CCP 15.21 mandates that if the proper agency doesn't take custody before the 11th day, the magistrate must release the person on a personal bond."
+        },
+        {
+            question: "Who MAY take bail in a misdemeanor case, according to CCP 17.20?",
+            options: ["Only a magistrate", "Only the arresting officer", "A sheriff, peace officer, or licensed jailer", "Only a licensed bondsman"],
+            answer: "A sheriff, peace officer, or licensed jailer",
+            reference: "CCP 17.20",
+            explanation: "The statute authorizes a sheriff, other peace officer, or a licensed jailer to take a defendant's bail in misdemeanor cases."
+        },
+        {
+            question: "If an out-of-county arraignment results in the person being remanded to custody, they may be held in the magistrate's county jail for a maximum of ____ before transfer.",
+            options: ["24 hours", "48 hours", "72 hours", "11 days"],
+            answer: "72 hours",
+            reference: "CCP 15.19(b)",
+            explanation: "CCP 15.19(b) specifies a maximum confinement period of 72 hours in the magistrate's county jail before the prisoner must be transferred to the county where the arrest occurred."
+        },
+        {
+            question: "A court can order an arrestee to undergo testing for communicable diseases under CCP 18.22 if:",
+            options: ["The officer requests it for any reason.", "The arrestee appears ill.", "The arrestee caused an officer to come into contact with their bodily fluids.", "The arrest is for any felony offense."],
+            answer: "The arrestee caused an officer to come into contact with their bodily fluids.",
+            reference: "CCP 18.22(a)",
+            explanation: "The statute requires that during the offense or arrest, the person must have caused an emergency response employee to come into contact with their bodily fluids for a court to order testing."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const optionsHtml = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-3 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${optionsHtml}</div>
+                <div class="answer-explanation hidden mt-4 p-4 rounded-lg" id="explanation-${questionNumber}">
+                    <p class="font-bold">Correct Answer: <span class="font-normal">${currentQuestion.answer}</span></p>
+                    <p class="font-bold mt-2">Reference: <span class="font-normal text-indigo-600">${currentQuestion.reference}</span></p>
+                    <p class="font-bold mt-2">Explanation: <span class="font-normal">${currentQuestion.explanation}</span></p>
+                </div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const questionData = quizData[questionNumber];
+        const correctAnswer = questionData.answer;
+
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        const explanationContainer = document.getElementById(`explanation-${questionNumber}`);
+
+        // Disable further clicks on this question's options
+        optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.removeEventListener('click', selectAnswer);
+            opt.style.cursor = 'default';
+            // Reveal the correct answer
+            if(opt.textContent === correctAnswer) {
+                opt.classList.add('correct');
+            }
+        });
+
+        // Mark the selected option
+        if (selectedOption.textContent !== correctAnswer) {
+            selectedOption.classList.add('incorrect');
+        }
+        
+        // Show explanation
+        explanationContainer.classList.remove('hidden');
+    }
+    
+    document.getElementById('reset-quiz').addEventListener('click', buildQuiz);
+
+    buildQuiz();
+});
+</script>
+
+</body>
+</html>

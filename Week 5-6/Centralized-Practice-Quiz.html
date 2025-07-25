@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Centralized Practice Quiz: Texas Law Topics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #fef2f2; }
+        .card { background-color: white; border-radius: 0.75rem; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1); }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
+        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Centralized Practice Quiz</h1>
+            <p class="text-lg text-gray-600 mt-2">Texas Law Topics: Booking, Patrol, Property, Theft, Weapons</p>
+        </header>
+        <section class="mb-8">
+            <h2 class="text-xl font-semibold mb-2">Select Topics:</h2>
+            <form id="topic-filter" class="flex flex-wrap gap-4">
+                <label class="flex items-center gap-2"><input type="checkbox" value="Booking" checked> Booking-Consular Procedures</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Patrol" checked> Patrol-CDM</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Property" checked> Property-Trespass Offenses</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Theft" checked> Theft-Burglary Offenses</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Weapons" checked> Weapons Offense</label>
+            </form>
+            <button id="start-quiz" class="mt-4 bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700">Start Quiz</button>
+        </section>
+        <main>
+            <div id="quiz-container" class="space-y-8 hidden"></div>
+            <div id="quiz-results" class="mt-8 text-center hidden">
+                <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                <button id="retake-quiz" class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700">Retake Quiz</button>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Comprehensive questions organized by topic
+    const allQuestions = {
+        Booking: [
+            {
+                question: "What is the primary purpose of consular notification during booking?",
+                options: ["To inform the arrestee's family", "To comply with international law", "To expedite release", "To notify the arresting officer's supervisor"],
+                answer: "To comply with international law",
+                explanation: "Consular notification is required by treaties to ensure foreign nationals are informed of their right to contact their consulate when arrested."
+            },
+            {
+                question: "Which document should be provided to a foreign national upon booking?",
+                options: ["Miranda warning", "Consular rights notice", "Bail bond form", "Property receipt"],
+                answer: "Consular rights notice",
+                explanation: "A consular rights notice informs foreign nationals of their right to contact their consulate, as required by law."
+            },
+            {
+                question: "Who must be notified when a foreign national is arrested?",
+                options: ["The consulate of the foreign national's country", "The governor", "The local police chief", "The arrestee's attorney"],
+                answer: "The consulate of the foreign national's country",
+                explanation: "International law requires notification of the consulate when a foreign national is arrested."
+            },
+            {
+                question: "What is the Vienna Convention's role in booking procedures?",
+                options: ["It sets bail amounts", "It requires consular notification", "It defines Miranda rights", "It regulates property handling"],
+                answer: "It requires consular notification",
+                explanation: "The Vienna Convention on Consular Relations requires consular notification for foreign nationals."
+            },
+            {
+                question: "What should officers do if a foreign national requests consular assistance?",
+                options: ["Deny the request", "Contact the consulate immediately", "Wait until after booking", "Refer to a supervisor"],
+                answer: "Contact the consulate immediately",
+                explanation: "Officers must promptly contact the consulate if requested by a foreign national."
+            },
+            // Additional questions for Booking
+            {
+                question: "Which step comes first in the consular notification process?",
+                options: ["Contact the consulate", "Inform the arrestee of their rights", "Release the arrestee", "Notify the supervisor"],
+                answer: "Inform the arrestee of their rights",
+                explanation: "The first step is to inform the foreign national of their right to consular notification."
+            },
+            {
+                question: "What information is typically provided to the consulate when notifying them of an arrest?",
+                options: ["Arrestee's name, country, location, and reason for detention", "Arrestee's family history", "Arrestee's medical records", "Arrestee's employment status"],
+                answer: "Arrestee's name, country, location, and reason for detention",
+                explanation: "Consulates are provided with basic details about the arrestee and the circumstances of the detention."
+            },
+            {
+                question: "Failure to notify a consulate when required can result in:",
+                options: ["Dismissal of charges", "International disputes and appeals", "Immediate release of the arrestee", "No consequences"],
+                answer: "International disputes and appeals",
+                explanation: "Failure to notify can lead to international legal issues and appeals."
+            },
+            {
+                question: "Which of the following countries require mandatory consular notification upon arrest?",
+                options: ["Mexico", "Canada", "United Kingdom", "Australia"],
+                answer: "Mexico",
+                explanation: "Mexico is one of the countries that require mandatory consular notification."
+            },
+            {
+                question: "What is the officer's responsibility if the arrestee is a dual national?",
+                options: ["Notify both consulates", "Notify only the country of birth", "No notification required", "Notify the supervisor"],
+                answer: "Notify both consulates",
+                explanation: "If the arrestee is a dual national, both consulates should be notified."
+            },
+            {
+                question: "What is the consequence for law enforcement if consular notification is not made?",
+                options: ["No consequence", "International legal challenges", "Immediate release of arrestee", "Arrest of officer"],
+                answer: "International legal challenges",
+                explanation: "Failure to notify can result in international legal challenges and appeals, and may affect prosecution."
+            },
+            {
+                question: "What rights does a foreign national have regarding consular notification?",
+                options: ["Right to refuse notification", "Right to have consulate notified", "No rights", "Right to immediate release"],
+                answer: "Right to have consulate notified",
+                explanation: "Foreign nationals have the right to have their consulate notified of their detention or arrest."
+            },
+            {
+                question: "How soon should consular notification be made after a foreign national is detained?",
+                options: ["Immediately", "Within 24 hours", "Within 72 hours", "Before release"],
+                answer: "Immediately",
+                explanation: "Consular notification should be made as soon as possible after detention."
+            },
+            {
+                question: "What is the difference between mandatory and optional consular notification countries?",
+                options: ["Mandatory countries require notification regardless of arrestee's wishes; optional countries require notification only if requested", "Mandatory countries require notification only if requested; optional countries require notification regardless of arrestee's wishes", "No difference", "Mandatory countries do not require notification"],
+                answer: "Mandatory countries require notification regardless of arrestee's wishes; optional countries require notification only if requested",
+                explanation: "Mandatory notification countries must be notified regardless of the arrestee's wishes; optional notification is only if requested."
+            },
+            {
+                question: "What should be documented by the officer regarding consular notification?",
+                options: ["Date, time, method, and consulate notified", "Arrestee's family history", "Officer's opinion", "Arrestee's medical records"],
+                answer: "Date, time, method, and consulate notified",
+                explanation: "Officers should document the date, time, method, and consulate notified for recordkeeping."
+            },
+            {
+                question: "What is the role of the consulate after notification?",
+                options: ["Provide legal and welfare assistance", "Release the arrestee", "Prosecute the officer", "No role"],
+                answer: "Provide legal and welfare assistance",
+                explanation: "Consulates may provide legal, welfare, and communication assistance to the arrestee."
+            },
+            {
+                question: "Can a foreign national refuse consular notification? If so, what should the officer do?",
+                options: ["Yes, and document the refusal", "No, must notify regardless", "Yes, and ignore the request", "No, must notify supervisor"],
+                answer: "Yes, and document the refusal",
+                explanation: "If the arrestee refuses, the officer should document the refusal."
+            },
+            {
+                question: "What is the recommended method for notifying a consulate?",
+                options: ["Written or telephone notification", "Social media", "In-person only", "No notification required"],
+                answer: "Written or telephone notification",
+                explanation: "Notification is typically made by phone or in writing."
+            },
+            {
+                question: "What information should be included in the consular notification log?",
+                options: ["Date, time, consulate, officer name, arrestee info", "Arrestee's medical history", "Officer's personal opinion", "Arrestee's employment status"],
+                answer: "Date, time, consulate, officer name, arrestee info",
+                explanation: "The log should include all relevant details of the notification."
+            },
+            {
+                question: "What is the impact of consular notification on the legal process for the arrestee?",
+                options: ["May provide legal and communication support", "No impact", "Immediate release", "Arrest of officer"],
+                answer: "May provide legal and communication support",
+                explanation: "Consular notification may help the arrestee access legal and communication support."
+            },
+            {
+                question: "What is the responsibility of the booking officer if the arrestee does not speak English?",
+                options: ["Provide notification in a language the arrestee understands", "No notification required", "Notify supervisor only", "Release the arrestee"],
+                answer: "Provide notification in a language the arrestee understands",
+                explanation: "Notification must be provided in a language the arrestee understands."
+            },
+            {
+                question: "What is the purpose of the consular notification form?",
+                options: ["To document notification and arrestee's response", "To release the arrestee", "To notify the supervisor", "No purpose"],
+                answer: "To document notification and arrestee's response",
+                explanation: "The form documents the notification and the arrestee's response."
+            },
+            {
+                question: "What should an officer do if unsure about the arrestee’s nationality?",
+                options: ["Ask the arrestee and verify documents", "Guess based on appearance", "No notification required", "Notify supervisor only"],
+                answer: "Ask the arrestee and verify documents",
+                explanation: "Officers should ask and verify nationality before notification."
+            },
+            {
+                question: "What is the role of the supervisor in consular notification cases?",
+                options: ["Ensure compliance and proper documentation", "Release the arrestee", "Notify the consulate", "No role"],
+                answer: "Ensure compliance and proper documentation",
+                explanation: "Supervisors ensure officers comply and document notification properly."
+            },
+            {
+                question: "What is the recommended action if the consulate does not respond to notification?",
+                options: ["Document the attempt and continue with booking", "Release the arrestee", "Notify supervisor only", "No action required"],
+                answer: "Document the attempt and continue with booking",
+                explanation: "If the consulate does not respond, document the attempt and proceed."
+            },
+            {
+                question: "What is the difference between consular notification and embassy notification?",
+                options: ["Consular notification is for routine matters; embassy notification is for diplomatic or emergency matters", "No difference", "Embassy notification is always required", "Consular notification is only for U.S. citizens"],
+                answer: "Consular notification is for routine matters; embassy notification is for diplomatic or emergency matters",
+                explanation: "Consular notification is routine; embassy notification is for emergencies or diplomatic issues."
+            },
+            {
+                question: "What is the penalty for repeated failure to notify consulates as required?",
+                options: ["Disciplinary action and possible legal consequences", "No penalty", "Immediate release of arrestee", "Promotion"],
+                answer: "Disciplinary action and possible legal consequences",
+                explanation: "Repeated failure may result in discipline and legal consequences."
+            },
+            {
+                question: "What is the importance of consular notification in international relations?",
+                options: ["Maintains good diplomatic relations and compliance with treaties", "No importance", "Leads to international conflict", "Required for all arrests"],
+                answer: "Maintains good diplomatic relations and compliance with treaties",
+                explanation: "Consular notification helps maintain diplomatic relations and treaty compliance."
+            },
+            {
+                question: "What is the officer’s responsibility if the arrestee is a minor and a foreign national?",
+                options: ["Notify the consulate and guardian", "No notification required", "Release the minor", "Notify supervisor only"],
+                answer: "Notify the consulate and guardian",
+                explanation: "Officers must notify both the consulate and the minor's guardian."
+            },
+            {
+                question: "What is the role of the consulate in providing legal assistance to the arrestee?",
+                options: ["May provide legal counsel and support", "No role", "Release the arrestee", "Prosecute the officer"],
+                answer: "May provide legal counsel and support",
+                explanation: "Consulates may provide legal counsel and support to the arrestee."
+            },
+            {
+                question: "What is the process for updating consular notification records?",
+                options: ["Document all actions and updates in the log", "No updates required", "Notify supervisor only", "Release the arrestee"],
+                answer: "Document all actions and updates in the log",
+                explanation: "All actions and updates should be documented in the notification log."
+            },
+            {
+                question: "What is the officer’s responsibility if the arrestee is unconscious or unable to communicate?",
+                options: ["Notify the consulate based on available information", "No notification required", "Release the arrestee", "Notify supervisor only"],
+                answer: "Notify the consulate based on available information",
+                explanation: "If the arrestee cannot communicate, notify the consulate using available info."
+            },
+            {
+                question: "What is the recommended protocol for consular notification in high-profile cases?",
+                options: ["Notify consulate and supervisor immediately", "No notification required", "Release the arrestee", "Notify only the consulate"],
+                answer: "Notify consulate and supervisor immediately",
+                explanation: "High-profile cases require immediate notification of both consulate and supervisor."
+            },
+            {
+                question: "What is the impact of consular notification on extradition proceedings?",
+                options: ["May affect legal process and rights of arrestee", "No impact", "Immediate release", "Arrest of officer"],
+                answer: "May affect legal process and rights of arrestee",
+                explanation: "Consular notification may affect extradition and legal rights."
+            },
+            {
+                question: "What is the officer’s responsibility if the arrestee claims multiple citizenships?",
+                options: ["Notify all relevant consulates", "Notify only the country of birth", "No notification required", "Notify supervisor only"],
+                answer: "Notify all relevant consulates",
+                explanation: "Notify all consulates for which the arrestee claims citizenship."
+            },
+            {
+                question: "What is the role of the consulate in contacting the arrestee’s family?",
+                options: ["May assist in contacting family and providing support", "No role", "Release the arrestee", "Prosecute the officer"],
+                answer: "May assist in contacting family and providing support",
+                explanation: "Consulates may help contact the arrestee's family and provide support."
+            },
+            {
+                question: "What is the recommended action if the arrestee requests to waive consular notification?",
+                options: ["Document the waiver and do not notify unless required by country", "Ignore the request", "Notify supervisor only", "Release the arrestee"],
+                answer: "Document the waiver and do not notify unless required by country",
+                explanation: "Document the waiver; notify only if required by the country."
+            },
+            {
+                question: "What is the officer’s responsibility if the arrestee is transferred to another jurisdiction?",
+                options: ["Ensure consular notification is made in the new jurisdiction", "No notification required", "Release the arrestee", "Notify supervisor only"],
+                answer: "Ensure consular notification is made in the new jurisdiction",
+                explanation: "Officers must ensure notification is made if the arrestee is transferred."
+            },
+            {
+                question: "What is the role of the consulate in monitoring the welfare of the arrestee?",
+                options: ["May visit and monitor welfare", "No role", "Release the arrestee", "Prosecute the officer"],
+                answer: "May visit and monitor welfare",
+                explanation: "Consulates may visit and monitor the arrestee's welfare."
+            },
+            {
+                question: "What is the officer’s responsibility if the arrestee is released before consular notification is made?",
+                options: ["Document the release and reason for no notification", "No action required", "Notify supervisor only", "Release the arrestee"],
+                answer: "Document the release and reason for no notification",
+                explanation: "If released before notification, document the release and reason."
+            },
+        ],
+        Patrol: [
+            {
+                question: "What is the primary objective of patrol in law enforcement?",
+                options: ["To enforce laws and ordinances", "To provide community outreach", "To conduct investigations", "To manage traffic control"],
+                answer: "To enforce laws and ordinances",
+                explanation: "The primary objective of patrol is to enforce laws and ordinances to maintain public order."
+            },
+            {
+                question: "Which of the following is a key responsibility of patrol officers?",
+                options: ["Conducting traffic stops", "Managing the police department budget", "Developing criminal profiles", "Testifying in court cases"],
+                answer: "Conducting traffic stops",
+                explanation: "Patrol officers are responsible for conducting traffic stops to enforce traffic laws."
+            },
+            {
+                question: "What should a patrol officer do upon observing a crime in progress?",
+                options: ["Immediately intervene and apprehend suspects", "Call for backup and secure the scene", "Ignore it if not directly involved", "Proceed with caution and identify witnesses"],
+                answer: "Call for backup and secure the scene",
+                explanation: "Officers should call for backup and secure the scene to ensure safety and preserve evidence."
+            },
+            {
+                question: "How can patrol officers effectively manage traffic flow at a busy intersection?",
+                options: ["By directing traffic and using hand signals", "By ignoring traffic rules", "By blocking roads with their vehicle", "By using a loudspeaker to communicate"],
+                answer: "By directing traffic and using hand signals",
+                explanation: "Officers can manage traffic flow by directing traffic and using hand signals to communicate with drivers."
+            },
+            {
+                question: "What is the purpose of a patrol car's dashcam?",
+                options: ["To record traffic violations and incidents", "To monitor the officer's behavior", "To provide entertainment", "To navigate unfamiliar areas"],
+                answer: "To record traffic violations and incidents",
+                explanation: "A dashcam records traffic violations and incidents for evidence and review."
+            },
+            {
+                question: "What should an officer do if they receive a call about a suspicious person loitering?",
+                options: ["Ignore it, as it's not a crime", "Respond and investigate the situation", "Ask the dispatcher to handle it", "Leave it for another unit to handle"],
+                answer: "Respond and investigate the situation",
+                explanation: "Officers should respond and investigate to determine if there is a criminal activity or concern."
+            },
+            {
+                question: "How often should patrol officers check in with their dispatch?",
+                options: ["Every hour", "Only when they have something to report", "Regularly, as per department policy", "Never, to avoid radio congestion"],
+                answer: "Regularly, as per department policy",
+                explanation: "Officers should check in regularly as per their department's policy to ensure communication and safety."
+            },
+            {
+                question: "What is the appropriate action for a patrol officer upon encountering a roadblock during a pursuit?",
+                options: ["Ram through the roadblock", "Turn around and find an alternate route", "Stop and wait for instructions", "Call for backup and proceed with caution"],
+                answer: "Call for backup and proceed with caution",
+                explanation: "Officers should call for backup and proceed with caution when encountering a roadblock during a pursuit."
+            },
+            {
+                question: "What is the primary purpose of community policing?",
+                options: ["To increase police presence in high-crime areas", "To build positive relationships between police and community members", "To enforce laws more strictly", "To reduce the number of police officers on patrol"],
+                answer: "To build positive relationships between police and community members",
+                explanation: "Community policing aims to build positive relationships between police and community members to enhance cooperation and trust."
+            },
+            {
+                question: "What should a patrol officer do if they suspect a driver is under the influence of alcohol?",
+                options: ["Ignore it, unless the driver is speeding", "Follow the vehicle closely without being obvious", "Conduct a traffic stop and investigate", "Call for backup and wait for a supervisor"],
+                answer: "Conduct a traffic stop and investigate",
+                explanation: "Officers should conduct a traffic stop and investigate if they suspect a driver is under the influence."
+            },
+            {
+                question: "How can patrol officers contribute to crime prevention in their assigned area?",
+                options: ["By being visible and engaging with the community", "By avoiding interaction with citizens", "By focusing solely on traffic enforcement", "By limiting patrols to high-crime areas only"],
+                answer: "By being visible and engaging with the community",
+                explanation: "Visibility and community engagement by patrol officers can deter criminal activity and build community trust."
+            },
+            {
+                question: "What is the role of a patrol supervisor?",
+                options: ["To oversee and support patrol officers", "To conduct criminal investigations", "To manage the police department's finances", "To handle public relations"],
+                answer: "To oversee and support patrol officers",
+                explanation: "A patrol supervisor oversees and supports patrol officers, ensuring proper procedures and policies are followed."
+            },
+            {
+                question: "What should a patrol officer do if they receive a report of a domestic disturbance?",
+                options: ["Ignore it, as it's a private matter", "Respond and assess the situation", "Call for backup and wait outside", "Leave it for a detective to handle"],
+                answer: "Respond and assess the situation",
+                explanation: "Officers should respond to and assess domestic disturbances to ensure safety and resolve the situation."
+            },
+            {
+                question: "How can patrol officers effectively use their body-worn cameras?",
+                options: ["By recording all interactions with the public", "By using it only when they anticipate a confrontation", "By turning it off during routine stops", "By allowing the suspect to control the camera"],
+                answer: "By recording all interactions with the public",
+                explanation: "Body-worn cameras should be used to record all interactions to ensure transparency and accountability."
+            },
+            {
+                question: "What is the importance of scene security in patrol operations?",
+                options: ["To allow officers to take breaks", "To preserve the integrity of the scene for investigation", "To prevent media from accessing the scene", "To ensure no one enters the scene"],
+                answer: "To preserve the integrity of the scene for investigation",
+                explanation: "Scene security is crucial to preserve the scene's integrity for a thorough and accurate investigation."
+            },
+            {
+                question: "What should a patrol officer do if they are involved in a minor traffic accident while on duty?",
+                options: ["Ignore it and continue patrolling", "Report the accident to their supervisor and file a report", "Exchange information and leave", "Call for a tow truck only"],
+                answer: "Report the accident to their supervisor and file a report",
+                explanation: "Officers must report any traffic accidents while on duty and file the necessary reports as per policy."
+            },
+            {
+                question: "How can patrol officers effectively manage a large crowd at an event?",
+                options: ["By using loudspeakers to disperse the crowd", "By calling for backup and managing the crowd's movement", "By ignoring the crowd", "By leaving the area"],
+                answer: "By calling for backup and managing the crowd's movement",
+                explanation: "Managing a large crowd requires coordination and backup to ensure safety and order."
+            },
+            {
+                question: "What is the role of a school resource officer (SRO)?",
+                options: ["To enforce laws strictly on school property", "To provide security and build relationships within the school community", "To conduct all criminal investigations in the school", "To manage school finances"],
+                answer: "To provide security and build relationships within the school community",
+                explanation: "SROs provide security and build positive relationships within the school community to enhance safety and cooperation."
+            },
+            {
+                question: "What should a patrol officer do if they receive a report of a suspicious package?",
+                options: ["Ignore it, as it's probably nothing", "Evacuate the area and call for bomb squad assistance", "Open the package to check", "Take it to the police station"],
+                answer: "Evacuate the area and call for bomb squad assistance",
+                explanation: "Suspicious packages should be treated seriously; the area should be evacuated, and bomb squad assistance should be requested."
+            },
+            {
+                question: "How can patrol officers effectively deal with a language barrier during a call?",
+                options: ["By using basic English only", "By calling for a supervisor who speaks the language", "By using translation apps or services", "By ignoring the language barrier"],
+                answer: "By using translation apps or services",
+                explanation: "Translation apps or services can help officers communicate effectively despite a language barrier."
+            },
+            {
+                question: "What is the importance of officer wellness in patrol duties?",
+                options: ["To ensure officers are fit for duty and can perform their tasks effectively", "To reduce the number of officers on patrol", "To increase the number of hours officers work", "To allow officers to take extended breaks"],
+                answer: "To ensure officers are fit for duty and can perform their tasks effectively",
+                explanation: "Officer wellness is crucial to ensure they are fit for duty and can perform their tasks effectively and safely."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a vehicle with expired registration?",
+                options: ["Ignore it, as it's not a priority", "Conduct a traffic stop and issue a citation or warning", "Tow the vehicle immediately", "Call for a supervisor to handle it"],
+                answer: "Conduct a traffic stop and issue a citation or warning",
+                explanation: "Officers should address expired registration by conducting a traffic stop and issuing a citation or warning as appropriate."
+            },
+            {
+                question: "How can patrol officers effectively use cover and concealment?",
+                options: ["By staying in the open to be seen", "By using vehicles, buildings, and natural terrain for protection", "By hiding at all times", "By using bright colors to stand out"],
+                answer: "By using vehicles, buildings, and natural terrain for protection",
+                explanation: "Cover and concealment protect officers from potential threats while allowing them to observe and respond to incidents."
+            },
+            {
+                question: "What is the role of a detective in the criminal investigation process?",
+                options: ["To arrest suspects", "To collect and analyze evidence, and follow up on leads", "To testify in all court cases", "To provide security at the crime scene"],
+                answer: "To collect and analyze evidence, and follow up on leads",
+                explanation: "Detectives collect and analyze evidence, and follow up on leads to solve crimes and prepare cases for prosecution."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible burglary in progress?",
+                options: ["Ignore it, as it's probably a false alarm", "Respond quickly and investigate the situation", "Call for backup and wait", "Drive by slowly and observe"],
+                answer: "Respond quickly and investigate the situation",
+                explanation: "Officers should respond quickly to investigate possible burglaries in progress to prevent loss and apprehend suspects."
+            },
+            {
+                question: "How can patrol officers effectively manage their time during a shift?",
+                options: ["By prioritizing calls and tasks based on urgency and importance", "By completing reports only", "By taking long breaks", "By avoiding communication with dispatch"],
+                answer: "By prioritizing calls and tasks based on urgency and importance",
+                explanation: "Effective time management involves prioritizing calls and tasks based on their urgency and importance."
+            },
+            {
+                question: "What is the importance of interagency cooperation in patrol operations?",
+                options: ["To avoid duplication of efforts and share resources", "To compete with other agencies", "To limit the scope of patrol operations", "To increase the number of officers on patrol"],
+                answer: "To avoid duplication of efforts and share resources",
+                explanation: "Interagency cooperation avoids duplication of efforts and shares resources for more effective patrol operations."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a person with a weapon?",
+                options: ["Approach them calmly and ask for identification", "Call for backup and secure the area", "Ignore the weapon and continue talking", "Use force to disarm them immediately"],
+                answer: "Call for backup and secure the area",
+                explanation: "Officers should call for backup and secure the area when encountering a person with a weapon to ensure safety."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with an emotionally disturbed person?",
+                options: ["By using physical force to restrain them", "By calling for backup and using de-escalation techniques", "By ignoring their behavior", "By laughing and making jokes"],
+                answer: "By calling for backup and using de-escalation techniques",
+                explanation: "De-escalation techniques and backup can help safely manage situations with emotionally disturbed persons."
+            },
+            {
+                question: "What is the role of a patrol officer in a civil disturbance?",
+                options: ["To ignore it unless someone is hurt", "To intervene only if called by a supervisor", "To maintain order and protect life and property", "To take sides with one party"],
+                answer: "To maintain order and protect life and property",
+                explanation: "Patrol officers maintain order and protect life and property during civil disturbances."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible hostage situation?",
+                options: ["Ignore it, as it's probably a prank", "Respond and assess the situation, establishing communication if possible", "Call for backup and wait for SWAT", "Leave the area to avoid danger"],
+                answer: "Respond and assess the situation, establishing communication if possible",
+                explanation: "Officers should respond to possible hostage situations, assess the situation, and establish communication if safe to do so."
+            },
+            {
+                question: "How can patrol officers effectively use their training in real-life situations?",
+                options: ["By following procedures and protocols learned in training", "By improvising and not following any procedures", "By only using physical force", "By avoiding any confrontations"],
+                answer: "By following procedures and protocols learned in training",
+                explanation: "Effective use of training involves following the procedures and protocols learned to ensure safety and proper response."
+            },
+            {
+                question: "What is the importance of evidence collection in patrol operations?",
+                options: ["To ensure a successful prosecution and uphold justice", "To increase the number of arrests", "To provide material for media coverage", "To justify the use of force"],
+                answer: "To ensure a successful prosecution and uphold justice",
+                explanation: "Proper evidence collection is crucial for successful prosecution and upholding justice."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a fire while on patrol?",
+                options: ["Ignore it, as it's not their responsibility", "Call the fire department and provide assistance if trained", "Try to extinguish it with their patrol car", "Block the road and wait for help"],
+                answer: "Call the fire department and provide assistance if trained",
+                explanation: "Officers should report fires and provide assistance if trained, ensuring their safety and the safety of others."
+            },
+            {
+                question: "How can patrol officers effectively deal with a crowd that is becoming unruly?",
+                options: ["By using force to disperse the crowd", "By calling for backup and using crowd management techniques", "By ignoring the crowd", "By leaving the area"],
+                answer: "By calling for backup and using crowd management techniques",
+                explanation: "Effective crowd management may require backup and the use of specific techniques to ensure safety and order."
+            },
+            {
+                question: "What is the role of a patrol officer in an active shooter situation?",
+                options: ["To wait for SWAT to arrive", "To evacuate everyone from the area", "To confront the shooter and neutralize the threat if safe to do so", "To negotiate with the shooter"],
+                answer: "To confront the shooter and neutralize the threat if safe to do so",
+                explanation: "In an active shooter situation, patrol officers may need to confront the shooter and neutralize the threat if it can be done safely."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a suspicious vehicle?",
+                options: ["Ignore it, as it's probably nothing", "Respond and investigate the situation", "Call for backup and wait", "Drive by slowly and observe"],
+                answer: "Respond and investigate the situation",
+                explanation: "Officers should respond to and investigate reports of suspicious vehicles to ensure public safety."
+            },
+            {
+                question: "How can patrol officers effectively manage their stress levels?",
+                options: ["By using unhealthy coping mechanisms", "By seeking support and using stress management techniques", "By ignoring their stress", "By working longer hours"],
+                answer: "By seeking support and using stress management techniques",
+                explanation: "Effective stress management is crucial for officers' well-being and job performance."
+            },
+            {
+                question: "What is the importance of public relations in patrol duties?",
+                options: ["To promote the police department and build community trust", "To handle all media inquiries", "To manage the police budget", "To conduct criminal investigations"],
+                answer: "To promote the police department and build community trust",
+                explanation: "Public relations efforts help promote the police department and build trust within the community."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a person with a mental health crisis?",
+                options: ["Ignore them, as it's not a criminal matter", "Call for backup and provide assistance as trained", "Arrest them for disturbing the peace", "Use force to subdue them"],
+                answer: "Call for backup and provide assistance as trained",
+                explanation: "Officers should call for backup and provide appropriate assistance when encountering mentally ill individuals in a mental health crisis."
+            },
+            {
+                question: "How can patrol officers effectively use their communication skills?",
+                options: ["By shouting commands", "By using clear, calm, and respectful communication", "By ignoring questions", "By only communicating with other officers"],
+                answer: "By using clear, calm, and respectful communication",
+                explanation: "Effective communication skills are essential for patrol officers to interact positively with the community and colleagues."
+            },
+            {
+                question: "What is the role of a patrol officer in enforcing immigration laws?",
+                options: ["To enforce all immigration laws without exception", "To report and detain individuals based on immigration status only", "To assist in enforcing immigration laws as per department policy and legal guidelines", "To ignore immigration laws"],
+                answer: "To assist in enforcing immigration laws as per department policy and legal guidelines",
+                explanation: "Patrol officers assist in enforcing immigration laws as per their department's policy and legal guidelines, ensuring legal and procedural compliance."
+            },
+            {
+                question: "What should a patrol officer do if they witness a crime being committed?",
+                options: ["Ignore it, as it's not their responsibility", "Intervene and attempt to stop the crime", "Call for backup and observe", "Leave the area to avoid involvement"],
+                answer: "Call for backup and observe",
+                explanation: "Officers should call for backup and observe to safely manage the situation and gather evidence."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with a barricaded suspect?",
+                options: ["By negotiating and establishing communication, if safe", "By using force to enter the premises", "By waiting for the suspect to surrender", "By leaving the area"],
+                answer: "By negotiating and establishing communication, if safe",
+                explanation: "Negotiation and communication can be effective in resolving situations with barricaded suspects peacefully."
+            },
+            {
+                question: "What is the role of a patrol officer in a drug-related incident?",
+                options: ["To ignore it, as it's not a priority", "To investigate and take appropriate action based on findings", "To arrest all individuals present", "To call for a detective only"],
+                answer: "To investigate and take appropriate action based on findings",
+                explanation: "Patrol officers investigate drug-related incidents and take appropriate action based on their findings and department policy."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible arson?",
+                options: ["Ignore it, as it's probably a false alarm", "Respond and investigate the situation, ensuring scene safety", "Call for backup and wait", "Drive by slowly and observe"],
+                answer: "Respond and investigate the situation, ensuring scene safety",
+                explanation: "Officers should respond to and investigate reports of possible arson, ensuring the safety of the scene and individuals involved."
+            },
+            {
+                question: "How can patrol officers effectively manage a situation with an armed suspect?",
+                options: ["By using lethal force immediately", "By calling for backup and using cover", "By negotiating and trying to disarm the suspect", "By ignoring the suspect and leaving the area"],
+                answer: "By calling for backup and using cover",
+                explanation: "In situations with armed suspects, officers should call for backup and use cover to protect themselves and others."
+            },
+            {
+                question: "What is the role of a patrol officer in a missing person case?",
+                options: ["To ignore it, as it's not a crime", "To investigate and follow up on leads", "To conduct all interviews", "To manage the media relations"],
+                answer: "To investigate and follow up on leads",
+                explanation: "Patrol officers investigate missing person cases and follow up on leads to locate the missing individual."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a person with a service animal?",
+                options: ["Ignore them, as it's not a criminal matter", "Call for backup and provide assistance as trained", "Arrest them for trespassing", "Use force to remove them"],
+                answer: "Call for backup and provide assistance as trained",
+                explanation: "Officers should call for backup and provide appropriate assistance when encountering individuals with service animals."
+            },
+            {
+                question: "How can patrol officers effectively use their problem-solving skills?",
+                options: ["By avoiding complex situations", "By using problem-solving skills to address and resolve issues", "By relying solely on their training", "By ignoring department policies"],
+                answer: "By using problem-solving skills to address and resolve issues",
+                explanation: "Effective problem-solving skills enable officers to address and resolve issues that arise during patrol duties."
+            },
+            {
+                question: "What is the role of a patrol officer in a sexual assault investigation?",
+                options: ["To conduct the entire investigation", "To secure the scene and preserve evidence", "To interview only the victim", "To arrest the suspect immediately"],
+                answer: "To secure the scene and preserve evidence",
+                explanation: "In sexual assault investigations, patrol officers secure the scene and preserve evidence for further investigation."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible homicide?",
+                options: ["Ignore it, as it's probably a mistake", "Respond and secure the scene, calling for detective assistance", "Call for backup and wait for a supervisor", "Leave the area to avoid involvement"],
+                answer: "Respond and secure the scene, calling for detective assistance",
+                explanation: "Officers should respond to possible homicide calls, secure the scene, and call for detective assistance for investigation."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with a suicidal individual?",
+                options: ["By ignoring the individual", "By calling for backup and providing support as trained", "By using force to restrain the individual", "By leaving the individual alone to calm down"],
+                answer: "By calling for backup and providing support as trained",
+                explanation: "Officers should call for backup and provide appropriate support when encountering individuals who are suicidal."
+            },
+            {
+                question: "What is the role of a patrol officer in a robbery in progress?",
+                options: ["To wait for backup to arrive", "To intervene and attempt to apprehend the suspect", "To observe and report only", "To negotiate with the suspect"],
+                answer: "To intervene and attempt to apprehend the suspect",
+                explanation: "In a robbery in progress, patrol officers may need to intervene and attempt to apprehend the suspect to prevent further harm or loss."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible DUI?",
+                options: ["Ignore it, as it's not a priority", "Respond and investigate the situation", "Call for backup and wait", "Drive by and observe only"],
+                answer: "Respond and investigate the situation",
+                explanation: "Officers should respond to and investigate reports of possible DUI to ensure road safety."
+            },
+            {
+                question: "How can patrol officers effectively manage a situation with a mentally ill individual?",
+                options: ["By using physical force", "By calling for backup and using crisis intervention techniques", "By ignoring the individual", "By leaving the area"],
+                answer: "By calling for backup and using crisis intervention techniques",
+                explanation: "Crisis intervention techniques and backup can help safely manage situations with mentally ill individuals."
+            },
+            {
+                question: "What is the role of a patrol officer in a gang-related incident?",
+                options: ["To ignore it, as it's not their responsibility", "To intervene and prevent further violence", "To arrest all individuals present", "To call for a detective only"],
+                answer: "To intervene and prevent further violence",
+                explanation: "Patrol officers intervene in gang-related incidents to prevent further violence and ensure public safety."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a person with a disability?",
+                options: ["Ignore them, as they don't require assistance", "Offer assistance and accommodate their needs", "Call for a supervisor only", "Provide medical assistance only"],
+                answer: "Offer assistance and accommodate their needs",
+                explanation: "Patrol officers should offer assistance and accommodate the needs of individuals with disabilities."
+            },
+            {
+                question: "How can patrol officers effectively use their negotiation skills?",
+                options: ["By using threats and intimidation", "By remaining calm and using persuasive communication", "By ignoring the other party", "By only using written communication"],
+                answer: "By remaining calm and using persuasive communication",
+                explanation: "Effective negotiation skills involve remaining calm and using persuasive communication to reach a resolution."
+            },
+            {
+                question: "What is the role of a patrol officer in a civil dispute?",
+                options: ["To mediate and resolve the dispute", "To arrest individuals involved", "To ignore the dispute", "To call for a detective only"],
+                answer: "To mediate and resolve the dispute",
+                explanation: "Patrol officers may need to mediate and resolve civil disputes to maintain peace and order."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible hate crime?",
+                options: ["Ignore it, as it's not a priority", "Respond and investigate the situation", "Call for backup and wait", "Drive by slowly and observe"],
+                answer: "Respond and investigate the situation",
+                explanation: "Officers should respond to and investigate reports of possible hate crimes to ensure victim support and gather evidence."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with a non-compliant individual?",
+                options: ["By using physical force immediately", "By calling for backup and using de-escalation techniques", "By ignoring the individual", "By leaving the area"],
+                answer: "By calling for backup and using de-escalation techniques",
+                explanation: "De-escalation techniques and backup can help safely manage situations with non-compliant individuals."
+            },
+            {
+                question: "What is the role of a patrol officer in a public disturbance?",
+                options: ["To ignore it, as it's not a crime", "To intervene and restore order", "To arrest all individuals present", "To call for a supervisor only"],
+                answer: "To intervene and restore order",
+                explanation: "Patrol officers intervene in public disturbances to restore order and ensure public safety."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible scam?",
+                options: ["Ignore it, as it's not a priority", "Respond and gather information about the scam", "Call for backup and wait", "Drive by slowly and observe"],
+                answer: "Respond and gather information about the scam",
+                explanation: "Officers should respond to reports of scams to gather information and provide assistance to potential victims."
+            },
+            {
+                question: "How can patrol officers effectively manage a situation with an intoxicated individual?",
+                options: ["By using physical force", "By calling for backup and using crisis intervention techniques", "By ignoring the individual", "By leaving the area"],
+                answer: "By calling for backup and using crisis intervention techniques",
+                explanation: "Crisis intervention techniques and backup can help safely manage situations with intoxicated individuals."
+            },
+            {
+                question: "What is the role of a patrol officer in a terrorist threat?",
+                options: ["To ignore it, as it's probably a false alarm", "To respond and assess the threat, coordinating with specialized units", "To handle it alone", "To evacuate everyone immediately"],
+                answer: "To respond and assess the threat, coordinating with specialized units",
+                explanation: "In a terrorist threat, patrol officers respond and assess the threat, coordinating with specialized units for a comprehensive response."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a person with a weapon in a public place?",
+                options: ["Approach them calmly and ask for identification", "Call for backup and secure the area", "Ignore the weapon and continue talking", "Use force to disarm them immediately"],
+                answer: "Call for backup and secure the area",
+                explanation: "Officers should call for backup and secure the area when encountering a person with a weapon in a public place to ensure safety."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with a barricaded individual?",
+                options: ["By negotiating and establishing communication, if safe", "By using force to enter the premises", "By waiting for the individual to surrender", "By leaving the area"],
+                answer: "By negotiating and establishing communication, if safe",
+                explanation: "Negotiation and communication can be effective in resolving situations with barricaded individuals peacefully."
+            },
+            {
+                question: "What is the role of a patrol officer in a public health emergency?",
+                options: ["To ignore it, as it's not a criminal matter", "To assist in managing the emergency and ensuring public safety", "To conduct all medical assessments", "To arrest individuals for panic"],
+                answer: "To assist in managing the emergency and ensuring public safety",
+                explanation: "During a public health emergency, patrol officers assist in managing the emergency and ensuring public safety."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible explosion?",
+                options: ["Ignore it, as it's probably a false alarm", "Evacuate the area and call for bomb squad assistance", "Investigate the source of the explosion", "Call for backup and wait"],
+                answer: "Evacuate the area and call for bomb squad assistance",
+                explanation: "In case of a possible explosion, the area should be evacuated, and bomb squad assistance should be requested."
+            },
+            {
+                question: "How can patrol officers effectively deal with a crowd that is becoming violent?",
+                options: ["By using force to disperse the crowd", "By calling for backup and using crowd management techniques", "By ignoring the crowd", "By leaving the area"],
+                answer: "By calling for backup and using crowd management techniques",
+                explanation: "Effective crowd management may require backup and the use of specific techniques to ensure safety and order."
+            },
+            {
+                question: "What is the role of a patrol officer in an evacuation?",
+                options: ["To ignore it, as it's not their responsibility", "To assist in the evacuation and ensure public safety", "To conduct all traffic control", "To manage the media"],
+                answer: "To assist in the evacuation and ensure public safety",
+                explanation: "During an evacuation, patrol officers assist in the evacuation and ensure public safety."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible chemical spill?",
+                options: ["Ignore it, as it's probably a false alarm", "Evacuate the area and call for hazardous materials team assistance", "Investigate the spill", "Call for backup and wait"],
+                answer: "Evacuate the area and call for hazardous materials team assistance",
+                explanation: "In case of a possible chemical spill, the area should be evacuated, and hazardous materials team assistance should be requested."
+            },
+            {
+                question: "How can patrol officers effectively manage a situation with a non-compliant crowd?",
+                options: ["By using force to disperse the crowd", "By calling for backup and using crowd management techniques", "By ignoring the crowd", "By leaving the area"],
+                answer: "By calling for backup and using crowd management techniques",
+                explanation: "Effective crowd management may require backup and the use of specific techniques to ensure safety and order."
+            },
+            {
+                question: "What is the role of a patrol officer in a hostage situation?",
+                options: ["To negotiate with the hostage-taker", "To wait for SWAT to arrive", "To evacuate all bystanders and secure the area", "To confront the hostage-taker immediately"],
+                answer: "To evacuate all bystanders and secure the area",
+                explanation: "In a hostage situation, patrol officers should evacuate all bystanders and secure the area to ensure safety."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible active shooter?",
+                options: ["Ignore it, as it's probably a drill", "Respond and assess the situation, taking cover if necessary", "Call for backup and wait for SWAT", "Leave the area to avoid danger"],
+                answer: "Respond and assess the situation, taking cover if necessary",
+                explanation: "Officers should respond to possible active shooter situations, assess the situation, and take cover if necessary."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with a suicidal subject?",
+                options: ["By ignoring the subject", "By calling for backup and providing support as trained", "By using force to restrain the subject", "By leaving the subject alone to calm down"],
+                answer: "By calling for backup and providing support as trained",
+                explanation: "Officers should call for backup and provide appropriate support when encountering individuals who are suicidal."
+            },
+            {
+                question: "What is the role of a patrol officer in a suspicious package investigation?",
+                options: ["To ignore it, as it's probably harmless", "To evacuate the area and call for bomb squad assistance", "To investigate the package", "To call for a detective only"],
+                answer: "To evacuate the area and call for bomb squad assistance",
+                explanation: "In a suspicious package investigation, the area should be evacuated, and bomb squad assistance should be requested."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible terroristic threat?",
+                options: ["Ignore it, as it's probably a prank", "Respond and assess the threat, coordinating with specialized units", "To handle it alone", "To evacuate everyone immediately"],
+                answer: "Respond and assess the threat, coordinating with specialized units",
+                explanation: "In case of a possible terroristic threat, patrol officers should respond and assess the threat, coordinating with specialized units."
+            },
+            {
+                question: "How can patrol officers effectively manage a situation with an armed individual?",
+                options: ["By using lethal force immediately", "By calling for backup and using cover", "By negotiating and trying to disarm the individual", "By ignoring the individual and leaving the area"],
+                answer: "By calling for backup and using cover",
+                explanation: "In situations with armed individuals, officers should call for backup and use cover to protect themselves and others."
+            }
+        ]
+        // ...other topics (Theft, Weapons, etc.) should follow here as additional properties of allQuestions
+    };
+    // ...rest of the script and HTML
+</script>
+</body>
+</html>
+            },
+            {
+                question: "What is the difference between theft and robbery?",
+                options: ["Theft involves taking property by force; robbery does not", "Robbery involves taking property by force or threat; theft does not", "Theft is a felony; robbery is a misdemeanor", "There is no difference"],
+                answer: "Robbery involves taking property by force or threat; theft does not",
+                explanation: "Robbery is taking property from a person by force or threat of force, while theft is taking property without such threats."
+            },
+            {
+                question: "What is considered 'criminal mischief'?",
+                options: ["Intentionally damaging property", "Accidentally damaging property", "Damaging property for insurance money", "All of the above"],
+                answer: "Intentionally damaging property",
+                explanation: "Criminal mischief involves intentionally damaging or destroying someone else's property, which can include vandalism, graffiti, and other forms of property damage."
+            },
+            {
+                question: "What is the legal term for stealing someone else's property with the intent to permanently deprive them of it?",
+                options: ["Burglary", "Robbery", "Larceny", "Embezzlement"],
+                answer: "Larceny",
+                explanation: "Larceny is the legal term for theft, specifically the unlawful taking and carrying away of someone else's personal property with the intent to permanently deprive the owner of it."
+            },
+            {
+                question: "Which of the following is NOT a type of property crime?",
+                options: ["Shoplifting", "Auto theft", "Arson", "Assault"],
+                answer: "Assault",
+                explanation: "Assault is a violent crime involving the threat or use of force against another person, not a property crime."
+            },
+            {
+                question: "What is 'receiving stolen property'?",
+                options: ["Accepting property that you know is stolen", "Finding and keeping lost property", "Buying property at a garage sale", "All of the above"],
+                answer: "Accepting property that you know is stolen",
+                explanation: "Receiving stolen property involves knowingly accepting or purchasing property that has been stolen, which is a crime even if you did not steal it yourself."
+            },
+            {
+                question: "What is the 'Castle Doctrine'?",
+                options: ["A legal doctrine justifying the use of force in defense of one's home", "A doctrine requiring a person to retreat before using force in self-defense", "A law governing the sale of firearms", "A doctrine related to property taxes"],
+                answer: "A legal doctrine justifying the use of force in defense of one's home",
+                explanation: "The Castle Doctrine is a legal doctrine that allows a person to use reasonable force, including deadly force, to protect their home from intruders."
+            },
+            {
+                question: "What does 'trespassing' mean in property law?",
+                options: ["Entering someone's property without permission", "Parking in a no-parking zone", "Walking on a public sidewalk", "All of the above"],
+                answer: "Entering someone's property without permission",
+                explanation: "Trespassing is entering or remaining on someone else's property without permission, which can be grounds for a property crime charge."
+            },
+            {
+                question: "What is 'vandalism'?",
+                options: ["The act of destroying or defacing property", "The act of stealing property", "The act of threatening someone", "The act of breaking and entering"],
+                answer: "The act of destroying or defacing property",
+                explanation: "Vandalism is the intentional act of destroying, defacing, or otherwise damaging someone else's property without their permission."
+            },
+            {
+                question: "What is the legal consequence of 'larceny'?",
+                options: ["Imprisonment and/or fines", "Community service", "Probation", "No consequence"],
+                answer: "Imprisonment and/or fines",
+                explanation: "Larceny is a criminal offense that can result in imprisonment, fines, or both, depending on the value of the stolen property and the jurisdiction."
+            },
+            {
+                question: "What does 'malicious mischief' refer to in property crimes?",
+                options: ["Intentionally damaging property", "Accidentally damaging property", "Damaging property as a prank", "All of the above"],
+                answer: "Intentionally damaging property",
+                explanation: "Malicious mischief refers to the intentional and malicious destruction or damage of property, which is a criminal offense."
+            },
+            // Additional unique, comprehensive questions for Property and Trespass Offenses
+            {
+                question: "Which of the following is an example of constructive entry in burglary?",
+                options: ["Using a tool to open a window from outside", "Walking through an open door", "Breaking a window and entering", "None of the above"],
+                answer: "Using a tool to open a window from outside",
+                explanation: "Constructive entry occurs when a person uses an instrument or tool to commit a burglary without physically entering the premises."
+            },
+            {
+                question: "What is the difference between larceny and theft?",
+                options: ["Larceny is a type of theft", "Theft is a type of larceny", "There is no difference", "Larceny involves violence"],
+                answer: "Larceny is a type of theft",
+                explanation: "Larceny is a specific type of theft involving the unlawful taking of personal property."
+            },
+            {
+                question: "Which of the following is NOT required to prove burglary?",
+                options: ["Entry", "Intent to commit a crime", "Use of force", "Without consent"],
+                answer: "Use of force",
+                explanation: "Burglary does not require use of force; entry and intent to commit a crime are required."
+            },
+            {
+                question: "What is the legal significance of 'breaking' in burglary?",
+                options: ["It is always required", "It refers to any unauthorized entry", "It only applies to night burglaries", "It is not a legal element"],
+                answer: "It refers to any unauthorized entry",
+                explanation: "'Breaking' in burglary law refers to any unauthorized entry, not necessarily physical breaking."
+            },
+            {
+                question: "Which of the following is an example of trespass to chattels?",
+                options: ["Borrowing a friend's car without permission", "Entering a neighbor's yard", "Damaging a public sign", "Breaking into a house"],
+                answer: "Borrowing a friend's car without permission",
+                explanation: "Trespass to chattels involves interfering with another person's movable property (chattel) without consent."
+            },
+            {
+                question: "What is the main difference between theft and robbery?",
+                options: ["Robbery involves force or threat", "Theft involves violence", "Robbery is always a felony", "There is no difference"],
+                answer: "Robbery involves force or threat",
+                explanation: "Robbery is theft accomplished by force or threat of force; theft does not require force."
+            },
+            {
+                question: "Which of the following is a defense to trespass?",
+                options: ["Consent", "Mistake of law", "Intoxication", "None of the above"],
+                answer: "Consent",
+                explanation: "Consent of the property owner is a valid defense to trespass."
+            },
+            {
+                question: "What is the penalty for criminal mischief in Texas if the damage is less than $100?",
+                options: ["Class C misdemeanor", "Class B misdemeanor", "State jail felony", "Third degree felony"],
+                answer: "Class C misdemeanor",
+                explanation: "In Texas, criminal mischief causing less than $100 in damage is a Class C misdemeanor."
+            },
+            {
+                question: "Which of the following is NOT a type of property crime?",
+                options: ["Arson", "Burglary", "Assault", "Theft"],
+                answer: "Assault",
+                explanation: "Assault is a crime against persons, not property."
+            },
+            {
+                question: "What is the legal term for obtaining property by deception?",
+                options: ["Fraud", "Robbery", "Burglary", "Trespass"],
+                answer: "Fraud",
+                explanation: "Fraud is the crime of obtaining property or money by deception."
+            },
+            {
+                question: "Which of the following is an example of aggravated burglary?",
+                options: ["Burglary with a deadly weapon", "Burglary at night", "Burglary of a business", "Burglary without force"],
+                answer: "Burglary with a deadly weapon",
+                explanation: "Aggravated burglary involves the use or possession of a deadly weapon during the commission of the crime."
+            },
+            {
+                question: "What is the difference between trespass and burglary?",
+                options: ["Burglary requires intent to commit a crime inside", "Trespass is always a felony", "Burglary is accidental", "Trespass requires force"],
+                answer: "Burglary requires intent to commit a crime inside",
+                explanation: "Burglary requires unlawful entry with intent to commit a crime; trespass does not require such intent."
+            },
+            {
+                question: "Which of the following is NOT an element of theft?",
+                options: ["Intent to permanently deprive", "Taking property", "Use of force", "Without consent"],
+                answer: "Use of force",
+                explanation: "Theft does not require use of force; robbery does."
+            },
+            {
+                question: "What is the legal consequence of repeat property crime offenses?",
+                options: ["Enhanced penalties", "No consequence", "Automatic parole", "Immediate release"],
+                answer: "Enhanced penalties",
+                explanation: "Repeat property crime offenders may face enhanced penalties under the law."
+            },
+            {
+                question: "Which of the following is an example of vandalism?",
+                options: ["Spray painting graffiti on a wall", "Borrowing a car", "Entering a house without permission", "Shoplifting"],
+                answer: "Spray painting graffiti on a wall",
+                explanation: "Vandalism is the willful or malicious destruction or defacement of property."
+            },
+            {
+                question: "What is the difference between criminal trespass and civil trespass?",
+                options: ["Criminal trespass is prosecuted by the state; civil trespass is a private lawsuit", "There is no difference", "Civil trespass is more serious", "Criminal trespass is always accidental"],
+                answer: "Criminal trespass is prosecuted by the state; civil trespass is a private lawsuit",
+                explanation: "Criminal trespass is a criminal offense prosecuted by the state, while civil trespass is a tort handled in civil court."
+            },
+            {
+                question: "How can patrol officers effectively use their body-worn cameras?",
+                options: ["By recording all interactions with the public", "By using it only when they anticipate a confrontation", "By turning it off during routine stops", "By allowing the suspect to control the camera"],
+                answer: "By recording all interactions with the public",
+                explanation: "Body-worn cameras should be used to record all interactions to ensure transparency and accountability."
+            },
+            {
+                question: "What is the importance of scene security in patrol operations?",
+                options: ["To allow officers to take breaks", "To preserve the integrity of the scene for investigation", "To prevent media from accessing the scene", "To ensure no one enters the scene"],
+                answer: "To preserve the integrity of the scene for investigation",
+                explanation: "Scene security is crucial to preserve the scene's integrity for a thorough and accurate investigation."
+            },
+            {
+                question: "What should a patrol officer do if they are involved in a minor traffic accident while on duty?",
+                options: ["Ignore it and continue patrolling", "Report the accident to their supervisor and file a report", "Exchange information and leave", "Call for a tow truck only"],
+                answer: "Report the accident to their supervisor and file a report",
+                explanation: "Officers must report any traffic accidents while on duty and file the necessary reports as per policy."
+            },
+            {
+                question: "How can patrol officers effectively manage a large crowd at an event?",
+                options: ["By using loudspeakers to disperse the crowd", "By calling for backup and managing the crowd's movement", "By ignoring the crowd", "By leaving the area"],
+                answer: "By calling for backup and managing the crowd's movement",
+                explanation: "Managing a large crowd requires coordination and backup to ensure safety and order."
+            },
+            {
+                question: "What is the role of a school resource officer (SRO)?",
+                options: ["To enforce laws strictly on school property", "To provide security and build relationships within the school community", "To conduct all criminal investigations in the school", "To manage school finances"],
+                answer: "To provide security and build relationships within the school community",
+                explanation: "SROs provide security and build positive relationships within the school community to enhance safety and cooperation."
+            },
+            {
+                question: "What should a patrol officer do if they receive a report of a suspicious package?",
+                options: ["Ignore it, as it's probably nothing", "Evacuate the area and call for bomb squad assistance", "Open the package to check", "Take it to the police station"],
+                answer: "Evacuate the area and call for bomb squad assistance",
+                explanation: "Suspicious packages should be treated seriously; the area should be evacuated, and bomb squad assistance should be requested."
+            },
+            {
+                question: "How can patrol officers effectively deal with a language barrier during a call?",
+                options: ["By using basic English only", "By calling for a supervisor who speaks the language", "By using translation apps or services", "By ignoring the language barrier"],
+                answer: "By using translation apps or services",
+                explanation: "Translation apps or services can help officers communicate effectively despite a language barrier."
+            },
+            {
+                question: "What is the importance of officer wellness in patrol duties?",
+                options: ["To ensure officers are fit for duty and can perform their tasks effectively", "To reduce the number of officers on patrol", "To increase the number of hours officers work", "To allow officers to take extended breaks"],
+                answer: "To ensure officers are fit for duty and can perform their tasks effectively",
+                explanation: "Officer wellness is crucial to ensure they are fit for duty and can perform their tasks effectively and safely."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a vehicle with expired registration?",
+                options: ["Ignore it, as it's not a priority", "Conduct a traffic stop and issue a citation or warning", "Tow the vehicle immediately", "Call for a supervisor to handle it"],
+                answer: "Conduct a traffic stop and issue a citation or warning",
+                explanation: "Officers should address expired registration by conducting a traffic stop and issuing a citation or warning as appropriate."
+            },
+            {
+                question: "How can patrol officers effectively use cover and concealment?",
+                options: ["By staying in the open to be seen", "By using vehicles, buildings, and natural terrain for protection", "By hiding at all times", "By using bright colors to stand out"],
+                answer: "By using vehicles, buildings, and natural terrain for protection",
+                explanation: "Cover and concealment protect officers from potential threats while allowing them to observe and respond to incidents."
+            },
+            {
+                question: "What is the role of a detective in the criminal investigation process?",
+                options: ["To arrest suspects", "To collect and analyze evidence, and follow up on leads", "To testify in all court cases", "To provide security at the crime scene"],
+                answer: "To collect and analyze evidence, and follow up on leads",
+                explanation: "Detectives collect and analyze evidence, and follow up on leads to solve crimes and prepare cases for prosecution."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible burglary in progress?",
+                options: ["Ignore it, as it's probably a false alarm", "Respond quickly and investigate the situation", "Call for backup and wait", "Drive by slowly and observe"],
+                answer: "Respond quickly and investigate the situation",
+                explanation: "Officers should respond quickly to investigate possible burglaries in progress to prevent loss and apprehend suspects."
+            },
+            {
+                question: "How can patrol officers effectively manage their time during a shift?",
+                options: ["By prioritizing calls and tasks based on urgency and importance", "By completing reports only", "By taking long breaks", "By avoiding communication with dispatch"],
+                answer: "By prioritizing calls and tasks based on urgency and importance",
+                explanation: "Effective time management involves prioritizing calls and tasks based on their urgency and importance."
+            },
+            {
+                question: "What is the importance of interagency cooperation in patrol operations?",
+                options: ["To avoid duplication of efforts and share resources", "To compete with other agencies", "To limit the scope of patrol operations", "To increase the number of officers on patrol"],
+                answer: "To avoid duplication of efforts and share resources",
+                explanation: "Interagency cooperation avoids duplication of efforts and shares resources for more effective patrol operations."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a person with a weapon?",
+                options: ["Approach them calmly and ask for identification", "Call for backup and secure the area", "Ignore the weapon and continue talking", "Use force to disarm them immediately"],
+                answer: "Call for backup and secure the area",
+                explanation: "Officers should call for backup and secure the area when encountering a person with a weapon to ensure safety."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with an emotionally disturbed person?",
+                options: ["By using physical force to restrain them", "By calling for backup and using de-escalation techniques", "By ignoring their behavior", "By laughing and making jokes"],
+                answer: "By calling for backup and using de-escalation techniques",
+                explanation: "De-escalation techniques and backup can help safely manage situations with emotionally disturbed persons."
+            },
+            {
+                question: "What is the role of a patrol officer in a civil disturbance?",
+                options: ["To ignore it unless someone is hurt", "To intervene only if called by a supervisor", "To maintain order and protect life and property", "To take sides with one party"],
+                answer: "To maintain order and protect life and property",
+                explanation: "Patrol officers maintain order and protect life and property during civil disturbances."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible hostage situation?",
+                options: ["Ignore it, as it's probably a prank", "Respond and assess the situation, establishing communication if possible", "Call for backup and wait for SWAT", "Leave the area to avoid danger"],
+                answer: "Respond and assess the situation, establishing communication if possible",
+                explanation: "Officers should respond to possible hostage situations, assess the situation, and establish communication if safe to do so."
+            },
+            {
+                question: "How can patrol officers effectively use their training in real-life situations?",
+                options: ["By following procedures and protocols learned in training", "By improvising and not following any procedures", "By only using physical force", "By avoiding any confrontations"],
+                answer: "By following procedures and protocols learned in training",
+                explanation: "Effective use of training involves following the procedures and protocols learned to ensure safety and proper response."
+            },
+            {
+                question: "What is the importance of evidence collection in patrol operations?",
+                options: ["To ensure a successful prosecution and uphold justice", "To increase the number of arrests", "To provide material for media coverage", "To justify the use of force"],
+                answer: "To ensure a successful prosecution and uphold justice",
+                explanation: "Proper evidence collection is crucial for successful prosecution and upholding justice."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a fire while on patrol?",
+                options: ["Ignore it, as it's not their responsibility", "Call the fire department and provide assistance if trained", "Try to extinguish it with their patrol car", "Block the road and wait for help"],
+                answer: "Call the fire department and provide assistance if trained",
+                explanation: "Officers should report fires and provide assistance if trained, ensuring their safety and the safety of others."
+            },
+            {
+                question: "How can patrol officers effectively deal with a crowd that is becoming unruly?",
+                options: ["By using force to disperse the crowd", "By calling for backup and using crowd management techniques", "By ignoring the crowd", "By leaving the area"],
+                answer: "By calling for backup and using crowd management techniques",
+                explanation: "Effective crowd management may require backup and the use of specific techniques to ensure safety and order."
+            },
+            {
+                question: "What is the role of a patrol officer in an active shooter situation?",
+                options: ["To wait for SWAT to arrive", "To evacuate everyone from the area", "To confront the shooter and neutralize the threat if safe to do so", "To negotiate with the shooter"],
+                answer: "To confront the shooter and neutralize the threat if safe to do so",
+                explanation: "In an active shooter situation, patrol officers may need to confront the shooter and neutralize the threat if it can be done safely."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a suspicious vehicle?",
+                options: ["Ignore it, as it's probably nothing", "Respond and investigate the situation", "Call for backup and wait", "Drive by slowly and observe"],
+                answer: "Respond and investigate the situation",
+                explanation: "Officers should respond to and investigate reports of suspicious vehicles to ensure public safety."
+            },
+            {
+                question: "How can patrol officers effectively manage their stress levels?",
+                options: ["By using unhealthy coping mechanisms", "By seeking support and using stress management techniques", "By ignoring their stress", "By working longer hours"],
+                answer: "By seeking support and using stress management techniques",
+                explanation: "Effective stress management is crucial for officers' well-being and job performance."
+            },
+            {
+                question: "What is the importance of public relations in patrol duties?",
+                options: ["To promote the police department and build community trust", "To handle all media inquiries", "To manage the police budget", "To conduct criminal investigations"],
+                answer: "To promote the police department and build community trust",
+                explanation: "Public relations efforts help promote the police department and build trust within the community."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a person with a mental health crisis?",
+                options: ["Ignore them, as it's not a criminal matter", "Call for backup and provide assistance as trained", "Arrest them for disturbing the peace", "Use force to subdue them"],
+                answer: "Call for backup and provide assistance as trained",
+                explanation: "Officers should call for backup and provide appropriate assistance when encountering mentally ill individuals in a mental health crisis."
+            },
+            {
+                question: "How can patrol officers effectively use their communication skills?",
+                options: ["By shouting commands", "By using clear, calm, and respectful communication", "By ignoring questions", "By only communicating with other officers"],
+                answer: "By using clear, calm, and respectful communication",
+                explanation: "Effective communication skills are essential for patrol officers to interact positively with the community and colleagues."
+            },
+            {
+                question: "What is the role of a patrol officer in enforcing immigration laws?",
+                options: ["To enforce all immigration laws without exception", "To report and detain individuals based on immigration status only", "To assist in enforcing immigration laws as per department policy and legal guidelines", "To ignore immigration laws"],
+                answer: "To assist in enforcing immigration laws as per department policy and legal guidelines",
+                explanation: "Patrol officers assist in enforcing immigration laws as per their department's policy and legal guidelines, ensuring legal and procedural compliance."
+            },
+            {
+                question: "What should a patrol officer do if they witness a crime being committed?",
+                options: ["Ignore it, as it's not their responsibility", "Intervene and attempt to stop the crime", "Call for backup and observe", "Leave the area to avoid involvement"],
+                answer: "Call for backup and observe",
+                explanation: "Officers should call for backup and observe to safely manage the situation and gather evidence."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with a barricaded suspect?",
+                options: ["By negotiating and establishing communication, if safe", "By using force to enter the premises", "By waiting for the suspect to surrender", "By leaving the area"],
+                answer: "By negotiating and establishing communication, if safe",
+                explanation: "Negotiation and communication can be effective in resolving situations with barricaded suspects peacefully."
+            },
+            {
+                question: "What is the role of a patrol officer in a drug-related incident?",
+                options: ["To ignore it, as it's not a priority", "To investigate and take appropriate action based on findings", "To arrest all individuals present", "To call for a detective only"],
+                answer: "To investigate and take appropriate action based on findings",
+                explanation: "Patrol officers investigate drug-related incidents and take appropriate action based on their findings and department policy."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible arson?",
+                options: ["Ignore it, as it's probably a false alarm", "Respond and investigate the situation, ensuring scene safety", "Call for backup and wait", "Drive by slowly and observe"],
+                answer: "Respond and investigate the situation, ensuring scene safety",
+                explanation: "Officers should respond to and investigate reports of possible arson, ensuring the safety of the scene and individuals involved."
+            },
+            {
+                question: "How can patrol officers effectively manage a situation with an armed suspect?",
+                options: ["By using lethal force immediately", "By calling for backup and using cover", "By negotiating and trying to disarm the suspect", "By ignoring the suspect and leaving the area"],
+                answer: "By calling for backup and using cover",
+                explanation: "In situations with armed suspects, officers should call for backup and use cover to protect themselves and others."
+            },
+            {
+                question: "What is the role of a patrol officer in a missing person case?",
+                options: ["To ignore it, as it's not a crime", "To investigate and follow up on leads", "To conduct all interviews", "To manage the media relations"],
+                answer: "To investigate and follow up on leads",
+                explanation: "Patrol officers investigate missing person cases and follow up on leads to locate the missing individual."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a person with a service animal?",
+                options: ["Ignore them, as it's not a criminal matter", "Call for backup and provide assistance as trained", "Arrest them for trespassing", "Use force to remove them"],
+                answer: "Call for backup and provide assistance as trained",
+                explanation: "Officers should call for backup and provide appropriate assistance when encountering individuals with service animals."
+            },
+            {
+                question: "How can patrol officers effectively use their problem-solving skills?",
+                options: ["By avoiding complex situations", "By using problem-solving skills to address and resolve issues", "By relying solely on their training", "By ignoring department policies"],
+                answer: "By using problem-solving skills to address and resolve issues",
+                explanation: "Effective problem-solving skills enable officers to address and resolve issues that arise during patrol duties."
+            },
+            {
+                question: "What is the role of a patrol officer in a sexual assault investigation?",
+                options: ["To conduct the entire investigation", "To secure the scene and preserve evidence", "To interview only the victim", "To arrest the suspect immediately"],
+                answer: "To secure the scene and preserve evidence",
+                explanation: "In sexual assault investigations, patrol officers secure the scene and preserve evidence for further investigation."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible homicide?",
+                options: ["Ignore it, as it's probably a mistake", "Respond and secure the scene, calling for detective assistance", "Call for backup and wait for a supervisor", "Leave the area to avoid involvement"],
+                answer: "Respond and secure the scene, calling for detective assistance",
+                explanation: "Officers should respond to possible homicide calls, secure the scene, and call for detective assistance for investigation."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with a suicidal individual?",
+                options: ["By ignoring the individual", "By calling for backup and providing support as trained", "By using force to restrain the individual", "By leaving the individual alone to calm down"],
+                answer: "By calling for backup and providing support as trained",
+                explanation: "Officers should call for backup and provide appropriate support when encountering individuals who are suicidal."
+            },
+            {
+                question: "What is the role of a patrol officer in a robbery in progress?",
+                options: ["To wait for backup to arrive", "To intervene and attempt to apprehend the suspect", "To observe and report only", "To negotiate with the suspect"],
+                answer: "To intervene and attempt to apprehend the suspect",
+                explanation: "In a robbery in progress, patrol officers may need to intervene and attempt to apprehend the suspect to prevent further harm or loss."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible DUI?",
+                options: ["Ignore it, as it's not a priority", "Respond and investigate the situation", "Call for backup and wait", "Drive by and observe only"],
+                answer: "Respond and investigate the situation",
+                explanation: "Officers should respond to and investigate reports of possible DUI to ensure road safety."
+            },
+            {
+                question: "How can patrol officers effectively manage a situation with a mentally ill individual?",
+                options: ["By using physical force", "By calling for backup and using crisis intervention techniques", "By ignoring the individual", "By leaving the area"],
+                answer: "By calling for backup and using crisis intervention techniques",
+                explanation: "Crisis intervention techniques and backup can help safely manage situations with mentally ill individuals."
+            },
+            {
+                question: "What is the role of a patrol officer in a gang-related incident?",
+                options: ["To ignore it, as it's not their responsibility", "To intervene and prevent further violence", "To arrest all individuals present", "To call for a detective only"],
+                answer: "To intervene and prevent further violence",
+                explanation: "Patrol officers intervene in gang-related incidents to prevent further violence and ensure public safety."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a person with a disability?",
+                options: ["Ignore them, as they don't require assistance", "Offer assistance and accommodate their needs", "Call for a supervisor only", "Provide medical assistance only"],
+                answer: "Offer assistance and accommodate their needs",
+                explanation: "Patrol officers should offer assistance and accommodate the needs of individuals with disabilities."
+            },
+            {
+                question: "How can patrol officers effectively use their negotiation skills?",
+                options: ["By using threats and intimidation", "By remaining calm and using persuasive communication", "By ignoring the other party", "By only using written communication"],
+                answer: "By remaining calm and using persuasive communication",
+                explanation: "Effective negotiation skills involve remaining calm and using persuasive communication to reach a resolution."
+            },
+            {
+                question: "What is the role of a patrol officer in a civil dispute?",
+                options: ["To mediate and resolve the dispute", "To arrest individuals involved", "To ignore the dispute", "To call for a detective only"],
+                answer: "To mediate and resolve the dispute",
+                explanation: "Patrol officers may need to mediate and resolve civil disputes to maintain peace and order."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible hate crime?",
+                options: ["Ignore it, as it's not a priority", "Respond and investigate the situation", "Call for backup and wait", "Drive by slowly and observe"],
+                answer: "Respond and investigate the situation",
+                explanation: "Officers should respond to and investigate reports of possible hate crimes to ensure victim support and gather evidence."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with a non-compliant individual?",
+                options: ["By using physical force immediately", "By calling for backup and using de-escalation techniques", "By ignoring the individual", "By leaving the area"],
+                answer: "By calling for backup and using de-escalation techniques",
+                explanation: "De-escalation techniques and backup can help safely manage situations with non-compliant individuals."
+            },
+            {
+                question: "What is the role of a patrol officer in a public disturbance?",
+                options: ["To ignore it, as it's not a crime", "To intervene and restore order", "To arrest all individuals present", "To call for a supervisor only"],
+                answer: "To intervene and restore order",
+                explanation: "Patrol officers intervene in public disturbances to restore order and ensure public safety."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible scam?",
+                options: ["Ignore it, as it's not a priority", "Respond and gather information about the scam", "Call for backup and wait", "Drive by slowly and observe"],
+                answer: "Respond and gather information about the scam",
+                explanation: "Officers should respond to reports of scams to gather information and provide assistance to potential victims."
+            },
+            {
+                question: "How can patrol officers effectively manage a situation with an intoxicated individual?",
+                options: ["By using physical force", "By calling for backup and using crisis intervention techniques", "By ignoring the individual", "By leaving the area"],
+                answer: "By calling for backup and using crisis intervention techniques",
+                explanation: "Crisis intervention techniques and backup can help safely manage situations with intoxicated individuals."
+            },
+            {
+                question: "What is the role of a patrol officer in a terrorist threat?",
+                options: ["To ignore it, as it's probably a false alarm", "To respond and assess the threat, coordinating with specialized units", "To handle it alone", "To evacuate everyone immediately"],
+                answer: "To respond and assess the threat, coordinating with specialized units",
+                explanation: "In a terrorist threat, patrol officers respond and assess the threat, coordinating with specialized units for a comprehensive response."
+            },
+            {
+                question: "What should a patrol officer do if they encounter a person with a weapon in a public place?",
+                options: ["Approach them calmly and ask for identification", "Call for backup and secure the area", "Ignore the weapon and continue talking", "Use force to disarm them immediately"],
+                answer: "Call for backup and secure the area",
+                explanation: "Officers should call for backup and secure the area when encountering a person with a weapon in a public place to ensure safety."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with a barricaded individual?",
+                options: ["By negotiating and establishing communication, if safe", "By using force to enter the premises", "By waiting for the individual to surrender", "By leaving the area"],
+                answer: "By negotiating and establishing communication, if safe",
+                explanation: "Negotiation and communication can be effective in resolving situations with barricaded individuals peacefully."
+            },
+            {
+                question: "What is the role of a patrol officer in a public health emergency?",
+                options: ["To ignore it, as it's not a criminal matter", "To assist in managing the emergency and ensuring public safety", "To conduct all medical assessments", "To arrest individuals for panic"],
+                answer: "To assist in managing the emergency and ensuring public safety",
+                explanation: "During a public health emergency, patrol officers assist in managing the emergency and ensuring public safety."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible explosion?",
+                options: ["Ignore it, as it's probably a false alarm", "Evacuate the area and call for bomb squad assistance", "Investigate the source of the explosion", "Call for backup and wait"],
+                answer: "Evacuate the area and call for bomb squad assistance",
+                explanation: "In case of a possible explosion, the area should be evacuated, and bomb squad assistance should be requested."
+            },
+            {
+                question: "How can patrol officers effectively deal with a crowd that is becoming violent?",
+                options: ["By using force to disperse the crowd", "By calling for backup and using crowd management techniques", "By ignoring the crowd", "By leaving the area"],
+                answer: "By calling for backup and using crowd management techniques",
+                explanation: "Effective crowd management may require backup and the use of specific techniques to ensure safety and order."
+            },
+            {
+                question: "What is the role of a patrol officer in an evacuation?",
+                options: ["To ignore it, as it's not their responsibility", "To assist in the evacuation and ensure public safety", "To conduct all traffic control", "To manage the media"],
+                answer: "To assist in the evacuation and ensure public safety",
+                explanation: "During an evacuation, patrol officers assist in the evacuation and ensure public safety."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible chemical spill?",
+                options: ["Ignore it, as it's probably a false alarm", "Evacuate the area and call for hazardous materials team assistance", "Investigate the spill", "Call for backup and wait"],
+                answer: "Evacuate the area and call for hazardous materials team assistance",
+                explanation: "In case of a possible chemical spill, the area should be evacuated, and hazardous materials team assistance should be requested."
+            },
+            {
+                question: "How can patrol officers effectively manage a situation with a non-compliant crowd?",
+                options: ["By using force to disperse the crowd", "By calling for backup and using crowd management techniques", "By ignoring the crowd", "By leaving the area"],
+                answer: "By calling for backup and using crowd management techniques",
+                explanation: "Effective crowd management may require backup and the use of specific techniques to ensure safety and order."
+            },
+            {
+                question: "What is the role of a patrol officer in a hostage situation?",
+                options: ["To negotiate with the hostage-taker", "To wait for SWAT to arrive", "To evacuate all bystanders and secure the area", "To confront the hostage-taker immediately"],
+                answer: "To evacuate all bystanders and secure the area",
+                explanation: "In a hostage situation, patrol officers should evacuate all bystanders and secure the area to ensure safety."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible active shooter?",
+                options: ["Ignore it, as it's probably a drill", "Respond and assess the situation, taking cover if necessary", "Call for backup and wait for SWAT", "Leave the area to avoid danger"],
+                answer: "Respond and assess the situation, taking cover if necessary",
+                explanation: "Officers should respond to possible active shooter situations, assess the situation, and take cover if necessary."
+            },
+            {
+                question: "How can patrol officers effectively handle a situation with a suicidal subject?",
+                options: ["By ignoring the subject", "By calling for backup and providing support as trained", "By using force to restrain the subject", "By leaving the subject alone to calm down"],
+                answer: "By calling for backup and providing support as trained",
+                explanation: "Officers should call for backup and provide appropriate support when encountering individuals who are suicidal."
+            },
+            {
+                question: "What is the role of a patrol officer in a suspicious package investigation?",
+                options: ["To ignore it, as it's probably harmless", "To evacuate the area and call for bomb squad assistance", "To investigate the package", "To call for a detective only"],
+                answer: "To evacuate the area and call for bomb squad assistance",
+                explanation: "In a suspicious package investigation, the area should be evacuated, and bomb squad assistance should be requested."
+            },
+            {
+                question: "What should a patrol officer do if they receive a call about a possible terroristic threat?",
+                options: ["Ignore it, as it's probably a prank", "Respond and assess the threat, coordinating with specialized units", "To handle it alone", "To evacuate everyone immediately"],
+                answer: "Respond and assess the threat, coordinating with specialized units",
+                explanation: "In case of a possible terroristic threat, patrol officers should respond and assess the threat, coordinating with specialized units."
+            },
+            {
+                question: "How can patrol officers effectively manage a situation with an armed individual?",
+                options: ["By using lethal force immediately", "By calling for backup and using cover", "By negotiating and trying to disarm the individual", "By ignoring the individual and leaving the area"],
+                answer: "By calling for backup and using cover",
+                explanation: "In situations with armed individuals, officers should call for backup and use cover to protect themselves and others."
+            },
+        ],
+                answer: "Class A Misdemeanor",
+                explanation: "Unlawful carrying of a weapon is generally a Class A Misdemeanor."
+            },
+            {
+                question: "What is a 'location-restricted knife' in Texas law?",
+                options: ["A knife with a blade over 5.5 inches", "A switchblade", "A pocketknife", "A knife with a serrated edge"],
+                answer: "A knife with a blade over 5.5 inches",
+                explanation: "A location-restricted knife is defined as a knife with a blade over 5.5 inches."
+            },
+            {
+                question: "Which of the following is a prohibited place for weapons in Texas?",
+                options: ["School premises", "Public park", "Private residence", "Shopping mall"],
+                answer: "School premises",
+                explanation: "It is a felony to possess a weapon on school premises in Texas."
+            }
+        ],
+        "Arrest, Search, and Seizure": [
+            {
+                question: "Which of the following is NOT one of the four necessary conditions for an arrest?",
+                options: ["Intent", "Authority", "Probable Cause", "Understanding"],
+                answer: "Probable Cause",
+                explanation: "The four conditions are Intent, Authority, Actual Seizure, and Understanding. Probable Cause is required for arrest but is not one of the four conditions."
+            },
+            {
+                question: "A person intentionally using force against a peace officer to prevent being arrested commits what offense?",
+                options: ["Evading Arrest", "Resisting Arrest", "Hindering Apprehension", "Interference with Public Duties"],
+                answer: "Resisting Arrest",
+                explanation: "Using force to prevent arrest is Resisting Arrest."
+            },
+            {
+                question: "What is the base-level penalty for Evading Arrest or Detention on foot?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "Evading Arrest or Detention on foot is a Class A Misdemeanor."
+            }
+        ]
+    };
+
+    // Function to start the quiz
+    function startQuiz() {
+        const selectedTopics = Array.from(document.querySelectorAll('#topic-filter input:checked')).map(el => el.value);
+        const questionsToLoad = selectedTopics.flatMap(topic => allQuestions[topic]);
+        loadQuestions(questionsToLoad);
+    }
+
+    // Function to load questions into the quiz container
+    function loadQuestions(questions) {
+        const container = document.getElementById('quiz-container');
+        container.innerHTML = '';
+        questions.forEach((q, index) => {
+            const questionElement = document.createElement('div');
+            questionElement.classList.add('card', 'p-4', 'md:p-6', 'rounded-lg', 'shadow-md', 'bg-white');
+            questionElement.innerHTML = `
+                <p class="text-lg md:text-xl font-semibold mb-2">${index + 1}. ${q.question}</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    ${q.options.map((option, i) => `
+                        <button class="quiz-option flex items-center p-3 rounded-lg border transition-all duration-200 ease-in-out" data-answer="${option}">
+                            <span class="text-sm sm:text-base font-medium text-left">${String.fromCharCode(65 + i)}. ${option}</span>
+                        </button>
+                    `).join('')}
+                </div>
+                <p class="text-sm text-gray-500 italic">${q.explanation}</p>
+            `;
+            container.appendChild(questionElement);
+        });
+        container.classList.remove('hidden');
+        document.getElementById('topic-filter').classList.add('hidden');
+        document.getElementById('quiz-results').classList.add('hidden');
+    }
+
+    // Event listener for the start quiz button
+    document.getElementById('start-quiz').addEventListener('click', startQuiz);
+
+    // Event delegation for quiz options
+    document.getElementById('quiz-container').addEventListener('click', (e) => {
+        if (e.target.classList.contains('quiz-option')) {
+            const selectedAnswer = e.target.getAttribute('data-answer');
+            const questionElement = e.target.closest('.card');
+            const correctAnswer = questionElement.querySelector('.quiz-option.correct')?.getAttribute('data-answer');
+            
+            if (selectedAnswer === correctAnswer) {
+                e.target.classList.add('bg-green-100', 'border-green-500');
+            } else {
+                e.target.classList.add('bg-red-100', 'border-red-500');
+                questionElement.querySelector(`.quiz-option[data-answer="${correctAnswer}"]`).classList.add('bg-green-100', 'border-green-500');
+            }
+
+            setTimeout(() => {
+                questionElement.classList.add('opacity-50');
+                setTimeout(() => {
+                    questionElement.classList.add('hidden');
+                    checkQuizCompletion();
+                }, 500);
+            }, 1000);
+        }
+    });
+
+    // Function to check if the quiz is complete
+    function checkQuizCompletion() {
+        const allAnswered = Array.from(document.querySelectorAll('.card')).every(card => card.classList.contains('hidden'));
+        if (allAnswered) {
+            showResults();
+        }
+    }
+
+    // Function to show quiz results
+    function showResults() {
+        const correctAnswers = Array.from(document.querySelectorAll('.quiz-option.correct')).filter(el => el.classList.contains('bg-green-100')).length;
+        const totalQuestions = Array.from(document.querySelectorAll('.card')).length;
+        const scorePercentage = Math.round((correctAnswers / totalQuestions) * 100);
+        document.getElementById('quiz-score').textContent = `Score: ${correctAnswers} / ${totalQuestions} (${scorePercentage}%)`;
+        document.getElementById('quiz-results').classList.remove('hidden');
+    }
+
+    // Retake quiz button
+    document.getElementById('retake-quiz').addEventListener('click', () => {
+        document.getElementById('quiz-container').innerHTML = '';
+        document.getElementById('topic-filter').classList.remove('hidden');
+        document.getElementById('quiz-results').classList.add('hidden');
+    });
+
+    // End of DOMContentLoaded
+});
+</script>
+</body>
+</html>

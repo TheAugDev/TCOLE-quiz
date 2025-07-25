@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theft and Burglary Offenses: Comprehensive Study Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:not(.flashcard):hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .flashcard-container {
+            perspective: 1000px;
+        }
+        .flashcard {
+            width: 100%;
+            min-height: 150px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+            border-radius: 0.75rem;
+        }
+        .flashcard-front {
+            background-color: #059669;
+            color: white;
+        }
+        .flashcard-back {
+            background-color: #065f46;
+            color: white;
+            transform: rotateY(180deg);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #f0fdf4;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        details > summary:hover {
+            background-color: #dcfce7;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .quiz-option {
+            transition: background-color 0.2s;
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+        .quiz-explanation {
+            background-color: #f1f5f9;
+            border-left: 4px solid #64748b;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        .tab-button.active {
+            background-color: #10b981;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .glossary-term {
+            font-weight: 700;
+            color: #047857;
+        }
+        th, td {
+            text-align: left;
+            padding: 0.75rem;
+        }
+        tbody tr:nth-child(odd) {
+            background-color: #f9fafb;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Theft & Burglary Offenses: Comprehensive Study Guide</h1>
+            <p class="text-lg text-gray-600 mt-2">An Interactive Guide to Texas Penal Code Chapters 30 & 31</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-nowrap -mb-px overflow-x-auto" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-3 px-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-concepts">Key Concepts</button>
+                <button class="tab-button text-lg font-medium py-3 px-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-theft">Theft</button>
+                <button class="tab-button text-lg font-medium py-3 px-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-burglary">Burglary</button>
+                <button class="tab-button text-lg font-medium py-3 px-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-auto-theft">Auto Theft</button>
+                <button class="tab-button text-lg font-medium py-3 px-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-other-offenses">Other Offenses</button>
+                <button class="tab-button text-lg font-medium py-3 px-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-qa">Scenario Q&A</button>
+                <button class="tab-button text-lg font-medium py-3 px-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-quiz">Knowledge Check</button>
+                <button class="tab-button text-lg font-medium py-3 px-5 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-glossary">Glossary</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Key Concepts Tab -->
+            <div id="tab-concepts" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Key Learning Objectives</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card p-6 space-y-4">
+                        <h3 class="text-2xl font-semibold text-emerald-700 mb-3">Core Competencies</h3>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>List and apply the elements of offenses involving illegal entry (Burglary).</li>
+                            <li>Describe and apply the elements of offenses involving the illegal acquisition of property (Theft).</li>
+                            <li>Discuss various types of property offenses and their characteristics.</li>
+                            <li>Identify necessary conditions for warrantless arrest by police in theft situations.</li>
+                        </ul>
+                    </div>
+                    <div class="card p-6 space-y-4">
+                        <h3 class="text-2xl font-semibold text-emerald-700 mb-3">Auto Theft Specifics</h3>
+                         <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Explain what a "salvage switch" is and how it works.</li>
+                            <li>Identify conditions of a vehicle that might indicate it is stolen (pre and post-stop).</li>
+                            <li>Describe procedures for handling reported auto thefts (impound/repossession checks).</li>
+                            <li>Distinguish between civil and criminal violations regarding car rental agencies.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card p-6 mt-6">
+                    <h3 class="text-2xl font-semibold text-emerald-700 mb-3">Preventing Consequences of Theft (CCP 18.16)</h3>
+                    <p class="text-gray-700 mb-2">This crucial article of the Code of Criminal Procedure allows <strong class="font-semibold">any person</strong> to seize stolen property and the person suspected of theft under specific circumstances.</p>
+                    <div class="bg-amber-100 border-l-4 border-amber-500 text-amber-800 p-4 rounded-r-lg">
+                        <p><strong class="font-bold">Rule:</strong> Any person has a right to prevent the consequences of theft by seizing any personal property that has been stolen and bringing it, along with the person suspected of committing the theft, before a magistrate for examination, or delivering them to a peace officer for that purpose.</p>
+                        <p class="mt-2"><strong class="font-bold">Requirement:</strong> To justify the seizure, there must be <strong class="font-semibold">reasonable grounds to believe</strong> the property is stolen, and the seizure must be openly made and followed by immediate delivery to authorities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Theft Tab -->
+            <div id="tab-theft" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Theft Offenses (Chapter 31)</h2>
+                <div class="space-y-6">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-semibold text-emerald-700 mb-3">Theft (PC 31.03)</h3>
+                        <p class="text-gray-700">A person commits theft if they <strong class="font-semibold">unlawfully appropriate property</strong> with the <strong class="font-semibold">intent to deprive</strong> the owner of the property. Appropriation is unlawful if it's without the owner's effective consent, or if the property is known to be stolen.</p>
+                    </div>
+                    
+                    <h3 class="text-2xl font-semibold">Key Definitions (Flashcards)</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Deprive</strong></div><div class="flashcard-face flashcard-back rounded-lg">To withhold property permanently or for so long that a major portion of its value is lost; or to dispose of it in a way that makes recovery unlikely.</div></div></div>
+                        <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Appropriate</strong></div><div class="flashcard-face flashcard-back rounded-lg">To acquire or exercise control over property (other than real property).</div></div></div>
+                        <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Effective Consent</strong></div><div class="flashcard-face flashcard-back rounded-lg">Consent is NOT effective if induced by deception/coercion, or from someone you know can't give it (e.g., due to youth, intoxication, advanced age).</div></div></div>
+                    </div>
+                    
+                    <details class="card p-0">
+                        <summary>Presumption of Theft for Dealers</summary>
+                        <div class="p-6 border-t">
+                            <p class="text-gray-700">An actor who is in the business of buying and selling used or secondhand personal property is <strong class="font-semibold">presumed to know</strong> property is stolen if they pay $25 or more for it and knowingly or recklessly fail to:</p>
+                            <ul class="list-decimal list-inside space-y-2 mt-2 text-gray-700">
+                                <li>Record the seller's name, address, and physical description.</li>
+                                <li>Record a complete description of the property, including serial number.</li>
+                                <li>Obtain a signed warranty from the seller stating they have the right to possess the property.</li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-semibold text-emerald-700 mb-3">Texas Theft Ladder (PC 31.03)</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm">
+                                <thead class="bg-gray-100">
+                                    <tr>
+                                        <th class="font-semibold text-gray-700">Offense Level</th>
+                                        <th class="font-semibold text-gray-700">Property Value</th>
+                                        <th class="font-semibold text-gray-700">Specific Circumstances / Special Items</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    <tr>
+                                        <td class="font-medium">Class C Misdemeanor</td>
+                                        <td>Less than $100</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium">Class B Misdemeanor</td>
+                                        <td>$100 or more, but less than $750</td>
+                                        <td>Theft of a driver's license or personal ID card.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium">Class A Misdemeanor</td>
+                                        <td>$750 or more, but less than $2,500</td>
+                                        <td>-</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium">State Jail Felony</td>
+                                        <td>$2,500 or more, but less than $30,000</td>
+                                        <td class="space-y-1">
+                                            <p>• Theft of a firearm.</p>
+                                            <p>• Theft from a person, human corpse, or grave.</p>
+                                            <p>• Theft of aluminum, bronze, copper, or brass (&lt;$20k).</p>
+                                            <p>• Theft of fewer than 10 head of sheep, swine, or goats (&lt;$30k).</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium">3rd Degree Felony</td>
+                                        <td>$30,000 or more, but less than $150,000</td>
+                                        <td>Theft of 10-99 head of sheep/swine/goats, or any cattle/horses.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium">2nd Degree Felony</td>
+                                        <td>$150,000 or more, but less than $300,000</td>
+                                        <td>Theft of an ATM or its contents.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium">1st Degree Felony</td>
+                                        <td>$300,000 or more</td>
+                                        <td>-</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-4 bg-emerald-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-lg mb-2 text-emerald-800">Offense Enhancements</h4>
+                            <p class="text-emerald-900">The offense level is <strong class="font-semibold">increased to the next higher category</strong> if it is shown that:</p>
+                            <ul class="list-disc list-inside mt-2 space-y-1 text-emerald-900">
+                                <li>The actor was a public servant or a government contractor acting in their capacity.</li>
+                                <li>The victim was elderly, disabled, or a non-profit organization.</li>
+                                <li>The actor, in committing the theft, deactivated a fire alarm or retail theft detector.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Burglary Tab -->
+            <div id="tab-burglary" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Burglary Offenses (Chapter 30)</h2>
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-3 gap-6">
+                         <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Enter</strong></div><div class="flashcard-face flashcard-back rounded-lg">Intrusion of any part of the body, or any physical object connected to the body.</div></div></div>
+                         <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Habitation</strong></div><div class="flashcard-face flashcard-back rounded-lg">A structure or vehicle adapted for the overnight accommodation of persons. Includes separately secured portions.</div></div></div>
+                         <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Building</strong></div><div class="flashcard-face flashcard-back rounded-lg">Any enclosed structure intended for use or occupation as a habitation or for trade, manufacture, ornament, or use.</div></div></div>
+                    </div>
+                    <details class="card p-0">
+                        <summary>Burglary (PC 30.02)</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-2">A person commits burglary if, without effective consent, they:</p>
+                            <ul class="list-decimal list-inside space-y-2 text-gray-700">
+                                <li>Enter a habitation or building (not open to public) with intent to commit a felony, theft, or assault.</li>
+                                <li>Remain concealed in a habitation or building with that same intent.</li>
+                                <li>Enter a habitation or building and commit or attempt to commit a felony, theft, or assault.</li>
+                            </ul>
+                            <div class="mt-4 grid md:grid-cols-2 gap-4">
+                                <div class="bg-red-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-lg text-red-800">Burglary of Habitation</h4>
+                                    <ul class="list-disc list-inside mt-2 text-red-700">
+                                        <li><strong>Default:</strong> 2nd Degree Felony.</li>
+                                        <li><strong>Enhanced:</strong> 1st Degree Felony if the intended or committed offense is a felony other than theft.</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-sky-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-lg text-sky-800">Burglary of Building</h4>
+                                    <ul class="list-disc list-inside mt-2 text-sky-700">
+                                         <li><strong>Default:</strong> State Jail Felony.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Burglary of Vehicles (PC 30.04)</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-2">A person commits this offense if, without effective consent, they break into or enter a vehicle (or any part of it) with intent to commit any felony or theft.</p>
+                             <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><strong>Default:</strong> Class A Misdemeanor.</li>
+                                <li><strong>Enhanced:</strong> State Jail Felony if they have 2+ prior convictions for this offense, or if the vehicle is a rail car.</li>
+                                <li><strong>Enhanced:</strong> 3rd Degree Felony if it's a drug wholesaler's vehicle and the intent is to steal controlled substances.</li>
+                            </ul>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Burglary of Coin-Operated Machine (PC 30.03)</summary>
+                        <div class="p-6 border-t">
+                            <p>Breaking or entering any coin-operated or coin-activated machine with intent to obtain property or services. This is a <strong class="font-semibold text-emerald-700">Class A Misdemeanor</strong>.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Auto Theft Tab -->
+            <div id="tab-auto-theft" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Auto Theft Investigation</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Unauthorized Use of a Vehicle (UUMV) (PC 31.07)</summary>
+                        <div class="p-6 border-t">
+                            <p>A person commits UUMV if they intentionally or knowingly operate another's boat, airplane, or motor-propelled vehicle without the owner's effective consent. This is a <strong class="font-semibold text-emerald-700">State Jail Felony</strong>.</p>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>The Salvage Switch</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-4">A method of disguising a stolen car by altering its identity. Thieves place the Vehicle Identification Number (VIN) from a salvaged (totaled) vehicle onto a stolen vehicle of the same make and model. This allows the thief to sell the stolen car with what appears to be a legitimate title.</p>
+                            <h4 class="font-semibold text-lg mb-2">Detection:</h4>
+                             <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                 <li>A VIN check returns a "junk" or "salvage" title.</li>
+                                 <li>VIN plate or rivets appear damaged, distorted, or are not the factory-type.</li>
+                                 <li>Compare the dashboard VIN with secondary VINs (door jamb sticker, engine block, etc.).</li>
+                                 <li>Spelling errors or incorrect logos on the Federal Safety Certification Label (door jamb sticker).</li>
+                             </ul>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Rental Cars: Civil vs. Criminal</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-4">An overdue rental car is typically a civil matter. It becomes a criminal matter (Theft of Service) only after the rental agency sends a written demand for return of the vehicle via certified mail and the renter fails to return it within the specified time frame. Officers should verify if the company has followed these steps before taking criminal action.</p>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Indicators of a Stolen Vehicle</summary>
+                        <div class="p-6 border-t grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Exterior Indicators (Pre-Stop)</h4>
+                                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                    <li>Broken glass on seats or floor.</li>
+                                    <li>License plate doesn't match vehicle registration or is for a different vehicle type.</li>
+                                    <li>Clean plate on a dirty car (or vice-versa).</li>
+                                    <li>Plates held on by wire, magnets, or other temporary means.</li>
+                                    <li>Punched out door or trunk locks.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Interior Indicators (Post-Stop)</h4>
+                                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                    <li>Steering column is broken, cracked, or covered.</li>
+                                    <li>Ignition has been punched out or pulled; wires are exposed.</li>
+                                    <li>Key is not the correct one for the vehicle (e.g., a shaved key, screwdriver).</li>
+                                    <li>VIN plate is loose, damaged, or obscured.</li>
+                                    <li>Major components (stereo, airbag) are missing.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- Other Offenses Tab -->
+            <div id="tab-other-offenses" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Other Related Offenses</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Theft of Service (PC 31.04)</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-2">Intentionally or knowingly securing performance of a service (labor, lodging, rental, etc.) by deception, threat, or false token with intent to avoid payment.</p>
+                            <p>Punishment follows the standard <strong class="font-semibold">Theft Ladder</strong>.</p>
+                            <div class="mt-4 bg-amber-100 border-l-4 border-amber-500 text-amber-800 p-4 rounded-r-lg">
+                                <p><strong class="font-bold">Presumption of Intent:</strong> Intent to avoid payment is presumed if a person absconds from a hotel/restaurant, or fails to return a rental car after receiving a proper written demand.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Specialized Theft Offenses</summary>
+                        <div class="p-6 border-t divide-y">
+                            <div class="py-3"><strong>Mail Theft (PC 31.20):</strong> Ranges from <span class="font-semibold">Class A Misdemeanor</span> (fewer than 10 addressees) to <span class="font-semibold">1st Degree Felony</span> (50+ addressees with ID info).</div>
+                            <div class="py-3"><strong>Organized Retail Theft (PC 31.16):</strong> Intentionally conducting, promoting, or facilitating activities in which a person receives, possesses, conceals, or sells stolen retail merchandise. Follows the <span class="font-semibold">Theft Ladder</span> and is enhanced if the actor is an organizer/manager.</div>
+                            <div class="py-3"><strong>Cargo Theft (PC 31.18):</strong> Knowingly dealing in stolen commercial freight. Ranges from <span class="font-semibold">State Jail Felony</span> ($1,500+) to <span class="font-semibold">1st Degree Felony</span> ($200,000+).</div>
+                            <div class="py-3"><strong>Tampering with ID Numbers (PC 31.11):</strong> Knowingly removing, altering, or possessing property with an obliterated serial number. A <span class="font-semibold">Class A Misdemeanor</span>.</div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Preparatory Offenses</summary>
+                        <div class="p-6 border-t divide-y">
+                            <div class="py-3"><strong>Criminal Attempt (PC 15.01):</strong> An act beyond mere preparation that tends but fails to commit an offense. Punished <span class="font-semibold">one category lower</span> than the target offense.</div>
+                            <div class="py-3"><strong>Unlawful Use of Criminal Instrument (PC 16.01):</strong> Possessing an instrument specially designed/adapted for crime with intent to use it. Punished <span class="font-semibold">one category lower</span> than the intended offense. Manufacturing is a <span class="font-semibold">State Jail Felony</span>.</div>
+                            <div class="py-3"><strong>Unlawful Use of Retail Theft Instruments (PC 16.02):</strong> Possessing, manufacturing, or selling a "shielding or deactivation instrument" for retail theft is a <span class="font-semibold">Class A Misdemeanor</span>.</div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Scenario Q&A Tab -->
+            <div id="tab-qa" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Scenario Q&A</h2>
+                <div class="space-y-4">
+                    <details class="card p-0"><summary>What are the core elements required to prove "Theft" under Texas law (31.03)?</summary><div class="p-6 border-t text-gray-700">To prove theft, a prosecutor must show that a person unlawfully appropriated property with the specific intent to deprive the owner of that property. The appropriation is unlawful if it is without the owner's effective consent or if the property was stolen and the actor knew it was stolen.</div></details>
+                    <details class="card p-0"><summary>Provide two examples of when "consent" is NOT considered effective.</summary><div class="p-6 border-t text-gray-700">Consent is not effective if it is induced by deception or coercion. It is also not effective if given by a person the actor knows is not legally authorized to act for the owner, such as an employee giving away company property against policy, or by someone known to be incapacitated due to youth, mental defect, or intoxication.</div></details>
+                    <details class="card p-0"><summary>Explain the concept of "deprive" as it relates to theft.</summary><div class="p-6 border-t text-gray-700">"Deprive" means more than just temporary taking. It means to withhold property from the owner permanently or for such an extended period that a major portion of its value or enjoyment is lost. It also includes actions like disposing of the property in a way that makes its recovery by the owner unlikely.</div></details>
+                    <details class="card p-0"><summary>Describe the "preventing consequences of theft" rule (CCP 18.16).</summary><div class="p-6 border-t text-gray-700">CCP 18.16 allows any person, not just law enforcement, to seize property they have reasonable grounds to believe is stolen. They can also seize the person suspected of the theft. The seizer must then immediately take the property and suspect to a peace officer or magistrate.</div></details>
+                    <details class="card p-0"><summary>List three exterior indicators that an officer might observe to suspect a vehicle is stolen.</summary><div class="p-6 border-t text-gray-700">An officer might suspect a vehicle is stolen if they see broken glass on the floor or seats, indicating forced entry. Other indicators include a license plate that doesn't match the vehicle's registration, or a plate that is attached with wire or magnets, suggesting it was recently and hastily put on.</div></details>
+                    <details class="card p-0"><summary>What is a "salvage switch" in the context of auto theft?</summary><div class="p-6 border-t text-gray-700">A "salvage switch" is the criminal practice of altering a stolen vehicle's identity by replacing its VIN plate with one from a similar make and model that has been wrecked or "salvaged." This makes the stolen vehicle appear legitimate, allowing the thief to obtain a title and sell it.</div></details>
+                    <details class="card p-0"><summary>How can law enforcement distinguish between a civil and criminal issue with an overdue rental car?</summary><div class="p-6 border-t text-gray-700">An overdue rental is a civil issue until the rental company follows the specific procedures in the Penal Code to establish criminal intent. This involves sending a formal written demand for the car's return by certified mail. Only after the renter fails to comply with this notice does it typically become a criminal Theft of Service case.</div></details>
+                    <details class="card p-0"><summary>Define "habitation" and "building" as they are used in burglary offenses.</summary><div class="p-6 border-t text-gray-700">"Habitation" is a structure or vehicle adapted for the overnight accommodation of persons, including any attached structures or separately secured portions. "Building" is a broader term for any enclosed structure intended for use as a habitation or for purposes of trade, manufacture, or use.</div></details>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8">
+                    <!-- Quiz questions will be injected here by JS -->
+                </div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-emerald-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-emerald-700">Retake Quiz</button>
+                </div>
+            </div>
+            
+            <!-- Glossary Tab -->
+            <div id="tab-glossary" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Glossary of Key Terms</h2>
+                <div class="card p-6">
+                    <dl class="space-y-4">
+                        <div><dt class="glossary-term">Appropriate</dt><dd class="text-gray-700 ml-4">To acquire or otherwise exercise control over property other than real property.</dd></div>
+                        <div><dt class="glossary-term">Building</dt><dd class="text-gray-700 ml-4">Any enclosed structure intended for use or occupation as a habitation or for some purpose of trade, manufacture, ornament, or use.</dd></div>
+                        <div><dt class="glossary-term">Criminal Instrument</dt><dd class="text-gray-700 ml-4">Anything specially designed, made, or adapted for use in the commission of an offense.</dd></div>
+                        <div><dt class="glossary-term">Deception</dt><dd class="text-gray-700 ml-4">Creating a false impression, failing to correct a false impression, or promising performance with no intent to perform.</dd></div>
+                        <div><dt class="glossary-term">Deprive</dt><dd class="text-gray-700 ml-4">To withhold property permanently or for an extended period making recovery unlikely, or to restore property only upon compensation.</dd></div>
+                        <div><dt class="glossary-term">Effective Consent</dt><dd class="text-gray-700 ml-4">Consent by a person legally authorized to act, which is not induced by deception/coercion or given by someone known to be incapacitated.</dd></div>
+                        <div><dt class="glossary-term">Enter (Burglary)</dt><dd class="text-gray-700 ml-4">To intrude any part of the body or any physical object connected with the body.</dd></div>
+                        <div><dt class="glossary-term">Habitation</dt><dd class="text-gray-700 ml-4">A structure or vehicle adapted for the overnight accommodation of persons, including separately secured portions.</dd></div>
+                        <div><dt class="glossary-term">Property</dt><dd class="text-gray-700 ml-4">Real property, tangible or intangible personal property, or a document representing anything of value.</dd></div>
+                        <div><dt class="glossary-term">Service</dt><dd class="text-gray-700 ml-4">Includes labor, professional services, transportation, lodging, restaurant service, and the supply of a motor vehicle for use.</dd></div>
+                        <div><dt class="glossary-term">Shielding or Deactivation Instrument</dt><dd class="text-gray-700 ml-4">A device used to prevent or attempt to prevent detection by a retail theft detector.</dd></div>
+                        <div><dt class="glossary-term">Unauthorized Use of a Vehicle (UUV)</dt><dd class="text-gray-700 ml-4">Intentionally or knowingly operating another's boat, airplane, or motor-propelled vehicle without the owner’s effective consent.</dd></div>
+                    </dl>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabContainer = document.getElementById('main-tabs');
+
+    tabContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('tab-button')) {
+            const targetTab = e.target.dataset.tab;
+            
+            tabs.forEach(t => t.classList.remove('active'));
+            e.target.classList.add('active');
+
+            document.querySelectorAll('.tab-pane').forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === targetTab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+        }
+    });
+
+    // Flashcard functionality
+    document.querySelectorAll('.flashcard').forEach(card => {
+        card.addEventListener('click', () => {
+            card.classList.toggle('is-flipped');
+        });
+    });
+
+    // Quiz Functionality
+    const quizData = [
+        { 
+            question: "A person enters a building not open to the public with the intent to steal a laptop. What is the highest offense, even if they don't actually take anything?", 
+            options: ["Theft (Class A)", "Burglary of Building (SJF)", "Criminal Trespass (Class B)", "Criminal Attempt (Theft)"], 
+            answer: "Burglary of Building (SJF)",
+            explanation: "Burglary only requires entry with intent to commit a felony, theft, or assault. The actual commission of the underlying crime is not required to complete the burglary offense.",
+            reference: "PC 30.02 (Burglary)"
+        },
+        { 
+            question: "An individual knowingly operates their friend's car for a day without permission, fully intending to return it later. What offense has been committed?", 
+            options: ["Theft of a Vehicle (SJF)", "No Offense if returned", "Unauthorized Use of a Vehicle (SJF)", "Theft of Service (Class A)"], 
+            answer: "Unauthorized Use of a Vehicle (SJF)",
+            explanation: "UUMV is committed by knowingly operating a vehicle without consent, regardless of the intent to return it. It differs from Theft, which requires the 'intent to deprive' the owner permanently or for a major portion of its value.",
+            reference: "PC 31.07 (UUMV)"
+        },
+        { 
+            question: "A person steals a firearm from a display case in a store. What is the offense level for the theft, regardless of the firearm's value?", 
+            options: ["Class A Misdemeanor", "3rd Degree Felony", "State Jail Felony", "2nd Degree Felony"], 
+            answer: "State Jail Felony",
+            explanation: "Theft of a firearm is automatically a State Jail Felony, regardless of its monetary value.",
+            reference: "PC 31.03(e)(4)(C) (Theft Ladder)"
+        },
+        { 
+            question: "According to CCP 18.16 (Preventing Consequences of Theft), who has the authority to seize stolen property from a suspect?", 
+            options: ["Only a licensed peace officer", "Only the property owner", "Any person", "Only a security guard on duty"], 
+            answer: "Any person",
+            explanation: "The statute explicitly states 'any person' has a right to prevent the consequences of theft by seizing the property and the suspect, provided they have reasonable grounds and immediately deliver them to law enforcement.",
+            reference: "CCP 18.16"
+        },
+        { 
+            question: "A person enters a home with the owner's consent but then hides and waits for the owner to leave to commit an assault. What offense has occurred?", 
+            options: ["Criminal Trespass", "Assault", "Burglary of Habitation", "No Burglary, entry was consented"], 
+            answer: "Burglary of Habitation",
+            explanation: "Burglary can be committed by entering OR remaining concealed in a habitation or building with the requisite intent. Even though the initial entry was lawful, remaining concealed without consent to commit an offense constitutes burglary.",
+            reference: "PC 30.02 (Burglary)"
+        },
+        { 
+            question: "A person steals $800 worth of electronics from a store. The victim is a registered non-profit organization. What is the highest offense level?", 
+            options: ["Class A Misdemeanor", "State Jail Felony", "Class B Misdemeanor", "3rd Degree Felony"], 
+            answer: "State Jail Felony",
+            explanation: "The value of $800 is normally a Class A Misdemeanor. However, since the victim is a non-profit organization, the offense is enhanced one level to a State Jail Felony.",
+            reference: "PC 31.03(f) (Theft Enhancements)"
+        },
+        { 
+            question: "Which of the following is NOT an element of Burglary of a Vehicle (PC 30.04)?", 
+            options: ["Breaking into or entering a vehicle", "Without effective consent of the owner", "With intent to commit a felony or theft", "The vehicle must be locked"], 
+            answer: "The vehicle must be locked",
+            explanation: "The statute requires the actor to 'break into' or 'enter' a vehicle. An entry can occur even if the vehicle is unlocked. The act of 'breaking in' is not a necessary element if an 'entry' is made.",
+            reference: "PC 30.04 (Burglary of Vehicles)"
+        },
+        { 
+            question: "A person enters a habitation with the intent to commit aggravated assault (a 2nd Degree Felony). What is the offense level for the burglary?", 
+            options: ["2nd Degree Felony", "1st Degree Felony", "State Jail Felony", "Same as the intended offense"], 
+            answer: "1st Degree Felony",
+            explanation: "Burglary of a Habitation is typically a 2nd Degree Felony. However, it is enhanced to a 1st Degree Felony if the actor enters with the intent to commit a felony other than felony theft.",
+            reference: "PC 30.02(d) (Burglary of Habitation)"
+        },
+        { 
+            question: "A pawn shop owner buys a used TV for $50 but fails to get the seller's ID or a signed warranty of title. This failure can be used to establish what?", 
+            options: ["A presumption of recklessness", "A presumption of negligence", "A presumption the property was known to be stolen", "A violation of city ordinance only"], 
+            answer: "A presumption the property was known to be stolen",
+            explanation: "For dealers buying used property over $25, the law presumes they knew the property was stolen if they fail to follow specific documentation procedures, which aids in prosecution.",
+            reference: "PC 31.03(c)(3) (Presumption for Dealers)"
+        },
+        { 
+            question: "What is the primary purpose of a 'salvage switch' in auto theft?", 
+            options: ["To get cheaper insurance on the stolen car", "To make a stolen vehicle appear legitimate for resale", "To replace damaged parts on a stolen car", "To avoid paying vehicle registration fees"], 
+            answer: "To make a stolen vehicle appear legitimate for resale",
+            explanation: "The main goal of a salvage switch is to give a stolen vehicle a new, seemingly clean identity using the VIN from a legally salvaged vehicle, making it easier to sell to an unsuspecting buyer.",
+            reference: "Auto Theft Investigation"
+        },
+        { 
+            question: "A person possesses a specially made tool designed only to disarm retail anti-theft tags. What is the highest offense for mere possession of this tool?", 
+            options: ["No offense until it's used", "Class C Misdemeanor", "Class A Misdemeanor", "State Jail Felony"], 
+            answer: "Class A Misdemeanor",
+            explanation: "Possession of a shielding or deactivation instrument for retail theft is a Class A Misdemeanor. This is a different offense from Unlawful Use of a Criminal Instrument, which has a different punishment scheme.",
+            reference: "PC 16.02 (Unlawful Use of Retail Theft Instrument)"
+        },
+        { 
+            question: "A person eats a $90 meal at a restaurant and leaves without paying. What is the offense?", 
+            options: ["Theft (Class C)", "Theft of Service (Class C)", "Theft (Class B)", "Theft of Service (Class B)"], 
+            answer: "Theft of Service (Class B)",
+            explanation: "This involves securing a service (the meal) with the intent to avoid payment. The punishment follows the standard theft ladder, and a value of $90 falls into the Class C range ($<100). Wait, the value ladder for Class B is $100-$750. Let me re-check. Yes, Less than $100 is Class C. The question states $90. So the answer should be Theft of Service (Class C). Let me correct the options and answer. Ah, the prompt says the value is $90. The ladder is <$100 is Class C. $100 to <$750 is Class B. The value is $90. So it is Class C. Let me re-evaluate the provided quiz answers. The original quiz had no question like this. I will make one that is clear. Let's change the value to $150. A person eats a $150 meal and leaves. The offense is Theft of Service, and the value puts it in the Class B Misdemeanor category ($100 to <$750).",
+            options: ["Theft (Class B)", "Theft of Service (Class B)", "Theft (Class A)", "Theft of Service (Class A)"],
+            answer: "Theft of Service (Class B)",
+            explanation: "This involves securing a service (the meal) with the intent to avoid payment. The punishment follows the standard theft ladder. A value of $150 falls into the Class B Misdemeanor category ($100 or more, but less than $750).",
+            reference: "PC 31.04 (Theft of Service)"
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        if (!quizContainer) return;
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="quiz-explanation mt-4 p-4 rounded-lg hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const questionData = quizData[questionNumber];
+        const correctAnswer = questionData.answer;
+
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        // Disable further clicks on this question's options
+        optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.removeEventListener('click', selectAnswer);
+            opt.style.cursor = 'default';
+        });
+
+        // Mark correct/incorrect
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+            });
+        }
+        
+        // Show explanation
+        const explanationDiv = selectedOption.closest('.card').querySelector('.quiz-explanation');
+        explanationDiv.innerHTML = `<p><strong class="font-semibold">Explanation:</strong> ${questionData.explanation}</p><p class="text-sm text-gray-600 mt-1"><strong>Reference:</strong> ${questionData.reference}</p>`;
+        explanationDiv.classList.remove('hidden');
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizContainer.classList.add('hidden');
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `You scored ${score} out of ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#10b981';
+            else if (percentage >= 50) quizScoreEl.style.color = '#f59e0b';
+            else quizScoreEl.style.color = '#ef4444';
+        }, 1500); // Delay to allow user to read last explanation
+    }
+    
+    if(retakeBtn) {
+        retakeBtn.addEventListener('click', () => {
+            score = 0;
+            answeredQuestions = 0;
+            buildQuiz();
+        });
+    }
+
+    buildQuiz();
+});
+</script>
+
+</body>
+</html>

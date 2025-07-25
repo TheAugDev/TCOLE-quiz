@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Study Guide: Texas Weapons Offenses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fef2f2; /* Light red background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .flashcard-container {
+            perspective: 1000px;
+        }
+        .flashcard {
+            width: 100%;
+            height: 150px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+        }
+        .flashcard-front {
+            background-color: #b91c1c; /* Darker Red */
+            color: white;
+        }
+        .flashcard-back {
+            background-color: #7f1d1d; /* Even Darker Red */
+            color: white;
+            transform: rotateY(180deg);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #fee2e2; /* Lighter Red */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        details > summary:hover {
+            background-color: #fecaca;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .quiz-option {
+            transition: background-color 0.2s;
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #dc2626; /* Red */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Texas Weapons Offenses</h1>
+            <p class="text-lg text-gray-600 mt-2">An Interactive Study Guide (Chapter 46)</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-definitions">Definitions</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-carrying">Unlawful Carrying & Possession</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-places">Prohibited Places</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-weapons">Prohibited Weapons</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Definitions Tab -->
+            <div id="tab-definitions" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Key Definitions (PC 46.01)</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Firearm</strong></div><div class="flashcard-face flashcard-back rounded-lg">Device designed to expel a projectile by explosion/burning. Excludes antiques made before 1899.</div></div></div>
+                    <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Handgun</strong></div><div class="flashcard-face flashcard-back rounded-lg">A firearm designed to be fired with one hand.</div></div></div>
+                    <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Location-Restricted Knife</strong></div><div class="flashcard-face flashcard-back rounded-lg">A knife with a blade over 5.5 inches.</div></div></div>
+                    <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Short-Barrel Firearm</strong></div><div class="flashcard-face flashcard-back rounded-lg">Rifle with barrel < 16", shotgun with barrel < 18", or any rifle/shotgun with overall length < 26".</div></div></div>
+                    <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Explosive Weapon</strong></div><div class="flashcard-face flashcard-back rounded-lg">Any bomb, grenade, rocket, or mine designed to inflict SBI/death or substantial property damage.</div></div></div>
+                    <div class="flashcard-container"><div class="flashcard card"><div class="flashcard-face flashcard-front rounded-lg"><strong>Hoax Bomb</strong></div><div class="flashcard-face flashcard-back rounded-lg">A device that reasonably appears to be an explosive or causes alarm to a public safety agency.</div></div></div>
+                </div>
+            </div>
+
+            <!-- Unlawful Carrying Tab -->
+            <div id="tab-carrying" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Unlawful Carrying & Possession</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Unlawful Carrying Weapons (PC 46.02)</summary>
+                        <div class="p-6 border-t">
+                            <h4 class="font-semibold text-lg mb-2">General Rule:</h4>
+                            <p class="mb-4">A person commits an offense (Class A Misdemeanor) if they intentionally, knowingly, or recklessly carry a handgun and are not on their own premises or in/en route to their vehicle/watercraft, especially if they are under 21 or have certain recent convictions.</p>
+                            <div class="bg-red-50 p-4 rounded-lg">
+                                <h4 class="font-semibold text-lg mb-2 text-red-800">The "Holster Rule"</h4>
+                                <p class="text-red-700">In a motor vehicle or watercraft, a handgun must not be in <strong class="font-semibold">plain view</strong> UNLESS the person is 21+ (or licensed) AND the handgun is in a <strong class="font-semibold">holster</strong>.</p>
+                            </div>
+                            <div class="mt-4 bg-amber-100 border-l-4 border-amber-500 text-amber-800 p-4 rounded-r-lg">
+                                <p><strong class="font-bold">Intoxication:</strong> It is an offense to carry a handgun while intoxicated unless on your own property or in your vehicle.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Unlawful Possession of Firearm (PC 46.04)</summary>
+                        <div class="p-6 border-t">
+                            <h4 class="font-semibold text-lg mb-2">By a Felon (3rd Degree Felony):</h4>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>A convicted felon cannot possess a firearm for <strong class="font-semibold">5 years</strong> after release from confinement or supervision.</li>
+                                <li>After 5 years, they can only possess a firearm <strong class="font-semibold">at the premises where they live</strong>.</li>
+                            </ul>
+                             <h4 class="font-semibold text-lg mt-4 mb-2">By a Family Violence Offender (Class A Misdemeanor):</h4>
+                             <p>A person convicted of a Class A misdemeanor assault against a family member cannot possess a firearm for <strong class="font-semibold">5 years</strong> after release from confinement or supervision.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Prohibited Places Tab -->
+            <div id="tab-places" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Places Weapons Prohibited (PC 46.03)</h2>
+                <p class="mb-6 text-gray-700">A person commits an offense (generally a 3rd Degree Felony) if they intentionally, knowingly, or recklessly possess a firearm, location-restricted knife, club, or prohibited weapon in certain places.</p>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card p-4">
+                        <h3 class="text-xl font-semibold text-red-700">Prohibited Locations:</h3>
+                        <ul class="list-disc list-inside mt-2 space-y-1 text-gray-700">
+                            <li>School or educational institution premises/vehicle</li>
+                            <li>Polling place on election day</li>
+                            <li>Government court or court offices</li>
+                            <li>Racetrack</li>
+                            <li>Secured area of an airport</li>
+                            <li>Within 1,000 ft of an execution on day of execution</li>
+                            <li>Business that derives 51%+ of income from alcohol (TABC 51% sign)</li>
+                            <li>High school, college, or pro sporting event</li>
+                            <li>Correctional facility</li>
+                            <li>Hospital or nursing home</li>
+                            <li>Amusement park</li>
+                             <li>Open governmental meeting</li>
+                        </ul>
+                    </div>
+                    <div class="card p-4 bg-red-50">
+                        <h3 class="text-xl font-semibold text-red-800">Important Exceptions & Defenses:</h3>
+                        <ul class="list-disc list-inside mt-2 space-y-1 text-red-700">
+                             <li><strong class="font-semibold">Peace Officers:</strong> PC 46.02 & 46.03 generally do not apply to peace officers, whether on or off duty.</li>
+                             <li><strong class="font-semibold">LTC at Airport:</strong> It is a defense for a License to Carry holder at an airport checkpoint if they immediately exit upon being notified they have a handgun. Police may not arrest unless they refuse to leave.</li>
+                             <li><strong class="font-semibold">LTC at College:</strong> LTC holders can generally carry concealed on college campuses, but institutions can establish certain "gun-free" zones with proper 30.06 signage. Openly displaying a handgun on campus is an offense.</li>
+                             <li><strong class="font-semibold">Vehicle Exception:</strong> The prohibition for being within 1,000 ft of an execution does not apply if the person is in their vehicle on a public road.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Prohibited Weapons Tab -->
+            <div id="tab-weapons" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Prohibited Weapons & Other Offenses</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Prohibited Weapons (PC 46.05)</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-4">It is an offense (generally a 3rd Degree Felony) to intentionally or knowingly possess, manufacture, transport, repair, or sell the following:</p>
+                            <ul class="list-disc list-inside grid md:grid-cols-2 gap-x-6 text-gray-700">
+                                <li>Explosive Weapon</li>
+                                <li>Machine Gun</li>
+                                <li>Short-Barrel Firearm</li>
+                                <li>Armor-Piercing Ammunition</li>
+                                <li>Chemical Dispensing Device</li>
+                                <li>Zip Gun</li>
+                                <li>Tire Deflation Device (State Jail Felony)</li>
+                                <li>Improvised Explosive Device (IED)</li>
+                            </ul>
+                            <div class="mt-4 bg-amber-100 border-l-4 border-amber-500 text-amber-800 p-4 rounded-r-lg">
+                                <p><strong class="font-bold">Exception:</strong> Does not apply if the item (e.g., machine gun, short-barrel firearm) is registered on the National Firearms Registration and Transfer Record (NFA).</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Other Key Offenses</summary>
+                        <div class="p-6 border-t divide-y">
+                            <div class="py-3"><strong>Unlawful Transfer of Certain Weapons (PC 46.06):</strong> A Class A Misdemeanor to, for example, sell a firearm to an intoxicated person or a handgun to a child under 18 (this is a State Jail Felony).</div>
+                            <div class="py-3"><strong>Hoax Bombs (PC 46.08):</strong> Knowingly making, selling, or possessing a hoax bomb with intent to make another believe it's real is a <span class="font-semibold">Class A Misdemeanor</span>.</div>
+                            <div class="py-3"><strong>Unlawful Possession of Body Armor by Felon (PC 46.041):</strong> A convicted felon possessing metal or body armor commits a <span class="font-semibold">3rd Degree Felony</span>.</div>
+                            <div class="py-3"><strong>Making a Firearm Accessible to a Child (PC 46.13):</strong> A Class C Misdemeanor if a child (<17) gains access to a readily dischargeable firearm due to criminal negligence. Becomes a Class A if the child discharges it and causes SBI/death.</div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8">
+                    <!-- Quiz questions will be injected here by JS -->
+                </div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+        });
+    });
+
+    // Flashcard functionality
+    const flashcards = document.querySelectorAll('.flashcard');
+    flashcards.forEach(card => {
+        card.addEventListener('click', () => {
+            card.classList.toggle('is-flipped');
+        });
+    });
+
+    // Quiz Functionality
+    const quizData = [
+        {
+            question: "A person possesses a rifle with a 15-inch barrel. This is classified as a:",
+            options: ["Handgun", "Zip Gun", "Short-Barrel Firearm", "Standard Rifle"],
+            answer: "Short-Barrel Firearm",
+            explanation: "<strong>Reference: PC Sec. 46.01(10).</strong> A 'Short-barrel firearm' is defined as a rifle with a barrel length of less than 16 inches or a shotgun with a barrel length of less than 18 inches."
+        },
+        {
+            question: "A convicted felon was released from prison 6 years ago. Where can they legally possess a firearm?",
+            options: ["Only at the premises where they live", "In their vehicle", "Anywhere, as long as it's concealed", "Nowhere"],
+            answer: "Only at the premises where they live",
+            explanation: "<strong>Reference: PC Sec. 46.04(a)(2).</strong> After the five-year prohibition period, a felon may only possess a firearm at the premises where they live."
+        },
+        {
+            question: "A 22-year-old is driving with a handgun sitting on the passenger seat, in plain view and not in a holster. What offense has been committed?",
+            options: ["No Offense", "Unlawful Carrying Weapons (Class A)", "Disorderly Conduct (Class C)", "Places Weapons Prohibited (3rd Degree Felony)"],
+            answer: "Unlawful Carrying Weapons (Class A)",
+            explanation: "<strong>Reference: PC Sec. 46.02(a-1).</strong> A person commits an offense if they carry a handgun in a motor vehicle and the handgun is in plain view, unless the person is 21 or older AND the handgun is in a holster. Both conditions must be met."
+        },
+        {
+            question: "Carrying a firearm into which of the following locations is generally a 3rd Degree Felony?",
+            options: ["An amusement park", "A hospital without authorization", "A high school sporting event", "A business that derives 51% of its income from alcohol sales"],
+            answer: "A business that derives 51% of its income from alcohol sales",
+            explanation: "<strong>Reference: PC Sec. 46.03(a)(7) & (g).</strong> While carrying in an amusement park or hospital are Class A Misdemeanors, carrying in a '51%' establishment is a 3rd Degree Felony."
+        },
+        {
+            question: "A person is found possessing a machine gun that is NOT registered on the National Firearms Registration and Transfer Record. What is the offense?",
+            options: ["Unlawful Carrying Weapons (Class A)", "Unlawful Possession of Firearm (3rd Degree Felony)", "Prohibited Weapons (3rd Degree Felony)", "Prohibited Weapons (State Jail Felony)"],
+            answer: "Prohibited Weapons (3rd Degree Felony)",
+            explanation: "<strong>Reference: PC Sec. 46.05(a)(1)(B) & (e).</strong> A machine gun is a prohibited weapon. Possessing an unregistered one is a 3rd Degree Felony."
+        },
+        {
+            question: "A person knowingly sells a handgun to a 17-year-old. What is the offense?",
+            options: ["Unlawful Transfer (Class A Misdemeanor)", "Unlawful Transfer (State Jail Felony)", "No offense if the parent consented verbally", "Making a Firearm Accessible to a Child (Class C)"],
+            answer: "Unlawful Transfer (State Jail Felony)",
+            explanation: "<strong>Reference: PC Sec. 46.06(a)(2) & (d).</strong> Knowingly selling a firearm to a child younger than 18 is an offense. It is a State Jail Felony if the weapon is a handgun. A defense requires written parental permission."
+        },
+        {
+            question: "Possessing a tire deflation device (caltrop/spike strip) is what level of offense under PC 46.05?",
+            options: ["Class A Misdemeanor", "3rd Degree Felony", "2nd Degree Felony", "State Jail Felony"],
+            answer: "State Jail Felony",
+            explanation: "<strong>Reference: PC Sec. 46.05(e).</strong> While most prohibited weapons offenses are 3rd Degree Felonies, the statute specifically makes possession of a tire deflation device a State Jail Felony."
+        },
+        {
+            question: "A person is convicted of a Class A Assault involving a family member. For how long are they prohibited from possessing a firearm?",
+            options: ["1 year", "2 years", "5 years", "For life"],
+            answer: "5 years",
+            explanation: "<strong>Reference: PC Sec. 46.04(b).</strong> A person with a conviction for a Class A misdemeanor involving a family or household member is prohibited from possessing a firearm for five years following their release from confinement or supervision."
+        },
+        {
+            question: "A licensed individual is at an airport screening checkpoint and is notified they have a handgun. To avoid arrest for Places Weapons Prohibited, they must:",
+            options: ["Show their License to Carry", "Surrender the handgun to the officer", "Immediately exit the checkpoint", "Lock the handgun in a case"],
+            answer: "Immediately exit the checkpoint",
+            explanation: "<strong>Reference: PC Sec. 46.03(e-1).</strong> It is a defense to prosecution if the licensed actor, upon being notified of the handgun, immediately exits the screening checkpoint. A peace officer may not arrest them unless they fail to do so."
+        },
+        {
+            question: "A knife with a 7-inch blade is legally defined as a:",
+            options: ["Club", "Prohibited Weapon", "Location-Restricted Knife", "Standard Knife"],
+            answer: "Location-Restricted Knife",
+            explanation: "<strong>Reference: PC Sec. 46.01(6).</strong> A 'location-restricted knife' is defined as a knife with a blade over five and one-half inches."
+        },
+        {
+            question: "A person with criminal negligence leaves a loaded pistol on a coffee table. Their 10-year-old child finds it, discharges it, and causes serious bodily injury to themselves. What offense has the adult committed?",
+            options: ["No Offense", "Class A Misdemeanor", "Class C Misdemeanor", "Endangering a Child"],
+            answer: "Class A Misdemeanor",
+            explanation: "<strong>Reference: PC Sec. 46.13(e).</strong> The offense of Making a Firearm Accessible to a Child is normally a Class C Misdemeanor, but it is enhanced to a Class A Misdemeanor if the child discharges the firearm and causes death or serious bodily injury."
+        },
+        {
+            question: "Which of the following is NOT a prohibited weapon under PC 46.05?",
+            options: ["Zip Gun", "Armor-piercing ammunition", "Club", "Chemical dispensing device"],
+            answer: "Club",
+            explanation: "<strong>Reference: PC Sec. 46.05(a).</strong> A club is defined in 46.01, and its carry is restricted in 46.02 and 46.03, but it is not listed as a 'prohibited weapon' under 46.05, which includes items like machine guns, short-barrel firearms, and zip guns."
+        },
+        {
+            question: "A person carries a handgun into a hospital without authorization. What is the offense level?",
+            options: ["Class C Misdemeanor", "Class A Misdemeanor", "State Jail Felony", "3rd Degree Felony"],
+            answer: "Class A Misdemeanor",
+            explanation: "<strong>Reference: PC Sec. 46.03(g-2).</strong> An offense for carrying a weapon on the premises of a hospital or nursing facility without authorization is a Class A Misdemeanor."
+        },
+        {
+            question: "A person convicted of a felony possesses body armor. What is the offense?",
+            options: ["Class A Misdemeanor", "State Jail Felony", "3rd Degree Felony", "No Offense"],
+            answer: "3rd Degree Felony",
+            explanation: "<strong>Reference: PC Sec. 46.041(c).</strong> A person who has been convicted of a felony commits a 3rd Degree Felony if they possess metal or body armor."
+        },
+        {
+            question: "The penalty for many weapons offenses is increased to the next highest category if committed within how many feet of a school?",
+            options: ["100 feet", "300 feet", "500 feet", "1,000 feet"],
+            answer: "300 feet",
+            explanation: "<strong>Reference: PC Sec. 46.11.</strong> The punishment is increased to the next highest category if the actor committed the offense in a place they knew was within 300 feet of the premises of a school."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        const options = document.querySelectorAll('.quiz-option');
+        options.forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.removeEventListener('click', selectAnswer);
+            opt.style.cursor = 'default';
+        });
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+            });
+        }
+        
+        // Show explanation
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        const explanationEl = document.createElement('div');
+        explanationEl.className = 'p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700';
+        explanationEl.innerHTML = currentQuestion.explanation;
+        explanationContainer.appendChild(explanationEl);
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizContainer.classList.add('hidden');
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) {
+                quizScoreEl.style.color = '#16a34a';
+            } else if (percentage >= 50) {
+                quizScoreEl.style.color = '#f59e0b';
+            } else {
+                quizScoreEl.style.color = '#dc2626';
+            }
+        }, 1500);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+
+    buildQuiz();
+});
+</script>
+
+</body>
+</html>
