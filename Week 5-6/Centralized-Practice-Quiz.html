@@ -29,6 +29,11 @@
                 <label class="flex items-center gap-2"><input type="checkbox" value="Property" checked> Property-Trespass Offenses</label>
                 <label class="flex items-center gap-2"><input type="checkbox" value="Theft" checked> Theft-Burglary Offenses</label>
                 <label class="flex items-center gap-2"><input type="checkbox" value="Weapons" checked> Weapons Offense</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Arrest, Search, and Seizure"> Arrest-Search-Seizure</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Verbal Force Communication"> Verbal-Force-Communication</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Verbal Noncompliance"> Verbal-Noncompliance</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Fraud-Tech-Crimes"> Fraud-Tech-Crimes</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="ID-Theft-Financial-Offense"> ID-Theft-Financial-Offense</label>
             </form>
             <button id="start-quiz" class="mt-4 bg-red-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-red-700">Start Quiz</button>
         </section>
@@ -769,20 +774,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 options: ["By using lethal force immediately", "By calling for backup and using cover", "By negotiating and trying to disarm the individual", "By ignoring the individual and leaving the area"],
                 answer: "By calling for backup and using cover",
                 explanation: "In situations with armed individuals, officers should call for backup and use cover to protect themselves and others."
-            }
-        ]
-        // ...other topics (Theft, Weapons, etc.) should follow here as additional properties of allQuestions
-    };
-    // ...rest of the script and HTML
-</script>
-</body>
-</html>
-            },
-            {
-                question: "What is the difference between theft and robbery?",
-                options: ["Theft involves taking property by force; robbery does not", "Robbery involves taking property by force or threat; theft does not", "Theft is a felony; robbery is a misdemeanor", "There is no difference"],
-                answer: "Robbery involves taking property by force or threat; theft does not",
-                explanation: "Robbery is taking property from a person by force or threat of force, while theft is taking property without such threats."
+
             },
             {
                 question: "What is considered 'criminal mischief'?",
@@ -1337,7 +1329,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 answer: "By calling for backup and using cover",
                 explanation: "In situations with armed individuals, officers should call for backup and use cover to protect themselves and others."
             },
-        ],
+        {
                 answer: "Class A Misdemeanor",
                 explanation: "Unlawful carrying of a weapon is generally a Class A Misdemeanor."
             },
@@ -1387,14 +1379,14 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadQuestions(questions) {
         const container = document.getElementById('quiz-container');
         container.innerHTML = '';
-        questions.forEach((q, index) => {
+        questions.filter(q => q && q.options && Array.isArray(q.options)).forEach((q, index) => {
             const questionElement = document.createElement('div');
             questionElement.classList.add('card', 'p-4', 'md:p-6', 'rounded-lg', 'shadow-md', 'bg-white');
             questionElement.innerHTML = `
                 <p class="text-lg md:text-xl font-semibold mb-2">${index + 1}. ${q.question}</p>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                     ${q.options.map((option, i) => `
-                        <button class="quiz-option flex items-center p-3 rounded-lg border transition-all duration-200 ease-in-out" data-answer="${option}">
+                        <button class="quiz-option flex items-center p-3 rounded-lg border transition-all duration-200 ease-in-out${option === q.answer ? ' correct' : ''}" data-answer="${option}">
                             <span class="text-sm sm:text-base font-medium text-left">${String.fromCharCode(65 + i)}. ${option}</span>
                         </button>
                     `).join('')}
