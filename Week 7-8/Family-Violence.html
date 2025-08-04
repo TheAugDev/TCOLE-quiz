@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Study Guide: Family Violence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f3ff; /* Light Purple background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #ede9fe; /* Lighter Purple */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        details > summary:hover {
+            background-color: #ddd6fe;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .quiz-option {
+            transition: background-color 0.2s;
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #8b5cf6; /* Purple */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .offense-card {
+            border-left-width: 4px;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        .offense-f3 { border-color: #f87171; background-color: #fef2f2; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Family Violence</h1>
+            <p class="text-lg text-gray-600 mt-2">An Interactive Study Guide</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-dynamics">Dynamics of FV</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-models">Models of Abuse</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-legal">Legal Framework</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-response">Officer Response</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Dynamics of FV Tab -->
+            <div id="tab-dynamics" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Dynamics of Family Violence</h2>
+                <div class="space-y-6">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-semibold text-purple-700 mb-3">Key Principle: No "Typical" Victim or Suspect</h3>
+                        <p class="text-gray-700">Family violence transcends all walks of life, affecting people of varying backgrounds, cultures, ages, education levels, occupations, and economic statuses. There is no single profile for a victim or an abuser.</p>
+                    </div>
+                    <details class="card p-0">
+                        <summary>Common Characteristics of Offenders</summary>
+                        <div class="p-6 border-t">
+                            <ul class="list-disc list-inside grid md:grid-cols-2 gap-x-8 text-gray-700">
+                                <li>Poor self-image and feels internally inadequate.</li>
+                                <li>Extreme jealousy and constant accusations of infidelity.</li>
+                                <li>Blames violence on others (stress, partner's behavior, alcohol).</li>
+                                <li>Holds rigid gender role beliefs (e.g., male as head of house).</li>
+                                <li>May be a public "charmer" but violent in private.</li>
+                                <li>Uses violence to solve problems because it has worked in the past.</li>
+                                <li>Denies or minimizes the seriousness of the violence.</li>
+                                <li>Often witnessed or was a victim of family violence as a child.</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Victim Effects & Barriers to Leaving</summary>
+                        <div class="p-6 border-t">
+                            <h4 class="font-semibold text-lg mb-2">Psychological & Emotional Effects on Victims:</h4>
+                             <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+                                <li>Shame, blame, and guilt for the violence.</li>
+                                <li>Denial, minimization, or making excuses for the abuser.</li>
+                                <li>Emotional withdrawal and isolation from friends and family.</li>
+                                <li>Depression, suicidal thoughts, and potential substance abuse.</li>
+                                <li>Distrust of others and the legal system.</li>
+                            </ul>
+                            <h4 class="font-semibold text-lg mb-2">Common Reasons Victims Stay:</h4>
+                             <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>Hope that the abuser will change.</li>
+                                <li>Economic and emotional dependence.</li>
+                                <li>Fear of retribution or losing custody of children if they leave.</li>
+                                <li>Religious or cultural beliefs that discourage divorce or separation.</li>
+                                <li>Lack of awareness of available resources and support systems.</li>
+                                <li>Threats related to immigration status.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Models of Abuse Tab -->
+            <div id="tab-models" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Models & Types of Abuse</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Cycle of Violence vs. Power & Control Wheel</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-4">While the "Cycle of Violence" (Tension, Explosion, Honeymoon phases) is a known model, many victims report that the <strong class="font-semibold">Power & Control Wheel</strong> more accurately describes their experience. It is the preferred model for discussing offender behavior.</p>
+                            <h4 class="font-semibold text-lg mb-2">8 Behaviors of the Power & Control Wheel:</h4>
+                            <ul class="list-disc list-inside grid md:grid-cols-2 gap-x-8 text-gray-700">
+                                <li><strong>Coercion & Threats:</strong> Making and/or carrying out threats to do something to hurt her.</li>
+                                <li><strong>Intimidation:</strong> Making her afraid by using looks, actions, gestures.</li>
+                                <li><strong>Emotional Abuse:</strong> Putting her down, making her feel bad about herself.</li>
+                                <li><strong>Isolation:</strong> Controlling what she does, who she sees, what she reads, where she goes.</li>
+                                <li><strong>Minimizing, Denying, and Blaming:</strong> Making light of the abuse and not taking her concerns about it seriously.</li>
+                                <li><strong>Using Children:</strong> Making her feel guilty about the children.</li>
+                                <li><strong>Economic Abuse:</strong> Preventing her from getting or keeping a job.</li>
+                                <li><strong>Male Privilege:</strong> Treating her like a servant; making all the big decisions.</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>The Three Types of Abuse</summary>
+                        <div class="p-6 border-t grid md:grid-cols-3 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Physical Abuse</h4>
+                                <ul class="list-disc list-inside text-sm text-gray-700"><li>Spitting, pinching, shoving</li><li>Throwing things</li><li>Slapping, hitting, punching</li><li>Kicking, stomping</li><li>Strangling, shooting, burning</li></ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Emotional Abuse</h4>
+                                <ul class="list-disc list-inside text-sm text-gray-700"><li>Withholding affection</li><li>Constant monitoring</li><li>Verbal abuse, name-calling</li><li>Isolation from family/friends</li><li>Humiliating or degrading</li><li>Injuring pets, destroying property</li></ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Sexual Abuse</h4>
+                                <ul class="list-disc list-inside text-sm text-gray-700"><li>Forced sex after a beating</li><li>Not allowing use of birth control</li><li>Use of objects during sex</li><li>Forced sex with others</li><li>Forced sex in front of children</li></ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Legal Framework Tab -->
+            <div id="tab-legal" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Legal Framework for Family Violence</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Key Family Code Definitions</summary>
+                        <div class="p-6 border-t">
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><strong>Family (FC 71.003):</strong> Includes individuals related by blood or marriage, former spouses, parents of the same child, and foster parents/children.</li>
+                                <li><strong>Household (FC 71.005):</strong> Persons living together in the same dwelling, regardless of relationship.</li>
+                                <li><strong>Dating Relationship (FC 71.0021):</strong> A continuing relationship of a romantic or intimate nature.</li>
+                                <li><strong>Family Violence (FC 71.004):</strong> An act by a family/household member against another intended to cause harm, injury, assault, or a threat that places them in fear of imminent harm.</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Key Penal Code Offenses</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-card offense-f3">
+                                <h4 class="font-bold text-lg">Assault by Impeding Breath/Circulation (Strangulation) - 3rd Degree Felony</h4>
+                                <p><strong>Reference: PC 22.01(b)(2)(B).</strong> An assault causing bodily injury is enhanced to a 3rd Degree Felony if the actor intentionally, knowingly, or recklessly impedes the normal breathing or circulation of a family/household member by applying pressure to the throat/neck or blocking the nose/mouth.</p>
+                            </div>
+                             <div class="offense-card offense-f3">
+                                <h4 class="font-bold text-lg">Continuous Violence Against the Family - 3rd Degree Felony</h4>
+                                <p><strong>Reference: PC 25.11.</strong> A person commits this offense if, during a period of 12 months or less, they commit two or more assaults causing bodily injury against a family/household member. The prior acts do not need to have resulted in a conviction.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Officer Arrest Authority (CCP 14.03)</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-4">A peace officer <strong class="font-semibold">MAY</strong> arrest without a warrant if they have probable cause to believe a person has committed:</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>An offense involving family violence.</li>
+                                <li>A violation of a protective order (if not committed in the officer's presence).</li>
+                                <li>Interference with an Emergency Request for Assistance.</li>
+                            </ul>
+                             <div class="mt-4 bg-amber-100 border-l-4 border-amber-500 text-amber-800 p-4 rounded-r-lg">
+                                <p><strong class="font-bold">Mandatory Arrest:</strong> A peace officer <strong class="font-semibold">SHALL</strong> arrest without a warrant if they have probable cause to believe a person has violated a protective order in the officer's presence.</p>
+                             </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- Officer Response Tab -->
+            <div id="tab-response" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Officer Response & Investigation</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Identifying the Predominant Aggressor</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-4">A thorough and objective investigation is required to determine the predominant aggressor, rather than making dual arrests. Consider the following:</p>
+                            <ul class="list-disc list-inside grid md:grid-cols-2 gap-x-8 text-gray-700">
+                                <li>Who poses the most danger to the other?</li>
+                                <li>Is one party in fear of the other?</li>
+                                <li>Is there a history of violence by one party?</li>
+                                <li>Was the amount of force used proportionate and reasonable?</li>
+                                <li>Is one party physically larger and stronger?</li>
+                                <li>Do the injuries appear to be offensive or defensive?</li>
+                                <li>Is one person overly helpful while the other is fearful?</li>
+                            </ul>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Officer Duties & Procedures (CCP 5.04 & 5.05)</summary>
+                        <div class="p-6 border-t">
+                             <h4 class="font-semibold text-lg mb-2">Primary Duties:</h4>
+                             <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+                                <li>Protect any potential victim.</li>
+                                <li>Enforce the law and make lawful arrests.</li>
+                                <li>Enforce protective orders.</li>
+                                <li>Provide the adult victim with a written notice of their legal rights and available community services (in English and Spanish).</li>
+                            </ul>
+                             <h4 class="font-semibold text-lg mb-2">Reporting Requirements:</h4>
+                             <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>A written report is required for any call that may involve family violence.</li>
+                                <li>The report must include names, date/time/location, injuries, incident description, and whether the suspect is in the military.</li>
+                                <li>If the address is a licensed foster home, a report must be made to DFPS within 24 hours.</li>
+                                <li>If the suspect is in the military, written notice must be sent to the appropriate military authority.</li>
+                             </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8">
+                    <!-- Quiz questions will be injected here by JS -->
+                </div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-purple-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-purple-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+        });
+    });
+
+    // Quiz Functionality
+    const quizData = [
+        {
+            question: "According to victims, which model more accurately describes the dynamics of family violence?",
+            options: ["The Cycle of Violence", "The Power & Control Wheel", "The Conflict Resolution Model", "The Anger Management Cycle"],
+            answer: "The Power & Control Wheel",
+            explanation: "<strong>Reference: Models of Abuse.</strong> The handout states that victims report the Power & Control Wheel more accurately describes their experiences than the traditional Cycle of Violence."
+        },
+        {
+            question: "A person commits Assault causing Bodily Injury against a family member by impeding their breath. What is the offense level?",
+            options: ["Class A Misdemeanor", "State Jail Felony", "3rd Degree Felony", "2nd Degree Felony"],
+            answer: "3rd Degree Felony",
+            explanation: "<strong>Reference: PC 22.01(b)(2)(B).</strong> An Assault BI is enhanced to a 3rd Degree Felony if it's against a family member and committed by impeding breath or circulation (strangulation)."
+        },
+        {
+            question: "An officer has probable cause to believe a person has violated a protective order, but the violation did not occur in the officer's presence. What is the officer's authority?",
+            options: ["The officer MAY arrest without a warrant.", "The officer SHALL arrest without a warrant.", "The officer must obtain a warrant.", "The officer can only issue a citation."],
+            answer: "The officer MAY arrest without a warrant.",
+            explanation: "<strong>Reference: CCP 14.03(a)(3).</strong> An officer MAY arrest for a PO violation not in their presence. The SHALL arrest provision applies only when the violation occurs in the officer's presence."
+        },
+        {
+            question: "A person commits two separate Class A Assaults causing bodily injury against their spouse within a 12-month period. What is the highest offense they can be charged with?",
+            options: ["Two counts of Assault (Class A)", "Aggravated Assault (2nd Degree Felony)", "Continuous Violence Against the Family (3rd Degree Felony)", "Stalking (3rd Degree Felony)"],
+            answer: "Continuous Violence Against the Family (3rd Degree Felony)",
+            explanation: "<strong>Reference: PC 25.11.</strong> This statute was created to charge a 3rd Degree Felony when a person commits two or more family violence assaults (BI) within a 12-month period."
+        },
+        {
+            question: "Which of the following is NOT one of the eight behaviors listed on the Power & Control Wheel?",
+            options: ["Using Children", "Economic Abuse", "Physical Abuse", "Isolation"],
+            answer: "Physical Abuse",
+            explanation: "<strong>Reference: Models of Abuse.</strong> Physical and sexual violence are the enforcement mechanisms that hold the wheel together, but the eight spokes are the specific behaviors like Intimidation, Emotional Abuse, Isolation, etc."
+        },
+        {
+            question: "Which of the following is a primary duty of a peace officer investigating a family violence call under CCP 5.04?",
+            options: ["To mediate the dispute and leave.", "To provide the victim with a written notice of their rights.", "To arrest both parties if injuries are present.", "To determine who owns the residence."],
+            answer: "To provide the victim with a written notice of their rights.",
+            explanation: "<strong>Reference: CCP 5.04.</strong> The primary duties are to protect victims, enforce the law, enforce protective orders, and advise adult victims of their rights and resources via a written notice."
+        },
+        {
+            question: "A casual acquaintanceship or ordinary fraternization in a business or social context constitutes a 'dating relationship' under the Family Code.",
+            options: ["True", "False"],
+            answer: "False",
+            explanation: "<strong>Reference: FC 71.0021(c).</strong> The Family Code explicitly states that a casual acquaintanceship or ordinary fraternization does NOT constitute a dating relationship."
+        },
+        {
+            question: "When trying to identify the predominant aggressor, which factor is most important?",
+            options: ["Who is physically larger", "Who started the verbal argument", "A thorough and objective investigation of all factors", "Who is more willing to talk to the police"],
+            answer: "A thorough and objective investigation of all factors",
+            explanation: "<strong>Reference: Officer Response.</strong> Identifying the predominant aggressor requires a complete investigation, considering fear, history of violence, severity of injuries, and self-defense claims, not just one single factor."
+        },
+        {
+            question: "An officer investigating a family violence incident discovers the address is a licensed foster home. The officer must make a report to which agency within 24 hours?",
+            options: ["The District Attorney's Office", "The Texas Rangers", "The Department of Family and Protective Services (DFPS)", "Child Protective Services (CPS)"],
+            answer: "The Department of Family and Protective Services (DFPS)",
+            explanation: "<strong>Reference: CCP 5.05(a-1).</strong> The law requires a report to DFPS within 24 hours if the incident occurs at the address of a licensed foster home."
+        },
+        {
+            question: "Which of the following is listed as a common characteristic of a family violence offender?",
+            options: ["High self-esteem and confidence", "Takes personal responsibility for their actions", "Is often a public 'charmer' but violent in private", "Rarely abuses drugs or alcohol"],
+            answer: "Is often a public 'charmer' but violent in private",
+            explanation: "<strong>Reference: Dynamics of FV.</strong> Offenders often present a very different personality in public than they do at home, appearing successful and charming to outsiders."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        const options = document.querySelectorAll('.quiz-option');
+        options.forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.removeEventListener('click', selectAnswer);
+            opt.style.cursor = 'default';
+        });
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+            });
+        }
+        
+        // Show explanation
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        const explanationEl = document.createElement('div');
+        explanationEl.className = 'p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700';
+        explanationEl.innerHTML = currentQuestion.explanation;
+        explanationContainer.appendChild(explanationEl);
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizContainer.classList.add('hidden');
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) {
+                quizScoreEl.style.color = '#16a34a';
+            } else if (percentage >= 50) {
+                quizScoreEl.style.color = '#f59e0b';
+            } else {
+                quizScoreEl.style.color = '#dc2626';
+            }
+        }, 1500);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+
+    buildQuiz();
+});
+</script>
+
+</body>
+</html>
