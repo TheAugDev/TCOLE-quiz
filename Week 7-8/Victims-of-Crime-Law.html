@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Study Guide: Victims of Crime Law</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* Light Sky Blue background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #e0f2fe; /* Lighter Sky Blue */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        details > summary:hover {
+            background-color: #bae6fd;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .quiz-option {
+            transition: background-color 0.2s;
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #0ea5e9; /* Sky Blue */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Victims of Crime: Law & Procedures</h1>
+            <p class="text-lg text-gray-600 mt-2">An Interactive Study Guide</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-rights">Victims' Rights</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-definitions">Key Definitions</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-responsibilities">LE Responsibilities</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Victims' Rights Tab -->
+            <div id="tab-rights" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Victims' Rights Framework</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Texas Constitution - Article 1, Section 30</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-4">The Texas Constitution establishes the foundational rights for crime victims:</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>The right to be treated with <strong class="font-semibold">fairness and respect</strong> for their dignity.</li>
+                                <li>The right to be <strong class="font-semibold">reasonably protected</strong> from the accused throughout the criminal justice process.</li>
+                                <li>Upon request, the right to <strong class="font-semibold">notification</strong> of court proceedings.</li>
+                                <li>Upon request, the right to be <strong class="font-semibold">present at</strong> all public court proceedings.</li>
+                                <li>Upon request, the right to <strong class="font-semibold">confer with a representative of the prosecutor's office</strong>.</li>
+                                <li>The right to <strong class="font-semibold">restitution</strong>.</li>
+                                <li>The right to <strong class="font-semibold">information</strong> about the conviction, sentence, imprisonment, and release of the accused.</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>General Rights of Crime Victims (CCP 56A.051)</summary>
+                        <div class="p-6 border-t">
+                             <p class="mb-4">This statute expands on the constitutional rights, providing a detailed list of entitlements:</p>
+                             <ul class="list-disc list-inside grid md:grid-cols-2 gap-x-8 text-gray-700">
+                                <li>Receive adequate protection from harm and threats.</li>
+                                <li>Have their safety considered by the magistrate when setting bail.</li>
+                                <li>Receive information about case status, court proceedings, and appeals.</li>
+                                <li>Information about the Crime Victims' Compensation Fund.</li>
+                                <li>Provide impact information for pre-sentence reports.</li>
+                                <li>A separate or secure waiting area at all court proceedings.</li>
+                                <li>Prompt return of property when no longer needed as evidence.</li>
+                                <li>Notification to their employer if testimony requires absence from work.</li>
+                                <li>Complete a Victim Impact Statement to be considered at sentencing and parole.</li>
+                             </ul>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Privacy & Confidentiality</summary>
+                        <div class="p-6 border-t">
+                            <h4 class="font-semibold text-lg mb-2">Right to Privacy (CCP 56A.101)</h4>
+                            <p>As reasonably practical, a victim's address and phone number may not be part of the public court file.</p>
+                            <h4 class="font-semibold text-lg mt-4 mb-2">Confidentiality for Sex Offense Victims (CCP 58)</h4>
+                            <p>A victim of a sexual offense, trafficking, family violence, or stalking may choose a <strong class="font-semibold">pseudonym</strong> to be used in all public files and records concerning the offense. The victim must complete and return a pseudonym form to the investigating law enforcement agency.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Key Definitions Tab -->
+            <div id="tab-definitions" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Key Definitions</h2>
+                <div class="space-y-6">
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold text-sky-700 mb-2">Victim (CCP 56A.001)</h3>
+                        <p>A person who is the victim of sexual assault, kidnapping, aggravated robbery, trafficking, or injury to a child/elderly/disabled person; OR a person who has suffered personal injury or death as a result of the criminal conduct of another. Also includes guardians and close relatives of deceased victims.</p>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold text-sky-700 mb-2">Claimant (CCP 56B.003)</h3>
+                        <p>A person who is authorized to file a claim for compensation on behalf of a victim, a dependent of a deceased victim, or someone who voluntarily paid for a victim's medical or burial expenses.</p>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold text-sky-700 mb-2">Criminally Injurious Conduct (CCP 56B.003)</h3>
+                        <p>Conduct that occurs or is attempted, poses a substantial threat of personal injury or death, is punishable by fine/imprisonment/death, and does not arise from a normal motor vehicle accident (unless it was intentional or involved specific offenses like DWI or Failure to Stop and Render Aid).</p>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold text-sky-700 mb-2">Collateral Source (CCP 56B.003)</h3>
+                        <p>Any source of benefits or advantages that a claimant has received or is available to them for a pecuniary loss, such as restitution, insurance proceeds, or workers' compensation. This amount is typically deducted from a Crime Victims' Compensation award.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LE Responsibilities Tab -->
+            <div id="tab-responsibilities" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Law Enforcement Responsibilities</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Victim Liaisons & Coordinators</summary>
+                        <div class="p-6 border-t grid md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Victim Assistance Coordinator (CCP 56A.201)</h4>
+                                <p>Designated by the District Attorney or county attorney. Their duty is to ensure that victims are afforded their rights under the law and to work closely with law enforcement and other justice system personnel.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Crime Victim Liaison (CCP 56A.203)</h4>
+                                <p>Each law enforcement agency <strong class="font-semibold">shall designate</strong> one person to serve as the agency's Crime Victim Liaison. They consult with the Victim Assistance Coordinator to ensure victims receive their rights and information.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Required Written Notifications</summary>
+                        <div class="p-6 border-t">
+                            <h4 class="font-semibold text-lg mb-2">Notification of Rights (CCP 56A.401)</h4>
+                            <p class="mb-4">At the first contact with a victim, a law enforcement agency <strong class="font-semibold">shall provide</strong> the victim with a written notice containing:</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>Information about emergency and medical services.</li>
+                                <li>The right to receive information about the Crime Victims' Compensation program.</li>
+                                <li>The name, address, and phone number of the agency's Crime Victim Liaison.</li>
+                                <li>The address and phone number of the prosecutor's Victim Assistance Coordinator.</li>
+                                <li>A statement that they can call the agency for case status and information about their rights.</li>
+                            </ul>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Other Duties</summary>
+                        <div class="p-6 border-t">
+                             <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li><strong>Notice of Release of FV Offenders (CCP 42.21):</strong> Before releasing a person convicted of a family violence offense, the holding entity must make a reasonable attempt to notify the victim of the imminent release.</li>
+                                <li><strong>Presence of Advocate (CCP 56A.351):</strong> Before a forensic medical exam of a sexual assault victim, medical personnel must offer the victim the opportunity to have a trained sexual assault program advocate present.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8">
+                    <!-- Quiz questions will be injected here by JS -->
+                </div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-sky-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-sky-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+        });
+    });
+
+    // Quiz Functionality
+    const quizData = [
+        {
+            question: "According to the Texas Constitution, which of the following is a right guaranteed to a crime victim?",
+            options: ["The right to decide the final charges against the accused.", "The right to be reasonably protected from the accused.", "The right to a court-appointed attorney.", "The right to appeal a not-guilty verdict."],
+            answer: "The right to be reasonably protected from the accused.",
+            explanation: "<strong>Reference: Texas Constitution Art. 1, Sec. 30.</strong> The constitution guarantees the right to be treated with fairness and respect, to be reasonably protected from the accused, and, upon request, to receive notification and be present at hearings."
+        },
+        {
+            question: "Under CCP 56A.401, when must a law enforcement agency provide a victim with the written notice of rights?",
+            options: ["Within 24 hours of the report.", "At the initial contact or earliest possible time.", "Only when the victim requests it.", "After an arrest has been made."],
+            answer: "At the initial contact or earliest possible time.",
+            explanation: "<strong>Reference: CCP 56A.401.</strong> The agency shall provide the written notice at the initial contact or the earliest time after the initial contact with the victim."
+        },
+        {
+            question: "A victim of a sexual offense wishes to keep their name out of public records. What must they do?",
+            options: ["File a motion with the court.", "Request a gag order on the media.", "Complete and return a pseudonym form to the investigating law enforcement agency.", "Nothing, their name is automatically confidential."],
+            answer: "Complete and return a pseudonym form to the investigating law enforcement agency.",
+            explanation: "<strong>Reference: CCP 58.02.</strong> A victim may choose a pseudonym by completing the proper form and returning it to the investigating agency, which then has a duty to protect the victim's identity in public records."
+        },
+        {
+            question: "Who is responsible for designating a Crime Victim Liaison for a law enforcement agency?",
+            options: ["The District Attorney", "The Attorney General", "The law enforcement agency itself", "The county judge"],
+            answer: "The law enforcement agency itself",
+            explanation: "<strong>Reference: CCP 56A.203.</strong> Each law enforcement agency is required to designate one of its own personnel to serve as the Crime Victim Liaison."
+        },
+        {
+            question: "Which of the following would be considered 'criminally injurious conduct' for the purpose of victim compensation?",
+            options: ["A death resulting from a simple car accident where no laws were broken.", "A personal injury resulting from a robbery.", "A financial loss from a bad check.", "Property damage from vandalism."],
+            answer: "A personal injury resulting from a robbery.",
+            explanation: "<strong>Reference: CCP 56B.003.</strong> Criminally injurious conduct must pose a substantial threat of personal injury or death. Simple property crimes are not covered for compensation, and most vehicle accidents are excluded unless specific criminal offenses are involved."
+        },
+        {
+            question: "Which of the following is an outcome of providing effective assistance to victims?",
+            options: ["Guaranteed convictions in all cases.", "Reduced crime rates overnight.", "Strengthened faith and confidence in the justice system.", "Increased funding for law enforcement."],
+            answer: "Strengthened faith and confidence in the justice system.",
+            explanation: "<strong>Reference: Outcomes of Effective Assistance.</strong> The four outcomes are: 1) Strengthened faith in the justice system, 2) Improved community relationships, 3) Increased knowledge of what works, and 4) System improvements."
+        },
+        {
+            question: "Before a forensic medical exam, a victim of sexual assault must be offered the opportunity to have who present?",
+            options: ["A police officer of the same gender", "A family member", "A trained sexual assault program advocate", "Their personal physician"],
+            answer: "A trained sexual assault program advocate",
+            explanation: "<strong>Reference: CCP 56A.351.</strong> Medical personnel are required to offer the presence of a trained advocate from a sexual assault program before the examination begins."
+        },
+        {
+            question: "A person who voluntarily pays the burial expenses for a homicide victim can file for reimbursement from the Crime Victims' Compensation fund as a...",
+            options: ["Victim", "Witness", "Claimant", "Good Samaritan"],
+            answer: "Claimant",
+            explanation: "<strong>Reference: CCP 56B.003.</strong> The definition of 'Claimant' includes an individual who voluntarily pays the medical or burial expenses of a victim resulting from criminally injurious conduct."
+        },
+        {
+            question: "Under CCP 42.21, a law enforcement agency holding a person convicted of a family violence offense must make a reasonable attempt to notify the victim of what?",
+            options: ["The suspect's next court date", "The suspect's transfer to prison", "The suspect's imminent release", "The suspect's eligibility for parole"],
+            answer: "The suspect's imminent release",
+            explanation: "<strong>Reference: CCP 42.21.</strong> The holding entity must make a reasonable attempt to give the victim personal notice of the offender's imminent release from custody."
+        },
+        {
+            question: "A victim's right to have a separate or secure waiting area applies to which proceedings?",
+            options: ["Only during the trial", "Only during sentencing", "At all public court proceedings", "Only during parole hearings"],
+            answer: "At all public court proceedings",
+            explanation: "<strong>Reference: CCP 56A.051(8).</strong> The statute grants the victim the right to a separate or secure waiting area at ALL public court proceedings related to the offense."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        const options = document.querySelectorAll('.quiz-option');
+        options.forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.removeEventListener('click', selectAnswer);
+            opt.style.cursor = 'default';
+        });
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+            });
+        }
+        
+        // Show explanation
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        const explanationEl = document.createElement('div');
+        explanationEl.className = 'p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700';
+        explanationEl.innerHTML = currentQuestion.explanation;
+        explanationContainer.appendChild(explanationEl);
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizContainer.classList.add('hidden');
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) {
+                quizScoreEl.style.color = '#16a34a';
+            } else if (percentage >= 50) {
+                quizScoreEl.style.color = '#f59e0b';
+            } else {
+                quizScoreEl.style.color = '#dc2626';
+            }
+        }, 1500);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+
+    buildQuiz();
+});
+</script>
+
+</body>
+</html>

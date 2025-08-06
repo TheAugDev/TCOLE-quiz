@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Study Guide: Fingerprint Evidence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Light gray background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: all 0.3s ease;
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #e5e7eb; /* Lighter Gray */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+        }
+        details > summary:hover {
+            background-color: #d1d5db;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .quiz-option {
+            transition: background-color 0.2s;
+        }
+        .quiz-option.correct {
+            background-color: #dcfce7 !important;
+            border-color: #22c55e !important;
+        }
+        .quiz-option.incorrect {
+            background-color: #fee2e2 !important;
+            border-color: #ef4444 !important;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #4b5563; /* Gray */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Fingerprint Evidence</h1>
+            <p class="text-lg text-gray-600 mt-2">An Interactive Study Guide</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-basics">Fingerprint Basics</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-surfaces">Print Composition & Surfaces</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-collection">Collection Techniques</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Fingerprint Basics Tab -->
+            <div id="tab-basics" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Fingerprint Patterns & Identification Points</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>The 3 Basic Fingerprint Patterns</summary>
+                        <div class="p-6 border-t grid md:grid-cols-3 gap-6 text-center">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Loops (60%)</h4>
+                                <p class="text-sm">Ridges enter from one side, curve back, and exit on the same side. Has <strong class="font-semibold">one delta</strong>.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Whorls (35%)</h4>
+                                <p class="text-sm">Ridges form a circular or combination pattern. Has <strong class="font-semibold">two deltas</strong>.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Arches (5%)</h4>
+                                <p class="text-sm">Ridges enter from one side, rise in the center, and exit on the opposite side. Has <strong class="font-semibold">no deltas</strong>.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Fingerprint Identification Points (Minutiae)</summary>
+                        <div class="p-6 border-t grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="p-4 bg-gray-50 rounded-lg"><strong>Bifurcation:</strong> A single ridge forks and becomes two or more ridges.</div>
+                            <div class="p-4 bg-gray-50 rounded-lg"><strong>Ending Ridge:</strong> A ridge that makes a sudden stop.</div>
+                            <div class="p-4 bg-gray-50 rounded-lg"><strong>Ridge Island:</strong> A ridge that forks and then joins back into one ridge, forming a small island.</div>
+                            <div class="p-4 bg-gray-50 rounded-lg"><strong>Dot:</strong> An isolated, small ridge that looks like a dot.</div>
+                            <div class="p-4 bg-gray-50 rounded-lg"><strong>Short Ridge:</strong> A ridge that is noticeably shorter than the other ridges in the area.</div>
+                            <div class="p-4 bg-gray-50 rounded-lg"><strong>Divergence (Delta):</strong> The area where two parallel ridges separate to surround the pattern area.</div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Print Composition & Surfaces Tab -->
+            <div id="tab-surfaces" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Print Composition & Surface Types</h2>
+                <div class="space-y-6">
+                    <div class="card p-6">
+                        <h3 class="text-2xl font-semibold text-slate-700 mb-3">Latent Print Composition (The Matrix)</h3>
+                        <p class="mb-2">The substance left behind on a surface is called the matrix. The hands and feet only have <strong class="font-semibold">eccrine glands</strong>, which are sweat glands.</p>
+                        <ul class="list-disc list-inside space-y-2 text-gray-700">
+                            <li>Therefore, 99% - 99.5% of a "clean" fingerprint's matrix is <strong class="font-semibold">WATER</strong>.</li>
+                            <li>Oils and other substances found in prints are <strong class="font-semibold">contaminants</strong> picked up from touching other parts of the body (like the forehead or nose, which have sebaceous glands) or the environment.</li>
+                        </ul>
+                    </div>
+                    <details class="card p-0">
+                        <summary>Surface Types and Their Effect on Prints</summary>
+                        <div class="p-6 border-t grid md:grid-cols-3 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Porous Surfaces</h4>
+                                <p class="text-sm mb-2">Absorb the water content of the print quickly, leaving other residues behind.</p>
+                                <p class="text-xs text-gray-600"><strong>Examples:</strong> Paper, untreated wood, cardboard.</p>
+                                <p class="mt-2 p-2 bg-red-100 text-red-800 rounded-md text-sm"><strong>Processing:</strong> Non-powder methods are best.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-lg mb-2">Semi-Porous Surfaces</h4>
+                                <p class="text-sm mb-2">Slowly absorb the water content over minutes to hours.</p>
+                                <p class="text-xs text-gray-600"><strong>Examples:</strong> Waxed surfaces, varnished wood, some paints.</p>
+                                <p class="mt-2 p-2 bg-yellow-100 text-yellow-800 rounded-md text-sm"><strong>Processing:</strong> Dusting can be successful depending on the age of the print.</p>
+                            </div>
+                             <div>
+                                <h4 class="font-semibold text-lg mb-2">Non-Porous Surfaces</h4>
+                                <p class="text-sm mb-2">Do not absorb any part of the print matrix. Prints are very fragile.</p>
+                                <p class="text-xs text-gray-600"><strong>Examples:</strong> Glass, plastic, smooth metal.</p>
+                                <p class="mt-2 p-2 bg-green-100 text-green-800 rounded-md text-sm"><strong>Processing:</strong> Dusting methods typically have the best success.</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Collection Techniques Tab -->
+            <div id="tab-collection" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Collection & Processing Techniques</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Dusting & Lifting Latent Prints</summary>
+                        <div class="p-6 border-t">
+                            <h4 class="font-semibold text-lg mb-2">Important Considerations:</h4>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700 mb-6">
+                                <li>Visible prints (e.g., in blood, grease, or dust) should be <strong class="font-semibold">photographed</strong> and NOT dusted, as powder will destroy them.</li>
+                                <li>Ideally, all latent prints should be photographed before lifting.</li>
+                                <li>If a print is faint, you can try to re-hydrate it with a soft exhale of breath, let it dry, and then re-brush.</li>
+                            </ul>
+                            <h4 class="font-semibold text-lg mb-2">Dusting Procedure:</h4>
+                             <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                                <li>Ensure your brush is clean and the bristles are separated.</li>
+                                <li>Use a very small amount of powder.</li>
+                                <li>Brush lightly with only the tips of the bristles, using short, quick strokes.</li>
+                                <li>Follow the natural flow of the ridges until the print becomes visible.</li>
+                            </ol>
+                             <h4 class="font-semibold text-lg mt-4 mb-2">Lifting Procedure:</h4>
+                             <ol class="list-decimal list-inside space-y-2 text-gray-700">
+                                <li>Use enough tape to cover the entire print, with a "handle" folded on each end.</li>
+                                <li>"Pop" the tape to remove curl and twist the ends to keep it flat.</li>
+                                <li>Apply the tape starting from the center and rubbing outwards to avoid air bubbles.</li>
+                                <li>Peel the tape gently from the surface to lift the print.</li>
+                            </ol>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Rolling Fingerprints</summary>
+                        <div class="p-6 border-t">
+                            <p class="mb-4">Proper technique is crucial for obtaining clear, usable prints for a ten-print card.</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-700">
+                                <li>Start with the right hand, from thumb to little finger.</li>
+                                <li>Ink the finger from the tip to just below the first joint.</li>
+                                <li>Roll from "nail to nail" for a complete impression.</li>
+                                <li><strong class="font-semibold">Roll thumbs TOWARD the center of the body.</strong></li>
+                                <li><strong class="font-semibold">Roll fingers AWAY from the center of the body.</strong></li>
+                                <li>The officer should exert the pressure while the subject relaxes their hand.</li>
+                                <li>After rolling all ten fingers, take the "plane" (flat) impressions at the bottom of the card.</li>
+                            </ul>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8">
+                    <!-- Quiz questions will be injected here by JS -->
+                </div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-slate-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-slate-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Tab functionality
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+        });
+    });
+
+    // Quiz Functionality
+    const quizData = [
+        {
+            question: "What is the most common fingerprint pattern, found in about 60% of the population?",
+            options: ["Whorl", "Arch", "Loop", "Composite"],
+            answer: "Loop",
+            explanation: "<strong>Reference: Fingerprint Basics.</strong> Loops are the most common pattern, occurring in approximately 60% of the population. They have one delta."
+        },
+        {
+            question: "A fingerprint pattern that has two deltas and ridges that form a circular pattern is a:",
+            options: ["Loop", "Whorl", "Arch", "Tented Arch"],
+            answer: "Whorl",
+            explanation: "<strong>Reference: Fingerprint Basics.</strong> Whorls are the second most common pattern (35%) and are characterized by having two deltas and a circular ridge pattern."
+        },
+        {
+            question: "The matrix of a latent print from a clean hand is composed of 99-99.5% of what substance?",
+            options: ["Oil", "Amino Acids", "Water", "Salt"],
+            answer: "Water",
+            explanation: "<strong>Reference: Print Composition & Surfaces.</strong> The eccrine glands on the hands and feet secrete sweat, which is almost entirely water. Oils are contaminants from other body parts."
+        },
+        {
+            question: "A latent print is found on a piece of untreated cardboard. This is an example of what type of surface?",
+            options: ["Porous", "Semi-porous", "Non-porous", "Adhesive"],
+            answer: "Porous",
+            explanation: "<strong>Reference: Print Composition & Surfaces.</strong> Porous surfaces like paper and untreated cardboard quickly absorb the water from a print. Non-powder processing methods are best for these surfaces."
+        },
+        {
+            question: "An officer finds a visible print in blood at a crime scene. What is the correct first step?",
+            options: ["Dust it with black powder", "Lift it with tape", "Photograph it", "Wipe it to see the ridges clearly"],
+            answer: "Photograph it",
+            explanation: "<strong>Reference: Collection Techniques.</strong> Visible prints in substances like blood, grease, or dust should be photographed. Applying powder will destroy the print."
+        },
+        {
+            question: "When rolling fingerprints for a ten-print card, which direction should the fingers (not thumbs) be rolled?",
+            options: ["Toward the center of the body", "Away from the center of the body", "Straight down", "It does not matter"],
+            answer: "Away from the center of the body",
+            explanation: "<strong>Reference: Collection Techniques.</strong> To follow the natural movement of the hand and get a clear print, fingers are rolled away from the body's center, while thumbs are rolled toward it."
+        },
+        {
+            question: "A single ridge that forks and becomes two separate ridges is known as a:",
+            options: ["Ridge Island", "Ending Ridge", "Divergence", "Bifurcation"],
+            answer: "Bifurcation",
+            explanation: "<strong>Reference: Fingerprint Basics.</strong> A bifurcation is a key identification point where one ridge splits into two."
+        },
+        {
+            question: "Which surface type is most likely to yield a good print with dusting powder?",
+            options: ["Writing paper", "A plastic bag", "A paper sack", "Untreated wood"],
+            answer: "A plastic bag",
+            explanation: "<strong>Reference: Print Composition & Surfaces.</strong> Non-porous surfaces like plastic and glass do not absorb the print matrix, making them ideal for traditional powdering techniques."
+        },
+        {
+            question: "What is the primary purpose of creating 'handles' on both ends of a piece of lifting tape?",
+            options: ["To make it look professional", "To prevent the tape from curling", "To add your initials", "To make it stick better"],
+            answer: "To prevent the tape from curling",
+            explanation: "<strong>Reference: Collection Techniques.</strong> Creating handles and 'popping' the tape helps prevent it from curling, which can ruin the lift."
+        },
+        {
+            question: "A fingerprint pattern with no deltas, where ridges enter one side, rise, and exit the opposite side, is a(n):",
+            options: ["Loop", "Whorl", "Arch", "Tented Loop"],
+            answer: "Arch",
+            explanation: "<strong>Reference: Fingerprint Basics.</strong> Arches are the least common pattern (5%) and are defined by their lack of deltas and the simple flow of ridges from one side to the other."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        quizContainer.classList.remove('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        const options = document.querySelectorAll('.quiz-option');
+        options.forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.removeEventListener('click', selectAnswer);
+            opt.style.cursor = 'default';
+        });
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) {
+                    opt.classList.add('correct');
+                }
+            });
+        }
+        
+        // Show explanation
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        const explanationEl = document.createElement('div');
+        explanationEl.className = 'p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700';
+        explanationEl.innerHTML = currentQuestion.explanation;
+        explanationContainer.appendChild(explanationEl);
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizContainer.classList.add('hidden');
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) {
+                quizScoreEl.style.color = '#16a34a';
+            } else if (percentage >= 50) {
+                quizScoreEl.style.color = '#f59e0b';
+            } else {
+                quizScoreEl.style.color = '#dc2626';
+            }
+        }, 1500);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+
+    buildQuiz();
+});
+</script>
+
+</body>
+</html>
