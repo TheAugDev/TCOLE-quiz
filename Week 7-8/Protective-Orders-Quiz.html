@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protective Orders Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">    
+    <!-- Back to Portal Button -->
+    <div class="fixed top-4 left-4 z-50">
+        <a href="../index.html" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span class="font-medium">Back to Portal</span>
+        </a>
+    </div>
+<div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Protective Orders Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 68 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "Which of the following is NOT an offense category eligible for a Protective Order in Texas?",
+                options: ["Family Violence", "Stalking", "All Theft Offenses", "Human Trafficking"],
+                answer: "All Theft Offenses",
+                explanation: "Protective Orders are reserved for offenses that involve violence, threats, or harassment against a person, not general property crimes like theft.",
+                reference: "Handout Page 1 & 4: 'Offenses Eligible for Protective Orders' slide lists Family Violence, Stalking, Hate Crimes, Sexual Offenses, and Human Trafficking."
+            },
+            {
+                question: "Under CCP 42.014, an offense is considered a hate crime if it's motivated by bias against a group identified by race, religion, sexual preference, or what other status?",
+                options: ["Political affiliation", "Economic status", "Status as a peace officer or judge", "Educational level"],
+                answer: "Status as a peace officer or judge",
+                explanation: "The law specifically includes peace officers and judges as a protected class against bias-motivated crimes.",
+                reference: "Handout Page 1: '...or peace officer/judge status.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.42.htm#42.014' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 42.014</a>"
+            },
+            {
+                question: "What is the offense of 'False Report to Induce Emergency Response' (PC 42.0601) commonly known as?",
+                options: ["Prank Calling", "Swatting", "Harassment", "False Alarm"],
+                answer: "Swatting",
+                explanation: "'Swatting' is the specific term for making a false report of a serious emergency (like a hostage situation) to trigger a large-scale police or SWAT response.",
+                reference: "Handout Page 2: 'FALSE REPORT TO INDUCE EMERGENCY RESPONSE (aka: swatting)'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm#42.0601' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 42.0601</a>"
+            },
+            {
+                question: "A person commits 'swatting' (PC 42.0601) and as a direct result of the lawful police response, another person suffers serious bodily injury. What is the penalty for the offense?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "A felony of the third degree", "A felony of the second degree"],
+                answer: "A felony of the third degree",
+                explanation: "The penalty for swatting is significantly enhanced if the reckless false report leads to someone being seriously hurt or killed during the emergency response.",
+                reference: "Handout Page 2: PC 42.0601(b)(2) - 'a felony of the third degree if... a person suffered serious bodily injury or death as a direct result of lawful conduct arising out of that response.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm#42.0601' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 42.0601</a>"
+            },
+            {
+                question: "Under PC 12.47, what is the specific penalty enhancement for a Class A misdemeanor found to be a hate crime?",
+                options: ["It is enhanced to a State Jail Felony.", "The maximum fine is doubled.", "The minimum term of confinement is increased to 180 days.", "There is no enhancement for a Class A Misdemeanor."],
+                answer: "The minimum term of confinement is increased to 180 days.",
+                explanation: "Unlike other offenses which are increased to the next highest category, a Class A hate crime has a specific enhancement that sets a mandatory minimum jail time.",
+                reference: "Handout Page 3: 'If the offense is a Class A misdemeanor, the minimum term of confinement for the offense is increased to 180 days.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.12.htm#12.47' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 12.47</a>"
+            },
+            {
+                question: "According to CCP 14.03, what is an officer's duty when they have probable cause that a protective order violation occurred *in their presence*?",
+                options: ["The officer MAY arrest.", "The officer SHALL arrest.", "The officer must get a supervisor's approval to arrest.", "The officer should issue a citation."],
+                answer: "The officer SHALL arrest.",
+                explanation: "The law uses mandatory language ('shall') for in-presence violations, removing officer discretion and requiring an arrest to ensure the victim's immediate safety.",
+                reference: "Handout Page 4: 'Officers SHALL arrest when there is PC of a Protective Order Violation that occurred in their presence.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.14.htm#14.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 14.03(b)</a>"
+            },
+            {
+                question: "Protective Orders for family violence cases are primarily governed by which Texas code?",
+                options: ["The Code of Criminal Procedure", "The Penal Code", "The Health and Safety Code", "The Family Code"],
+                answer: "The Family Code",
+                explanation: "While the CCP governs some types of POs (like for stalking and sexual assault), family violence-related orders are specifically detailed in Title 4 of the Family Code.",
+                reference: "Handout Page 5: 'Family Code 81-85 Overall Guidelines for Family Violence related offenses.'"
+            },
+            {
+                question: "Who may file an application for a protective order to protect a child from family violence?",
+                options: ["Only the child's other parent.", "Only a prosecuting attorney.", "Any adult.", "Only a law enforcement officer."],
+                answer: "Any adult.",
+                explanation: "Family Code 82.002(c) broadly allows any adult to apply for a protective order on behalf of a child they believe is a victim of family violence.",
+                reference: "Handout Page 5: FC 82.002(c) - 'Any adult may apply for a protective order to protect a child from family violence.'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.82.htm#82.002' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 82.002</a>"
+            },
+            {
+                question: "What is a Temporary Ex Parte Order?",
+                options: ["A final protective order that lasts for two years.", "An order issued after a full hearing with both parties present.", "An order a court can issue without a hearing if it finds a clear and present danger of family violence.", "A type of bond condition."],
+                answer: "An order a court can issue without a hearing if it finds a clear and present danger of family violence.",
+                explanation: "'Ex parte' means 'on one side only.' This temporary order provides immediate protection to a victim based on their application, pending a full court hearing.",
+                reference: "Handout Page 6: FC 83.001 - 'If a court finds that there is a clear & present danger of family violence... may enter a temp, ex-parte order without further notice or hearing.'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.83.htm#83.001' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 83.001</a>"
+            },
+            {
+                question: "What is the standard maximum duration of a Family Violence Protective Order under FC 85.025, if no specific period is stated?",
+                options: ["90 days", "One year", "Two years", "Five years"],
+                answer: "Two years",
+                explanation: "While a court can set a shorter period or a longer one under specific circumstances, the default duration is two years from the date of issuance.",
+                reference: "Handout Page 6: FC 85.025(a)(2) - 'if a period is not stated in the order, until the 2nd anniversary of the issued date.'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.85.htm#85.025' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 85.025</a>"
+            },
+            {
+                question: "Under what circumstance can a court issue a Family Violence Protective Order that lasts for more than two years?",
+                options: ["If the victim requests it.", "If the respondent has a prior criminal history of any kind.", "If the respondent committed a felony offense involving family violence or caused serious bodily injury.", "If both parties agree to the longer duration."],
+                answer: "If the respondent committed a felony offense involving family violence or caused serious bodily injury.",
+                explanation: "FC 85.025(a-1) allows for a longer, potentially lifetime, order in cases of severe violence to provide enhanced, long-term protection for the victim.",
+                reference: "Handout Page 6: FC 85.025(a-1) - Lists conditions such as committing a felony FV offense or causing SBI.<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.85.htm#85.025' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 85.025</a>"
+            },
+            {
+                question: "A person has a 5-year protective order against them. When is the earliest they can file a motion for the court to review whether the order is still needed?",
+                options: ["After 6 months.", "Not earlier than the first anniversary of the date the order was rendered.", "Any time after the order is issued.", "Only after the order has been in effect for two years."],
+                answer: "Not earlier than the first anniversary of the date the order was rendered.",
+                explanation: "FC 85.025(b) sets a minimum one-year period before a respondent can ask the court to reconsider a long-term protective order.",
+                reference: "Handout Page 7: FC 85.025(b) - 'A person who is the subject of a protective order may file a motion not earlier than the first anniversary of the date on which the order was rendered...'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.85.htm#85.025' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 85.025</a>"
+            },
+            {
+                question: "If a person subject to a protective order is in prison when the order is set to expire, what happens to the expiration date?",
+                options: ["The order expires as scheduled.", "The order is automatically extended, and the new expiration date is based on their release date.", "The victim must re-apply for a new order upon the person's release.", "The order is terminated upon their incarceration."],
+                answer: "The order is automatically extended, and the new expiration date is based on their release date.",
+                explanation: "FC 85.025(c) ensures that a protective order remains in effect to protect the victim when the offender is released from custody, extending it for one or two years post-release.",
+                reference: "Handout Page 7: FC 85.025(c) - 'the period for which the order is effective is extended, and the order expires on... the first anniversary [or second] of the date the person is released...'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.85.htm#85.025' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 85.025</a>"
+            },
+            {
+                question: "Under CCP Chapter 7B, who can file for a protective order for a victim of stalking or sexual assault?",
+                options: ["Only the victim.", "Only a peace officer.", "The victim, an adult on behalf of a minor victim, or a prosecuting attorney.", "Only the victim's parents."],
+                answer: "The victim, an adult on behalf of a minor victim, or a prosecuting attorney.",
+                explanation: "CCP 7B.001 provides broad standing, allowing multiple parties to initiate the protective order process to ensure victims are protected.",
+                reference: "Handout Page 8: CCP 7B.001(a) - Lists the victim, an adult acting on behalf of a victim, and a prosecuting attorney.<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.7B.htm#7B.001' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 7B.001</a>"
+            },
+            {
+                question: "What warning must be prominently displayed on every protective order regarding firearms?",
+                options: ["'A person subject to this order should consider selling their firearms.'", "'It is unlawful for any person... who is subject to a protective order to possess a firearm or ammunition.'", "'Firearms may only be possessed with the court's permission.'", "'This order does not affect firearm possession.'"],
+                answer: "'It is unlawful for any person... who is subject to a protective order to possess a firearm or ammunition.'",
+                explanation: "This mandatory, bold-faced warning (with an exception for on-duty peace officers) ensures the respondent is clearly notified of the federal and state firearm prohibitions that come with a protective order.",
+                reference: "Handout Page 10: CCP 7B.006 - Shows the required warning text.<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.7B.htm#7B.006' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 7B.006</a>"
+            },
+            {
+                question: "Under CCP 7B.007, a protective order for a victim of a serious sexual offense where the offender is a lifetime registered sex offender must be issued for what duration?",
+                options: ["Two years", "Five years", "Ten years", "For the duration of the lives of the offender and victim"],
+                answer: "For the duration of the lives of the offender and victim",
+                explanation: "The law requires a lifetime protective order in the most serious cases to provide maximum, permanent protection for the victim.",
+                reference: "Handout Page 11: CCP 7B.007(a-1) - 'The court shall issue a protective order effective for the duration of the lives of the offender and victim if the offender is... required under Chapter 62 to register for life as a sex offender.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.7B.htm#7B.007' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 7B.007</a>"
+            },
+            {
+                question: "What is a 'foreign protective order' according to Family Code Chapter 88?",
+                options: ["A protective order issued by a court in another country.", "A protective order issued by a tribunal of another state.", "A protective order involving a non-U.S. citizen.", "A protective order written in a foreign language."],
+                answer: "A protective order issued by a tribunal of another state.",
+                explanation: "Chapter 88, the Uniform Interstate Enforcement of Protective Orders Act, defines 'foreign' as any other U.S. state, territory, or tribal jurisdiction, ensuring orders are enforceable across state lines.",
+                reference: "Handout Page 12: FC 88.002(1) - '\"Foreign protective order\": protective order issued by a tribunal of another state.'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.88.htm#88.002' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 88.002</a>"
+            },
+            {
+                question: "For a law enforcement officer to enforce a foreign protective order, what is required?",
+                options: ["The order must first be registered with a Texas court.", "The victim must present a certified copy of the order.", "The officer must have probable cause to believe a valid foreign PO exists and has been violated.", "The officer must contact the issuing state to verify the order."],
+                answer: "The officer must have probable cause to believe a valid foreign PO exists and has been violated.",
+                explanation: "FC 88.004 allows for immediate enforcement based on probable cause. While seeing the order helps establish PC, it is not an absolute requirement, and registration is not needed for enforcement.",
+                reference: "Handout Page 13: FC 88.004(a) - 'A law enforcement officer... on determining that there is probable cause to believe that a valid foreign protective order exists and that the order has been violated, shall enforce the... order...'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.88.htm#88.004' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 88.004</a>"
+            },
+            {
+                question: "An officer encounters a foreign protective order from another state. The respondent claims it is invalid because he was never given a chance to be heard in court. For the order to be valid in Texas, what due process requirement must have been met?",
+                options: ["The respondent must have been present at the hearing.", "The respondent must have been given reasonable notice and an opportunity to be heard.", "The respondent must have signed the order.", "The issuing state's laws must be identical to Texas laws."],
+                answer: "The respondent must have been given reasonable notice and an opportunity to be heard.",
+                explanation: "FC 88.003(d) requires that for a foreign order to be valid and enforceable, the respondent must have been afforded basic due process rights in the issuing state.",
+                reference: "Handout Page 13: FC 88.003(d)(4) - 'was rendered after the respondent was given reasonable notice and an opportunity to be heard...'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.88.htm#88.003' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 88.003</a>"
+            },
+            {
+                question: "What is a Magistrate's Order for Emergency Protection (EPO) under CCP 17.292?",
+                options: ["A type of restraining order filed in civil court.", "An order a magistrate can issue at a defendant's arraignment following an arrest for certain offenses like family violence or stalking.", "A permanent order that replaces a regular protective order.", "An order that only lasts for 24 hours."],
+                answer: "An order a magistrate can issue at a defendant's arraignment following an arrest for certain offenses like family violence or stalking.",
+                explanation: "An EPO is an immediate, criminally-enforceable order issued by a magistrate at the first court appearance after an arrest to provide temporary protection for the victim.",
+                reference: "Handout Page 15: CCP 17.292(a) - 'At a defendant's appearance before a magistrate after arrest for an offense involving family violence... the magistrate may issue an order for emergency protection...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.292' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.292</a>"
+            },
+            {
+                question: "When is a magistrate *required* to issue an EPO after a family violence arrest?",
+                options: ["Whenever the victim requests one.", "If the arrest involves serious bodily injury to the victim or the use/exhibition of a deadly weapon.", "For all felony family violence arrests.", "If the suspect has a prior conviction."],
+                answer: "If the arrest involves serious bodily injury to the victim or the use/exhibition of a deadly weapon.",
+                explanation: "CCP 17.292(b) makes the issuance of an EPO mandatory in these high-risk situations, removing the magistrate's discretion.",
+                reference: "Handout Page 15: CCP 17.292(b) - 'the magistrate shall issue an order for emergency protection if the arrest is for an offense that also involves: (1) serious bodily injury to the victim; or (2) the use or exhibition of a deadly weapon...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.292' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.292</a>"
+            },
+            {
+                question: "What is the duration of an EPO issued after an arrest involving the use or exhibition of a deadly weapon?",
+                options: ["31 to 61 days", "61 to 91 days", "Exactly 6 months", "Up to 2 years"],
+                answer: "61 to 91 days",
+                explanation: "The law provides a longer duration for EPOs in these more dangerous cases to give the victim an extended period of protection.",
+                reference: "Handout Page 15: CCP 17.292(j) - 'An order for emergency protection issued under Subsection (b)(2) of this article remains in effect up to the 91st day but not less than 61 days...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.292' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.292</a>"
+            },
+            {
+                question: "Under CCP 17.49, what is a condition a magistrate may impose on a defendant released on bond for a family violence offense?",
+                options: ["Weekly check-ins with the victim.", "Mandatory marriage counseling.", "Requiring the defendant to wear a GPS monitoring device.", "Forfeiture of their vehicle."],
+                answer: "Requiring the defendant to wear a GPS monitoring device.",
+                explanation: "GPS monitoring is a specific condition of bond authorized by statute to track the defendant's location and help ensure they comply with stay-away orders.",
+                reference: "Handout Page 18: CCP 17.49(b)(2) - 'carry or wear a global positioning monitoring system device...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.49' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.49</a>"
+            },
+            {
+                question: "A person violates a condition of their bond set in a family violence case by contacting the victim. What offense have they committed?",
+                options: ["Harassment", "Stalking", "Contempt of Court", "Violation of Certain Court Orders or Conditions of Bond (PC 25.07)"],
+                answer: "Violation of Certain Court Orders or Conditions of Bond (PC 25.07)",
+                explanation: "PC 25.07 is the specific criminal offense for violating conditions of a protective order, EPO, or bond conditions set in cases involving family violence, sexual assault, stalking, etc.",
+                reference: "Handout Page 19: PC 25.07 title and description.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.07' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 25.07</a>"
+            },
+            {
+                question: "What is the penalty for a first-time violation of a protective order under PC 25.07?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "The base penalty for this offense is a Class A misdemeanor, but it can be enhanced to a felony under certain circumstances, such as prior convictions or committing an assault during the violation.",
+                reference: "Handout Page 20: PC 25.07(g) - 'An offense under this section is a Class A misdemeanor, except...'"
+            },
+            {
+                question: "A violation of a protective order under PC 25.07 is enhanced to a third-degree felony if the defendant has two or more prior convictions for the same offense OR if they violate the order by committing what other crime?",
+                options: ["Theft", "Criminal Mischief", "Assault or Stalking", "Criminal Trespass"],
+                answer: "Assault or Stalking",
+                explanation: "Committing an assault or stalking in violation of the order is considered a severe breach and automatically enhances the penalty to a third-degree felony, even for a first-time violation.",
+                reference: "Handout Page 20: PC 25.07(g)(2)(B) - 'has violated the order or condition of bond by committing an assault or the offense of stalking.'"
+            },
+            {
+                question: "If a victim protected by an order invites the respondent over, and the respondent goes to the victim's house, can the respondent be arrested for violating the order?",
+                options: ["No, because the victim gave permission.", "Yes, because the victim cannot give permission to violate the order.", "Only if they get into another argument.", "Only if the officer warns them first."],
+                answer: "Yes, because the victim cannot give permission to violate the order.",
+                explanation: "The protective order is an order from a court, and only a court can modify or rescind it. A victim's consent or invitation does not negate the respondent's legal duty to obey the court's order.",
+                reference: "Handout Page 10 & 21: 'NO PERSON, INCLUDING A PERSON WHO IS PROTECTED BY THIS ORDER, MAY GIVE PERMISSION TO ANYONE TO IGNORE OR VIOLATE ANY PROVISION OF THIS ORDER.'"
+            },
+            {
+                question: "What is the offense of Repeated Violation of Certain Court Orders (PC 25.072)?",
+                options: ["Violating a single order more than once.", "Committing two or more violations of protective orders under PC 25.07 within a 12-month period.", "Having three or more lifetime convictions for violating a protective order.", "Violating an order after being warned by police."],
+                answer: "Committing two or more violations of protective orders under PC 25.07 within a 12-month period.",
+                explanation: "Similar to Continuous Family Violence, this statute creates a separate third-degree felony for a pattern of repeated violations of protective orders within a year.",
+                reference: "Handout Page 21: PC 25.072(a) - 'during a period that is 12 months or less in duration, the person two or more times engages in conduct that constitutes an offense under Section 25.07.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.072' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 25.072</a>"
+            },
+            {
+                question: "Under CCP 17.152, a judge may deny bail to a person who violates a family violence bond condition if they find by a preponderance of the evidence that the violation related to what?",
+                options: ["The defendant's employment status.", "A financial disagreement.", "The safety of the victim or the safety of the community.", "The defendant's curfew."],
+                answer: "The safety of the victim or the safety of the community.",
+                explanation: "This article allows a judge to hold a defendant without bond if their violation demonstrates a continued threat to the victim or the community, overriding the general presumption of a right to bail.",
+                reference: "Handout Page 22: CCP 17.152(b) - 'violated a condition of bond related to: (1) the safety of the victim... or (2) the safety of the community.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.152' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.152</a>"
+            },
+            {
+                question: "What is the standard of proof a judge must use in a hearing to deny bail under CCP 17.152?",
+                options: ["Reasonable Suspicion", "Probable Cause", "Preponderance of the Evidence", "Beyond a Reasonable Doubt"],
+                answer: "Preponderance of the Evidence",
+                explanation: "This is a civil standard of proof ('more likely than not'), which is lower than the criminal standard of 'beyond a reasonable doubt,' making it easier for a judge to deny bail to protect a victim.",
+                reference: "Handout Page 22: CCP 17.152(b) - 'a judge or magistrate determines by a preponderance of the evidence that the person violated a condition of bond...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.152' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.152</a>"
+            },
+            {
+                question: "Under CCP 17.29, after a person arrested for family violence posts bond, the head of the law enforcement agency may hold them for how long if there is probable cause to believe violence will continue?",
+                options: ["They must be released immediately.", "For a period of not more than 4 hours.", "For up to 24 hours.", "Until a magistrate sees them."],
+                answer: "For a period of not more than 4 hours.",
+                explanation: "This allows for a brief 'cooling off' period and gives the victim a short window of time to get to a safe place before the offender is released.",
+                reference: "Handout Page 24: 'The head of the agency... may hold the person for a period of not more than 4 hours after bond has been posted.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.29' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.29</a>"
+            },
+            {
+                question: "A magistrate can extend the 4-hour family violence hold for up to an additional 48 hours under CCP 17.291, but only if they find the violence would continue and what other factor exists?",
+                options: ["The victim requests the extension.", "The suspect was arrested for an offense involving family violence and has a history of multiple FV arrests or used a deadly weapon in a prior offense.", "The suspect refuses to speak to the magistrate.", "The suspect cannot afford the bond amount."],
+                answer: "The suspect was arrested for an offense involving family violence and has a history of multiple FV arrests or used a deadly weapon in a prior offense.",
+                explanation: "This significant extension of detention without a new charge requires a finding of not only future danger but also a history of serious or repeated violence.",
+                reference: "Handout Page 24: CCP 17.291(b)(2) - Lists the requirements for an extension beyond 24 hours.<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.291' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.291</a>"
+            },
+            {
+                question: "An officer responds to a family disturbance. A victim shows the officer a temporary ex parte order against her estranged husband, who is inside the home and refusing to leave. The husband claims he was never served with the order. What is the officer's proper course of action?",
+                options: ["Arrest the husband immediately for violating the order.", "Tell the victim there is nothing they can do since he wasn't served.", "Serve the husband with the order, inform him of its conditions, and then arrest him if he refuses to comply and leave.", "Issue a citation for criminal trespass."],
+                answer: "Serve the husband with the order, inform him of its conditions, and then arrest him if he refuses to comply and leave.",
+                explanation: "An ex parte order is only criminally enforceable after the respondent has been served. The officer's duty is to provide that service/notice on scene and then enforce compliance.",
+                reference: "Handout Page 6 & 13: FC 83.001 requires service for enforceability, and FC 88.004(d) outlines the procedure for serving a foreign PO on scene, a similar principle applies here."
+            },
+            {
+                question: "An officer responds to a vandalism call. A swastika has been spray-painted on a synagogue. The damage is estimated at $1,000. What is the most appropriate offense and penalty level?",
+                options: ["Criminal Mischief (Class A Misdemeanor).", "Criminal Mischief (State Jail Felony) with a Hate Crime enhancement.", "Graffiti (Class A Misdemeanor).", "Terroristic Threat (Class B Misdemeanor)."],
+                answer: "Criminal Mischief (State Jail Felony) with a Hate Crime enhancement.",
+                explanation: "The damage amount ($750-$2,500) makes the base offense a State Jail Felony. The swastika on a synagogue provides strong evidence of bias motivation, which would trigger the hate crime enhancement under PC 12.47, increasing the penalty to a 3rd Degree Felony.",
+                reference: "Handout Page 1, 3, 25: Combines elements of Hate Crimes (CCP 42.014), Penalty Enhancements (PC 12.47), and Criminal Mischief (PC 28.03 - value ladder not in handout but implied)."
+            },
+            {
+                question: "Which of the following is NOT a valid venue for filing a Family Violence Protective Order application under FC 82.003?",
+                options: ["The county where the applicant resides.", "The county where the respondent resides.", "The county where the family violence is alleged to have occurred.", "The county where the applicant works."],
+                answer: "The county where the applicant works.",
+                explanation: "The Family Code specifies three valid venues for filing, which are related to the residence of the parties or the location of the offense, not the applicant's place of employment.",
+                reference: "Handout Page 5: FC 82.003 - 'An application may be filed in: (1) the county in which the applicant resides; (2) the county in which the respondent resides; or (3) any county in which the family violence is alleged to have occurred.'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.82.htm#82.003' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 82.003</a>"
+            },
+            {
+                question: "A court issues a protective order prohibiting a respondent from going within 200 yards of a victim's home. The order also prohibits any communication. The respondent sends a text message to the victim from 500 yards away. Has an offense been committed?",
+                options: ["No, because he was outside the 200-yard zone.", "Yes, because the text message is a violation of the 'no communication' provision.", "No, because text messages are not considered communication.", "Only if the text message was threatening."],
+                answer: "Yes, because the text message is a violation of the 'no communication' provision.",
+                explanation: "Violating ANY provision of the order is a criminal offense. Even if the respondent complies with the distance requirement, violating the communication prohibition is still a chargeable offense under PC 25.07.",
+                reference: "Handout Page 20: PC 25.07(a)(2) - lists prohibited communication as a violation."
+            },
+            {
+                question: "What is the key difference in how Protective Orders are initiated under the Family Code versus an Emergency Protective Order (EPO) under the CCP?",
+                options: ["An EPO requires a higher burden of proof.", "An EPO is initiated by a magistrate following a criminal arrest, while a Family Code PO is initiated by an applicant filing in civil court.", "A Family Code PO is only for dating violence.", "An EPO is permanent, while a Family Code PO is temporary."],
+                answer: "An EPO is initiated by a magistrate following a criminal arrest, while a Family Code PO is initiated by an applicant filing in civil court.",
+                explanation: "This is the fundamental procedural difference. An EPO is a function of the criminal justice process immediately after an arrest. A standard PO is a civil process initiated by the victim or someone on their behalf.",
+                reference: "Handout Page 5 & 15: Compare FC 82.001 (Application) with CCP 17.292 (Magistrate's Order after arrest)."
+            },
+            {
+                question: "A person is subject to a protective order that prohibits them from possessing a firearm. They are a licensed peace officer. When can they legally possess their firearm?",
+                options: ["At all times, because they are a peace officer.", "Only when actively engaged in employment as a sworn, full-time paid employee of a state agency or political subdivision.", "Never, the order supersedes their employment.", "Only if they get permission from their chief."],
+                answer: "Only when actively engaged in employment as a sworn, full-time paid employee of a state agency or political subdivision.",
+                explanation: "The law provides a specific, narrow exception for on-duty peace officers, allowing them to perform their job. It does not allow them to possess a firearm while off-duty.",
+                reference: "Handout Page 10 & 16: CCP 7B.005(a)(2)(D) and CCP 17.292(c)(4) provide the peace officer exception."
+            },
+            {
+                question: "An officer is investigating a hate crime. Which of the following is a key investigative consideration listed in the handout?",
+                options: ["The suspect's financial status.", "Whether the incident occurred on a holiday or day of significance to the victim's or offender's group.", "The victim's criminal history.", "The weather at the time of the offense."],
+                answer: "Whether the incident occurred on a holiday or day of significance to the victim's or offender's group.",
+                explanation: "The timing of an offense can be a strong indicator of bias motivation, such as vandalism at a church on Christmas or at a synagogue on Yom Kippur.",
+                reference: "Handout Page 3: 'Did it occur on a bias group's holiday or other day of significance?'"
+            },
+            {
+                question: "What is the penalty for False Report to a Peace Officer under PC 37.08?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class B Misdemeanor",
+                explanation: "Knowingly making a false statement that is material to a criminal investigation to a peace officer is a Class B Misdemeanor.",
+                reference: "Handout Page 3: PC 37.08(c) - 'An offense under this section is a Class B misdemeanor.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.37.htm#37.08' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 37.08</a>"
+            },
+            {
+                question: "If a court finds there is no continuing need for a protective order that was issued for longer than two years, what must the court do?",
+                options: ["Let the order expire on its original date.", "Immediately terminate the order.", "Order a new expiration date set by the court.", "Reduce the conditions but keep the order active."],
+                answer: "Order a new expiration date set by the court.",
+                explanation: "The court doesn't just let the order run its full course if it's no longer needed; it actively sets a new, earlier expiration date.",
+                reference: "Handout Page 7: FC 85.025(b-2) - 'If the court finds there is no continuing need... the court shall order that the protective order expires on a date set by the court.'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.85.htm#85.025' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 85.025</a>"
+            },
+            {
+                question: "In a hearing for a protective order involving a child victim under 14, a hearsay statement from the child may be admissible if the court finds what?",
+                options: ["The child is too scared to testify.", "The statement was written down.", "The time, content, and circumstances of the statement provide sufficient indications of its reliability.", "The statement was made to a police officer."],
+                answer: "The time, content, and circumstances of the statement provide sufficient indications of its reliability.",
+                explanation: "CCP 7B.004 allows for the admission of a child's hearsay statement, but only after a judge determines it is reliable based on specific criteria, protecting both the child's welfare and the respondent's rights.",
+                reference: "Handout Page 9: Cites FC 104.006, which requires the court find 'the time, content, and circumstances of the statement provide sufficient indications of the statement's reliability'.<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.7B.htm#7B.004' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 7B.004</a>"
+            },
+            {
+                question: "A law enforcement officer acting in good faith to enforce what they believe is a valid foreign protective order is granted what?",
+                options: ["A commendation", "Immunity from civil and criminal liability", "Overtime pay", "Discretion to not make an arrest"],
+                answer: "Immunity from civil and criminal liability",
+                explanation: "FC 88.006 provides 'good faith' immunity to officers, encouraging them to enforce out-of-state orders to protect victims without fear of being sued if the order later turns out to be invalid.",
+                reference: "Handout Page 14: FC 88.006 - '...is immune from civil and criminal liability for an act or omission arising from the registration or enforcement of a foreign protective order... if the act or omission was done in good faith...'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.88.htm#88.006' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 88.006</a>"
+            },
+            {
+                question: "If a condition in an EPO conflicts with a condition in a pre-existing child custody order, which order prevails for the duration of the EPO?",
+                options: ["The child custody order always prevails.", "The condition in the EPO prevails.", "The parties must go back to court to resolve the conflict.", "Neither order is enforceable until clarified."],
+                answer: "The condition in the EPO prevails.",
+                explanation: "CCP 17.292(f) states that the EPO's conditions, which are based on immediate safety concerns, will temporarily override conflicting family court orders regarding possession or access.",
+                reference: "Handout Page 16: CCP 17.292(f) - 'the condition imposed under this article prevails for the duration of the order for emergency protection.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.292' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.292</a>"
+            },
+            {
+                question: "A person violates a protective order by harming a pet possessed by the protected person. Is this a chargeable offense under PC 25.07?",
+                options: ["No, the order only protects people.", "Yes, PC 25.07(a)(5) makes it an offense to harm, threaten, or interfere with a protected person's pet.", "Only if the pet is a certified assistance animal.", "No, this would be a separate offense of animal cruelty only."],
+                answer: "Yes, PC 25.07(a)(5) makes it an offense to harm, threaten, or interfere with a protected person's pet.",
+                explanation: "The law recognizes that abusers often harm pets as a way to terrorize and control human victims, and it makes this act a specific violation of the protective order.",
+                reference: "Handout Page 20: PC 25.07(a)(5) - 'harms, threatens, or interferes with the care, custody, or control of a pet, companion animal, or assistance animal...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.07' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 25.07</a>"
+            },
+            {
+                question: "An officer is investigating a potential violation of a protective order. Can the officer arrest the *protected person* for a violation of that order (e.g., for inviting the respondent over)?",
+                options: ["Yes, if they initiated the contact.", "Yes, they can be charged as an accomplice.", "No, a peace officer may not arrest a person protected by that order for a violation of that order.", "Only with a supervisor's approval."],
+                answer: "No, a peace officer may not arrest a person protected by that order for a violation of that order.",
+                explanation: "PC 25.07(e) explicitly prohibits arresting the protected person. The legal duty to obey the order rests solely on the respondent, regardless of the victim's actions.",
+                reference: "Handout Page 21: PC 25.07(e) - 'A peace officer... may not arrest a person protected by that order for a violation of that order.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.07' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 25.07</a>"
+            },
+            {
+                question: "What is the primary difference between PC 25.07 (Violation of PO) and PC 25.071 (Violation of PO for Bias or Prejudice)?",
+                options: ["PC 25.071 has a higher penalty.", "PC 25.071 applies only to orders issued under CCP Chapter 7B for hate crimes.", "PC 25.07 applies only to family violence orders.", "There is no significant difference."],
+                answer: "PC 25.071 applies only to orders issued under CCP Chapter 7B for hate crimes.",
+                explanation: "PC 25.07 is the general statute for violating most POs/EPOs/bond conditions. PC 25.071 is a more specific statute that applies only to violations of protective orders that were originally issued to prevent offenses caused by bias or prejudice.",
+                reference: "Handout Page 21: Compare the titles and conduct described in PC 25.07 and PC 25.071."
+            },
+            {
+                question: "Before a magistrate imposes a GPS monitoring condition on a defendant, what must they do regarding the victim?",
+                options: ["Order the victim to participate.", "Inform the victim of their right to participate or refuse, and explain the risks and limitations of the technology.", "Get a signed waiver from the victim.", "Ensure the victim can pay for the monitoring device."],
+                answer: "Inform the victim of their right to participate or refuse, and explain the risks and limitations of the technology.",
+                explanation: "CCP 17.49 requires the magistrate to provide detailed information to the victim to ensure their consent to participate is fully informed. The victim cannot be forced to participate.",
+                reference: "Handout Page 18 & 19: CCP 17.49(d) lists the required information to be provided to the victim."
+            },
+            {
+                question: "A person is arrested for Stalking (PC 42.072). At their court appearance, the victim can request a protective order. This request is made by filing an application in the same manner as what other type of order?",
+                options: ["A restraining order.", "An order under Title 4, Family Code.", "A bond condition.", "A peace bond."],
+                answer: "An order under Title 4, Family Code.",
+                explanation: "CCP 7B.051 streamlines the process by allowing a stalking victim to use the established procedures and forms for a Family Code protective order to request protection in the criminal case.",
+                reference: "Handout Page 11: CCP 7B.051(b) - 'in the same manner as an application for a protective order under Title 4, Family Code.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.7B.htm#7B.051' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 7B.051</a>"
+            },
+            {
+                question: "What is the purpose of the Uniform Interstate Enforcement of Domestic Violence Protection Orders Act (Family Code Ch. 88)?",
+                options: ["To create a national database of protective orders.", "To promote uniformity of the law and ensure protective orders from one state are enforceable in others.", "To make all protective orders last for the same duration.", "To require all states to adopt Texas's family violence laws."],
+                answer: "To promote uniformity of the law and ensure protective orders from one state are enforceable in others.",
+                explanation: "This act addresses the problem of offenders crossing state lines to evade protective orders, making it easier for law enforcement in a new state to enforce an existing order under the principle of full faith and credit.",
+                reference: "Handout Page 14: FC 88.008 - 'consideration shall be given to the need to promote uniformity of the law with respect to its subject matter among the states...'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.88.htm#88.008' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 88.008</a>"
+            },
+            {
+                question: "An officer is told by a victim that a valid foreign protective order exists, but the victim does not have a copy. The respondent is present. What can the officer do to establish probable cause?",
+                options: ["Nothing, a copy is required for enforcement.", "Rely on any relevant information, such as a photo of the order on the victim's phone or information from dispatch.", "Arrest the respondent for obstruction.", "Tell the victim to go to court to get a new order."],
+                answer: "Rely on any relevant information, such as a photo of the order on the victim's phone or information from dispatch.",
+                explanation: "FC 88.004(c) gives officers flexibility, allowing them to use any relevant information to determine if probable cause exists, rather than strictly requiring a physical certified copy.",
+                reference: "Handout Page 13: FC 88.004(c) - 'a law enforcement officer may determine that there is probable cause... by relying on any relevant information.'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.88.htm#88.004' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 88.004</a>"
+            },
+            {
+                question: "If a magistrate issues an EPO that prohibits the defendant from going near a specific school, who must the magistrate send a copy of the order to?",
+                options: ["The school district superintendent.", "The school's principal.", "The child care facility or school.", "The Department of Education."],
+                answer: "The child care facility or school.",
+                explanation: "CCP 17.292(i) requires direct notification to the specific facility or school named in the order to ensure they are aware of the restriction and can take steps to protect the child.",
+                reference: "Handout Page 17: CCP 17.292(i) - 'the magistrate shall send a copy of the order to the child care facility or school.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.292' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.292</a>"
+            },
+            {
+                question: "What is a key difference between a Temporary Ex Parte Order and a final Protective Order?",
+                options: ["An Ex Parte Order is criminally enforceable, but a final PO is not.", "An Ex Parte Order is issued without a hearing for the respondent, while a final PO is issued after a hearing where the respondent has a chance to be heard.", "An Ex Parte Order lasts longer than a final PO.", "Only a final PO can prohibit firearm possession."],
+                answer: "An Ex Parte Order is issued without a hearing for the respondent, while a final PO is issued after a hearing where the respondent has a chance to be heard.",
+                explanation: "This procedural difference is based on due process. The ex parte order provides immediate but temporary protection, while the final order provides long-term protection only after both sides have had an opportunity to present evidence in court.",
+                reference: "Handout Page 6 & 9: Compare FC 83.001 (Ex Parte) with CCP 7B.003 (Final Order after hearing)."
+            },
+            {
+                question: "A person is charged with a felony offense against a child under 14. They violate a condition of their bond related to the victim's safety. Under CCP 17.153, what can the judge do?",
+                options: ["Increase the bond amount.", "Add more conditions to the bond.", "Revoke the bond and deny release pending trial.", "Sentence the person to jail time for the violation."],
+                answer: "Revoke the bond and deny release pending trial.",
+                explanation: "This statute provides a mechanism to deny bail for defendants who violate bond conditions in serious child victim cases, prioritizing the safety of the child victim above the defendant's right to pre-trial release.",
+                reference: "Handout Page 23: CCP 17.153(b) - '...whose bail in the case is revoked for the violation may be taken into custody and denied release on bail pending trial...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.153' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.153</a>"
+            },
+            {
+                question: "Under CCP 17.29, a law enforcement agency holding a person for a family violence offense must make a reasonable attempt to notify whom of the person's imminent release on bail?",
+                options: ["The district attorney.", "The arresting officer.", "The victim or a person designated by the victim.", "The local news media."],
+                answer: "The victim or a person designated by the victim.",
+                explanation: "This is a critical victim safety provision, giving the victim advance warning so they can take necessary precautions before the offender is released from custody.",
+                reference: "Handout Page 24: CCP 17.29(b) - 'shall make a reasonable attempt to give personal notice of the imminent release to the victim... or to another person designated by the victim...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.17.htm#17.29' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 17.29</a>"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>

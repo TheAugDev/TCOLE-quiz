@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threatening & Assaultive Offenses Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">    
+    <!-- Back to Portal Button -->
+    <div class="fixed top-4 left-4 z-50">
+        <a href="../index.html" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span class="font-medium">Back to Portal</span>
+        </a>
+    </div>
+<div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Threatening & Assaultive Offenses Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This final, exhaustive practice quiz now contains 68 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "According to Family Code 71.004, 'Family Violence' includes an act intended to result in physical harm, a threat that places a member in fear of imminent physical harm, and what other two categories?",
+                options: ["Child abuse and dating violence.", "Stalking and harassment.", "Theft and criminal mischief.", "Terroristic threat and disorderly conduct."],
+                answer: "Child abuse and dating violence.",
+                explanation: "The legal definition of Family Violence is broad, specifically incorporating child abuse and dating violence to ensure those victims are covered under the law.",
+                reference: "Handout Page 1: FC 71.004 - Lists '(2) Child abuse... or (3) dating violence...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.71.htm#71.004' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 71.004</a>"
+            },
+            {
+                question: "Which of the following relationships is included in the Family Code definition of 'Family'?",
+                options: ["Two roommates.", "Two business partners.", "Individuals who are the parents of the same child, regardless of marriage.", "Two best friends living together."],
+                answer: "Individuals who are the parents of the same child, regardless of marriage.",
+                explanation: "The definition of 'Family' extends beyond blood and marriage to include individuals who share a child, recognizing the potential for violence in those relationships.",
+                reference: "Handout Page 1: FC 71.003 - 'individuals who are the parents of the same child, without regard to marriage...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.71.htm#71.003' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 71.003</a>"
+            },
+            {
+                question: "A person commits Terroristic Threat under PC 22.07 if they threaten violence with the intent to place a person in fear of what?",
+                options: ["Any bodily injury.", "Imminent serious bodily injury.", "Future emotional distress.", "Financial loss."],
+                answer: "Imminent serious bodily injury.",
+                explanation: "The key elements for this type of Terroristic Threat are the severity of the threatened injury (serious) and the timing (imminent).",
+                reference: "Handout Page 2: PC 22.07(a)(2) - 'place any person in fear of imminent serious bodily injury'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.07' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.07</a>"
+            },
+            {
+                question: "A Terroristic Threat against a person the actor knows is a peace officer or judge is what level of offense?",
+                options: ["Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony", "Third Degree Felony"],
+                answer: "State Jail Felony",
+                explanation: "Threatening a peace officer or judge with imminent serious bodily injury is enhanced to a State Jail Felony due to their public servant status.",
+                reference: "Handout Page 2: PC 22.07(c-1) - 'an offense under Subsection (a)(2) is a state jail felony if the offense is committed against a person the actor knows is a peace officer or judge.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.07' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.07</a>"
+            },
+            {
+                question: "A person commits Harassment under PC 42.07 if, with intent to harass, they threaten to inflict bodily injury on a person or what other group?",
+                options: ["The person's coworkers.", "A member of the person's family or household.", "Any public servant.", "A witness to a crime."],
+                answer: "A member of the person's family or household.",
+                explanation: "The Harassment statute specifically includes threats against family and household members, recognizing that abusers often use this tactic to control victims.",
+                reference: "Handout Page 2: PC 42.07(a)(2) - 'threatens... to inflict bodily injury on the person or to commit a felony against the person, a member of the person's family or household...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm#42.07' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 42.07</a>"
+            },
+            {
+                question: "What is the base penalty for Harassment under PC 42.07?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class B Misdemeanor",
+                explanation: "The standard offense of Harassment is a Class B Misdemeanor, though it can be enhanced under certain circumstances.",
+                reference: "Handout Page 3: PC 42.07(c) - 'An offense under this section is a Class B misdemeanor...'"
+            },
+            {
+                question: "A person commits Stalking under PC 42.072 if, on more than one occasion and pursuant to the same scheme, they knowingly engage in conduct that they know or should know the victim will regard as threatening what?",
+                options: ["Financial ruin.", "Embarrassment.", "Bodily injury or death.", "Loss of employment."],
+                answer: "Bodily injury or death.",
+                explanation: "Stalking elevates beyond simple harassment because the repeated conduct places the victim in fear of physical harm or death.",
+                reference: "Handout Page 3: PC 42.072(a)(1)(A) - 'that the actor knows or reasonably should know the other person will regard as threatening: bodily injury or death for the other person'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm#42.072' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 42.072</a>"
+            },
+            {
+                question: "What is the penalty for a first offense of Stalking?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Third Degree Felony", "Second Degree Felony"],
+                answer: "Third Degree Felony",
+                explanation: "Stalking is a serious offense, and the base penalty is a third-degree felony, which can be enhanced for subsequent convictions.",
+                reference: "Handout Page 4: PC 42.072(b) - 'An offense under this section is a felony of the third degree...'"
+            },
+            {
+                question: "A person commits Unlawful Disclosure of Residence Address (PC 42.074) if they post the information on a public website with what specific intent?",
+                options: ["Intent to inform the public.", "Intent to cause harm or a threat of harm.", "Intent to embarrass the person.", "Intent to sell the information."],
+                answer: "Intent to cause harm or a threat of harm.",
+                explanation: "This offense, often called 'doxxing,' is criminalized when the actor's purpose is to facilitate harm or threats against the victim.",
+                reference: "Handout Page 4: PC 42.074(a) - 'with the intent to cause harm or a threat of harm to the individual or a member of the individual's family or household.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm#42.074' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 42.074</a>"
+            },
+            {
+                question: "What are the three distinct ways a person can commit Assault under PC 22.01(a)?",
+                options: ["Causes BI; Threatens SBI; Offensive Contact", "Causes BI; Threatens imminent BI; Offensive Contact", "Causes SBI; Threatens BI; Unwanted Contact", "Causes injury; Makes a threat; Touches someone"],
+                answer: "Causes BI; Threatens imminent BI; Offensive Contact",
+                explanation: "The statute outlines three separate theories of assault: (1) causing bodily injury, (2) threatening imminent bodily injury, and (3) causing offensive or provocative physical contact.",
+                reference: "Handout Page 5: PC 22.01(a) - Lists the three subsections.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.01</a>"
+            },
+            {
+                question: "What is the penalty for an Assault that causes bodily injury (Assault BI)?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "The base level for an assault that results in actual bodily injury (pain) is a Class A Misdemeanor.",
+                reference: "Handout Page 5: PC 22.01(b) - 'An offense under Subsection (a)(1) is a Class A misdemeanor...'"
+            },
+            {
+                question: "An assault by offensive contact against an elderly individual is what level of offense?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "An offensive contact, which is normally a Class C, is enhanced to a Class A Misdemeanor when the victim is elderly or disabled, providing them with greater protection.",
+                reference: "Handout Page 5: PC 22.01(c)(1) - 'a Class A misdemeanor if the offense is committed under Subsection (a)(3) against an elderly individual or disabled individual...'"
+            },
+            {
+                question: "An Assault BI becomes a third-degree felony if committed against a person the actor knows is a public servant. What other major enhancement applies to family violence cases?",
+                options: ["If the defendant has a prior conviction for any crime.", "If the defendant has a prior conviction for a family violence assault.", "If the assault occurs at night.", "If the victim is a dating partner."],
+                answer: "If the defendant has a prior conviction for a family violence assault.",
+                explanation: "A second family violence assault is enhanced to a third-degree felony to address repeat domestic abusers.",
+                reference: "Handout Page 5: PC 22.01(b)(2)(A) - 'it is shown on the trial of the offense that the defendant has been previously convicted of an offense that was committed: against a person whose relationship... is described by... Family Code...'"
+            },
+            {
+                question: "An Assault BI involving family violence by impeding breathing or circulation (strangulation) is what level of offense for a first-time offender?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Third Degree Felony", "Second Degree Felony"],
+                answer: "Third Degree Felony",
+                explanation: "The act of strangulation is considered so dangerous that it elevates a first-time family violence assault from a misdemeanor to a third-degree felony.",
+                reference: "Handout Page 5: PC 22.01(b)(2)(B) - 'the offense is committed by intentionally, knowingly, or recklessly impeding the normal breathing or circulation of the blood...'"
+            },
+            {
+                question: "A defendant has a prior family violence assault conviction and then commits a new family violence assault by strangulation. What is the penalty?",
+                options: ["Third Degree Felony", "Second Degree Felony", "First Degree Felony", "Life Felony"],
+                answer: "Second Degree Felony",
+                explanation: "This is a 'stacked' enhancement. A prior FV conviction makes a new assault a 3rd degree felony. Strangulation also makes it a 3rd degree felony. When both factors are present, the offense is enhanced further to a second-degree felony.",
+                reference: "Handout Page 6: PC 22.01(b-3) - Outlines the conditions for the second-degree felony enhancement."
+            },
+            {
+                question: "An Assault BI against a person the actor knows is a peace officer lawfully discharging an official duty is what level of offense?",
+                options: ["Third Degree Felony", "Second Degree Felony", "First Degree Felony", "State Jail Felony"],
+                answer: "Second Degree Felony",
+                explanation: "Assaulting a peace officer causing bodily injury is a serious offense, elevated to a second-degree felony to protect law enforcement.",
+                reference: "Handout Page 7: PC 22.01(b-2) - 'an offense under Subsection (a)(1) is a felony of the second degree if the offense is committed against a person the actor knows is a peace officer or judge...'"
+            },
+            {
+                question: "Under what circumstances is a victim's consent a valid defense to an assaultive conduct charge?",
+                options: ["At any time, if the victim consents.", "Only if the conduct did not threaten or inflict serious bodily injury.", "If the victim is a member of the same criminal street gang.", "Consent is never a defense to assault."],
+                answer: "Only if the conduct did not threaten or inflict serious bodily injury.",
+                explanation: "PC 22.06 allows for a consent defense (e.g., in a boxing match), but this defense is not available if the conduct was so severe that it threatened or caused serious bodily injury.",
+                reference: "Handout Page 7: PC 22.06(a)(1) - 'the conduct did not threaten or inflict serious bodily injury'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.06' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.06</a>"
+            },
+            {
+                question: "What does 'restrain' mean under PC 20.01?",
+                options: ["To hold a person's arm.", "To restrict a person's movements without consent, so as to interfere substantially with their liberty.", "To lock a person in a room.", "To verbally threaten someone to stay put."],
+                answer: "To restrict a person's movements without consent, so as to interfere substantially with their liberty.",
+                explanation: "This is the core legal definition. The interference must be 'substantial,' meaning it's more than a momentary or trivial impediment.",
+                reference: "Handout Page 8: PC 20.01(1) - '\"Restrain\" means to restrict a person's movements without consent, so as to interfere substantially with the person's liberty...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.20.htm#20.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 20.01</a>"
+            },
+            {
+                question: "What is the penalty for Unlawful Restraint of a child younger than 17 years of age?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Third Degree Felony", "Second Degree Felony"],
+                answer: "State Jail Felony",
+                explanation: "The base offense of Unlawful Restraint (a Class A Misdemeanor) is enhanced to a State Jail Felony when the victim is a child under 17.",
+                reference: "Handout Page 8: PC 20.02(c)(1) - 'a state jail felony if the person restrained was a child younger than 17 years of age'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.20.htm#20.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 20.02</a>"
+            },
+            {
+                question: "Under Chapter 9, is the justification of self-defense available to a person who recklessly injures or kills an innocent third person while defending themselves?",
+                options: ["Yes, the justification covers all actions taken in self-defense.", "No, the justification is unavailable in a prosecution for the reckless injury or killing of the innocent third person.", "Only if the force used was not deadly force.", "Only if the third person was related to the attacker."],
+                answer: "No, the justification is unavailable in a prosecution for the reckless injury or killing of the innocent third person.",
+                explanation: "PC 9.05 makes it clear that while you may be justified in using force against an attacker, you are still responsible for any reckless harm caused to innocent bystanders.",
+                reference: "Handout Page 9: PC 9.05 - 'the justification afforded by this chapter is unavailable in a prosecution for the reckless injury or killing of the innocent third person.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.05</a>"
+            },
+            {
+                question: "If a person's use of force is justified under Chapter 9, does this prevent the person they used force against from suing them in civil court?",
+                options: ["Yes, a justified use of force provides immunity from all legal action.", "No, the justification does not abolish or impair any remedy available in a civil suit.", "Only if deadly force was used.", "Only if the person was not injured."],
+                answer: "No, the justification does not abolish or impair any remedy available in a civil suit.",
+                explanation: "PC 9.06 clarifies that Chapter 9 provides a defense against *criminal prosecution* only. It does not prevent someone from filing a civil lawsuit for damages.",
+                reference: "Handout Page 9: PC 9.06 - 'The fact that conduct is justified under this chapter does not abolish or impair any remedy for the conduct that is available in a civil suit.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.06' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.06</a>"
+            },
+            {
+                question: "Under PC 9.31, a person's belief that force was immediately necessary is presumed to be reasonable if they knew the other person was unlawfully entering their occupied habitation, vehicle, or place of business with what?",
+                options: ["The intent to talk.", "Force.", "A verbal threat.", "A court order."],
+                answer: "Force.",
+                explanation: "This is part of the 'Castle Doctrine.' The presumption of reasonableness applies when there is an unlawful and forcible entry into an occupied location.",
+                reference: "Handout Page 10: PC 9.31(a)(1)(A) - 'unlawfully and with force entered, or was attempting to enter unlawfully and with force...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.31' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.31</a>"
+            },
+            {
+                question: "A person who has a right to be present, has not provoked the encounter, and is not engaged in criminal activity is NOT required to do what before using justified force?",
+                options: ["Call the police.", "Give a verbal warning.", "Retreat.", "Use the least amount of force possible."],
+                answer: "Retreat.",
+                explanation: "This is Texas's 'Stand Your Ground' law, codified in PC 9.31(e). If you are legally present and not the aggressor, you have no duty to retreat before using justified force.",
+                reference: "Handout Page 11: PC 9.31(e) - 'is not required to retreat before using force as described by this section.'"
+            },
+            {
+                question: "When can a person use deadly force to protect their own property under PC 9.42?",
+                options: ["To prevent any theft, day or night.", "To prevent the other's imminent commission of arson, burglary, robbery, or theft during the nighttime.", "To stop someone from trespassing on their land.", "Anytime they feel their property is threatened."],
+                answer: "To prevent the other's imminent commission of arson, burglary, robbery, or theft during the nighttime.",
+                explanation: "The use of deadly force to protect property is strictly limited to preventing specific, serious, and often violent felonies, with a particular emphasis on crimes occurring at night.",
+                reference: "Handout Page 24: PC 9.42(2)(A) - 'to prevent the other's imminent commission of arson, burglary, robbery, aggravated robbery, theft during the nighttime, or criminal mischief during the nighttime'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.42' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.42</a>"
+            },
+            {
+                question: "A parent's use of force against a child under 18 is justified under PC 9.61 if the parent reasonably believes the force is necessary for what purpose?",
+                options: ["To punish the child for any reason.", "To discipline the child or to safeguard or promote their welfare.", "To make the child do their chores.", "To win an argument with the child."],
+                answer: "To discipline the child or to safeguard or promote their welfare.",
+                explanation: "The law justifies parental force only when its purpose is for discipline or the child's well-being, and it must be reasonable. Deadly force is never justified.",
+                reference: "Handout Page 13: PC 9.61(a)(2) - 'when and to the degree the actor reasonably believes the force is necessary to discipline the child or to safeguard or promote his welfare.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.61' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.61</a>"
+            },
+            {
+                question: "A person commits Injury to a Child (PC 22.04) if they intentionally, knowingly, recklessly, or with criminal negligence cause serious bodily injury, serious mental injury, or what else to a child?",
+                options: ["Emotional distress.", "Financial loss.", "Bodily injury.", "Offensive contact."],
+                answer: "Bodily injury.",
+                explanation: "The statute covers a range of harm, from the most severe (serious bodily injury) down to bodily injury (defined as physical pain, illness, or any impairment).",
+                reference: "Handout Page 13: PC 22.04(a) - Lists '(1) serious bodily injury; (2) serious mental deficiency... or (3) bodily injury.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.04' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.04</a>"
+            },
+            {
+                question: "What is the penalty for intentionally or knowingly causing serious bodily injury to a child?",
+                options: ["Third Degree Felony", "Second Degree Felony", "First Degree Felony", "State Jail Felony"],
+                answer: "First Degree Felony",
+                explanation: "This is one of the most serious assaultive offenses, carrying a first-degree felony penalty due to the severity of the injury and the vulnerability of the victim.",
+                reference: "Handout Page 14: PC 22.04(e) - 'An offense under Subsection (a)(1) or (2) is a felony of the first degree when the conduct is committed intentionally or knowingly.'"
+            },
+            {
+                question: "What does 'abandon' mean in the context of Abandoning or Endangering a Child (PC 22.041)?",
+                options: ["Leaving a child with a babysitter.", "Leaving a child in a place without providing reasonable and necessary care.", "Letting a child play in the front yard unsupervised.", "Dropping a child off at school."],
+                answer: "Leaving a child in a place without providing reasonable and necessary care.",
+                explanation: "The legal definition of abandonment requires leaving a child in a situation where their basic needs for care and safety are not being met.",
+                reference: "Handout Page 16: PC 22.041(a)(1) - '\"Abandon\" means to leave in any place without providing reasonable and necessary care...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.041' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.041</a>"
+            },
+            {
+                question: "A person intentionally leaves their 10-year-old child at a park with the intent to return later. What is the penalty for this act of abandonment?",
+                options: ["Second Degree Felony", "Third Degree Felony", "State Jail Felony", "Class A Misdemeanor"],
+                answer: "State Jail Felony",
+                explanation: "Abandoning a child with the intent to return is a State Jail Felony. The penalty is increased if there is no intent to return or if the child is placed in imminent danger.",
+                reference: "Handout Page 16: PC 22.041(d)(1) - 'a state jail felony if the actor abandoned the child... with intent to return for the child...'"
+            },
+            {
+                question: "A person commits an offense under PC 22.10 if they intentionally or knowingly leave a child younger than what age in a motor vehicle for longer than five minutes?",
+                options: ["10 years of age", "7 years of age", "5 years of age", "3 years of age"],
+                answer: "7 years of age",
+                explanation: "The law sets the age at seven, recognizing that children younger than this are generally unable to care for themselves or escape a vehicle in an emergency.",
+                reference: "Handout Page 17: PC 22.10(a)(1) - 'younger than seven years of age'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.10' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.10</a>"
+            },
+            {
+                question: "What is the penalty for Leaving a Child in a Vehicle (PC 22.10)?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "No offense if the car is running."],
+                answer: "Class C Misdemeanor",
+                explanation: "This offense is a Class C Misdemeanor, making it a ticketable offense designed for prevention and education.",
+                reference: "Handout Page 17: PC 22.10(b) - 'An offense under this section is a Class C misdemeanor.'"
+            },
+            {
+                question: "A person knowingly prevents another from calling 911 during an emergency. What offense have they committed?",
+                options: ["Disorderly Conduct", "Harassment", "Assault", "Interference with Emergency Request for Assistance (PC 42.062)"],
+                answer: "Interference with Emergency Request for Assistance (PC 42.062)",
+                explanation: "This statute specifically criminalizes the act of preventing or interfering with someone's attempt to get help in an emergency.",
+                reference: "Handout Page 18: PC 42.062 - 'An individual commits an offense if the individual knowingly prevents or interferes with another individual's ability to place an emergency call...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm#42.062' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 42.062</a>"
+            },
+            {
+                question: "What is a peace officer's duty under CCP 6.05 when informed that a threat has been made?",
+                options: ["To take a report and forward it to detectives.", "To prevent the threatened injury, if within their power.", "To advise the victim to get a protective order.", "To wait until an offense has been committed."],
+                answer: "To prevent the threatened injury, if within their power.",
+                explanation: "This article places an affirmative duty on peace officers to act proactively to prevent a threatened offense from occurring.",
+                reference: "Handout Page 19: CCP 6.05 - 'It is the duty of every peace officer, when he may have been informed... that a threat has been made... to prevent the threatened injury, if within his power...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.6.htm#6.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 6.05</a>"
+            },
+            {
+                question: "What are the two ways a person can commit Aggravated Assault under PC 22.02?",
+                options: ["Commits an assault and causes bodily injury OR uses a weapon.", "Commits an assault and causes serious bodily injury OR uses or exhibits a deadly weapon.", "Commits a felony and causes serious bodily injury OR uses a weapon.", "Commits an assault against a public servant OR causes serious bodily injury."],
+                answer: "Commits an assault and causes serious bodily injury OR uses or exhibits a deadly weapon.",
+                explanation: "These are the two fundamental elements that elevate a simple assault to an aggravated assault: the severity of the injury (SBI) or the use of a deadly weapon.",
+                reference: "Handout Page 20: PC 22.02(a) - '(1) causes serious bodily injury to another... or (2) uses or exhibits a deadly weapon during the commission of the assault.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.02</a>"
+            },
+            {
+                question: "What is the base penalty for Aggravated Assault?",
+                options: ["Third Degree Felony", "Second Degree Felony", "First Degree Felony", "State Jail Felony"],
+                answer: "Second Degree Felony",
+                explanation: "Aggravated Assault is a serious violent crime, and its base penalty is a second-degree felony.",
+                reference: "Handout Page 20: PC 22.02(b) - 'An offense under this section is a felony of the second degree...'"
+            },
+            {
+                question: "An Aggravated Assault is enhanced to a first-degree felony if it is committed by a public servant acting under color of office OR against whom?",
+                options: ["An elderly person.", "A child.", "A known public servant who is lawfully discharging their duty.", "A family member."],
+                answer: "A known public servant who is lawfully discharging their duty.",
+                explanation: "Committing an aggravated assault against a public servant, witness, or informant, or in retaliation, elevates the offense to a first-degree felony.",
+                reference: "Handout Page 20: PC 22.02(b)(2)(B) - 'against a person the actor knows is a public servant while the public servant is lawfully discharging an official duty...'"
+            },
+            {
+                question: "A person commits Deadly Conduct under PC 22.05 if they recklessly engage in conduct that places another in what?",
+                options: ["Fear of bodily injury.", "Imminent danger of serious bodily injury.", "Any danger of harm.", "A state of alarm."],
+                answer: "Imminent danger of serious bodily injury.",
+                explanation: "This offense doesn't require actual injury, but it does require that the reckless conduct created a real and immediate risk of severe harm.",
+                reference: "Handout Page 21: PC 22.05(a) - 'recklessly engages in conduct that places another in imminent danger of serious bodily injury.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.05</a>"
+            },
+            {
+                question: "Knowingly discharging a firearm at or in the direction of a habitation, building, or vehicle is what level of offense?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Third Degree Felony", "Second Degree Felony"],
+                answer: "Third Degree Felony",
+                explanation: "This specific type of Deadly Conduct is a third-degree felony due to the inherent danger of discharging a firearm toward a structure or vehicle that could be occupied.",
+                reference: "Handout Page 21: PC 22.05(e) - 'An offense under Subsection (b) is a felony of the third degree.'"
+            },
+            {
+                question: "What does 'abduct' mean in the context of Kidnapping (PC 20.03)?",
+                options: ["To restrain a person.", "To move a person from one place to another.", "To restrain a person with intent to prevent their liberation by secreting them or threatening deadly force.", "To hold a person for ransom."],
+                answer: "To restrain a person with intent to prevent their liberation by secreting them or threatening deadly force.",
+                explanation: "'Abduct' is more than simple restraint; it requires the specific intent to prevent the victim's escape, either by hiding them or by using the threat of deadly force.",
+                reference: "Handout Page 22: PC 20.01(2) - '\"Abduct\" means to restrain a person with intent to prevent his liberation by: (A) secreting or holding him in a place where he is not likely to be found; or (B) using or threatening to use deadly force.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.20.htm#20.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 20.01</a>"
+            },
+            {
+                question: "A person commits Aggravated Kidnapping under PC 20.04 if they abduct another person with the intent to hold them for ransom, use them as a shield, or what other purpose?",
+                options: ["To transport them across state lines.", "To facilitate the commission of a felony.", "To annoy or alarm them.", "To prevent them from testifying."],
+                answer: "To facilitate the commission of a felony.",
+                explanation: "Kidnapping becomes aggravated when it is done with the intent to commit another serious crime, such as robbery or sexual assault.",
+                reference: "Handout Page 22: PC 20.04(a)(3) - 'facilitate the commission of a felony or the flight after the attempt or commission of a felony'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.20.htm#20.04' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 20.04</a>"
+            },
+            {
+                question: "What is the effect on an Aggravated Kidnapping charge if the defendant proves by a preponderance of the evidence that they voluntarily released the victim in a safe place?",
+                options: ["The charge is dismissed.", "It is an affirmative defense, and the defendant is found not guilty.", "The offense is reduced from a first-degree felony to a second-degree felony.", "It has no effect on the penalty."],
+                answer: "The offense is reduced from a first-degree felony to a second-degree felony.",
+                explanation: "This is a mitigating factor that can be raised at the punishment stage of the trial. It provides an incentive for kidnappers to release their victims unharmed.",
+                reference: "Handout Page 22: PC 20.04(d) - 'If the defendant proves the issue in the affirmative by a preponderance of the evidence, the offense is a felony of the second degree.'"
+            },
+            {
+                question: "Under PC 9.04, is the threat to use deadly force, such as by producing a weapon, considered the use of deadly force?",
+                options: ["Yes, it is always considered deadly force.", "No, as long as the actor's purpose is limited to creating an apprehension that they will use deadly force if necessary.", "Only if the weapon is loaded.", "Only if the other person is also armed."],
+                answer: "No, as long as the actor's purpose is limited to creating an apprehension that they will use deadly force if necessary.",
+                explanation: "The law distinguishes between threatening deadly force and actually using it. Displaying a weapon to deter an attacker is justified as a threat, not as the use of deadly force itself.",
+                reference: "Handout Page 9 & 22: PC 9.04 - 'does not constitute the use of deadly force.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.04' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.04</a>"
+            },
+            {
+                question: "A person is justified in using deadly force against another under PC 9.32 to protect themselves against the other's use of unlawful deadly force or to prevent the imminent commission of what crimes?",
+                options: ["Theft, Criminal Mischief, and Trespass.", "Assault, Harassment, and Stalking.", "Aggravated Kidnapping, Murder, Sexual Assault, and Robbery.", "Any felony offense."],
+                answer: "Aggravated Kidnapping, Murder, Sexual Assault, and Robbery.",
+                explanation: "The use of deadly force is justified not only to stop an attacker's deadly force but also to prevent the imminent commission of a specific list of violent, life-threatening felonies.",
+                reference: "Handout Page 23: PC 9.32(a)(2)(B) - 'to prevent the other's imminent commission of aggravated kidnapping, murder, sexual assault, aggravated sexual assault, robbery, or aggravated robbery.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.32' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.32</a>"
+            },
+            {
+                question: "When is a person justified in using deadly force to preserve another's life under PC 9.34?",
+                options: ["Only if the other person asks for help.", "When they reasonably believe the deadly force is immediately necessary to preserve the other's life in an emergency.", "To prevent the other person from committing suicide.", "Never, you cannot use deadly force on another to 'save' them."],
+                answer: "When they reasonably believe the deadly force is immediately necessary to preserve the other's life in an emergency.",
+                explanation: "This justification applies to emergency situations, such as using deadly force against an attacker to save a third person's life. Note that only non-deadly force is justified to prevent a suicide.",
+                reference: "Handout Page 23: PC 9.34(b) - 'A person is justified in using both force and deadly force against another when and to the degree he reasonably believes the force or deadly force is immediately necessary to preserve the other's life in an emergency.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.34' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.34</a>"
+            },
+            {
+                question: "What is the key difference between Harassment (PC 42.07) and Stalking (PC 42.072)?",
+                options: ["Stalking requires a threat of BI or death and must occur on more than one occasion.", "Harassment is a felony, while Stalking is a misdemeanor.", "Stalking can only be committed by a family member.", "Harassment involves electronic communication, while Stalking does not."],
+                answer: "Stalking requires a threat of BI or death and must occur on more than one occasion.",
+                explanation: "Stalking is essentially an aggravated form of harassment. It requires a repeated course of conduct (more than one occasion) that places the victim in fear of bodily injury or death, making it a felony.",
+                reference: "Handout Page 3: Compare the elements of Harassment and Stalking."
+            },
+            {
+                question: "What is the definition of a 'child' for the offense of Injury to a Child under PC 22.04?",
+                options: ["A person younger than 18.", "A person younger than 17.", "A person 14 years of age or younger.", "A person who has not graduated high school."],
+                answer: "A person 14 years of age or younger.",
+                explanation: "The statute provides a specific, and younger, age definition for 'child' than is commonly used in other contexts.",
+                reference: "Handout Page 14: PC 22.04(c)(1) - '\"Child\" means a person 14 years of age or younger.'"
+            },
+            {
+                question: "A person has assumed care for a disabled individual. They then recklessly fail to provide food, causing bodily injury. What offense have they committed?",
+                options: ["No offense, as it was an omission.", "Assault by Omission.", "Injury to a Disabled Individual by Omission.", "Abandoning a Disabled Individual."],
+                answer: "Injury to a Disabled Individual by Omission.",
+                explanation: "PC 22.04 specifically criminalizes causing injury by omission when the actor has a legal duty or has assumed care, custody, or control of the victim.",
+                reference: "Handout Page 14: PC 22.04(b) - 'An omission that causes a condition... is conduct constituting an offense under this section if... the actor has assumed care, custody, or control...'"
+            },
+            {
+                question: "When is a peace officer justified in using force to resist an arrest under PC 9.31(c)?",
+                options: ["Anytime the arrest is unlawful.", "If, before the actor offers resistance, the other officer uses or attempts to use greater force than necessary.", "If the officer believes they are innocent.", "Never, an officer can never resist an arrest."],
+                answer: "If, before the actor offers resistance, the other officer uses or attempts to use greater force than necessary.",
+                explanation: "This is the exception to the rule against resisting arrest. A person (including another officer) can use force to protect themselves against an officer's use of excessive force.",
+                reference: "Handout Page 11: PC 9.31(c) - 'The use of force to resist an arrest or search is justified: (1) if, before the actor offers any resistance, the peace officer... uses or attempts to use greater force than necessary...'"
+            },
+            {
+                question: "A person uses a device like a spring-gun to protect their property. Under PC 9.44, when is this justified?",
+                options: ["At any time to protect property.", "Only if the device is not designed to cause, or known to create a substantial risk of causing, death or serious bodily injury.", "Only if a warning sign is posted.", "It is never justified to use a device."],
+                answer: "Only if the device is not designed to cause, or known to create a substantial risk of causing, death or serious bodily injury.",
+                explanation: "The law does not permit the use of deadly devices to protect property. Any device used must be reasonable and not pose a risk of SBI or death.",
+                reference: "Handout Page 13: PC 9.44(1) - 'the device is not designed to cause, or known by the actor to create a substantial risk of causing, death or serious bodily injury'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.44' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.44</a>"
+            },
+            {
+                question: "An officer is told by a credible informant that a man just committed a felony and is about to escape in a car. The officer has probable cause. Under which CCP article can the officer make a warrantless arrest?",
+                options: ["CCP 14.01 (Offense Within View)", "CCP 14.02 (Within View of Magistrate)", "CCP 14.04 (When Felony Has Been Committed)", "This is not a valid warrantless arrest."],
+                answer: "CCP 14.04 (When Felony Has Been Committed)",
+                explanation: "CCP 14.04 specifically allows a warrantless arrest when a credible person provides satisfactory proof that a felony has been committed and the offender is about to escape, so there is no time to procure a warrant. (This power is listed in the handout's summary charts).",
+                reference: "Handout Page 18 & 19: 'PC of felony with escape risk' is listed as a warrantless arrest power, which refers to CCP 14.04."
+            },
+            {
+                question: "What is the key difference between Unlawful Restraint (PC 20.02) and Kidnapping (PC 20.03)?",
+                options: ["The age of the victim.", "Kidnapping requires the specific intent to prevent liberation by secretion or threat of deadly force (abduction).", "Unlawful Restraint is a felony, while Kidnapping is a misdemeanor.", "Kidnapping requires movement, while Unlawful Restraint does not."],
+                answer: "Kidnapping requires the specific intent to prevent liberation by secretion or threat of deadly force (abduction).",
+                explanation: "Kidnapping is an aggravated form of Unlawful Restraint. The element that elevates the offense is 'abduction'—restraining someone with the added intent of making sure they cannot escape.",
+                reference: "Handout Page 8 & 22: Compare the elements of Unlawful Restraint (restrains another) and Kidnapping (abducts another)."
+            },
+            {
+                question: "A person threatens to commit an offense involving violence with the intent to cause an official reaction from a fire department. What offense has been committed?",
+                options: ["Harassment", "Assault by Threat", "Terroristic Threat", "Disorderly Conduct"],
+                answer: "Terroristic Threat",
+                explanation: "This falls under PC 22.07(a)(1), which covers threats made with the specific intent to cause a reaction by an emergency agency, such as making a bomb threat to a school.",
+                reference: "Handout Page 2: PC 22.07(a)(1) - 'cause a reaction of any type to his threat by an official or volunteer agency organized to deal with emergencies'."
+            },
+            {
+                question: "A person is in lawful possession of their land. They use force against a trespasser. Under PC 9.41, the force is justified if the person reasonably believes it is immediately necessary for what purpose?",
+                options: ["To arrest the trespasser.", "To punish the trespasser.", "To prevent or terminate the other's trespass.", "To search the trespasser for weapons."],
+                answer: "To prevent or terminate the other's trespass.",
+                explanation: "The use of force to protect property is limited to what is necessary to stop the immediate unlawful interference or trespass.",
+                reference: "Handout Page 12: PC 9.41(a) - 'immediately necessary to prevent or terminate the other's trespass on the land or unlawful interference with the property.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.41' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.41</a>"
+            },
+            {
+                question: "What is the penalty for Aggravated Assault if it is committed as part of a mass shooting?",
+                options: ["Second Degree Felony", "First Degree Felony", "Capital Felony", "The penalty is not enhanced."],
+                answer: "First Degree Felony",
+                explanation: "The law enhances the penalty for aggravated assault to a first-degree felony if it occurs during a mass shooting, reflecting the increased public danger and severity of such events.",
+                reference: "Handout Page 21: PC 22.02(b)(4) - 'the actor commits the assault as part of a mass shooting.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.02</a>"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>

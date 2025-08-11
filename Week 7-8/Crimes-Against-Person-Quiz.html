@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crimes Against Persons Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">    
+    <!-- Back to Portal Button -->
+    <div class="fixed top-4 left-4 z-50">
+        <a href="../index.html" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span class="font-medium">Back to Portal</span>
+        </a>
+    </div>
+<div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Crimes Against Persons Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 72 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "What is the key characteristic of a laceration?",
+                options: ["Clean, sharp edges with no bruising.", "It is a piercing injury from a slender weapon.", "Tears in tissue with ragged, bruised edges caused by blunt force.", "It is a deposit of smoke and soot on the skin."],
+                answer: "Tears in tissue with ragged, bruised edges caused by blunt force.",
+                explanation: "Lacerations are caused by crushing or tearing force, which results in irregular wound edges, unlike the clean cut of an incised wound.",
+                reference: "Handout Page 1: 'Lacerations are tears in tissue... Caused by direct blunt force, which cause tears in the skin that are ragged with bruised (contused) edges.'"
+            },
+            {
+                question: "An incised wound is best described as a:",
+                options: ["Tear in tissue", "Piercing injury", "Gunshot wound", "Cut with regular, sharp, clean edges"],
+                answer: "Cut with regular, sharp, clean edges",
+                explanation: "Incised wounds are caused by sharp-edged objects, resulting in a clean cut that bleeds freely.",
+                reference: "Handout Page 1: 'Incised wounds are cuts, usually of the skin. Edges are regular, sharp, clean cut with no skin bruising.'"
+            },
+            {
+                question: "What are the two signs that indicate a bullet was fired from a distance of 2 to 18 inches from the victim?",
+                options: ["Lacerations and incised wounds", "Smudging and tattooing", "Entrance and exit wounds", "Low and high velocity spatter"],
+                answer: "Smudging and tattooing",
+                explanation: "Smudging (soot) and tattooing (unburned powder) are firearm discharge residues deposited on the skin at close range.",
+                reference: "Handout Page 1: 'Smudging & tattooing are the 2 signs that a bullet has been fired from within 2 to 18 inches.'"
+            },
+            {
+                question: "What is the difference between smudging and tattooing around a gunshot wound?",
+                options: ["Smudging is permanent, while tattooing can be wiped off.", "Smudging is from unburned powder, while tattooing is from smoke.", "Smudging can be wiped off, while tattooing is embedded under the skin.", "There is no difference; the terms are interchangeable."],
+                answer: "Smudging can be wiped off, while tattooing is embedded under the skin.",
+                explanation: "Smudging is a surface deposit of soot that can be cleaned, whereas tattooing consists of powder granules driven into the skin, making it permanent.",
+                reference: "Handout Page 1: 'Smudging... can be wiped off easily... Tattooing... are driven under the skin... and cannot be wiped off.'"
+            },
+            {
+                question: "How do gunshot exit wounds typically compare to entrance wounds?",
+                options: ["They are smaller and cleaner.", "They are larger, more ragged, and torn.", "They have smudging and tattooing.", "They bleed less than entrance wounds."],
+                answer: "They are larger, more ragged, and torn.",
+                explanation: "As a bullet passes through the body, it destabilizes and pushes tissue ahead of it, causing a larger and more irregular wound upon exiting.",
+                reference: "Handout Page 1: 'Gunshot exit wounds are larger than the bullet & are ragged & torn.'"
+            },
+            {
+                question: "In bloodstain pattern analysis, what can the shape of a blood drop indicate?",
+                options: ["The age of the victim.", "The time the blood was deposited.", "The angle of impact.", "The blood type of the individual."],
+                answer: "The angle of impact.",
+                explanation: "A blood drop striking a surface at a 90-degree angle is circular, while drops striking at steeper angles become more elongated or oval.",
+                reference: "Handout Page 2: 'Angle of Impact: moves from round, to oval...'"
+            },
+            {
+                question: "The tail of an elongated bloodstain points in which direction?",
+                options: ["Back towards the origin of the blood source.", "In the direction of travel.", "Perpendicular to the direction of travel.", "Towards the parent drop."],
+                answer: "In the direction of travel.",
+                explanation: "This is a fundamental principle of bloodstain analysis; the elongated 'tail' shows the path the droplet was taking when it struck the surface.",
+                reference: "Handout Page 2: 'Tail of elongated stain points in direction of travel.'"
+            },
+            {
+                question: "What is the term for a bloodstain pattern resulting from blood drops released from an object due to its motion?",
+                options: ["Drip Stain", "Arterial Spurt", "Cast-off Pattern", "Impact Pattern"],
+                answer: "Cast-off Pattern",
+                explanation: "This pattern is typically created when a bloody object, like a weapon or a fist, is swung, flinging drops of blood onto a nearby surface.",
+                reference: "Handout Page 3 & 4: 'Cast-off from Weapon' and 'Cast-off Pattern' definitions."
+            },
+            {
+                question: "High velocity blood spatter (>100 f/s) is most commonly associated with what type of event?",
+                options: ["A fistfight", "A stabbing", "A fall from a height", "A gunshot"],
+                answer: "A gunshot",
+                explanation: "The extreme energy of a gunshot atomizes blood into a fine mist of very small droplets, characteristic of high velocity spatter.",
+                reference: "Handout Page 3: 'High velocity (>100 f/s, 30 m/s): e.g. gunshot, machinery.'"
+            },
+            {
+                question: "What is a 'back-spatter' pattern in a gunshot wound?",
+                options: ["Blood that exits the body from the exit wound.", "Blood that travels in the opposite direction of the bullet, back towards the weapon and shooter.", "Blood that drips from the weapon after the shot.", "Blood that is coughed up by the victim."],
+                answer: "Blood that travels in the opposite direction of the bullet, back towards the weapon and shooter.",
+                explanation: "Back-spatter is caused by gases from the muzzle blast forcing blood from the entrance wound backward, and it is only found at very close ranges.",
+                reference: "Handout Page 3 & 4: 'Arises from entrance wound. Passes back towards weapon & shooter.'"
+            },
+            {
+                question: "What is the 'Area of Convergence' in bloodstain pattern analysis?",
+                options: ["The three-dimensional location of the blood source.", "The point where the victim and assailant first made contact.", "The two-dimensional location on a surface where lines drawn through the long axes of stains intersect.", "The location where the most blood is found."],
+                answer: "The two-dimensional location on a surface where lines drawn through the long axes of stains intersect.",
+                explanation: "By drawing lines through multiple bloodstains, investigators can pinpoint a two-dimensional area on a surface (like a wall or floor) from which the blood originated.",
+                reference: "Handout Page 2 & 4: 'Point of Convergence' diagram and 'Area of Convergence' definition."
+            },
+            {
+                question: "What is the 'Area of Origin'?",
+                options: ["The two-dimensional point of convergence on a surface.", "The three-dimensional location in space from which the blood spatter originated.", "The first drop of blood found at a scene.", "The weapon used to cause the bleeding."],
+                answer: "The three-dimensional location in space from which the blood spatter originated.",
+                explanation: "After determining the area of convergence (2D), investigators use the angle of impact of the stains to calculate the height, establishing the three-dimensional point in space where the impact occurred.",
+                reference: "Handout Page 2 & 4: 'Origin' diagram and 'Area of Origin' definition."
+            },
+            {
+                question: "Which of the following is a key step in a preliminary homicide investigation?",
+                options: ["Notify the media immediately.", "Determine the time, place, cause, and means of death.", "Interview the suspect at the scene.", "Collect all evidence before medical personnel arrive."],
+                answer: "Determine the time, place, cause, and means of death.",
+                explanation: "These four determinations are fundamental to understanding the circumstances of the death and guiding the investigation.",
+                reference: "Handout Page 4: Lists 'Determine time of death,' 'Determine place of death,' 'Determine cause of death,' and 'Determine means of death.'"
+            },
+            {
+                question: "In a death scene investigation, what should an officer do regarding the body before the Medical Examiner arrives?",
+                options: ["Move the body to a secure location.", "Conduct a visual exam without moving or altering the body.", "Remove the victim's clothing to check for injuries.", "Cover the body with a sheet."],
+                answer: "Conduct a visual exam without moving or altering the body.",
+                explanation: "It is critical to preserve the body's position and any associated evidence. The officer's initial exam should be strictly visual to avoid contamination or disturbance.",
+                reference: "Handout Page 5: 'Without moving or altering the body, conduct a visual exam...'"
+            },
+            {
+                question: "What is Neonaticide?",
+                options: ["The death of an infant under one year of age.", "A medical diagnosis for an unexplained infant death.", "The death of a newborn within the first 30 days of life.", "A developmental issue that can trigger SIDS."],
+                answer: "The death of a newborn within the first 30 days of life.",
+                explanation: "Neonaticide is a specific category of homicide involving the killing of a newborn, often within the first 24 hours of birth.",
+                reference: "Handout Page 5: 'Neonaticide: Death of newborn within the 1st 30 days.'"
+            },
+            {
+                question: "Why must a responding officer avoid using terms like 'SIDS' or 'SUID' at the scene of an infant death?",
+                options: ["Because those terms are not medically accurate.", "Because they are medical diagnoses that can only be made after a complete and thorough investigation.", "Because it is against departmental policy.", "Because it can be upsetting to the parents."],
+                answer: "Because they are medical diagnoses that can only be made after a complete and thorough investigation.",
+                explanation: "Using these terms prematurely is a conclusion. The officer's role is to treat the scene as a potential homicide and investigate all possibilities, not to make a medical diagnosis.",
+                reference: "Handout Page 5 & 8: 'Sudden Infant Death (SID): is a medical diagnosis, responding officer must not use this term at the scene.'"
+            },
+            {
+                question: "An infant death occurring at over 6 months of age should be treated with what level of caution?",
+                options: ["It is a typical SIDS case.", "It should bring suspicion of abuse.", "It is likely due to an undiagnosed medical condition.", "It requires no special investigation."],
+                answer: "It should bring suspicion of abuse.",
+                explanation: "The statistical model for SIDS shows that 90% of cases occur within 7 months, and deaths after 6 months are statistically less likely to be SIDS, thus warranting higher suspicion.",
+                reference: "Handout Page 6: 'Any infant death > 6 months should bring suspicion of abuse. 12 months is too old for a SIDS death.'"
+            },
+            {
+                question: "When collecting wet, bloody clothing at a crime scene, what is the proper packaging method?",
+                options: ["Place it in a plastic bag to keep it moist.", "Place each item in its own paper bag.", "Roll all items together in a single large paper sheet.", "Leave it at the scene to air dry before collecting."],
+                answer: "Place each item in its own paper bag.",
+                explanation: "Paper bags are used because they allow the item to air dry, preventing the growth of mold and bacteria that would degrade biological evidence like DNA. Plastic bags trap moisture and destroy evidence.",
+                reference: "Handout Page 8: 'Any wet items, such as clothing with blood on them should be placed in paper bags. Each piece of evidence should have its own paper bag.'"
+            },
+            {
+                question: "In a suicide investigation involving a hanging, why is it important to cut the rope or ligature *above* the knot?",
+                options: ["To make it easier to get the body down.", "To preserve the knot for evidence.", "To prevent damage to the rope.", "It is not important where the rope is cut."],
+                answer: "To preserve the knot for evidence.",
+                explanation: "The type and style of the knot can be a key piece of evidence, helping to determine if the victim could have tied it themselves.",
+                reference: "Handout Page 9: 'Do not cut down until ME is there: cut above the knot. Save the knot for evidence.'"
+            },
+            {
+                question: "What is an Autopsy as defined by the Code of Criminal Procedure?",
+                options: ["A visual inspection of a body.", "A postmortem examination of a body, including dissection, to determine the cause of death.", "A report written by the Medical Examiner.", "The process of identifying a deceased person."],
+                answer: "A postmortem examination of a body, including dissection, to determine the cause of death.",
+                explanation: "An autopsy is a comprehensive medical procedure involving both external and internal examination to legally and medically determine why and how a person died.",
+                reference: "Handout Page 9: CCP Chapter 49.01 (1) - 'A postmortem examination of the body... including... examination of the internal organs and structures after dissection, to determine the cause of death...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.49.htm#49.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 49.01</a>"
+            },
+            {
+                question: "What is Postmortem Lividity (Livor Mortis)?",
+                options: ["The stiffening of muscles after death.", "The cooling of the body after death.", "A purplish discoloration of the body from blood settling due to gravity.", "The decomposition of body tissues."],
+                answer: "A purplish discoloration of the body from blood settling due to gravity.",
+                explanation: "After circulation stops, blood settles in the lowest parts of the body, causing a purple stain. This can indicate if the body was moved after death.",
+                reference: "Handout Page 9: 'Postmortem lividity: A purplish discoloration observable on the parts of the body that are nearest the ground.'"
+            },
+            {
+                question: "The onset of Rigor Mortis, the stiffening of muscles after death, generally begins where on the body?",
+                options: ["In the legs and spreads upward.", "In the hands and feet simultaneously.", "At the neck and lower jaw and spreads downward.", "In the torso."],
+                answer: "At the neck and lower jaw and spreads downward.",
+                explanation: "Rigor mortis follows a predictable pattern, starting with the smaller muscles of the head and progressing down the body, which can help in estimating the time of death.",
+                reference: "Handout Page 9: 'This stiffening starts at the neck and lower jaw and spreads downward.'"
+            },
+            {
+                question: "What is Cadaveric Spasm?",
+                options: ["A slow onset of muscle stiffening over 12 hours.", "The normal process of decomposition.", "An immediate stiffening of muscles at the time of death, often due to severe trauma to the nervous system.", "The final stage of rigor mortis."],
+                answer: "An immediate stiffening of muscles at the time of death, often due to severe trauma to the nervous system.",
+                explanation: "This is a rare phenomenon, often called a 'death grip.' If a victim is found clutching a weapon, it provides strong presumptive evidence of suicide.",
+                reference: "Handout Page 10: 'When there is severe injury to the central nervous system... sometimes stiffening occurs immediately... gives strong presumptive evidence of suicide if the hand is clutching the weapon.'"
+            },
+            {
+                question: "From what sources is DNA most commonly recovered at a crime scene?",
+                options: ["Fingerprints and footprints.", "Clothing fibers and paint chips.", "Hair, blood, semen, saliva, and skin cells.", "Tool marks and bullet casings."],
+                answer: "Hair, blood, semen, saliva, and skin cells.",
+                explanation: "DNA is found in biological material. These sources are rich in cells and are frequently left behind during the commission of a crime.",
+                reference: "Handout Page 10: 'DNA is most commonly recovered from crime scenes in the form of hair, blood, semen, saliva, body tissues... epithelial (skin) cells, and teeth.'"
+            },
+            {
+                question: "What can DNA analysis NOT determine about a person?",
+                options: ["If an individual is included or excluded as a potential contributor.", "If the DNA is from a human.", "The age or race of the person.", "The presence of biological fluids like blood or semen."],
+                answer: "The age or race of the person.",
+                explanation: "Standard forensic DNA analysis creates a profile for identification and comparison; it does not currently provide information about a person's age or racial characteristics.",
+                reference: "Handout Page 10: 'DNA analysis cannot determine the age or the race of a person.'"
+            },
+            {
+                question: "A wound caused by a sharp-edged weapon like a knife, which is typically longer than it is deep, is best described as what?",
+                options: ["A laceration", "A puncture wound", "An incised wound", "A contusion"],
+                answer: "An incised wound",
+                explanation: "This is the classic definition of a cut or slash, characterized by clean edges and a length greater than its depth.",
+                reference: "Handout Page 1: 'Incised wounds are cuts, usually of the skin... Edges are regular, sharp, clean cut...'"
+            },
+            {
+                question: "A wound caused by an ice pick, which is deeper than it is wide, is best described as what?",
+                options: ["A laceration", "A stab/puncture wound", "An incised wound", "An abrasion"],
+                answer: "A stab/puncture wound",
+                explanation: "This type of wound is caused by a pointed instrument where the depth of penetration is the most significant feature.",
+                reference: "Handout Page 1: 'Stab and puncture wounds: Piercing injuries of the skin & may extend into internal organs... Point of entry may be inconspicuous such as an ice pick.'"
+            },
+            {
+                question: "What is the primary cause of visible damage in a direct muzzle contact gunshot wound?",
+                options: ["The penetrating bullet.", "The heat from the barrel.", "The flame and expanding gases from the muzzle blast.", "The impact of the firearm itself against the skin."],
+                answer: "The flame and expanding gases from the muzzle blast.",
+                explanation: "At point-blank range, the hot, expanding gases are injected into the tissue along with the bullet, causing significant tearing and charring that is more destructive than the bullet track alone.",
+                reference: "Handout Page 1: 'Visible damage is due more so to the flame and expanding gases than the penetrating bullet.'"
+            },
+            {
+                question: "Blood dripping from a stationary object due to gravity will create what type of blood spatter pattern?",
+                options: ["High velocity", "Medium velocity", "Low velocity", "Cast-off"],
+                answer: "Low velocity",
+                explanation: "The only force acting on the blood is gravity, which is a low-velocity force (less than 5 f/s), resulting in large, circular drops.",
+                reference: "Handout Page 3: 'Low velocity (5 f/s, 1.5 m/s) e.g. free-falling drops...'"
+            },
+            {
+                question: "A bloodstain pattern showing a series of drops in a line on the floor would be classified as what?",
+                options: ["An arterial spurt", "A trail", "An expectorate pattern", "A mist pattern"],
+                answer: "A trail",
+                explanation: "A trail pattern indicates movement of a bleeding person or a bloody object from one point to another.",
+                reference: "Handout Page 4: 'Trail: A bloodstain pattern resulting from the movement of a source of drip stains between 2 points.'"
+            },
+            {
+                question: "An officer at a homicide scene finds blood spatter on the ceiling that appears to be from a breached artery. What is this pattern called?",
+                options: ["Cast-off pattern", "Drip stain", "Arterial spurt", "Impact pattern"],
+                answer: "Arterial spurt",
+                explanation: "This distinctive pattern is caused by blood exiting the body under pressure from a breached artery, often showing an arched or wave-like appearance corresponding to the victim's heartbeat.",
+                reference: "Handout Page 3 & 4: 'Arterial spurting' and 'Arterial Spurt' definitions."
+            },
+            {
+                question: "What is the primary purpose of using oblique lighting (e.g., a flashlight held at an angle) when searching the ground at a death scene?",
+                options: ["To see bloodstains more clearly.", "To bring out footprints and impressions that are not easily visible.", "To avoid disturbing the evidence.", "To signal other officers."],
+                answer: "To bring out footprints and impressions that are not easily visible.",
+                explanation: "Holding a light source at a low angle creates shadows that can reveal subtle, three-dimensional evidence like shoe prints or tire tracks.",
+                reference: "Handout Page 5: 'Oblique lighting from a flashlight often brings out footprints and impressions.'"
+            },
+            {
+                question: "In a suspected neonaticide case, what evidence is crucial to collect to prove the child was born alive?",
+                options: ["The mother's statement.", "The location where the baby was found.", "Evidence of air in the lungs or food in the stomach.", "The time of birth."],
+                answer: "Evidence of air in the lungs or food in the stomach.",
+                explanation: "To prosecute for homicide, the state must prove the victim was a living person. For a newborn, forensic evidence like air in the lungs (from breathing) is required to establish they were born alive.",
+                reference: "Handout Page 5: 'To prosecute we need to... Establish that the child was born alive. Food in the stomach. Air in the lungs.'"
+            },
+            {
+                question: "Which of the following is a characteristic of the 'Typical SIDS Model'?",
+                options: ["The infant is usually over 1 year old.", "Death is often loud and involves a struggle.", "The infant is often found face-down (prone).", "It occurs more frequently in summer months."],
+                answer: "The infant is often found face-down (prone).",
+                explanation: "The prone sleeping position is a significant risk factor associated with SIDS, and many victims are found in this position.",
+                reference: "Handout Page 6: 'Found as placed: usually face-down (prone).'"
+            },
+            {
+                question: "An officer is investigating a suspected suicide by firearm. What is a key piece of evidence to look for regarding the weapon?",
+                options: ["If the gun is registered to the victim.", "The position of the weapon in relation to the victim's body.", "The manufacturer of the firearm.", "The number of bullets left in the magazine."],
+                answer: "The position of the weapon in relation to the victim's body.",
+                explanation: "The final resting place of the weapon can be crucial. For example, a gun found clutched in the victim's hand (cadaveric spasm) is strong evidence of suicide, while a gun found far from the body might suggest a homicide.",
+                reference: "Handout Page 8: 'Position of the weapon in relation to the victim's position?'"
+            },
+            {
+                question: "What are 'hesitation marks' in a suicide investigation involving cutting?",
+                options: ["Deep cuts to major arteries.", "Multiple, shallow, parallel cuts.", "A single, deep, defensive wound.", "Cuts found on the attacker."],
+                answer: "Multiple, shallow, parallel cuts.",
+                explanation: "These superficial cuts are often found near the fatal wound and indicate the person's hesitation or attempts before making the final, lethal cut.",
+                reference: "Handout Page 9: 'Cuttings are usually wrist slashing in a bathroom: hesitation marks?'"
+            },
+            {
+                question: "An autopsy report indicates the contents of the victim's stomach. What can this information help an investigator determine?",
+                options: ["The victim's blood type.", "The time interval between the victim's last meal and their death.", "The exact cause of death.", "If the victim was poisoned."],
+                answer: "The time interval between the victim's last meal and their death.",
+                explanation: "The stage of digestion of the last meal can provide a rough timeline, helping to corroborate or contradict witness statements about the victim's activities before their death.",
+                reference: "Handout Page 9: 'Contents of the stomach - indicates interval between victim's last meal and his or her death...'"
+            },
+            {
+                question: "If a body is found lying face down, but postmortem lividity is fixed and visible on the person's back, what does this indicate?",
+                options: ["The person died on their back and was moved to a face-down position after lividity became fixed.", "The person died from a fall.", "The person was poisoned.", "This is a normal presentation for lividity."],
+                answer: "The person died on their back and was moved to a face-down position after lividity became fixed.",
+                explanation: "Lividity becomes 'fixed' after several hours and will not change even if the body is moved. Lividity that is inconsistent with the final body position is a clear indicator that the body was moved postmortem.",
+                reference: "Handout Page 9: '[Lividity] may provide a clue as to whether the body was moved after death.'"
+            },
+            {
+                question: "A body is found with full rigor mortis affecting the entire body, from the jaw to the legs. Approximately how long has the person been deceased?",
+                options: ["1-2 hours", "5-6 hours", "About 18 hours", "More than 36 hours"],
+                answer: "About 18 hours",
+                explanation: "According to the general timeline provided, rigor mortis starts in 5-6 hours, affects the upper body in about 12 hours, and the whole body is affected within about 18 hours.",
+                reference: "Handout Page 10: 'The upper part is affected within about 12 hours and the whole body within about 18 hours.'"
+            },
+            {
+                question: "What is the normal body temperature, and how can it help determine time of death?",
+                options: ["96.8 F; the rate of heating helps determine time of death.", "98.6 F; the rate of cooling helps determine time of death.", "99.2 F; body temperature is not useful in determining time of death.", "97.5 F; only the ambient air temperature matters."],
+                answer: "98.6 F; the rate of cooling helps determine time of death.",
+                explanation: "A body cools at a somewhat predictable rate after death (algor mortis). By measuring the body's temperature and considering environmental factors, a medical examiner can estimate the postmortem interval.",
+                reference: "Handout Page 10: 'The temperature of the body is normally 98.6 F... Body temperature may help in determining time of death.'"
+            },
+            {
+                question: "What is Putrefaction?",
+                options: ["The stiffening of the body after death.", "The cooling of the body after death.", "The immediate stiffening of small muscles at the time of death.", "The decomposition of body tissues, often involving bloating and discoloration."],
+                answer: "The decomposition of body tissues, often involving bloating and discoloration.",
+                explanation: "Putrefaction is the breakdown of the body by bacteria, a later stage of decomposition that can also be used to estimate time of death.",
+                reference: "Handout Page 10: 'Putrefaction: Decomposition of body tissues.'"
+            },
+            {
+                question: "What is CODIS?",
+                options: ["A database of criminal histories.", "A system for tracking stolen property.", "The Combined DNA Index System, a database of DNA profiles.", "A database for fingerprints."],
+                answer: "The Combined DNA Index System, a database of DNA profiles.",
+                explanation: "CODIS allows law enforcement labs to compare DNA profiles from crime scenes with profiles from known offenders, helping to link cases and identify suspects.",
+                reference: "Handout Page 10: 'The results of DNA analysis... are compared with the results of known samples in the CODIS (Combined DNA Index System) database.'"
+            },
+            {
+                question: "A blood drop is perfectly circular. What was the approximate angle of impact?",
+                options: ["10 degrees", "30 degrees", "45 degrees", "90 degrees"],
+                answer: "90 degrees",
+                explanation: "A drop falling straight down and striking a surface perpendicularly will create a circular stain. As the angle decreases, the stain becomes more elliptical.",
+                reference: "Handout Page 2: The diagram shows that a drop becomes more elongated as the angle decreases from 90 (implied) to 30 degrees."
+            },
+            {
+                question: "The tail of a satellite bloodstain points in which direction?",
+                options: ["In the direction of travel.", "Away from the parent stain.", "Toward the parent stain and the source direction.", "It has no directional significance."],
+                answer: "Toward the parent stain and the source direction.",
+                explanation: "This is a key distinction: the parent stain's tail points in the direction of travel, but the smaller satellite stain's tail points back toward the parent stain from which it separated.",
+                reference: "Handout Page 4: 'Tail of the satellite stains point toward the parent stain and the source direction.'"
+            },
+            {
+                question: "An officer finds a bloodstain pattern on a wall that is diluted and contains saliva. What type of pattern is this most likely to be?",
+                options: ["Arterial Spurt", "Cast-off Pattern", "Expectorate Pattern", "Drip Stain"],
+                answer: "Expectorate Pattern",
+                explanation: "Blood that is coughed, sneezed, or spit out will be mixed with saliva or mucus and may appear diluted or contain air bubbles.",
+                reference: "Handout Page 4: 'Expectorate Pattern: A bloodstain pattern resulting from blood forced by airflow out of the nose, mouth, or a wound.'"
+            },
+            {
+                question: "At a homicide scene, what is one of the first duties of a responding officer after ensuring the scene is safe?",
+                options: ["Notify the press.", "Care for any injured persons.", "Begin collecting evidence.", "Interview the suspect."],
+                answer: "Care for any injured persons.",
+                explanation: "The preservation of life is the absolute first priority at any crime scene. Rendering aid to the living comes before any investigative activity.",
+                reference: "Handout Page 4: 'Homicide: Care for injured persons.'"
+            },
+            {
+                question: "When investigating an infant's death, which of the following is a necessary question for the first responder to ask the caretaker?",
+                options: ["'Do you think this was your fault?'", "'When was the baby put to bed and in what position?'", "'Why didn't you check on the baby sooner?'", "'Have you ever been arrested before?'"],
+                answer: "'When was the baby put to bed and in what position?'",
+                explanation: "This is a crucial, fact-finding question that helps establish a timeline and identify risk factors (like the prone sleeping position) without placing blame.",
+                reference: "Handout Page 7: 'When was the baby put to bed and in what position?'"
+            },
+            {
+                question: "A body is found in a car in an enclosed garage with the engine running. What is the most likely method of suicide?",
+                options: ["Hanging", "Drug overdose", "Carbon monoxide poisoning", "Gunshot"],
+                answer: "Carbon monoxide poisoning",
+                explanation: "This is a classic scenario for suicide by carbon monoxide poisoning, using the vehicle's exhaust fumes in an unventilated space.",
+                reference: "Handout Page 9: 'Carbon monoxide poisoning: most commonly car in an enclosed area...'"
+            },
+            {
+                question: "What is Serology in the context of a criminal investigation?",
+                options: ["The study of fingerprints.", "The process of testing in a lab to determine what type of biological fluid is present.", "The analysis of blood spatter patterns.", "The process of interviewing witnesses."],
+                answer: "The process of testing in a lab to determine what type of biological fluid is present.",
+                explanation: "Before DNA analysis, serology is used to identify a stain as blood, semen, saliva, etc., which helps to direct the subsequent DNA testing.",
+                reference: "Handout Page 10: 'Serology-process of testing in the laboratory that assists the DNA analyst in determining what type of biological fluid is present on the evidence.'"
+            },
+            {
+                question: "What is the primary reason that a gunshot entrance wound is often smaller than the bullet's diameter?",
+                options: ["The bullet shrinks upon impact.", "The skin is elastic and stretches under impact before being perforated.", "The measuring technique is often inaccurate.", "The bullet fragments upon entry."],
+                answer: "The skin is elastic and stretches under impact before being perforated.",
+                explanation: "The skin's elasticity causes it to stretch inward around the penetrating bullet and then partially retract, resulting in a hole smaller than the bullet itself.",
+                reference: "Handout Page 1: 'A bullet strikes, indents, & stretches the skin under impact... Stretching skin causes smaller entrance wounds than bullet diameters.'"
+            },
+            {
+                question: "A baseball bat used in an assault would likely create what velocity of blood spatter?",
+                options: ["Low velocity", "Medium velocity", "High velocity", "No spatter"],
+                answer: "Medium velocity",
+                explanation: "The force of a blunt object like a bat is greater than gravity (low velocity) but less than a gunshot (high velocity), fitting into the medium velocity category.",
+                reference: "Handout Page 3: 'Medium velocity (25-100 f/s, 7.5-30 m/s): e.g. baseball bat blows.'"
+            },
+            {
+                question: "When collecting hair or fiber evidence, what is the proper packaging?",
+                options: ["A plastic bag", "A paper bag", "A manila envelope", "A glass vial"],
+                answer: "A manila envelope",
+                explanation: "Manila envelopes are used for trace evidence like hairs and fibers to prevent them from being lost or damaged, and to keep them from sticking to plastic due to static electricity.",
+                reference: "Handout Page 8: 'Any fiber or hair evidence should be collected and placed in a manila envelope.'"
+            },
+            {
+                question: "What is the term for the resistance to penetration and separation of a liquid, a key physical property of blood?",
+                options: ["Viscosity", "Specific Gravity", "Terminal Velocity", "Surface Tension"],
+                answer: "Surface Tension",
+                explanation: "Surface tension is what allows blood to hold its shape as a drop and resist breaking apart, a crucial factor in how it behaves as a projectile and forms stains.",
+                reference: "Handout Page 2: 'Surface Tension: resistance to the penetration & separation of a substance.'"
+            },
+            {
+                question: "A body is found that is cool to the touch and completely stiff. Rigor mortis has not yet begun to disappear. What is the approximate postmortem interval?",
+                options: ["Less than 3 hours", "Between 12 and 24 hours", "Between 36 and 48 hours", "More than 72 hours"],
+                answer: "Between 12 and 24 hours",
+                explanation: "The body is cool, and full rigor is present (which takes about 18 hours to complete) but has not started to disappear (which begins around 36 hours). This places the time of death in the 12-24 hour range.",
+                reference: "Handout Page 9-10: Synthesizes information on Body Temperature and Rigor Mortis."
+            },
+            {
+                question: "An autopsy reveals that a victim's hyoid bone is fractured. This type of injury is most commonly associated with what cause of death?",
+                options: ["Gunshot wound", "Stabbing", "Strangulation", "Blunt force trauma to the head"],
+                answer: "Strangulation",
+                explanation: "While not explicitly in the handout, this is a classic forensic indicator. The hyoid is a small bone in the neck that is often broken during manual strangulation, making it a key finding in an autopsy for such cases.",
+                reference: "This is an application of knowledge related to the topics. The handout discusses investigating injuries from strangulation on page 5."
+            },
+            {
+                question: "What is the primary difference between a contact gunshot wound and one fired from 2-18 inches away?",
+                options: ["The presence of an exit wound.", "The size of the entrance wound.", "Contact wounds have torn and charred skin edges from the muzzle blast, while close-range wounds have smudging/tattooing.", "Contact wounds bleed more."],
+                answer: "Contact wounds have torn and charred skin edges from the muzzle blast, while close-range wounds have smudging/tattooing.",
+                explanation: "A contact wound involves the direct transfer of heat and gas into the skin, causing charring and tearing. A close-range wound has these gases and particles deposited *on* and *in* the skin.",
+                reference: "Handout Page 1: Compares 'Direct muzzle contact wounds' and 'Signs of a 2 to 18 inch muzzle firing'."
+            },
+            {
+                question: "At a death scene, an officer finds several empty pill bottles next to the deceased and a typed note. What is the most crucial first step regarding the note?",
+                options: ["Read the note to determine motive.", "Photograph the note in its original position.", "Place the note in a plastic bag.", "Check the note for fingerprints immediately."],
+                answer: "Photograph the note in its original position.",
+                explanation: "The first step in evidence processing is always documentation. The note must be photographed as found to preserve its context and original state before it is collected for further analysis (prints, handwriting, DNA).",
+                reference: "Handout Page 5 & 8: Combines principles of photographing the scene as is and preserving suicide notes for analysis."
+            },
+            {
+                question: "The 'Triple Risk Model' for SIDS involves a predisposed infant, a triggering factor, and what other component?",
+                options: ["An unsafe sleeping environment.", "An unstable period of homeostatic control.", "A recent vaccination.", "A genetic defect."],
+                answer: "An unstable period of homeostatic control.",
+                explanation: "The model posits that SIDS occurs when three factors align: an underlying vulnerability in the infant, a critical developmental period where bodily controls are unstable, and an external stressor.",
+                reference: "Handout Page 6: 'SIDS is a triple risk model: Predisposed infant, Unstable period of homeostatic control and, Exposure to triggering factors.'"
+            },
+            {
+                question: "Why is it important for an officer to document the condition of a victim's clothing at a death scene?",
+                options: ["To determine the value of the clothing.", "Clothing can provide evidence of a struggle, the type of weapon used, or if the body was moved.", "To identify the victim.", "To return the clothing to the family."],
+                answer: "Clothing can provide evidence of a struggle, the type of weapon used, or if the body was moved.",
+                explanation: "Torn, unzipped, or creased clothing can indicate a struggle. The location of bloodstains or weapon defects on clothing can corroborate or contradict witness statements and forensic findings.",
+                reference: "Handout Page 5: 'Notice the clothing and condition: ripped, unzipped, shoe tied/on or off, folds & creases, signs of blood...'"
+            },
+            {
+                question: "DNA analysis of a sample from a crime scene is compared to a known sample from a suspect. The report says the suspect is 'excluded'. What does this mean?",
+                options: ["The suspect definitely committed the crime.", "The DNA profile from the scene is different from the suspect's profile, meaning they could not have been the source.", "The sample was too degraded to get a result.", "The suspect is related to the person who left the sample."],
+                answer: "The DNA profile from the scene is different from the suspect's profile, meaning they could not have been the source.",
+                explanation: "An 'exclusion' is a definitive result in DNA testing, meaning the two profiles do not match and therefore must have come from different individuals.",
+                reference: "Handout Page 10: 'Examinations may determine the following: ... If an individual is included or excluded as a potential contributor.'"
+            },
+            {
+                question: "An officer is investigating a SIDS case. The caretaker mentions a previous 'ALTE' event. What is an ALTE?",
+                options: ["A prior arrest for child abuse.", "A type of infant sleep monitor.", "An Apparent Life-Threatening Event, such as when the baby previously stopped breathing or changed color.", "A genetic condition common in SIDS victims."],
+                answer: "An Apparent Life-Threatening Event, such as when the baby previously stopped breathing or changed color.",
+                explanation: "A history of an ALTE is a significant finding in an infant death investigation, as it could indicate an underlying medical problem or a previous attempt to harm the child.",
+                reference: "Handout Page 6: 'Can result in Apparent life-threatening event (ALTE): color change, choking, or gagging, marked change in muscle tone (limpness).'"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>

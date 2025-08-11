@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fingerprint Evidence Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">    
+    <!-- Back to Portal Button -->
+    <div class="fixed top-4 left-4 z-50">
+        <a href="../index.html" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span class="font-medium">Back to Portal</span>
+        </a>
+    </div>
+<div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Fingerprint Evidence Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 52 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "What are the three basic fingerprint patterns?",
+                options: ["Loops, Whorls, and Spirals", "Loops, Whorls, and Arches", "Spirals, Circles, and Waves", "Deltas, Cores, and Ridges"],
+                answer: "Loops, Whorls, and Arches",
+                explanation: "These three classifications form the basis of all fingerprint identification systems.",
+                reference: "Handout Page 1: 'There are 3 basic fingerprint patterns: Loops, Whorls, and Arches.'"
+            },
+            {
+                question: "Which fingerprint pattern is the most common, occurring in about 60% of the population?",
+                options: ["Whorls", "Arches", "Loops", "Composite"],
+                answer: "Loops",
+                explanation: "Loops are the most frequently encountered fingerprint pattern among the general population.",
+                reference: "Handout Page 1: 'Loops are the most common pattern, 60% of the population.'"
+            },
+            {
+                question: "How many deltas does a Whorl pattern have?",
+                options: ["Zero", "One", "Two", "Three or more"],
+                answer: "Two",
+                explanation: "The presence of two deltas is a defining characteristic of the whorl pattern.",
+                reference: "Handout Page 1: 'Whorls have 2 deltas.'"
+            },
+            {
+                question: "Which fingerprint pattern is the least common, found in only about 5% of the population, and has no deltas?",
+                options: ["Loops", "Whorls", "Arches", "Tented Arches"],
+                answer: "Arches",
+                explanation: "Arches are the simplest and rarest pattern, characterized by ridges that flow from one side to the other without forming a delta.",
+                reference: "Handout Page 1: 'Arches are the least common pattern, 5%. No deltas.'"
+            },
+            {
+                question: "What is the term for the center of a fingerprint pattern?",
+                options: ["Delta", "Ridge", "Core", "Island"],
+                answer: "Core",
+                explanation: "The core is the approximate center of the fingerprint impression, a key landmark for classification.",
+                reference: "Handout Page 1: 'Cores: center of the pattern.'"
+            },
+            {
+                question: "What is a 'bifurcation' in a fingerprint?",
+                options: ["A ridge that makes a sudden stop.", "A ridge that forks and becomes two or more ridges.", "A ridge that is shorter than others.", "The spreading apart of two parallel ridges."],
+                answer: "A ridge that forks and becomes two or more ridges.",
+                explanation: "A bifurcation, or fork, is one of the most common and reliable identification points (minutiae) in a fingerprint.",
+                reference: "Handout Page 1: 'Bifurcation: a ridge forks & becomes 2 or more ridges.'"
+            },
+            {
+                question: "A single ridge that forks and then joins back into one ridge is known as what?",
+                options: ["A dot", "A short ridge", "A ridge island", "An ending ridge"],
+                answer: "A ridge island",
+                explanation: "This feature looks like a small island or enclosure within a single ridge line.",
+                reference: "Handout Page 1: 'Ridge island: a ridge forks & then joins back into one ridge.'"
+            },
+            {
+                question: "What is the 'matrix' of a latent print?",
+                options: ["The surface the print is on.", "The tool used to lift the print.", "The deposit content left on the surface, such as perspiration and oils.", "The computer system used to analyze prints."],
+                answer: "The deposit content left on the surface, such as perspiration and oils.",
+                explanation: "The matrix is the actual substance transferred from the friction ridges of the skin to a surface, creating the latent print.",
+                reference: "Handout Page 1: 'The print's deposit content left on the surface (called the matrix: perspiration, oils, blood, and others...)'"
+            },
+            {
+                question: "The secretions from eccrine glands on the palms and soles of the feet are composed of what percentage of water?",
+                options: ["50-60%", "75-80%", "90-95%", "99%-99.5%"],
+                answer: "99%-99.5%",
+                explanation: "The high water content is a critical factor in how latent prints behave on different surfaces and why they can evaporate or be absorbed quickly.",
+                reference: "Handout Page 1: '...99%-99.5% of a print's matrix is WATER.'"
+            },
+            {
+                question: "Oils found in a fingerprint matrix often come from contamination from which glands?",
+                options: ["Eccrine glands", "Apocrine glands", "Sebaceous glands", "Salivary glands"],
+                answer: "Sebaceous glands",
+                explanation: "Sebaceous glands, which produce oil, are not present on palms and soles. Oils in a print are transferred when a person touches an area like their forehead or nose.",
+                reference: "Handout Page 1: '...oils from the body's sebaceous glands, mostly found on the forehead, nose, and back torso areas.'"
+            },
+            {
+                question: "What should be the first step when dealing with a latent print on a wet item?",
+                options: ["Dust it immediately with powder.", "Use a hairdryer to speed up drying.", "Allow it to dry under natural conditions in a sheltered area.", "Lift it with tape while it is still wet."],
+                answer: "Allow it to dry under natural conditions in a sheltered area.",
+                explanation: "Attempting to process a wet surface will destroy the print. Natural air drying is the proper procedure to preserve the evidence.",
+                reference: "Handout Page 1: 'Wet items: should first be allowed to dry under natural conditions in a sheltered area.'"
+            },
+            {
+                question: "Writing paper and cardboard are examples of what type of surface?",
+                options: ["Porous", "Semi-porous", "Non-porous", "Fragile"],
+                answer: "Porous",
+                explanation: "Porous surfaces absorb the water content of a print quickly, making non-powder methods (like chemical processing) more effective.",
+                reference: "Handout Page 2: 'Porous surfaces: Writing and butcher paper... Cardboard that is untreated.'"
+            },
+            {
+                question: "Which processing method is generally NOT recommended for porous surfaces like untreated wood or paper bags?",
+                options: ["Ninhydrin", "Iodine fuming", "Powder dusting", "Silver nitrate"],
+                answer: "Powder dusting",
+                explanation: "Because porous surfaces absorb the moisture from the print, the powder has nothing to adhere to, making it ineffective. Chemical methods that react with the remaining amino acids and lipids are preferred.",
+                reference: "Handout Page 2: 'Non-powder processing methods are better for developing latent prints from this surface.'"
+            },
+            {
+                question: "Smooth glass and plastic bags are examples of what type of surface?",
+                options: ["Porous", "Semi-porous", "Non-porous", "Absorbent"],
+                answer: "Non-porous",
+                explanation: "Non-porous surfaces do not absorb the print matrix, leaving it fragile and on the surface, which makes it ideal for powder dusting.",
+                reference: "Handout Page 2: 'Non-porous surfaces: Plastic Bags, Smooth glass, Smooth metal...'"
+            },
+            {
+                question: "What is the best method for developing latent prints on a non-porous surface like smooth metal?",
+                options: ["Iodine fuming", "Ninhydrin", "Dusting with powder", "Letting it dry and observing"],
+                answer: "Dusting with powder",
+                explanation: "Since non-porous surfaces don't absorb the print, the entire matrix remains on the surface, allowing powder to adhere effectively.",
+                reference: "Handout Page 2: 'Typically, dusting methods will have the best success on these surfaces.'"
+            },
+            {
+                question: "What is the first thing an officer should do upon discovering a visible print (e.g., a print in blood or dust)?",
+                options: ["Dust it with powder.", "Lift it with tape.", "Photograph it.", "Try to replicate it."],
+                answer: "Photograph it.",
+                explanation: "Visible prints are fragile and can be easily destroyed. Photography is the first and most critical step to document this type of evidence before any collection is attempted.",
+                reference: "Handout Page 2: 'DO NOT brush or apply powder to prints in dust, greasy or bloody prints, as it will destroy them. VISIBLE PRINTS SHOULD BE PHOTOGRAPHED.'"
+            },
+            {
+                question: "When dusting for latent prints, how should the brush be applied to the surface?",
+                options: ["With heavy, firm strokes.", "By pushing the bristles flat against the surface.", "Lightly with the bristle tips, using short, quick strokes.", "In a circular, scrubbing motion."],
+                answer: "Lightly with the bristle tips, using short, quick strokes.",
+                explanation: "Using only the tips of the bristles and a light touch prevents the delicate ridges of the latent print from being wiped away or smeared.",
+                reference: "Handout Page 2: 'Brush lightly with bristle tips, using short, quick strokes.'"
+            },
+            {
+                question: "What technique can be used to re-hydrate a faint latent print before re-brushing?",
+                options: ["Spraying it with water.", "Using a wet cloth.", "Making soft exhales (huffing) over the latent print.", "Applying a chemical solvent."],
+                answer: "Making soft exhales (huffing) over the latent print.",
+                explanation: "The moisture from your breath can add just enough water back into a dry print to allow powder to adhere better, a technique known as 'huffing'.",
+                reference: "Handout Page 2: 'Faint prints may be re-hydrated: soft exhales over the latent but let it dry before re-brushing.'"
+            },
+            {
+                question: "What is a common error to avoid when dusting for latent prints?",
+                options: ["Using too little powder.", "Using too much powder.", "Cleaning the brush before use.", "Brushing with the ridge flow."],
+                answer: "Using too much powder.",
+                explanation: "Using too much powder will fill in the valleys between the ridges, obscuring the detail and potentially rendering the print useless for identification.",
+                reference: "Handout Page 2: 'DON'T USE TOO MUCH POWDER.'"
+            },
+            {
+                question: "When lifting a latent print, what is the best technique to avoid air bubbles under the tape?",
+                options: ["Apply the tape quickly from one side to the other.", "Start rubbing in the center and work toward the edges.", "Use a smaller piece of tape than the print.", "Press down hard in one spot."],
+                answer: "Start rubbing in the center and work toward the edges.",
+                explanation: "This technique smoothly applies the tape and pushes any trapped air out towards the edges, ensuring a clean lift without bubbles that can obscure ridge detail.",
+                reference: "Handout Page 2: 'Avoid air bubbles by rubbing the entire tape surface: start in the center & work toward edges.'"
+            },
+            {
+                question: "When rolling fingerprints for a ten-print card, which direction should the thumbs be rolled?",
+                options: ["Away from the center of the body.", "Toward the center of the body.", "Straight down onto the card.", "It does not matter which direction."],
+                answer: "Toward the center of the body.",
+                explanation: "Rolling the thumbs toward the body is the most natural and comfortable movement, which helps to get a clear, complete impression.",
+                reference: "Handout Page 2: 'Roll thumbs toward the center of the body.'"
+            },
+            {
+                question: "When rolling the fingers (index through little), which direction should they be rolled?",
+                options: ["Away from the center of the body.", "Toward the center of the body.", "Straight down onto the card.", "In a circular motion."],
+                answer: "Away from the center of the body.",
+                explanation: "Rolling the fingers away from the body is the opposite of the thumbs and is the most natural and comfortable movement for the subject, resulting in a better print.",
+                reference: "Handout Page 2: 'Roll fingers away from the center of the body.'"
+            },
+            {
+                question: "How much of the finger should be inked when preparing to roll prints?",
+                options: ["Only the very tip.", "The entire finger, up to the palm.", "From the tip to just below the first joint.", "Only the core of the pattern."],
+                answer: "From the tip to just below the first joint.",
+                explanation: "Inking this area ensures that the entire pattern, including the delta and core, is recorded on the fingerprint card.",
+                reference: "Handout Page 2: 'Ink from tip to below 1st joint.'"
+            },
+            {
+                question: "What is the purpose of taking 'plane' or 'plain' impressions on a fingerprint card?",
+                options: ["They are a backup in case the rolled prints are smudged.", "They are used to verify the correct sequence and accuracy of the rolled impressions.", "They are used for a different type of classification system.", "They are only taken if the subject refuses to roll their prints."],
+                answer: "They are used to verify the correct sequence and accuracy of the rolled impressions.",
+                explanation: "The plain impressions (a flat press of the four fingers and thumbs) are taken at the bottom of the card to confirm that the rolled prints in the boxes above are in the correct order and belong to the right finger.",
+                reference: "Handout Page 2: 'Do the plane impressions and remember to do the thumbs together.'"
+            },
+            {
+                question: "Which of the three parts of a fingerprint pattern is described as the AREA where two parallel lines separate to surround the pattern?",
+                options: ["Core", "Ridge", "Delta", "Bifurcation"],
+                answer: "Delta",
+                explanation: "The delta is a key triangular-shaped landmark in Loop and Whorl patterns, formed by the divergence of ridges.",
+                reference: "Handout Page 1: 'Deltas: the AREA of the pattern where 2 parallel lines separate then surround and outline the whole pattern area.'"
+            },
+            {
+                question: "A fingerprint pattern has one delta, and its ridges enter from the left side, curve back, and exit on the left side. What type of pattern is this?",
+                options: ["Left Slant Loop", "Right Slant Loop", "Whorl", "Arch"],
+                answer: "Left Slant Loop",
+                explanation: "This describes a loop pattern. Since the ridges flow from and to the left side, it is a Left Slant Loop.",
+                reference: "Handout Page 1: Description of a Loop pattern."
+            },
+            {
+                question: "An officer is examining a latent print. What is the recommended minimum number of visible identification points to find before determining it has potential collection value?",
+                options: ["3", "5", "7", "12"],
+                answer: "7",
+                explanation: "While there is no universal minimum, the handout suggests finding at least 7 points as a general guideline for determining if a print is of sufficient quality to be collected and compared.",
+                reference: "Handout Page 1: 'Try to find at least 7 points before determining its potential collection value.'"
+            },
+            {
+                question: "A latent print is found on a varnished wooden table. What type of surface is this?",
+                options: ["Porous", "Semi-porous", "Non-porous", "Metallic"],
+                answer: "Semi-porous",
+                explanation: "Varnished or painted wood is considered semi-porous because it will absorb the print's moisture, but much more slowly than untreated (porous) wood.",
+                reference: "Handout Page 2: 'Semi-porous surfaces: ... Varnished and some painted wood.'"
+            },
+            {
+                question: "On a semi-porous surface, can dusting be used first, and will it prevent the use of other methods later?",
+                options: ["No, dusting will ruin the print for other methods.", "No, chemical methods must always be used first.", "Yes, dusting can be used first and does NOT prevent other methods from being used later.", "Yes, but only if the print is very fresh."],
+                answer: "Yes, dusting can be used first and does NOT prevent other methods from being used later.",
+                explanation: "This is a key advantage of processing semi-porous surfaces. An officer can attempt dusting, and if it is unsuccessful, the item can still be sent to the lab for chemical processing.",
+                reference: "Handout Page 2: 'Dusting can be used first and does NOT prevent the use of other processing methods later.'"
+            },
+            {
+                question: "What is the primary reason latent prints on non-porous surfaces are considered fragile?",
+                options: ["They evaporate quickly.", "They are absorbed into the surface.", "The entire print matrix remains on the surface and is easily destroyed by contact.", "They can only be seen with a laser."],
+                answer: "The entire print matrix remains on the surface and is easily destroyed by contact.",
+                explanation: "Because nothing is absorbed, the entire print—moisture, oils, and all—sits on top of the surface, making it extremely susceptible to being wiped away or smeared.",
+                reference: "Handout Page 2: 'Latent prints on these surfaces are fragile and easily destroyed by surface contact.'"
+            },
+            {
+                question: "When lifting a print with tape, why is it a good idea to create a 'handle' on both ends?",
+                options: ["To make the tape stick better.", "To allow for easier placement and removal without touching the adhesive part.", "To add weight to the tape.", "To help avoid air bubbles."],
+                answer: "To allow for easier placement and removal without touching the adhesive part.",
+                explanation: "Folding the ends of the tape over creates non-sticky tabs to hold, which prevents the officer from leaving their own prints on the tape and allows for more control during application and removal.",
+                reference: "Handout Page 2: 'Create a handle on both tape ends.'"
+            },
+            {
+                question: "What is the correct procedure for rolling fingerprints on a ten-print card, starting with the right hand?",
+                options: ["Little finger to thumb", "Index, middle, ring, little, thumb", "Thumb, index, middle, ring, little", "Any order is acceptable"],
+                answer: "Thumb, index, middle, ring, little",
+                explanation: "Following this standard sequence (the 'FBI sequence') ensures consistency and prevents errors when recording prints.",
+                reference: "Handout Page 2: 'Start with the right hand: 1) thumb 2) index 3) middle 4) ring 5) little.'"
+            },
+            {
+                question: "What is the primary responsibility of the person being fingerprinted during the rolling process?",
+                options: ["To apply firm pressure.", "To help roll their own fingers.", "To relax their hand and not look at the card.", "To make sure the ink is applied evenly."],
+                answer: "To relax their hand and not look at the card.",
+                explanation: "The officer controls the pressure and movement. The subject's assistance or tension can lead to smudged or incomplete prints. Having them relax and look away helps ensure the officer maintains full control.",
+                reference: "Handout Page 2: 'You exert the pressure (weight of the finger) & have them relax & not look.'"
+            },
+            {
+                question: "The spreading apart of two ridges that have been running parallel is a key feature in forming a delta. What is this feature called?",
+                options: ["Bifurcation", "Ridge Island", "Ending Ridge", "Divergence"],
+                answer: "Divergence",
+                explanation: "Divergence is the specific term for the spreading of parallel ridges, which is the characteristic that defines the delta area of a print.",
+                reference: "Handout Page 1: 'Divergence: spreading apart of two ridges that have been running parallel (Deltas).'"
+            },
+            {
+                question: "A fingerprint has ridges that start on one side, rise toward the center, and then exit the other side. What pattern is this?",
+                options: ["Loop", "Whorl", "Arch", "Delta"],
+                answer: "Arch",
+                explanation: "This describes the simplest flow of ridges, characteristic of an arch pattern.",
+                reference: "Handout Page 1: 'Arches... Ridges start on one side, rise toward the center, & then exit the other side.'"
+            },
+            {
+                question: "A fingerprint has ridges that flow in a circular pattern between two deltas. What pattern is this?",
+                options: ["Loop", "Whorl", "Arch", "Core"],
+                answer: "Whorl",
+                explanation: "The presence of two deltas and a circular or spiral ridge flow are the defining features of a whorl pattern.",
+                reference: "Handout Page 1: 'Whorls... The ridges flow in some type of circular or combination pattern between the deltas.'"
+            },
+            {
+                question: "What is the primary substance secreted by the eccrine glands, which are the only secretion glands on volar skin?",
+                options: ["Oil", "Sweat", "Blood plasma", "Amino acids"],
+                answer: "Sweat",
+                explanation: "The eccrine glands are sweat glands. This is why the vast majority of a 'clean' latent print's matrix is water from sweat.",
+                reference: "Handout Page 1: 'The eccrine gland is the only secretion gland found on the palms of the hands and soles of the feet... It's a sweat gland...'"
+            },
+            {
+                question: "An officer is dusting a surface and the brush strokes should follow what path?",
+                options: ["Against the ridge flow", "In a circular motion", "With the ridge flow", "In a straight up-and-down motion"],
+                answer: "With the ridge flow",
+                explanation: "Brushing gently in the same direction that the ridges flow helps to apply the powder without smearing or destroying the delicate details of the print.",
+                reference: "Handout Page 2: 'Brush with the ridge flow until ridge outlines become visible.'"
+            },
+            {
+                question: "When rolling prints, the fingers should be rolled from 'fingernail to fingernail'. What is the purpose of this technique?",
+                options: ["To ensure the entire finger is inked.", "To capture the full pattern area, including the edges.", "To make the process faster.", "To prevent the subject from moving."],
+                answer: "To capture the full pattern area, including the edges.",
+                explanation: "A complete roll from one edge of the nail to the other ensures that all the ridge detail, especially the delta(s) which are often near the side of the finger, is recorded on the card.",
+                reference: "Handout Page 2: 'Rolled from end to end (fingernail to fingernail).'"
+            },
+            {
+                question: "A print of 'no value' has what characteristic?",
+                options: ["It is from a common pattern like a loop.", "It is smudged and has no visible, usable identification points.", "It was found on a porous surface.", "It is a partial print."],
+                answer: "It is smudged and has no visible, usable identification points.",
+                explanation: "A print only has value if it contains enough clear ridge detail (identification points) to be used for a comparison. If it's too smeared or incomplete, it has no evidentiary value.",
+                reference: "Handout Page 1: 'A print must have visible ID points to have value... A print of no value does not need to be retained.'"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>

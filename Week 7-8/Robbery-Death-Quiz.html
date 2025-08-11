@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robbery & Death Related Offenses Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">    
+    <!-- Back to Portal Button -->
+    <div class="fixed top-4 left-4 z-50">
+        <a href="../index.html" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span class="font-medium">Back to Portal</span>
+        </a>
+    </div>
+<div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Robbery & Death Offenses Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This exhaustive practice quiz contains 40 questions. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+             {
+                question: "According to PC 29.02, a person commits robbery if, in the course of committing theft and with intent to obtain or maintain control of the property, they:",
+                options: ["Only threaten to cause future harm.", "Intentionally, knowingly, or recklessly cause bodily injury to another.", "Simply trespass on another's property.", "Cause damage to the property being stolen."],
+                answer: "Intentionally, knowingly, or recklessly cause bodily injury to another.",
+                explanation: "This is one of the core elements of robbery, where theft is escalated by violence or the threat of imminent violence.",
+                reference: "Handout Page 1: PC 29.02(a)(1) - 'intentionally, knowingly, or recklessly causes bodily injury to another'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.29.htm#29.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 29.02</a>"
+            },
+            {
+                question: "Which of the following actions elevates a robbery to Aggravated Robbery under PC 29.03?",
+                options: ["Committing the robbery at night.", "Stealing property valued over $1,000.", "Using or exhibiting a deadly weapon.", "Having a prior conviction for theft."],
+                answer: "Using or exhibiting a deadly weapon.",
+                explanation: "The use or exhibition of a deadly weapon is a specific aggravating factor that increases the severity of a robbery charge.",
+                reference: "Handout Page 1: PC 29.03(a)(2) - 'uses or exhibits a deadly weapon'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.29.htm#29.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 29.03</a>"
+            },
+            {
+                question: "The definition of 'in the course of committing theft' for a robbery charge includes conduct that occurs during the attempt, the commission of the theft, and what other phase?",
+                options: ["The planning stage before the theft.", "In immediate flight after the attempt or commission of theft.", "Any time within 24 hours of the theft.", "Only during the physical act of taking property."],
+                answer: "In immediate flight after the attempt or commission of theft.",
+                explanation: "The law extends the timeframe of the offense to include the immediate escape, meaning violence used during the getaway is part of the robbery.",
+                reference: "Handout Page 1: PC 29.01(1) - 'conduct that occurs in an attempt to commit, during the commission, or in immediate flight after the attempt or commission of theft'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.29.htm#29.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 29.01</a>"
+            },
+            {
+                question: "A robbery is elevated to Aggravated Robbery if bodily injury is caused to a person who is a member of a protected class. Which of the following is considered a protected class in this context?",
+                options: ["A tourist", "An on-duty public servant", "A person 65 years of age or older", "A person under 18 years of age"],
+                answer: "A person 65 years of age or older",
+                explanation: "The law provides extra protection for elderly or disabled individuals, making an assault during a robbery against them an aggravated offense.",
+                reference: "Handout Page 1: PC 29.03(a)(3)(A) - 'causes bodily injury to another person... if the other person is: 65 years of age or older'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.29.htm#29.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 29.03</a>"
+            },
+            {
+                question: "Which type of robbery is described as being the 'least planned' and based on the 'element of surprise'?",
+                options: ["Planned Operation", "Home Invasion", "Signature Robbery", "Ambush"],
+                answer: "Ambush",
+                explanation: "An ambush robbery is opportunistic and lacks the detailed preparation of other types.",
+                reference: "Handout Page 1: 'Ambush - least planned; based on element of surprise.'"
+            },
+            {
+                question: "A 'planned operation' robbery is characterized by:",
+                options: ["Being based on the element of surprise with minimal planning.", "Careful structuring, planning for contingencies, and possibly 'casing' the scene.", "A spontaneous decision to rob someone.", "The involvement of only one perpetrator."],
+                answer: "Careful structuring, planning for contingencies, and possibly 'casing' the scene.",
+                explanation: "This type of robbery involves significant forethought and preparation to maximize success and minimize risk.",
+                reference: "Handout Page 1: 'Planned operation - carefully structured; robbery group examines all aspects of the situation and plans for foreseeable contingencies. May engage in \"dry runs\"... or \"casing\"...'"
+            },
+            {
+                question: "Which of the following is a 'Signature' or Modus Operandi (MO) aspect that can link a person to a series of robberies?",
+                options: ["The value of the items stolen.", "The time of day the robberies occur.", "The location of the robberies within a city.", "The age of the victims."],
+                answer: "The time of day the robberies occur.",
+                explanation: "Consistent patterns, such as the time, disguises, or phrases used, can create a signature that helps law enforcement link cases.",
+                reference: "Handout Page 1: '\"Signature\"/MO aspects... Time of offense(s), Disguises/weapons used, Voice or common verbiage, Peculiarities/things that stand out.'"
+            },
+            {
+                question: "Under PC 19.01, which of the following is NOT a category of criminal homicide?",
+                options: ["Murder", "Manslaughter", "Criminally Negligent Homicide", "Accidental Death"],
+                answer: "Accidental Death",
+                explanation: "Criminal homicide requires a culpable mental state (intentional, knowing, reckless, or criminally negligent). A true accident lacks this culpability.",
+                reference: "Handout Page 2: PC 19.01(b) - 'Criminal homicide is murder, capital murder, manslaughter, or criminally negligent homicide'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.01</a>"
+            },
+            {
+                question: "A killing described as an 'extension of the crime of assault' following a 'dispute-anger-attack-death' cycle is known as:",
+                options: ["Revenge or jealousy killing", "Felony murder", "Anger killing", "Random killing"],
+                answer: "Anger killing",
+                explanation: "This type of homicide arises from an immediate, escalating conflict rather than a pre-planned motive like profit or revenge.",
+                reference: "Handout Page 2: 'Anger killing: extension of an assault; dispute-anger-attack-death; violence cycle.'"
+            },
+            {
+                question: "A 'Triangle killing' typically involves which scenario?",
+                options: ["A murder involving three perpetrators.", "A husband or wife killing a spouse who is involved with another lover.", "A murder committed for financial gain from three different sources.", "A killing that occurs at a three-way intersection."],
+                answer: "A husband or wife killing a spouse who is involved with another lover.",
+                explanation: "This term refers to a classic crime of passion scenario involving a romantic triangle.",
+                reference: "Handout Page 2: 'Triangle killing: husband/wife kills spouse involved w/ another lover.'"
+            },
+            {
+                question: "According to the handout, which type of killing is often the most difficult to solve?",
+                options: ["Killing for profit", "Triangle killing", "Random killing", "Revenge killing"],
+                answer: "Random killing",
+                explanation: "The lack of a clear motive or connection between the victim and perpetrator makes these cases exceptionally challenging for investigators.",
+                reference: "Handout Page 2: 'Random killing: seemingly motive-less; most difficult to solve.'"
+            },
+            {
+                question: "Under the law of parties (PC 7.02), a person can be held criminally responsible for an offense committed by another if they:",
+                options: ["Secretly approve of the offense.", "Are merely present when the offense occurs.", "Solicit, encourage, direct, aid, or attempt to aid the other person to commit the offense.", "Know the person who committed the offense."],
+                answer: "Solicit, encourage, direct, aid, or attempt to aid the other person to commit the offense.",
+                explanation: "This principle holds accomplices accountable, not just the person who physically commits the main act.",
+                reference: "Handout Page 3: PC 7.02(a)(2) - 'acting with intent to promote or assist the commission of the offense, he solicits, encourages, directs, aids, or attempts to aid the other person to commit the offense'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.7.htm#7.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 7.02</a>"
+            },
+            {
+                question: "A person commits Murder under PC 19.02(b)(2) if they intend to cause serious bodily injury and:",
+                options: ["Recklessly cause the death of an individual.", "Commit an act clearly dangerous to human life that causes the death of an individual.", "Fail to render aid after the injury.", "The victim is a member of a protected class."],
+                answer: "Commit an act clearly dangerous to human life that causes the death of an individual.",
+                explanation: "This covers situations where the intent was to cause severe harm, not necessarily death, but death was a foreseeable outcome of the dangerous act.",
+                reference: "Handout Page 3: PC 19.02(b)(2) - 'intends to cause serious bodily injury and commits an act clearly dangerous to human life that causes the death of an individual'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.02</a>"
+            },
+            {
+                question: "A person commits Murder under PC 19.02(b)(3) (Felony Murder) if they commit a felony and, in the course of that felony, they:",
+                options: ["Accidentally cause property damage.", "Are discovered by a police officer.", "Commit an act clearly dangerous to human life that causes a death.", "Successfully escape from the scene."],
+                answer: "Commit an act clearly dangerous to human life that causes a death.",
+                explanation: "The felony murder rule holds a person responsible for a death that occurs during the commission of another dangerous felony, even if the death itself was not intended.",
+                reference: "Handout Page 3: PC 19.02(b)(3) - 'commits or attempts to commit a felony... and in the course of... commits or attempts to commit an act clearly dangerous to human life that causes the death of an individual'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.02</a>"
+            },
+            {
+                question: "Under PC 19.02(b)(4), a person can be charged with murder for manufacturing or delivering which type of controlled substance if it results in a death?",
+                options: ["Any illegal drug", "Penalty Group 3 substances", "Penalty Group 1-B substances", "Marijuana concentrates"],
+                answer: "Penalty Group 1-B substances",
+                explanation: "This law specifically targets manufacturers and dealers of particularly dangerous narcotics, like fentanyl, holding them accountable for overdose deaths.",
+                reference: "Handout Page 3: PC 19.02(b)(4) - 'knowingly manufactures or delivers a controlled substance included in Penalty Group 1-B... and an individual dies as a result'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.02</a>"
+            },
+            {
+                question: "What is the definition of 'Adequate Cause' in the context of a 'sudden passion' defense to murder?",
+                options: ["Any cause that makes a person angry.", "A cause that would produce rage in a person of ordinary temper, rendering them incapable of cool reflection.", "A long-standing grudge against the victim.", "A cause resulting from the defendant's own actions."],
+                answer: "A cause that would produce rage in a person of ordinary temper, rendering them incapable of cool reflection.",
+                explanation: "This legal standard requires the provocation to be so severe that an ordinary person would lose their self-control; it's not just about being angry.",
+                reference: "Handout Page 3: PC 19.02(a)(1) - '\"Adequate cause\" means cause that would commonly produce a degree of anger, rage, resentment, or terror in a person of ordinary temper, sufficient to render the mind incapable of cool reflection'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.02</a>"
+            },
+            {
+                question: "If a defendant proves by a preponderance of the evidence that they caused a death under the immediate influence of 'sudden passion' arising from an 'adequate cause', what is the effect on a Murder charge?",
+                options: ["The charge is dismissed entirely.", "The offense is reduced from a first-degree felony to a second-degree felony.", "The charge is automatically elevated to Capital Murder.", "It has no effect on the charge, only on parole eligibility."],
+                answer: "The offense is reduced from a first-degree felony to a second-degree felony.",
+                explanation: "This is a mitigating factor that acknowledges a lesser degree of culpability, reducing the penalty at the punishment phase of the trial.",
+                reference: "Handout Page 3: PC 19.02(d) - 'If the defendant proves the issue in the affirmative... the offense is a felony of the second degree'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.02</a>"
+            },
+            {
+                question: "For an offense to be Capital Murder under PC 19.03, it must first meet the definition of Murder under PC 19.02(b)(1) and have an additional aggravating circumstance. Which of the following is such a circumstance?",
+                options: ["The murder was committed out of anger.", "The person murders a peace officer acting in the lawful discharge of an official duty.", "The person was intoxicated during the offense.", "The murder weapon was a common household item."],
+                answer: "The person murders a peace officer acting in the lawful discharge of an official duty.",
+                explanation: "The law reserves the most severe penalty for murders that also involve other serious crimes or target specific individuals like police officers.",
+                reference: "Handout Page 3: PC 19.03(a)(1) - 'the person murders a peace officer or fireman who is acting in the lawful discharge of an official duty'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.03</a>"
+            },
+            {
+                question: "Committing a murder for 'remuneration or the promise of remuneration' is a circumstance that can elevate the offense to:",
+                options: ["Manslaughter", "Second-Degree Murder", "Capital Murder", "Aggravated Assault"],
+                answer: "Capital Murder",
+                explanation: "This refers to murder-for-hire, which is considered a particularly heinous crime deserving of the highest penalty.",
+                reference: "Handout Page 3: PC 19.03(a)(3) - 'the person commits the murder for remuneration or the promise of remuneration'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.03</a>"
+            },
+            {
+                question: "Under what circumstance can a person be charged with Capital Murder for a murder committed while incarcerated?",
+                options: ["For any murder committed while in a penal institution.", "Only if the victim is a guard.", "If they murder another with the intent to participate in a 'combination' (gang).", "Only if they are serving a sentence for a previous murder."],
+                answer: "If they murder another with the intent to participate in a 'combination' (gang).",
+                explanation: "This provision targets murders related to organized criminal activity (gangs) within correctional facilities.",
+                reference: "Handout Page 3: PC 19.03(a)(5)(B) - 'murders another... with the intent to establish, maintain, or participate in a combination'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.03</a>"
+            },
+            {
+                question: "The murder of a child can be Capital Murder based on the child's age. Which age group is specifically mentioned in PC 19.03?",
+                options: ["Any individual under 18 years of age.", "Any individual under 5 years of age.", "An individual under 10 years of age.", "An individual who has not yet started school."],
+                answer: "An individual under 10 years of age.",
+                explanation: "The law provides the highest level of protection for the youngest and most vulnerable children by making their murder a capital offense.",
+                reference: "Handout Page 4: PC 19.03(a)(8) - 'the person murders an individual under 10 years of age'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.03</a>"
+            },
+            {
+                question: "Murdering a judge in retaliation for their service is an act of Capital Murder. This applies to judges of which court level?",
+                options: ["Only Supreme Court justices.", "Only federal judges.", "Judges of any court, from municipal court to the supreme court.", "Only district court judges."],
+                answer: "Judges of any court, from municipal court to the supreme court.",
+                explanation: "This rule is designed to protect the integrity of the entire judicial system by punishing retaliation against judicial officers at any level.",
+                reference: "Handout Page 4: PC 19.03(a)(10) - Lists judges from 'supreme court' down to 'municipal court'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.03</a>"
+            },
+            {
+                question: "What is the key mental state required for the offense of Manslaughter under PC 19.04?",
+                options: ["Intentionally or Knowingly", "With Criminal Negligence", "Recklessly", "Maliciously"],
+                answer: "Recklessly",
+                explanation: "Manslaughter involves a conscious disregard of a substantial and unjustifiable risk of death, which is a less culpable mental state than intentional murder.",
+                reference: "Handout Page 4: PC 19.04(a) - 'A person commits an offense if he recklessly causes the death of an individual'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.04' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.04</a>"
+            },
+            {
+                question: "A Manslaughter charge can be enhanced from a second-degree felony to a first-degree felony if the death was caused during the commission of what other offense?",
+                options: ["Theft", "Assault", "Arson (under Sec. 28.09)", "Burglary"],
+                answer: "Arson (under Sec. 28.09)",
+                explanation: "The law singles out arson as a particularly dangerous act that, when resulting in death, warrants a higher penalty even if the mental state was 'reckless'.",
+                reference: "Handout Page 4: PC 19.04(b) - 'the offense is a felony of the first degree if it is shown on the trial of the offense that the defendant committed an offense under Section 28.09 and that conduct caused the death'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.04' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.04</a>"
+            },
+            {
+                question: "Criminally Negligent Homicide (PC 19.05) is distinguished from Manslaughter by the defendant's mental state. For criminal negligence, the person:",
+                options: ["Consciously disregards a known risk.", "Intends to cause the death.", "Ought to be aware of a substantial and unjustifiable risk, but fails to perceive it.", "Acts out of sudden passion."],
+                answer: "Ought to be aware of a substantial and unjustifiable risk, but fails to perceive it.",
+                explanation: "The key difference is the defendant's awareness. In manslaughter, they are aware of the risk and ignore it. In criminally negligent homicide, they are not aware but should have been.",
+                reference: "Handout Page 5: PC 19.05 Definition - 'he ought to be aware of a substantial and unjustifiable risk... The failure to perceive it constitutes a gross deviation from the standard of care'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.05</a>"
+            },
+            {
+                question: "The homicide chapter (Chapter 19) does not apply to the death of an unborn child if the conduct was:",
+                options: ["Committed by the father of the unborn child.", "The result of a car accident.", "A lawful medical procedure performed by a physician with consent.", "Caused by a third party's negligence."],
+                answer: "A lawful medical procedure performed by a physician with consent.",
+                explanation: "This section provides specific exemptions to protect legal medical practices and the actions of the mother from homicide charges related to an unborn child.",
+                reference: "Handout Page 5: PC 19.06(2) - 'a lawful medical procedure performed by a physician or other licensed health care provider with the requisite consent'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.19.htm#19.06' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 19.06</a>"
+            },
+            {
+                question: "Under PC 42.08, Abuse of Corpse, which of the following acts is specifically listed as an offense?",
+                options: ["Attending a funeral without an invitation.", "Taking a photograph of a gravesite.", "Selling or buying a human corpse.", "Speaking ill of the deceased."],
+                answer: "Selling or buying a human corpse.",
+                explanation: "The statute broadly covers mistreatment of a corpse, including the commercial trafficking of human remains.",
+                reference: "Handout Page 5: PC 42.08(a)(3) - 'sells or buys a human corpse or in any way traffics in a human corpse'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm#42.08' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 42.08</a>"
+            },
+            {
+                question: "What is the penalty for vandalizing, damaging, or treating in an offensive manner the space where a human corpse has been interred?",
+                options: ["A state jail felony", "A third-degree felony", "A Class A misdemeanor", "A Class C misdemeanor"],
+                answer: "A Class A misdemeanor",
+                explanation: "The law differentiates between abusing the corpse itself (a felony) and abusing the place of burial (a serious misdemeanor).",
+                reference: "Handout Page 5: PC 42.08(b) - 'an offense under Subsection (a)(5) is a Class A misdemeanor'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm#42.08' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 42.08</a>"
+            },
+            {
+                question: "The definition of 'human corpse' for the Abuse of Corpse statute includes any portion of a corpse and what else?",
+                options: ["Personal belongings buried with the person.", "The cremated remains of a human corpse.", "A prosthetic limb belonging to the deceased.", "An animal buried in a pet cemetery."],
+                answer: "The cremated remains of a human corpse.",
+                explanation: "The law is written broadly to include not just a full body, but also parts of a body and even the ashes after cremation.",
+                reference: "Handout Page 5: PC 42.08(c) - '\"human corpse\" includes: (1) any portion of a human corpse; (2) the cremated remains of a human corpse...'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm#42.08' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 42.08</a>"
+            },
+            {
+                question: "Under PC 37.09, what is the penalty for Tampering with Physical Evidence if the item altered, destroyed, or concealed is a human corpse?",
+                options: ["It remains a third-degree felony.", "It is enhanced to a second-degree felony.", "It is enhanced to a first-degree felony.", "It becomes a state jail felony."],
+                answer: "It is enhanced to a second-degree felony.",
+                explanation: "Hiding a body to conceal a crime is considered a particularly severe form of evidence tampering, warranting a higher penalty.",
+                reference: "Handout Page 6: PC 37.09(c) - '...unless the thing altered, destroyed, or concealed is a human corpse, in which case the offense is a felony of the second degree'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.37.htm#37.09' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 37.09</a>"
+            },
+            {
+                question: "Under PC 37.09, a person commits an offense if they observe a human corpse under suspicious circumstances and fail to report it. What else must be true for this offense to apply?",
+                options: ["The person must have known the victim.", "The person must know with certainty who committed the offense.", "The person knows or should know that law enforcement is unaware of the corpse.", "The person must have a legal duty to act, like a doctor."],
+                answer: "The person knows or should know that law enforcement is unaware of the corpse.",
+                explanation: "This offense is about failing to notify authorities when you have reason to believe they don't already know about a potential crime scene.",
+                reference: "Handout Page 6: PC 37.09(d)(2) - 'knows or reasonably should know that a law enforcement agency is not aware of the existence of or location of the corpse, and fails to report...'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.37.htm#37.09' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 37.09</a>"
+            },
+            {
+                question: "What is the definition of 'Tamper' under PC 22.09, Tampering with Consumer Product?",
+                options: ["To change the product's label.", "To alter or add a foreign substance to make it probable that it will cause serious bodily injury.", "To sell a product past its expiration date.", "To steal a consumer product."],
+                answer: "To alter or add a foreign substance to make it probable that it will cause serious bodily injury.",
+                explanation: "The legal definition focuses specifically on acts that make a product dangerous to consumers.",
+                reference: "Handout Page 6: PC 22.09(a)(2) - '\"Tamper\" means to alter or add a foreign substance to a consumer product to make it probable that the consumer product will cause serious bodily injury'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.09' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.09</a>"
+            },
+            {
+                question: "What offense is committed if a person threatens to tamper with a consumer product with the intent to cause fear or affect its sale?",
+                options: ["No offense, as no product was actually tampered with.", "Terroristic Threat", "Tampering with Consumer Product", "Theft"],
+                answer: "Tampering with Consumer Product",
+                explanation: "The law also criminalizes the threat of tampering, recognizing the public panic and economic damage such threats can cause.",
+                reference: "Handout Page 6: PC 22.09(c) - 'A person commits an offense if he knowingly or intentionally threatens to tamper with a consumer product with the intent to cause fear...'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.09' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.09</a>"
+            },
+            {
+                question: "What is the penalty for Tampering with a Consumer Product (PC 22.09) if the act results in someone suffering Serious Bodily Injury (SBI)?",
+                options: ["It remains a second-degree felony.", "It is enhanced to a first-degree felony.", "It becomes a Class A misdemeanor.", "It is treated as Capital Murder."],
+                answer: "It is enhanced to a first-degree felony.",
+                explanation: "When product tampering actually results in severe harm, the penalty is increased to the highest level of felony, short of a capital offense.",
+                reference: "Handout Page 6: PC 22.09(d) - '...unless a person suffers serious bodily injury, in which event it is a felony of the first degree'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.09' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.09</a>"
+            },
+            {
+                question: "What is the base offense level for Aiding Suicide (PC 22.08) if the actor's conduct does NOT result in serious bodily injury or death?",
+                options: ["State Jail Felony", "Class A Misdemeanor", "Class B Misdemeanor", "Class C Misdemeanor"],
+                answer: "Class C Misdemeanor",
+                explanation: "The law treats the act of aiding itself as a lower-level offense, but drastically increases the penalty if that aid leads to a tragic outcome.",
+                reference: "Handout Page 7: PC 22.08(b) - 'An offense under this section is a Class C misdemeanor unless the actor's conduct causes suicide...'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.08' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.08</a>"
+            },
+            {
+                question: "Aiding Suicide (PC 22.08) is elevated from a Class C misdemeanor to a state jail felony if the actor's conduct:",
+                options: ["Involves providing advice over the phone.", "Is done for financial gain.", "Causes suicide or attempted suicide that results in serious bodily injury.", "Is reported to the police by a third party."],
+                answer: "Causes suicide or attempted suicide that results in serious bodily injury.",
+                explanation: "The enhancement is triggered by the result of the actor's aid, making the outcome the key factor in the severity of the charge.",
+                reference: "Handout Page 7: PC 22.08(b) - '...unless the actor's conduct causes suicide or attempted suicide that results in serious bodily injury, in which event the offense is a state jail felony'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.08' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.08</a>"
+            },
+            {
+                question: "Under PC 38.171, Failure to Report a Felony, a person has a duty to report observing a felony where SBI or death may have resulted, but only if:",
+                options: ["They can receive a reward for the information.", "They can report it without placing themselves in danger of SBI or death.", "They are a direct witness to the entire event.", "They are related to the victim."],
+                answer: "They can report it without placing themselves in danger of SBI or death.",
+                explanation: "The law does not require a citizen to become a hero; it provides an exception if reporting the crime would put the citizen in harm's way.",
+                reference: "Handout Page 7: PC 38.171(a)(2)(B) - 'the person could immediately report the commission of the offense without placing himself or herself in danger of suffering serious bodily injury or death'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.38.htm#38.171' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 38.171</a>"
+            },
+            {
+                question: "What is the general finding from the handout regarding the relationship between victims and perpetrators in most homicide cases?",
+                options: ["The victim and perpetrator are usually strangers.", "The victim usually knows the perpetrator.", "The perpetrator is usually a family member.", "The relationship is typically unknown."],
+                answer: "The victim usually knows the perpetrator.",
+                explanation: "This is a key criminological finding that helps guide investigations, suggesting that detectives should first look at the victim's circle of acquaintances.",
+                reference: "Handout Page 2: 'In most cases, the victim knows the perpetrator.'"
+            },
+            {
+                question: "What is the recommended approach for law enforcement when encountering any suspicious death?",
+                options: ["Assume it was an accident until proven otherwise.", "Treat it as a homicide until proven otherwise.", "Immediately focus on the most likely suspect.", "Wait for the medical examiner's report before investigating."],
+                answer: "Treat it as a homicide until proven otherwise.",
+                explanation: "This procedural guidance ensures that potential evidence is not lost or contaminated by treating the scene with the highest level of care from the outset.",
+                reference: "Handout Page 2: 'All suspicious deaths should be treated as homicide until proven otherwise.'"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            userAnswers[currentQuestionIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the original, unshuffled order for the review
+            originalOrder.forEach((questionData, index) => {
+                // Find the user's answer for this question
+                const answer = userAnswers.find(ua => ua.question === questionData.question);
+                if (!answer) return; // Skip if question wasn't answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>

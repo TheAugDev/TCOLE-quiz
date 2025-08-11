@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Response Procedures Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">    
+    <!-- Back to Portal Button -->
+    <div class="fixed top-4 left-4 z-50">
+        <a href="../index.html" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span class="font-medium">Back to Portal</span>
+        </a>
+    </div>
+<div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Call Response Procedures Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 66 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "What are the five stages of a preliminary investigation as listed in the handout?",
+                options: ["Arrival, Interview, Arrest, Report, Departure", "Protection/Security, First Responder Investigation, Processing, Wrap-up, Conclude/Document", "Dispatch, Approach, Contact, Investigation, Conclusion", "Observation, Interview, Evidence Collection, Arrest, Booking"],
+                answer: "Protection/Security, First Responder Investigation, Processing, Wrap-up, Conclude/Document",
+                explanation: "These five stages provide a systematic framework for conducting a thorough and effective preliminary investigation at a crime scene.",
+                reference: "Handout Page 1 & 7: '5 Stages for the Preliminary Investigation'"
+            },
+            {
+                question: "When responding to a 'Robbery-in-Progress' call, what is a key safety tactic mentioned regarding the approach?",
+                options: ["Always use sirens and lights to surprise the suspect.", "Park directly in front of the location to block escape.", "Avoid using sirens and lights unless there's imminent danger of serious bodily injury.", "Wait in the car until the suspect exits the building."],
+                answer: "Avoid using sirens and lights unless there is imminent danger of serious bodily injury.",
+                explanation: "A silent approach is often preferred for crimes in progress to avoid alerting the suspect, which could lead to a hostage situation or the destruction of evidence.",
+                reference: "Handout Page 1 & 13: 'Avoid the use of sirens and lights unless there is imminent danger of serious bodily injury.'"
+            },
+            {
+                question: "What is the legal difference between 'Open Fields' and 'Curtilage'?",
+                options: ["There is no difference; police can search both without a warrant.", "'Open Fields' are protected by the 4th Amendment, while 'Curtilage' is not.", "'Curtilage' is the area immediately surrounding a dwelling and is protected, while 'Open Fields' are not.", "'Curtilage' refers to farmland, while 'Open Fields' refers to any undeveloped land."],
+                answer: "'Curtilage' is the area immediately surrounding a dwelling and is protected, while 'Open Fields' are not.",
+                explanation: "The Supreme Court has ruled that the 4th Amendment's protection of the home extends to its curtilage, but not to open fields where there is no reasonable expectation of privacy.",
+                reference: "Handout Page 2: 'Open Fields: officers may enter and search open fields. Curtilage: area of open space surrounding a dwelling, immediately adjacent & considered part of the house.'"
+            },
+            {
+                question: "Which of the following is NOT one of the four factors used to determine if an area is part of the curtilage, as established in *United States v. Dunn*?",
+                options: ["The distance from the home.", "The nature of the area's use.", "The time of day the observation is made.", "The steps taken to protect the area from observation."],
+                answer: "The time of day the observation is made.",
+                explanation: "The four factors are: Distance, Fence Enclosure, Nature of Use, and Observation Protection. The time of day is not a factor in the legal definition of curtilage.",
+                reference: "Handout Page 2: '4 Factors to Determine Curtilage Distance - Fence Encloser - Nature of Use - Observation Protection'"
+            },
+            {
+                question: "In *Brigham City, Utah v. Stuart*, why was the officers' warrantless entry into the home justified?",
+                options: ["They had a warrant to search the backyard.", "They were invited in by the homeowner.", "They had exigent circumstances, specifically to break up a violent fight.", "The front door was wide open."],
+                answer: "They had exigent circumstances, specifically to break up a violent fight.",
+                explanation: "The Supreme Court ruled that the need to render emergency aid and prevent serious injury (exigent circumstances) outweighed the warrant requirement, justifying the entry.",
+                reference: "Handout Page 3: 'Exigent circumstances such as breaking up a violent fight permit warrantless entry into dwelling without a warrant.'"
+            },
+            {
+                question: "What is a key officer safety tactic when making contact at a door?",
+                options: ["Stand directly in the doorway to maintain control.", "Stand off to the side of the door, using the wall frame for potential cover.", "Knock loudly and immediately step back 10 feet.", "Always have your weapon drawn before knocking."],
+                answer: "Stand off to the side of the door, using the wall frame for potential cover.",
+                explanation: "Standing directly in the 'fatal funnel' of a doorway exposes an officer to unnecessary risk. Standing to the side provides better cover and tactical advantage.",
+                reference: "Handout Page 3: 'DO NOT STAND IN DOORWAYS & STAND AWAY FROM THE DOOR... Stand off to the side: framing & exterior walls may provide more cover.'"
+            },
+            {
+                question: "What is a 'Protective Sweep' as defined by *Maryland v. Buie*?",
+                options: ["A full search of a house for evidence after an arrest.", "A quick and limited search of a premises, incident to an arrest, for people who may pose a threat.", "A search of a person for weapons.", "A sweep of the area for witnesses after a crime."],
+                answer: "A quick and limited search of a premises, incident to an arrest, for people who may pose a threat.",
+                explanation: "A protective sweep is not a search for evidence; it is a limited search for people based on reasonable suspicion that they pose a danger to officers.",
+                reference: "Handout Page 4: 'Incident to a lawful arrest, a protective sweep of a premises is permitted provided it is supported by reasonable suspicion... The protective sweep is limited to areas where people could be hiding...'"
+            },
+            {
+                question: "When securing a crime scene, what is the primary safety priority?",
+                options: ["Preserving evidence.", "The safety of people (officers, victims, public) first, then evidence.", "Taking photographs immediately.", "Establishing a perimeter."],
+                answer: "The safety of people (officers, victims, public) first, then evidence.",
+                explanation: "Life safety always takes precedence over evidence preservation. Officers must address any immediate threats or medical needs before focusing on the evidence.",
+                reference: "Handout Page 5: 'Safety First: People then evidence.'"
+            },
+            {
+                question: "Under CCP 49.25, who has the primary authority over a body at a death scene?",
+                options: ["The first responding officer.", "The lead detective.", "The Medical Examiner or their authorized deputy.", "The property owner."],
+                answer: "The Medical Examiner or their authorized deputy.",
+                explanation: "The law is clear that a body cannot be moved or disturbed without authorization from the Medical Examiner, except in very specific circumstances.",
+                reference: "Handout Page 6: 'Sec. 8. REMOVAL OF BODIES. ...the body shall not be disturbed or removed from the position in which it is found by any person without authorization from the medical examiner...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.49.htm#49.25' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 49.25</a>"
+            },
+            {
+                question: "What is the purpose of separating witnesses at a crime scene before interviewing them?",
+                options: ["To make the investigation go faster.", "To see who is more cooperative.", "To prevent them from influencing each other's stories.", "To keep them from leaving the scene."],
+                answer: "To prevent them from influencing each other's stories.",
+                explanation: "Separating witnesses helps ensure that each account is independent and not contaminated by what others have said, which is crucial for the integrity of the investigation.",
+                reference: "Handout Page 6: 'Separate witnesses so they don't influence others.'"
+            },
+            {
+                question: "According to the handout, what is a primary reason to conduct a neighborhood canvass?",
+                options: ["To issue citations for code violations.", "To solicit information from persons in the immediate area who may have seen or heard something.", "To check for outstanding warrants.", "To inform the community about the crime."],
+                answer: "To solicit information from persons in the immediate area who may have seen or heard something.",
+                explanation: "A canvass is a systematic search for additional witnesses or information in the vicinity of the crime scene.",
+                reference: "Handout Page 6: 'Conduct neighborhood canvassing... Solicit information from persons in immediate area...'"
+            },
+            {
+                question: "Which of the following is NOT one of the 11 warrantless arrest powers for an on-duty peace officer in Texas?",
+                options: ["For any offense committed within the officer's view.", "For any Class C misdemeanor not committed in the officer's view.", "When a person admits to a felony and there is other probable cause.", "For any offense involving family violence, based on probable cause."],
+                answer: "For any Class C misdemeanor not committed in the officer's view.",
+                explanation: "Generally, warrantless arrests for misdemeanors require the offense to have occurred in the officer's presence, with specific statutory exceptions (like family violence or violation of a protective order).",
+                reference: "Handout Page 10 & 14 & 26: Lists the 11 powers, none of which include a general power to arrest for a Class C not in view."
+            },
+            {
+                question: "What did the Supreme Court rule in *Payton v. New York* regarding routine felony arrests?",
+                options: ["Police can enter a home without a warrant for any felony arrest.", "Police must have an arrest warrant to enter a suspect's home to make a routine felony arrest, absent exigent circumstances.", "Police only need probable cause to enter a home for a felony arrest.", "Police can never enter a private residence."],
+                answer: "Police must have an arrest warrant to enter a suspect's home to make a routine felony arrest, absent exigent circumstances.",
+                explanation: "This landmark case established that the 4th Amendment draws a 'firm line at the entrance to the house' and that an arrest warrant is required to cross that line for a routine arrest.",
+                reference: "Handout Page 11: 'absent exigent circumstances or an exception, the police may not enter a person's home to make an arrest without a warrant.'"
+            },
+            {
+                question: "According to CCP 14.05, an officer making a lawful warrantless arrest may NOT enter a residence unless what two conditions are met?",
+                options: ["The suspect is a felon, or it is nighttime.", "The officer has backup, or the door is unlocked.", "A resident consents to the entry, or exigent circumstances exist.", "The officer announces their presence, or they have a supervisor's approval."],
+                answer: "A resident consents to the entry, or exigent circumstances exist.",
+                explanation: "This statute codifies the ruling in *Payton v. New York*, explicitly limiting a warrantless entry for an arrest to situations involving consent or a recognized emergency.",
+                reference: "Handout Page 12: 'an officer making an arrest without a warrant may not enter a residence to make the arrest unless: (1) a person who resides in the residence consents to the entry; or (2) exigent circumstances require that the officer... enter...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.14.htm#14.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 14.05</a>"
+            },
+            {
+                question: "What is the significance of the ruling in *United States v. Santana*?",
+                options: ["Police can never arrest someone standing in their doorway.", "A suspect may defeat a warrantless arrest that began in a public place by retreating into their home.", "A person standing in an open doorway is in a 'public place' and has no expectation of privacy.", "Police must get a warrant to speak to someone at their front door."],
+                answer: "A person standing in an open doorway is in a 'public place' and has no expectation of privacy.",
+                explanation: "The court ruled that Santana, standing in her open doorway, was exposed to public view and therefore could be arrested without a warrant when police had probable cause, and her retreat into the house constituted a 'hot pursuit'.",
+                reference: "Handout Page 12: 'Santana was clearly in a public place when she was standing in the open doorway of her home.'"
+            },
+            {
+                question: "In *Chimel v. California*, the Supreme Court limited a search incident to arrest inside a home to what area?",
+                options: ["The entire house.", "Only the room where the arrest occurred.", "The area within the arrestee's immediate control or 'wing-span'.", "Any area where evidence could reasonably be found."],
+                answer: "The area within the arrestee's immediate control or 'wing-span'.",
+                explanation: "The justification for a search incident to arrest is to find weapons the arrestee might use or evidence they might destroy. This justification only extends to the area they can immediately reach.",
+                reference: "Handout Page 14: 'Accessible home area immediately around an arrested person (wing-span area) may be searched.'"
+            },
+            {
+                question: "What legal principle was established in *Illinois v. McArthur*?",
+                options: ["Police can never prevent a person from entering their home.", "Police can search a home if they believe contraband is inside.", "Police may temporarily seize a residence and prevent a person from entering while they obtain a search warrant.", "Police must allow a resident to enter and destroy evidence if they don't have a warrant."],
+                answer: "Police may temporarily seize a residence and prevent a person from entering while they obtain a search warrant.",
+                explanation: "The Court found it was a reasonable seizure to secure the premises from the outside to prevent the destruction of evidence while a warrant was being sought, balancing law enforcement needs with privacy interests.",
+                reference: "Handout Page 13: 'temporary seizure lawful if it is supported by probable cause, limited in nature, and tailored reasonably to secure law enforcement needs...'"
+            },
+            {
+                question: "What is the primary difference between an Arrest Warrant (CCP 15.01) and a Capias (CCP 23.01)?",
+                options: ["A Capias is for misdemeanors, and a Warrant is for felonies.", "An Arrest Warrant is issued before a case is filed, while a Capias is issued by a court with jurisdiction *after* a case is filed.", "Only a sheriff can execute a Capias.", "A Capias does not require probable cause."],
+                answer: "An Arrest Warrant is issued before a case is filed, while a Capias is issued by a court with jurisdiction *after* a case is filed.",
+                explanation: "A Capias is a writ from the court itself to bring a defendant before it, typically after indictment or failure to appear, whereas an arrest warrant is issued by a magistrate to initiate an arrest based on a probable cause affidavit.",
+                reference: "Handout Page 19: Compares the definitions, showing a Capias is issued 'by a judge of the court having jurisdiction of a case after commitment or bail and before trial'.<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.23.htm#23.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 23.01</a>"
+            },
+            {
+                question: "Under CCP 15.25, when may an officer 'break down the door' to execute an arrest warrant?",
+                options: ["For any arrest warrant if they are refused admittance.", "Only for a felony warrant, and only after being refused admittance after giving notice of their authority and purpose.", "Anytime they believe the suspect is inside.", "Only with a specific 'no-knock' provision on the warrant."],
+                answer: "Only for a felony warrant, and only after being refused admittance after giving notice of their authority and purpose.",
+                explanation: "Forcible entry is a significant intrusion, and the law restricts its use to felony cases and requires officers to first knock and announce their identity and purpose.",
+                reference: "Handout Page 20: 'In case of felony, the officer may break down the door... IF: he be refused admittance after giving notice of his authority & purpose.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.15.htm#15.25' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 15.25</a>"
+            },
+            {
+                question: "What did the Supreme Court rule in *Steagald v. United States* regarding arrest warrants?",
+                options: ["An arrest warrant for one person allows police to search the home of anyone else where they believe the suspect might be.", "Police must have a search warrant to look for the subject of an arrest warrant in a third party's home, absent consent or exigent circumstances.", "Arrest warrants are not valid in third-party homes.", "Police can enter a third party's home with just an arrest warrant if they knock first."],
+                answer: "Police must have a search warrant to look for the subject of an arrest warrant in a third party's home, absent consent or exigent circumstances.",
+                explanation: "The Court ruled that an arrest warrant protects the named suspect from unreasonable seizure, but a search warrant is required to protect a third party's privacy interest in their own home.",
+                reference: "Handout Page 20: 'entry may only be forced to execute an arrest warrant when the warrant is being executed at the residence where the person named in the arrest warrant lives.'"
+            },
+            {
+                question: "According to *Florida v. Jimeno*, if an officer gets consent to search a car for drugs, does that consent extend to opening a closed paper bag found inside?",
+                options: ["No, they need separate consent for every container.", "Yes, if it is objectively reasonable to believe the scope of the consent permits it.", "Only if the bag is unlocked.", "No, they must get a warrant to open the bag."],
+                answer: "Yes, if it is objectively reasonable to believe the scope of the consent permits it.",
+                explanation: "The Court held that a general consent to search for a specific item (like drugs) reasonably includes searching containers where that item might be found.",
+                reference: "Handout Page 21: 'it is objectively reasonable to believe the scope of the suspect's consent permits the officer to do so.'"
+            },
+            {
+                question: "In *Illinois v. Rodriguez*, police entered an apartment with consent from a woman who had a key but no longer lived there. Why was the search ruled valid?",
+                options: ["Because she had a key, she had legal authority.", "The police reasonably believed she had the authority to consent.", "Any consent is valid consent.", "The evidence found was for a serious felony."],
+                answer: "The police reasonably believed she had the authority to consent.",
+                explanation: "The search was deemed constitutional because the police acted in good faith based on the facts available to them at the time, which indicated the person had authority (apparent authority).",
+                reference: "Handout Page 21: 'A warrantless entry and the subsequent search are valid if the police reasonably believe that the person giving consent has the authority to do so...'"
+            },
+            {
+                question: "Can a landlord give police consent to search a tenant's apartment?",
+                options: ["Yes, at any time.", "Yes, but only the common areas of the building.", "No, a landlord may not consent to a law enforcement search of a rented dwelling.", "Only if the tenant is behind on rent."],
+                answer: "No, a landlord may not consent to a law enforcement search of a rented dwelling.",
+                explanation: "A tenant has a reasonable expectation of privacy in their rented space, and the landlord cannot waive that right on their behalf for a police search.",
+                reference: "Handout Page 21: 'Landlord & hotel/motel clerks & tenants: landlords may NOT consent to a law enforcement search of a rented/paid for dwelling or room.'"
+            },
+            {
+                question: "Two spouses are present at their home. One gives consent to search, but the other spouse, who is also present, objects. Can the police search?",
+                options: ["Yes, if the consenting spouse is the primary owner.", "Yes, the consent of one is sufficient.", "No, the objection of a physically present co-occupant overrides the consent of the other.", "Only if the police have reasonable suspicion."],
+                answer: "No, the objection of a physically present co-occupant overrides the consent of the other.",
+                explanation: "The Supreme Court case *Georgia v. Randolph* established that a warrantless search is unreasonable when one co-occupant consents but another who is physically present objects.",
+                reference: "Handout Page 22: 'What if both are present and one says NO, and one says YES? The answer is NO (Georgia v. Randolph, 2006).'"
+            },
+            {
+                question: "What legal standard do school officials (like a principal) need to search a student, according to *New Jersey v. T.L.O.*? And does this standard apply to a school police officer in Texas?",
+                options: ["Probable Cause; Yes.", "Reasonable Suspicion; Yes.", "Probable Cause; No.", "Reasonable Suspicion; No."],
+                answer: "Reasonable Suspicion; No.",
+                explanation: "School officials operate under the lower standard of reasonable suspicion. However, the handout specifies that in Texas, commissioned school police officers do NOT enjoy this lesser standard and must operate under probable cause.",
+                reference: "Handout Page 23: 'School officials operate under a reasonable suspicion standard. In Texas, school officers DO NOT enjoy the same lesser standard.'"
+            },
+            {
+                question: "An officer sees a person looking into cars in a parking lot at 3 AM and then trying a door handle. At this point, what level of suspicion does the officer have, and what action is justified?",
+                options: ["Probable Cause for arrest.", "Reasonable Suspicion to detain and investigate.", "No suspicion, as no crime has been committed.", "A hunch, allowing the officer only to watch."],
+                answer: "Reasonable Suspicion to detain and investigate.",
+                explanation: "The person's actions (time of day, location, looking into cars, trying a handle) constitute specific, articulable facts that would lead an officer to reasonably suspect criminal activity is afoot, justifying a temporary detention.",
+                reference: "Handout Page 15: Scenario 1 analysis."
+            },
+            {
+                question: "An officer has probable cause to arrest a man for felony theft of a car. The man is inside his sister's house, and the sister refuses consent to enter. What is the officer's correct legal action?",
+                options: ["Enter the house anyway because it's a felony.", "Break down the door based on the arrest authority.", "Secure the residence from the outside and obtain a search warrant for the suspect.", "Leave and hope to catch the suspect later."],
+                answer: "Secure the residence from the outside and obtain a search warrant for the suspect.",
+                explanation: "Based on *Payton* and *Steagald*, officers need a search warrant to enter a third party's home to arrest a suspect, absent consent or exigent circumstances. Securing the perimeter while obtaining the warrant is the proper procedure.",
+                reference: "Handout Page 15 & 20: Scenario 2 analysis applying *Payton* and *Steagald*."
+            },
+            {
+                question: "What is a key duty of the first responding officer at a crime scene?",
+                options: ["Conduct all witness interviews.", "Collect all evidence immediately.", "Protect the crime scene from contamination.", "Notify the media."],
+                answer: "Protect the crime scene from contamination.",
+                explanation: "The first officer's primary responsibilities include making the scene safe and preserving it in its original state as much as possible for later investigation.",
+                reference: "Handout Page 1 & 4: 'Officer duties: ... Protect the crime scene.'"
+            },
+            {
+                question: "When is an officer required to transmit information about a suspect's description and direction of flight for broadcast?",
+                options: ["After the report is written.", "Only for felony cases.", "In eyewitness cases for just-occurred offenses.", "After evidence has been collected."],
+                answer: "In eyewitness cases for just-occurred offenses.",
+                explanation: "Broadcasting this information quickly is critical for the potential apprehension of a fleeing suspect by other responding units.",
+                reference: "Handout Page 1 & 4: 'In eyewitness cases, secure a description of the perpetrator... and transmit information to dispatcher for broadcast to other units.'"
+            },
+            {
+                question: "What is the purpose of establishing defined entry and exit points at a crime scene?",
+                options: ["To make it look more official.", "To minimize loss, destruction, and contamination of evidence.", "To direct media to a specific area.", "To make it easier for supervisors to find the lead officer."],
+                answer: "To minimize loss, destruction, and contamination of evidence.",
+                explanation: "Controlling access to the scene via a single path (crime scene corridor) prevents the introduction of new material and the destruction of existing evidence by unnecessary foot traffic.",
+                reference: "Handout Page 5: 'Establish defined entry and exit points to minimize loss, destruction, and contamination of evidence.'"
+            },
+            {
+                question: "What legal authority allows a peace officer to secure a crime scene and prevent unauthorized entry?",
+                options: ["Only the property owner's permission.", "Departmental policy alone.", "Statutes like PC 38.15 (Interference with Public Duties) and the officer's duty to prevent injury under CCP 6.06.", "The Fourth Amendment."],
+                answer: "Statutes like PC 38.15 (Interference with Public Duties) and the officer's duty to prevent injury under CCP 6.06.",
+                explanation: "Officers have statutory authority to control a scene to perform their duties. A person who crosses a police line or otherwise interferes can be arrested under specific penal code sections.",
+                reference: "Handout Page 5: 'STATUTES TO PROTECT CRIME SCENES... 38.15 Interference with Public Duties... Peace officer to prevent injury - Code of Criminal Procedure Chapter 6.06.'"
+            },
+            {
+                question: "If a person is alive but has a serious bodily injury, what is the first step in identifying them?",
+                options: ["Search their pockets for a wallet.", "If they are conscious, obtain identification and information about next of kin.", "Wait for detectives to arrive.", "Take their fingerprints."],
+                answer: "If they are conscious, obtain identification and information about next of kin.",
+                explanation: "Direct communication is the simplest and most effective method if the person is able to respond. This is prioritized before searching their belongings.",
+                reference: "Handout Page 6: 'ID-Serious Bodily Injury: If person is alive and conscious, obtain identification and information about next of kin.'"
+            },
+            {
+                question: "What is a 'Show-up' or 'Field ID'?",
+                options: ["Having a witness identify a suspect from a photo lineup at the station.", "A procedure where a witness is driven to a suspect's location shortly after the crime to see if they can make an identification.", "Showing a witness a single photo of a potential suspect.", "Asking a witness to describe the suspect to a sketch artist."],
+                answer: "A procedure where a witness is driven to a suspect's location shortly after the crime to see if they can make an identification.",
+                explanation: "This is a time-sensitive identification procedure used when a suspect is detained near the time and location of an offense. The handout notes it can be controversial if done improperly.",
+                reference: "Handout Page 7: 'Show-up/Field IDs? Controversial if done incorrectly.'"
+            },
+            {
+                question: "Which of the following is an example of an 'exigent circumstance' that would justify a warrantless search or entry?",
+                options: ["The need to get a report finished before the end of a shift.", "A belief that evidence might be destroyed in the time it takes to get a warrant.", "A desire to interview a suspect quickly.", "A general suspicion that a crime has occurred."],
+                answer: "A belief that evidence might be destroyed in the time it takes to get a warrant.",
+                explanation: "The imminent destruction of evidence is a well-recognized exigency that allows police to act without a warrant to prevent its loss.",
+                reference: "Handout Page 14 & 25: 'Exigent Circumstances: Prevent the imminent destruction or loss of evidence.'"
+            },
+            {
+                question: "According to CCP 15.26, does an officer need to have the physical arrest warrant in their possession at the time of the arrest?",
+                options: ["Yes, the arrest is invalid without it.", "No, provided the warrant was properly issued, but they must inform the defendant of the offense and that a warrant exists.", "No, and they do not have to inform the defendant about the warrant.", "Only for felony warrants."],
+                answer: "No, provided the warrant was properly issued, but they must inform the defendant of the offense and that a warrant exists.",
+                explanation: "This rule allows for efficient law enforcement, such as when multiple officers are looking for a suspect, while still protecting the defendant's right to be informed of the charges.",
+                reference: "Handout Page 19: 'The officer need not have the warrant in his possession at the time of the arrest... he shall then inform the defendant of the offense charged and of the fact that a warrant has been issued.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.15.htm#15.26' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 15.26</a>"
+            },
+            {
+                question: "When does an arrest warrant and its supporting affidavit become public information?",
+                options: ["As soon as it is signed by a magistrate.", "Immediately when the warrant is executed.", "Never, it is always confidential.", "Only after the case goes to trial."],
+                answer: "Immediately when the warrant is executed.",
+                explanation: "Once the warrant has been served (executed), the need for secrecy is gone, and the documents become public record to ensure transparency.",
+                reference: "Handout Page 19: '...beginning immediately when the warrant is executed the magistrate's clerk shall make a copy of the warrant and the affidavit available for public inspection...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.15.htm#15.26' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 15.26</a>"
+            },
+            {
+                question: "A parent calls police because their 18-year-old son, who lives with them, may have drugs in his room. Can the parents consent to a search of the 18-year-old's room?",
+                options: ["Yes, because they own the house.", "Yes, because he is their son.", "No, because the son is an adult (17+ in Texas for this purpose), he must be the one to consent.", "Only if the son is not present to object."],
+                answer: "No, because the son is an adult (17+ in Texas for this purpose), he must be the one to consent.",
+                explanation: "While parents can generally consent to a search of a minor child's room, an 18-year-old is an adult and retains a reasonable expectation of privacy in their personal space that parents cannot waive for a police search.",
+                reference: "Handout Page 21 & 24: 'So, at 17, their \"child\" must consent before a Law Enforcement search.'"
+            },
+            {
+                question: "A private security guard at Target sees a woman shoplift and stops her outside. He calls the police. Is the security guard's action considered 'government action' subject to the 4th Amendment?",
+                options: ["Yes, because he is acting like a police officer.", "Yes, because he called the police.", "No, the 4th Amendment is inapplicable to purely private, non-governmental action.", "Only if he reads her Miranda rights."],
+                answer: "No, the 4th Amendment is inapplicable to purely private, non-governmental action.",
+                explanation: "The 4th Amendment protects citizens from unreasonable searches and seizures *by the government*. Actions taken by a private citizen or private security are not bound by the same constitutional constraints.",
+                reference: "Handout Page 22: 'The Fourth Amendment is completely inapplicable in situations where purely private, non-governmental action is involved.'"
+            },
+            {
+                question: "An officer arrests a subject outside his house and places him in a patrol car. The officer then asks for and receives verbal consent to search the house. The subject remains secured in the car while the search occurs. What is the primary legal issue with this consent?",
+                options: ["The consent should have been in writing.", "The subject was not in a position to revoke consent at any time.", "The officer did not have probable cause for the search.", "The search was not related to the arrest."],
+                answer: "The subject was not in a position to revoke consent at any time.",
+                explanation: "For consent to be valid throughout a search, the consenter must be able to limit the scope or revoke it entirely. Securing the person in a patrol car away from the search area effectively removes that ability, making the consent questionable.",
+                reference: "Handout Page 21 & 24: 'Consenter remains in control: they may limit the scope or revoke it entirely, so they must be in a position to revoke it at anytime.'"
+            },
+            {
+                question: "An officer has an arrest warrant for John Smith. He goes to the house of Jane Doe, believing Smith is inside. Doe refuses entry. What must the officer do?",
+                options: ["Force entry based on the arrest warrant.", "Arrest Jane Doe for obstruction.", "Secure the location and obtain a search warrant for Smith at Doe's residence.", "Leave and file a new report."],
+                answer: "Secure the location and obtain a search warrant for Smith at Doe's residence.",
+                explanation: "This is a direct application of the *Steagald* ruling. The arrest warrant is for a person, not a place. To enter a third party's private residence, a search warrant is required.",
+                reference: "Handout Page 20: *Steagald* analysis."
+            },
+            {
+                question: "The 'Community Caretaking' function is an exception to the warrant requirement. Which of these scenarios best fits that exception?",
+                options: ["Searching a car for drugs after a traffic stop.", "Entering a home to investigate a noise complaint.", "Forcing entry into a home after seeing smoke and hearing no response, to check for occupants.", "Stopping someone on the street to ask for directions."],
+                answer: "Forcing entry into a home after seeing smoke and hearing no response, to check for occupants.",
+                explanation: "Community Caretaking applies to situations where an officer's action is not for criminal investigation, but to provide emergency aid or assistance to someone in distress.",
+                reference: "Handout Page 14 & 25: Lists 'Community Caretaking' as a Situational Exception."
+            },
+            {
+                question: "Under CCP 14.03, a peace officer SHALL arrest, without a warrant, for which offense if it is committed in their presence?",
+                options: ["Public Intoxication", "Theft under $100", "Violation of a Protective Order (PC 25.07)", "Disorderly Conduct"],
+                answer: "Violation of a Protective Order (PC 25.07)",
+                explanation: "The statute uses the mandatory 'shall arrest' language for in-presence protective order violations, removing officer discretion and emphasizing the seriousness of the offense.",
+                reference: "Handout Page 10: 'A peace officer shall arrest, without a warrant, a person the peace officer has probable cause to believe has committed an offense under Section 25.07, Penal Code, if the offense is committed in the presence of the peace officer.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.14.htm#14.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 14.03(b)</a>"
+            },
+            {
+                question: "An officer pulls over a car for a traffic violation and develops probable cause to believe there is contraband in the trunk. This falls under which exception to the warrant requirement?",
+                options: ["Search Incident to Arrest", "Plain View Doctrine", "PC and mobile vehicles (The 'Automobile Exception')", "Inventory Search"],
+                answer: "PC and mobile vehicles (The 'Automobile Exception')",
+                explanation: "The inherent mobility of a vehicle creates an exigency, allowing for a warrantless search of the vehicle based on probable cause that it contains evidence of a crime.",
+                reference: "Handout Page 14 & 25: Lists 'PC and mobile vehicles' as a Situational Exception."
+            },
+            {
+                question: "What is the purpose of the Critical Decision-Making Model (CDM) as applied to call responses in the handout?",
+                options: ["To ensure reports are written correctly.", "To provide a framework for officers to assess situations, make safe and effective decisions, and review their actions.", "To determine the correct criminal charge for an offense.", "To decide if a warrant is needed."],
+                answer: "To provide a framework for officers to assess situations, make safe and effective decisions, and review their actions.",
+                explanation: "The CDM is a tool for thinking through a critical incident, from gathering information to assessing threats, considering options, acting, and reviewing the outcome.",
+                reference: "Handout Page 7 & 8: 'Let's Apply the CDM to Call Responses' and subsequent analysis slides."
+            },
+            {
+                question: "An officer arrests a person and is about to tow their car. The officer conducts an inventory of the car's contents. What is the primary purpose of this 'Inventory Search'?",
+                options: ["To find evidence of other crimes.", "To protect the owner's property, protect the police from claims of theft, and ensure officer safety.", "To punish the driver for the offense.", "To see if the car is stolen."],
+                answer: "To protect the owner's property, protect the police from claims of theft, and ensure officer safety.",
+                explanation: "An inventory search is an administrative, not an investigatory, procedure. It must follow departmental policy and its purpose is caretaking, not searching for evidence (though evidence found in plain view during the inventory can be seized).",
+                reference: "Handout Page 14 & 25: Lists 'Inventory searches' as a Situational Exception."
+            },
+            {
+                question: "A person is arrested for a non-family violence assault. Under CCP 14.03, an officer can make a warrantless arrest even if the offense was not in their presence if they have PC to believe an assault with bodily injury occurred and what other condition exists?",
+                options: ["The victim agrees to press charges.", "There is probable cause to believe there is a danger of further bodily injury to the victim.", "The suspect has a prior criminal record.", "The assault happened within the last hour."],
+                answer: "There is probable cause to believe there is a danger of further bodily injury to the victim.",
+                explanation: "This exception allows officers to intervene and make a warrantless arrest in assault cases where there is an ongoing threat to the victim's safety, even if the initial assault wasn't witnessed.",
+                reference: "Handout Page 10: CCP 14.03(a)(2) - 'persons who the peace officer has probable cause to believe have committed an assault resulting in bodily injury... and... believe that there is danger of further bodily injury...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.14.htm#14.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 14.03</a>"
+            },
+            {
+                question: "An officer is lawfully inside a house and sees a bag of cocaine on a coffee table. What exception to the warrant requirement allows the officer to seize the cocaine?",
+                options: ["Consent Search", "Plain View Doctrine", "Exigent Circumstances", "Search Incident to Arrest"],
+                answer: "Plain View Doctrine",
+                explanation: "The Plain View Doctrine allows an officer to seize contraband without a warrant if: 1) the officer is lawfully in the location from which the object can be viewed, and 2) the incriminating character of the object is immediately apparent.",
+                reference: "Handout Page 9, 13, 14, 25: Lists 'Plain View' as a warrantless search reason/exception."
+            },
+            {
+                question: "What is the legal justification for an officer to temporarily disarm a person they reasonably believe is a threat, according to CCP 14.03(h)?",
+                options: ["The officer's personal comfort.", "The protection of the person, the officer, or another individual.", "Anytime a person is carrying a firearm.", "Only if the person has committed a crime."],
+                answer: "The protection of the person, the officer, or another individual.",
+                explanation: "This statute allows for temporary disarming based on a reasonable belief of a threat, prioritizing immediate safety for everyone involved in the contact.",
+                reference: "Handout Page 11: CCP 14.03(h)(1) - 'officer reasonably believes it is necessary for the protection of the person, officer, or another individual.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.14.htm#14.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 14.03</a>"
+            },
+            {
+                question: "What is the primary purpose of a 'Weapon Frisk' or 'Terry Frisk'?",
+                options: ["To search for any and all evidence of a crime.", "A limited pat-down of the outer clothing for weapons.", "To identify the person being detained.", "To search for contraband like drugs."],
+                answer: "A limited pat-down of the outer clothing for weapons.",
+                explanation: "A frisk is not a search for evidence. It is a protective measure based on reasonable suspicion that the person is armed and dangerous, and it is strictly limited in scope to what is necessary to find weapons.",
+                reference: "Handout Page 14 & 25: Lists 'Weapon Frisks & Protective sweeps' as a Situational Exception."
+            },
+            {
+                question: "A magistrate may issue a summons instead of an arrest warrant. What happens if a defendant fails to appear in response to a summons?",
+                options: ["The case is dismissed.", "A warrant shall be issued for their arrest.", "Another summons is mailed.", "A civil penalty is assessed."],
+                answer: "A warrant shall be issued for their arrest.",
+                explanation: "A summons is a less intrusive way to compel a court appearance, but failure to comply results in the issuance of a more forceful tool: the arrest warrant.",
+                reference: "Handout Page 18: CCP 15.03(b) - 'If a defendant fails to appear in response to the summons a warrant shall be issued.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.15.htm#15.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 15.03</a>"
+            },
+            {
+                question: "What are the three requisites of an Arrest Warrant as listed in CCP 15.02?",
+                options: ["Victim's name, Judge's signature, Date of offense.", "Name/description of the accused, Name of the offense, Signed by a magistrate.", "Officer's name, Location of arrest, Bond amount.", "Case number, Court name, Prosecutor's signature."],
+                answer: "Name/description of the accused, Name of the offense, Signed by a magistrate.",
+                explanation: "These three elements are essential for a warrant to be legally sufficient: it must identify who is to be arrested, what they are accused of, and that it comes from a proper legal authority.",
+                reference: "Handout Page 17: CCP 15.02 lists the requisites.<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.15.htm#15.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 15.02</a>"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>

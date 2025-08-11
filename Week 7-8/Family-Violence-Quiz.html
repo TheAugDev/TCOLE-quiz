@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Violence Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">    
+    <!-- Back to Portal Button -->
+    <div class="fixed top-4 left-4 z-50">
+        <a href="../index.html" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span class="font-medium">Back to Portal</span>
+        </a>
+    </div>
+<div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Family Violence Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This final, exhaustive practice quiz contains 52 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "According to the handout, why should officers use the term 'family violence' instead of 'domestic violence'?",
+                options: ["'Domestic violence' is an outdated term.", "Texas law defines and uses 'family violence', and there is no legal definition for 'domestic violence'.", "'Family violence' sounds more professional in reports.", "They are interchangeable terms with the same legal meaning."],
+                answer: "Texas law defines and uses 'family violence', and there is no legal definition for 'domestic violence'.",
+                explanation: "Using the correct legal terminology is crucial for accurate reporting and prosecution.",
+                reference: "Handout Page 1: 'Note to the instructor: Students should be instructed to use the term \"family\" rather than \"domestic\" violence because Texas law defines and uses family violence and there is no legal definition for domestic violence.'"
+            },
+            {
+                question: "Which of the following is NOT listed as a common characteristic of family violence offenders?",
+                options: ["Poor self-image and self-esteem.", "Blames actions/violence on others.", "Is always unemployed and lacks education.", "May appear successful but feels internally inadequate."],
+                answer: "Is always unemployed and lacks education.",
+                explanation: "The handout explicitly states that offenders come from all walks of life, including varying occupations and education levels.",
+                reference: "Handout Page 1 & 2: 'Victims/suspects may come from all walks of life, varying in... Occupations and economic levels... education levels.'"
+            },
+            {
+                question: "Which model for explaining family violence do victims report as being more realistic than the 'Cycle of Violence'?",
+                options: ["The Learned Behavior Model", "The Stress and Lack of Control Model", "The Power & Control Wheel", "The Cultural Model"],
+                answer: "The Power & Control Wheel",
+                explanation: "The Power & Control Wheel is preferred because it better describes the various coercive behaviors used to maintain control, which victims find more relatable.",
+                reference: "Handout Page 3: 'Victims of family violence have reported that the cycle of violence does not accurately describe their experiences but that the Power and Control Wheel does.'"
+            },
+            {
+                question: "Which of the following is an example of 'Emotional Abuse' as defined in the handout?",
+                options: ["Shoving or grabbing", "Forced sex after a beating", "Withholding affection or constant allegations of infidelity", "Stomping or kicking"],
+                answer: "Withholding affection or constant allegations of infidelity",
+                explanation: "Emotional abuse involves non-physical acts intended to harm, control, or degrade a person's mental and emotional state.",
+                reference: "Handout Page 4: Lists 'Withholding affection', 'Verbal abuse: name calling, constant allegations of infidelity' under Emotional Abuse."
+            },
+            {
+                question: "According to PC 22.01, an assault charge is enhanced from a Class A misdemeanor to a third-degree felony in a family violence case if the offense is committed by:",
+                options: ["Using a deadly weapon.", "Causing serious bodily injury.", "Intentionally, knowingly, or recklessly impeding the normal breathing or circulation of the blood.", "Having a prior conviction for any type of assault."],
+                answer: "Intentionally, knowingly, or recklessly impeding the normal breathing or circulation of the blood.",
+                explanation: "The law specifically elevates the crime of strangulation due to its high potential for lethality and its role as an indicator of future, more severe violence.",
+                reference: "Handout Page 5 & 6: 'Enhanced penalty from a Class A to a 3rd degree when the family violence offense causes pain by... impeding the normal breathing or circulation of the blood...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.01(b)(2)(B)</a>"
+            },
+            {
+                question: "What is the correct term to use in a report for impeding breathing by applying pressure to the throat, and why?",
+                options: ["Choking, because it's a commonly understood term.", "Asphyxiation, because it's a medical term.", "Strangulation, because 'choking' has accidental connotations.", "Suffocation, because it describes the lack of air."],
+                answer: "Strangulation, because 'choking' has accidental connotations.",
+                explanation: "Using the precise legal term 'strangulation' emphasizes the intentional and criminal nature of the act, which is crucial for prosecution.",
+                reference: "Handout Page 6: 'Strangulation is a better term for reports than choking (accidental connotations).'"
+            },
+            {
+                question: "Under PC 25.11, Continuous Violence Against the Family, a person commits a third-degree felony if they commit how many Class A family violence assaults within what time period?",
+                options: ["3 or more assaults within a 24-month period.", "2 or more assaults within a 12-month period.", "2 or more assaults within a 24-month period.", "3 or more assaults within a 12-month period."],
+                answer: "2 or more assaults within a 12-month period.",
+                explanation: "This statute allows prosecutors to charge a felony based on a pattern of recent abuse, even if the individual incidents were only misdemeanors.",
+                reference: "Handout Page 7: 'offenders who commit 2 or more family violence Class A assaults within a 12-month period... This is a 3rd degree felony.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.11' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 25.11</a>"
+            },
+            {
+                question: "A man is arrested for Assault BI FV (Class A). Records show he was convicted for the same offense against the same victim 18 months ago. Can he be charged with Continuous Violence Against the Family?",
+                options: ["Yes, because it's his second offense.", "Yes, because the victim is the same.", "No, because the prior offense was outside the 12-month window.", "No, because the prior offense must be a felony."],
+                answer: "No, because the prior offense was outside the 12-month window.",
+                explanation: "PC 25.11 requires that two or more assaults occur *within* a 12-month period. An offense from 18 months ago does not qualify for this specific charge.",
+                reference: "Handout Page 7: '...during a period that is 12 months or less in duration, the person two or more times engages in conduct that constitutes an offense under Section 22.01(a)(1)...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.11' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 25.11</a>"
+            },
+            {
+                question: "According to the Family Code, which of the following relationships falls under the definition of 'Family'?",
+                options: ["Two roommates living together for over a year.", "Two business partners.", "Individuals who are the parents of the same child, regardless of marriage.", "Two close friends who consider each other family."],
+                answer: "Individuals who are the parents of the same child, regardless of marriage.",
+                explanation: "The legal definition of 'family' is specific and includes relationships by blood, marriage, former marriage, and shared parentage.",
+                reference: "Handout Page 8: FC 71.003 - '\"Family\" includes... individuals who are the parents of the same child, without regard to marriage...'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.71.htm#71.003' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 71.003</a>"
+            },
+            {
+                question: "What is the key legal distinction between 'Family' under FC 71.003 and 'Household' under FC 71.005?",
+                options: ["'Family' requires a blood or marriage relationship, while 'Household' requires living together.", "'Household' only applies to married couples, while 'Family' is broader.", "There is no legal distinction; the terms are used interchangeably.", "'Family' requires children, while 'Household' does not."],
+                answer: "'Family' requires a blood or marriage relationship, while 'Household' requires living together.",
+                explanation: "'Family' is defined by specific relationships (blood, marriage, shared parentage) regardless of residence. 'Household' is defined by the act of living together, regardless of the relationship.",
+                reference: "Handout Page 8: Compare FC 71.003 ('Family') and FC 71.005 ('Household').<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.71.htm' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code Chapter 71</a>"
+            },
+            {
+                question: "What is a key factor in determining if a relationship constitutes a 'dating relationship' under the Family Code?",
+                options: ["If the individuals have exchanged gifts.", "If they have been on at least three dates.", "The length, nature, and frequency of interaction.", "If their parents have met."],
+                answer: "The length, nature, and frequency of interaction.",
+                explanation: "The law requires consideration of multiple factors to distinguish a romantic or intimate relationship from a casual acquaintance.",
+                reference: "Handout Page 8: FC 71.0021(b) - 'The existence of such a relationship shall be determined based on consideration of: (1) the length of the relationship; (2) the nature of the relationship; and (3) the frequency and type of interaction...'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.71.htm#71.0021' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 71.0021</a>"
+            },
+            {
+                question: "If an officer cannot identify a 'primary aggressor' in a family violence call with mutual injuries, what is a major negative consequence of arresting both parties?",
+                options: ["It requires more paperwork.", "It disqualifies victims from receiving crime victim compensation and access to emergency shelters.", "It violates departmental policy.", "It guarantees both cases will be dismissed."],
+                answer: "It disqualifies victims from receiving crime victim compensation and access to emergency shelters.",
+                explanation: "A dual arrest can inadvertently punish the victim by cutting them off from essential support services, potentially reinforcing the abuser's control.",
+                reference: "Handout Page 9: 'This disqualifies victims from receiving crime victim compensation, access to emergency shelters, and other public benefits.'"
+            },
+            {
+                question: "According to PC 9.31, the use of force in self-defense is NOT justified in response to what?",
+                options: ["A physical shove.", "An attempted punch.", "Verbal provocation alone.", "A threat of imminent bodily injury."],
+                answer: "Verbal provocation alone.",
+                explanation: "The law requires an actual or attempted use of unlawful force by the other person to justify using force in self-defense; words alone are not enough.",
+                reference: "Handout Page 10: PC 9.31(b)(1) - 'The use of force against another is not justified: in response to verbal provocation alone'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.31' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.31</a>"
+            },
+            {
+                question: "Which of the following is listed as a typical self-defense injury left by a victim on an attacker?",
+                options: ["Bruises on the victim's back.", "A single, clean cut.", "Bite marks on the inside of the arms, chest, or neck.", "A broken bone in the victim's hand."],
+                answer: "Bite marks on the inside of the arms, chest, or neck.",
+                explanation: "Defensive injuries on an attacker often appear in locations accessible during a close struggle, such as scratches and bite marks.",
+                reference: "Handout Page 12: 'Typical self-defense injuries left by victim on the attacker's body include... bite marks on the inside of the arms, chest, or neck.'"
+            },
+            {
+                question: "What is a primary duty of a peace officer investigating a family violence allegation, according to CCP 5.04?",
+                options: ["To provide marriage counseling.", "To determine who started the argument.", "To protect any potential victim and make lawful arrests.", "To issue a citation and leave."],
+                answer: "To protect any potential victim and make lawful arrests.",
+                explanation: "The law prioritizes victim safety and enforcement of the law above all other actions at the scene of a family violence call.",
+                reference: "Handout Page 13: CCP 5.04(a) - 'The primary duties... are to protect any potential victim of family violence, enforce the law of this state... and make lawful arrests of violators.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.5.htm#5.04' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 5.04</a>"
+            },
+            {
+                question: "When can an officer legally enter a residence during a family violence call without consent?",
+                options: ["Anytime they hear shouting.", "If they have a 'hunch' something is wrong.", "Under 'exigent circumstances' requiring immediate action.", "Only if the 911 caller explicitly invited them in."],
+                answer: "Under 'exigent circumstances' requiring immediate action.",
+                explanation: "Exigent circumstances, such as hearing sounds of a struggle or cries for help, provide a legal exception to the warrant requirement for entry to prevent immediate harm.",
+                reference: "Handout Page 13: '\"Exigent circumstances\" requiring entry without consent. Exigent = \"requiring immediate action\".'"
+            },
+            {
+                question: "According to the handout, what is a suggested best practice for documenting family violence incidents?",
+                options: ["Only document the victim's statement.", "Only take photos if there are severe injuries.", "Gather evidence as though the case will go to court.", "Write the report after leaving the scene to decompress."],
+                answer: "Gather evidence as though the case will go to court.",
+                explanation: "This approach ensures that the report is thorough and contains all necessary elements for a successful prosecution, even if the victim later becomes uncooperative.",
+                reference: "Handout Page 14: 'Suggested Best Practice: Gather evidence as though the case will go to court.'"
+            },
+            {
+                question: "Under CCP 5.045, Standby Assistance, an officer is providing protection while a victim retrieves property. The victim begins taking a shared TV. What is the officer's liability if the suspect later claims theft?",
+                options: ["The officer is criminally liable as an accomplice.", "The officer is not civilly or criminally liable for the victim's appropriation of property.", "The officer is civilly liable for the value of the TV.", "The officer must be named in a civil suit but will be cleared."],
+                answer: "The officer is not civilly or criminally liable for the victim's appropriation of property.",
+                explanation: "This article provides legal protection ('immunity') for officers who are present to keep the peace, ensuring they aren't held responsible for civil disputes over property.",
+                reference: "Handout Page 15: CCP 5.045(b)(2) - 'A peace officer... is not... civilly or criminally liable for the wrongful appropriation of any personal property by the victim.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.5.htm#5.045' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 5.045</a>"
+            },
+            {
+                question: "According to CCP 5.05, what information must be included in a written family violence report?",
+                options: ["The marital status of the parties.", "The names of the suspect and complainant, date, time, location, injuries, and disposition.", "A history of all prior police calls to the residence.", "The estimated value of any property damage."],
+                answer: "The names of the suspect and complainant, date, time, location, injuries, and disposition.",
+                explanation: "The law mandates specific, essential details be included in every family violence report to ensure completeness for legal and statistical purposes.",
+                reference: "Handout Page 16: CCP 5.05(a) - Lists '(1) the names of the suspect and complainant; (2) the date, time, and location... (3) any visible or reported injuries; (4) a description of the incident and a statement of its disposition...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.5.htm#5.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 5.05</a>"
+            },
+            {
+                question: "If a suspect in a family violence incident is identified as a member of the U.S. military, what action is required of the peace officer?",
+                options: ["Contact the suspect's commanding officer directly.", "Provide written notice to the staff judge advocate or provost marshal of the suspect's installation.", "Handle the call with no special notifications.", "Notify the Department of Defense."],
+                answer: "Provide written notice to the staff judge advocate or provost marshal of the suspect's installation.",
+                explanation: "This procedure ensures that the military's chain of command is officially notified through the proper legal channels.",
+                reference: "Handout Page 16: CCP 5.05(a-2) - 'the peace officer shall provide written notice of the incident... to the staff judge advocate... or the provost marshal...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.5.htm#5.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 5.05</a>"
+            },
+            {
+                question: "An officer investigates a family violence allegation at a licensed foster home. According to CCP 5.05, what is the required timeframe for making a report to DFPS?",
+                options: ["Within 72 hours.", "Within 48 hours.", "Within 24 hours of the beginning of the investigation.", "By the end of the officer's shift."],
+                answer: "Within 24 hours of the beginning of the investigation.",
+                explanation: "The short timeframe reflects the urgency of protecting potentially vulnerable children in the foster care system.",
+                reference: "Handout Page 16: CCP 5.05(a-1)(2) - 'be filed with the Department of Family and Protective Services within 24 hours of the beginning of the investigation or receipt of the disturbance call.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.5.htm#5.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 5.05</a>"
+            },
+            {
+                question: "Under Property Code 92.016, a victim of family violence may terminate a lease early if they provide a 30-day notice and what other documentation?",
+                options: ["A personal letter explaining the situation.", "A police report number.", "A temporary ex parte order, final protective order, or temporary injunction.", "A letter from a family member."],
+                answer: "A temporary ex parte order, final protective order, or temporary injunction.",
+                explanation: "The law requires official court documentation of the family violence to justify the early termination of a lease without penalty.",
+                reference: "Handout Page 18: 'Allows a FV victim... to terminate a lease with both a: 30-day notice and Temporary ex parte order, final protective order, or temporary injunction.'<br><a href='https://statutes.capitol.texas.gov/Docs/PR/htm/PR.92.htm#92.016' target='_blank' class='text-indigo-600 hover:underline'>Texas Property Code § 92.016</a>"
+            },
+            {
+                question: "The Violence Against Women Act (VAWA) allows a battered immigrant to report abuse without fear of deportation if their abuser is a:",
+                options: ["Another undocumented immigrant.", "A person on a work visa.", "A U.S. citizen or lawful permanent resident spouse.", "Any person living in the United States."],
+                answer: "A U.S. citizen or lawful permanent resident spouse.",
+                explanation: "VAWA provides specific protections for immigrants who are abused by a spouse with legal status, preventing the abuser from using immigration status as a tool of control.",
+                reference: "Handout Page 19: 'Battered immigrants can report abuse without fear of deportation if \"battered or subject to extreme cruelty by a citizen or lawful permanent resident spouse.\"'<br><a href='https://www.uscis.gov/humanitarian/battered-spouse-children-and-parents' target='_blank' class='text-indigo-600 hover:underline'>USCIS VAWA Information</a>"
+            },
+            {
+                question: "Which is NOT a reason listed for a victim staying with an abuser?",
+                options: ["They are economically and emotionally dependent.", "They enjoy the cycle of violence.", "They fear retribution if they try to leave.", "They have religious or cultural beliefs that reinforce staying."],
+                answer: "They enjoy the cycle of violence.",
+                explanation: "Victims stay for complex reasons rooted in fear, dependency, and hope for change, not because they enjoy the abuse.",
+                reference: "Handout Page 2: 'Reasons They May Stay with the Abuser' section lists dependency, fear, hope, and beliefs."
+            },
+            {
+                question: "What is a common characteristic of a family violence offender's public persona versus their private one?",
+                options: ["They are always angry and hateful to everyone.", "They are shy in public but outgoing at home.", "They can be a 'public charmer' during periods of nonviolence.", "They treat everyone with the same level of aggression."],
+                answer: "They can be a 'public charmer' during periods of nonviolence.",
+                explanation: "This duality is a key characteristic, as the abuser often presents a pleasant facade to the outside world, which can make it harder for victims to be believed.",
+                reference: "Handout Page 2: 'Different in public than home: public charmer during periods of nonviolence.'"
+            },
+            {
+                question: "Which of the victim's reactions to abuse involves creating consequences, such as exposing the abuse to police or seeking outside help?",
+                options: ["Coping", "Managing", "Surviving", "Resisting"],
+                answer: "Resisting",
+                explanation: "Resisting is the active phase where the victim takes steps to stop the abuse or escape the situation.",
+                reference: "Handout Page 3: 'Resisting: create consequences for the abuse. Expose it to the police for arrest. Seek outside help.'"
+            },
+            {
+                question: "Under CCP 14.03, when does an officer have the authority to make a warrantless arrest for a violation of a protective order?",
+                options: ["Only if the violation occurs in their presence.", "If they have probable cause the violation occurred, even if not in their presence.", "Only if the victim signs a complaint.", "Only after getting a supervisor's approval."],
+                answer: "If they have probable cause the violation occurred, even if not in their presence.",
+                explanation: "The law grants officers specific authority to make a warrantless arrest for PO violations based on probable cause to ensure immediate protection for the victim.",
+                reference: "Handout Page 5: 'PC for a Protective Order Violation, not in his presence.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.14.htm#14.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 14.03(b)</a>"
+            },
+            {
+                question: "An assault by a family member with a previous conviction for a family violence assault can be enhanced to what penalty level?",
+                options: ["It remains a Class A Misdemeanor.", "A State Jail Felony.", "A third-degree or second-degree felony.", "A first-degree felony."],
+                answer: "A third-degree or second-degree felony.",
+                explanation: "The law escalates penalties for repeat offenders to reflect the ongoing pattern of violence.",
+                reference: "Handout Page 5 & 6: 'Previous family violence convictions: penalties increased to 2nd degrees & 3rd degrees for previous Class A convictions.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.01(b)(2)(A) & (b-3)</a>"
+            },
+            {
+                question: "What symptom might a victim of strangulation display at the scene that could be misinterpreted by an officer?",
+                options: ["Calmness and clarity.", "Appearing to be under the influence of drugs or alcohol.", "Asking to file a report immediately.", "Having no visible injuries."],
+                answer: "Appearing to be under the ainfluence of drugs or alcohol.",
+                explanation: "Hypoxia (lack of oxygen to the brain) from strangulation can cause symptoms like restlessness or hostility, which can mimic intoxication.",
+                reference: "Handout Page 7: 'May appear to be under influence of drugs or alcohol. May appear to have stroke like symptoms.'"
+            },
+            {
+                question: "In the context of the Power & Control Wheel, what does 'Using Children' refer to?",
+                options: ["Teaching children to be respectful.", "Using the children to relay messages or making the victim feel guilty about the children.", "Playing games with the children.", "Providing for the children's needs."],
+                answer: "Using the children to relay messages or making the victim feel guilty about the children.",
+                explanation: "This is a manipulation tactic where the abuser uses the children as pawns to control or emotionally harm the victim.",
+                reference: "Handout Page 3: The Power & Control Wheel lists 'Using Children' as a category of coercive behavior."
+            },
+            {
+                question: "What is the definition of 'Household' under the Family Code?",
+                options: ["Any group of people living under one roof.", "A unit composed of persons living together in the same dwelling, regardless of relationship.", "Only individuals related by blood or marriage living together.", "A temporary living arrangement like a hotel room."],
+                answer: "A unit composed of persons living together in the same dwelling, regardless of relationship.",
+                explanation: "This broad definition means that family violence laws can apply to roommates or other cohabitants, not just traditional family members.",
+                reference: "Handout Page 8: FC 71.005 - '\"Household\" means a unit composed of persons living together in the same dwelling, without regard to whether they are related to each other.'<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.71.htm#71.005' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 71.005</a>"
+            },
+            {
+                question: "When identifying the predominant aggressor, which question should an officer consider?",
+                options: ["Who is more upset?", "Who called 911 first?", "Do the injuries on one person appear to be the result of self-defense?", "Who is willing to be arrested?"],
+                answer: "Do the injuries on one person appear to be the result of self-defense?",
+                explanation: "Analyzing the nature and location of injuries is a key investigative step in determining who was the aggressor and who was defending themselves.",
+                reference: "Handout Page 12: 'Do injuries appear to be the result of self-defense?'"
+            },
+            {
+                question: "A victim makes a frantic 911 call describing an ongoing assault. Later, at the station, she gives a calm, detailed written statement. How would a court likely classify each statement?",
+                options: ["Both are testimonial.", "Both are non-testimonial.", "The 911 call is non-testimonial; the station statement is testimonial.", "The 911 call is testimonial; the station statement is non-testimonial."],
+                answer: "The 911 call is non-testimonial; the station statement is testimonial.",
+                explanation: "Statements made to address an ongoing emergency (the 911 call) are considered non-testimonial. Statements made later for the purpose of investigation and prosecution (the station statement) are testimonial.",
+                reference: "Handout Page 15: Defines Non-testimonial vs. Testimonial statements."
+            },
+            {
+                question: "Under CCP 5.04, officers responding to a family violence call must provide a possible adult victim with what?",
+                options: ["A ride to a hotel.", "The suspect's phone number.", "A written notice of victim rights.", "A personal opinion on the relationship."],
+                answer: "A written notice of victim rights.",
+                explanation: "This is a mandatory duty to ensure victims are officially informed of their legal rights and the community resources available to them.",
+                reference: "Handout Page 13: CCP 5.04(b) - 'shall advise any possible adult victim of all reasonable means to prevent further family violence, including by providing the written notice...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.5.htm#5.04' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 5.04</a>"
+            },
+            {
+                question: "What is a key consideration for an officer when taking photos of a victim's injuries?",
+                options: ["Use a flash in all photos.", "Have the victim remove clothing to show all injuries.", "Take a face picture to identify the victim and full body pictures.", "Only photograph injuries that are bleeding."],
+                answer: "Take a face picture to identify the victim and full body pictures.",
+                explanation: "Proper photographic documentation includes identifying the victim and showing the context of the injuries on the body.",
+                reference: "Handout Page 15: 'Considerations... Face pic to ID victim. Full body picture. Avoid having victim remove clothing.'"
+            },
+            {
+                question: "A victim is entitled to a copy of the family violence report prepared under CCP 5.05 at what cost?",
+                options: ["A standard records fee.", "A fee determined by the responding officer.", "At no cost to the victim.", "Only if they can prove financial hardship."],
+                answer: "At no cost to the victim.",
+                explanation: "The law ensures that victims have free and easy access to the official report of the incident involving them.",
+                reference: "Handout Page 17: 'On request of a victim... the local law enforcement agency... shall provide the victim, at no cost to the victim, with any information... contained in the written report...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.5.htm#5.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 5.05(f)</a>"
+            },
+            {
+                question: "Under what condition can the 60-day waiting period for a divorce be waived according to FC 6.702?",
+                options: ["If both parties agree to waive it.", "If the couple has no children.", "If there is an active protective order or a conviction for family violence against the petitioner.", "If the couple has been separated for over a year."],
+                answer: "If there is an active protective order or a conviction for family violence against the petitioner.",
+                explanation: "This exception allows a victim to legally and quickly separate from an abusive spouse without being forced to wait the standard period.",
+                reference: "Handout Page 19: FC 6.702(c) - Lists exceptions for a final conviction of FV or an active protective order.<br><a href='https://statutes.capitol.texas.gov/Docs/FC/htm/FC.6.htm#6.702' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 6.702</a>"
+            },
+            {
+                question: "What is a primary barrier for immigrant victims of family violence in seeking help?",
+                options: ["Lack of transportation.", "The abuser threatening them with deportation.", "A belief that police cannot help.", "Dislike of the local community."],
+                answer: "The abuser threatening them with deportation.",
+                explanation: "Abusers often use a victim's immigration status as a powerful tool of fear and control, making them reluctant to contact law enforcement.",
+                reference: "Handout Page 19: 'The batterer often tells the victim, \"if you leave I will call Immigration or the police and have you deported.\"'."
+            },
+            {
+                question: "An officer's use of force is NOT justified if they provoked the other's use of force, unless what occurs?",
+                options: ["The officer apologizes.", "The officer abandons the encounter or clearly communicates their intent to do so.", "The other person uses more force than the officer.", "A supervisor arrives on scene."],
+                answer: "The officer abandons the encounter or clearly communicates their intent to do so.",
+                explanation: "The law allows for a person who starts a conflict to regain the right to self-defense if they make a clear and genuine attempt to withdraw from it.",
+                reference: "Handout Page 10: PC 9.31(b)(4)(A) - 'the actor abandons the encounter, or clearly communicates to the other his intent to do so...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.31' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.31</a>"
+            },
+            {
+                question: "Defensive injuries on a victim, such as bruises, typically appear on what parts of the body?",
+                options: ["The face and neck.", "The front of the torso.", "The back of the arms, buttocks, legs, and back.", "The hands and feet."],
+                answer: "The back of the arms, buttocks, legs, and back.",
+                explanation: "These injuries are consistent with a person curling up or turning away to protect their vital organs from an attack.",
+                reference: "Handout Page 11: 'Defensive injuries on the victim typically appear as: bruises on the back of: Arms or hands, Buttocks, legs, and back.'"
+            },
+            {
+                question: "What should an officer do regarding children at the scene of a family violence incident?",
+                options: ["Ask them to leave the room.", "Ignore them as they are not reliable witnesses.", "Always interview them out of the sight and hearing of the adults.", "Use them as interpreters if they are bilingual."],
+                answer: "Always interview them out of the sight and hearing of the adults.",
+                explanation: "Separating children from the involved adults is crucial to get a more accurate and untainted statement, as they will be less fearful of retaliation or influence.",
+                reference: "Handout Page 13: 'Always interview children out of the sight and hearing of the adults.'"
+            },
+            {
+                question: "What is a 'testimonial' statement that is subject to further legal tests before being admitted in court?",
+                options: ["A cry for help during a 911 call.", "A statement made to a paramedic about injuries.", "A statement made for the primary purpose of questioning to meet elements for future legal proceedings.", "An excited utterance at the scene."],
+                answer: "A statement made for the primary purpose of questioning to meet elements for future legal proceedings.",
+                explanation: "Statements gathered in a formal interview for the purpose of building a case are treated differently in court than spontaneous statements made during an emergency.",
+                reference: "Handout Page 15: 'Testimonial: Statements made for the primary purpose of questioning to meet elements for future legal proceedings.'"
+            },
+            {
+                question: "If a report is made concerning a family violence incident at a licensed foster home, a report must be filed with what agency?",
+                options: ["The local school district.", "The Department of Family and Protective Services (DFPS).", "The Texas Rangers.", "The Attorney General's Office."],
+                answer: "The Department of Family and Protective Services (DFPS).",
+                explanation: "The law requires mandatory reporting to DFPS when family violence is alleged in a foster home to ensure the safety of vulnerable children.",
+                reference: "Handout Page 16: 'If the location or a person involved matches the address of a licensed foster home... a report to DFPS is required...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.5.htm#5.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 5.05(a-1)</a>"
+            },
+            {
+                question: "A man shoves his girlfriend, causing her to fall. She tells the responding officer, 'It hurt,' but has no visible marks. Does the officer have probable cause for an Assault BI FV arrest?",
+                options: ["No, because there is no visible injury.", "No, because shoving is not an assault.", "Yes, because bodily injury is defined as physical pain, illness, or any impairment of physical condition.", "Only if the girlfriend agrees to press charges."],
+                answer: "Yes, because bodily injury is defined as physical pain, illness, or any impairment of physical condition.",
+                explanation: "A victim's statement of pain is sufficient to establish the 'bodily injury' element for an assault, even without visible marks.",
+                reference: "Handout Page 4: 'Ultimately a victim determines BI (pain sensation or a visible injury's source). Case law makes it possible to have arrest PC for a corroborated claimed injury.'"
+            },
+            {
+                question: "According to the Power & Control Wheel, which category of behavior does 'Minimizing, Denying, and Blaming' involve?",
+                options: ["Making light of the abuse, saying it didn't happen, or saying the victim caused it.", "Threatening to harm the victim or others.", "Controlling all the finances.", "Isolating the victim from friends and family."],
+                answer: "Making light of the abuse, saying it didn't happen, or saying the victim caused it.",
+                explanation: "This is a form of psychological manipulation where the abuser avoids taking responsibility for their actions by distorting the victim's reality.",
+                reference: "Handout Page 3: The Power & Control Wheel lists 'Minimizing, Denying, and Blaming' as a category of coercive behavior."
+            },
+            {
+                question: "An officer is dispatched to a 911 hang-up. On arrival, they hear yelling inside. A woman answers the door with a red mark on her face. A man inside has scratches on his arm. He claims she attacked him. What is the officer's best course of action?",
+                options: ["Arrest both parties since there are mutual injuries.", "Arrest the man because he is larger and stronger.", "Separate the parties and conduct a thorough investigation to determine the predominant aggressor.", "Leave, since it's a mutual combat situation."],
+                answer: "Separate the parties and conduct a thorough investigation to determine the predominant aggressor.",
+                explanation: "Officers should not default to a dual arrest. A thorough investigation, including analyzing injuries, statements, fear, and history, is required to identify the person most at risk and the person who was the primary aggressor.",
+                reference: "Handout Page 12: 'Identifying Predominant Aggressor. Starts with a thorough & objective investigation.'"
+            },
+            {
+                question: "A landlord receives a 30-day written notice from a tenant to terminate a lease, along with a copy of a police report detailing family violence. Is this sufficient for the tenant to legally terminate the lease?",
+                options: ["Yes, the police report is sufficient documentation.", "No, the tenant must also provide a copy of a protective order or temporary injunction.", "Yes, but only if the landlord agrees.", "No, the tenant must wait for a conviction."],
+                answer: "No, the tenant must also provide a copy of a protective order or temporary injunction.",
+                explanation: "Property Code 92.016 requires more than just a police report; it requires an official court order to legally justify breaking a lease due to family violence.",
+                reference: "Handout Page 18: 'Allows a FV victim... to terminate a lease with both a: 30-day notice and Temporary ex parte order, final protective order, or temporary injunction.'<br><a href='https://statutes.capitol.texas.gov/Docs/PR/htm/PR.92.htm#92.016' target='_blank' class='text-indigo-600 hover:underline'>Texas Property Code § 92.016</a>"
+            },
+            {
+                question: "What is the legal presumption regarding a certified copy of a protective order presented to a peace officer?",
+                options: ["The officer must call the court to verify it.", "It is presumed to be invalid if it is more than 30 days old.", "It is presumed to be valid unless it has an expired termination date or the officer is notified it has been vacated.", "The officer should treat it as informational only."],
+                answer: "It is presumed to be valid unless it has an expired termination date or the officer is notified it has been vacated.",
+                explanation: "CCP 5.05(d) requires officers to accept and enforce certified copies of protective orders as valid on their face, streamlining victim protection.",
+                reference: "Handout Page 16: CCP 5.05(d) - 'Each law enforcement officer shall accept a certified copy... as proof of the validity of the order and it is presumed the order remains valid unless...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.5.htm#5.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 5.05</a>"
+            },
+            {
+                question: "Which of the following is an example of 'Sexual Abuse' as defined in the family violence context?",
+                options: ["Constant allegations of infidelity.", "Withholding affection.", "Forced sex in front of children.", "Destroying personal possessions."],
+                answer: "Forced sex in front of children.",
+                explanation: "Sexual abuse in this context includes not only forced sex but also acts with aggravating elements, such as forcing it to occur in front of others.",
+                reference: "Handout Page 4: Lists 'Forced sex in front of children' under Sexual Abuse."
+            },
+            {
+                question: "Under CCP 56A.503, who is the sheriff or department required to notify when a defendant convicted of a felony family violence offense is released or escapes?",
+                options: ["Only the local media.", "The victim or a witness who testified against the defendant.", "The judge who presided over the case.", "Only the arresting officer."],
+                answer: "The victim or a witness who testified against the defendant.",
+                explanation: "This mandatory notification is a critical safety measure to ensure victims are aware when their abuser is released from custody.",
+                reference: "Handout Page 17: CCP 56A.503 - 'shall notify a victim of the offense or a witness who testified against the defendant... when a defendant... is released; or escapes...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.56A.htm#56A.503' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 56A.503</a>"
+            },
+            {
+                question: "A victim of strangulation may have petechiae. What are petechiae?",
+                options: ["Large bruises on the neck.", "Scratches from fingernails.", "Tiny, burst blood vessels appearing as red or purple spots.", "Swelling of the throat."],
+                answer: "Tiny, burst blood vessels appearing as red or purple spots.",
+                explanation: "Petechiae are a key medical sign of strangulation, caused by the increase in pressure from obstructing blood flow, and can be crucial evidence.",
+                reference: "Handout Page 7: 'Recognizing a victim of strangulation: Show the example pics of petechiae.'"
+            },
+            {
+                question: "What is a major reason the handout advises against using children as interpreters at a family violence scene?",
+                options: ["Children are not fluent enough in both languages.", "It is against the law in all circumstances.", "It places the child in a difficult and potentially dangerous position between the victim and abuser.", "It is a violation of the child's privacy."],
+                answer: "It places the child in a difficult and potentially dangerous position between the victim and abuser.",
+                explanation: "Using a child as an interpreter can be emotionally traumatizing and may result in an inaccurate translation due to fear or a desire to protect a parent.",
+                reference: "Handout Page 13: 'Avoid using children as interpreters unless absolutely necessary.'"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
