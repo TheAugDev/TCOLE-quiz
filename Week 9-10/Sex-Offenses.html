@@ -24,6 +24,9 @@
             background-color: #ede9fe; /* Lighter Purple */
             border-radius: 0.5rem;
             transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         details > summary:hover {
             background-color: #ddd6fe;
@@ -57,21 +60,37 @@
             padding: 1rem;
             margin-bottom: 1rem;
         }
-        .conduct-block {
+        .conduct-block, .definitions-block, .defenses-block {
             background-color: #fafafa;
             border-left: 4px solid #8b5cf6;
             padding: 1rem;
             margin: 1rem 0;
             border-radius: 0.25rem;
         }
-        .conduct-block p {
+        .definitions-block {
+             border-left-color: #f59e0b; /* Orange for definitions */
+        }
+        .defenses-block {
+             border-left-color: #22c55e; /* Green for defenses */
+        }
+        .conduct-block p, .definitions-block p, .defenses-block p {
             margin-bottom: 0.5rem;
         }
-        .conduct-block ul {
+        .conduct-block ul, .definitions-block ul, .defenses-block ul {
             list-style-type: disc;
             padding-left: 1.5rem;
         }
+        .stackable-tag {
+            background-color: #eab308;
+            color: #713f12;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+        }
         .offense-misd-c { border-color: #fbbf24; background-color: #fefce8; }
+        .offense-misd-b { border-color: #818cf8; background-color: #eef2ff; }
         .offense-misd-a { border-color: #34d399; background-color: #f0fdf4; }
         .offense-sjf { border-color: #fb923c; background-color: #fff7ed; }
         .offense-f3 { border-color: #f87171; background-color: #fef2f2; }
@@ -94,6 +113,7 @@
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-child">Child Victim Offenses</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-pornography">Pornography & Recording</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-prostitution">Prostitution Offenses</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-other">Other Offenses</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-quiz">Knowledge Check</button>
             </nav>
         </div>
@@ -115,13 +135,25 @@
                                     <li>Causes the sexual organ of another person to contact or penetrate the mouth, anus, or sexual organ of another person, including the actor.</li>
                                 </ul>
                             </div>
+                            <div class="definitions-block">
+                                <p><strong>Definitions (PC 21.01):</strong></p>
+                                <ul>
+                                    <li><strong>Deviate Sexual Intercourse:</strong> Any contact between the genitals of one person and the mouth or anus of another; or penetration of the genitals or anus of another with an object.</li>
+                                    <li><strong>Sexual Intercourse:</strong> Any penetration of the female sex organ by the male sex organ.</li>
+                                </ul>
+                            </div>
+                            <div class="defenses-block">
+                                <p><strong>Enhancements & Defenses:</strong></p>
+                                <ul>
+                                    <li><strong>Enhancement (1st Degree Felony):</strong> If the victim was a person the actor was prohibited from marrying or engaging in sexual conduct with (PC 25.01/25.02).</li>
+                                    <li><strong>Enhancement (State Jail Felony):</strong> If committed by a health care provider using improper reproductive material.</li>
+                                    <li><strong>Defense (for child victim cases):</strong> The conduct consisted of medical care for the child.</li>
+                                    <li><strong>Affirmative Defense (for child victim cases):</strong> The actor was the spouse of the child, or was not more than 3 years older than a child victim aged 14 or older.</li>
+                                </ul>
+                            </div>
                             <div class="offense-card offense-f2">
                                 <h4 class="font-bold text-lg">2nd Degree Felony</h4>
                                 <p>This is the base offense level for Sexual Assault.</p>
-                            </div>
-                             <div class="offense-card offense-f1">
-                                <h4 class="font-bold text-lg">1st Degree Felony</h4>
-                                <p>The offense is enhanced if the victim was a person the actor was prohibited from marrying or engaging in sexual conduct with under PC 25.01 or 25.02.</p>
                             </div>
                             <a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.011" target="_blank" class="text-blue-600 hover:underline">View Penal Code 22.011</a>
                         </div>
@@ -137,6 +169,14 @@
                                     <li>Uses or exhibits a deadly weapon.</li>
                                     <li>Administers a substance to impair the victim's ability to resist.</li>
                                     <li>The victim is an elderly or disabled individual.</li>
+                                    <li>The victim is younger than 14 years of age.</li>
+                                </ul>
+                            </div>
+                             <div class="defenses-block">
+                                <p><strong>Enhancements & Defenses:</strong></p>
+                                <ul>
+                                    <li><strong>"Super" Aggravated Enhancement:</strong> Minimum term of imprisonment is increased to 25 years if the victim is younger than 6, or younger than 14 when other aggravating factors are present.</li>
+                                    <li><strong>Defense:</strong> The medical care defense from PC 22.011(d) applies.</li>
                                 </ul>
                             </div>
                              <div class="offense-card offense-f1">
@@ -147,7 +187,7 @@
                         </div>
                     </details>
                     <details class="card p-0">
-                        <summary>Indecent Assault (PC 22.012)</summary>
+                        <summary><span>Indecent Assault (PC 22.012)</span> <span class="stackable-tag">Stackable</span></summary>
                         <div class="p-6 border-t">
                             <div class="conduct-block">
                                 <p><strong>Conduct:</strong> An offense if a person, without the other person's consent and with the intent to arouse or gratify the sexual desire of any person:</p>
@@ -156,6 +196,13 @@
                                     <li>Touches another person with their own anus, breast, or genitals.</li>
                                     <li>Exposes or attempts to expose another's genitals, pubic area, anus, buttocks, or female areola.</li>
                                     <li>Causes another to contact the blood, seminal fluid, vaginal fluid, saliva, urine, or feces of any person.</li>
+                                </ul>
+                            </div>
+                             <div class="defenses-block">
+                                <p><strong>Enhancements:</strong></p>
+                                <ul>
+                                    <li><strong>State Jail Felony:</strong> If the actor has a previous conviction for Indecent Assault, or if the actor is a health care provider and the act was committed during treatment.</li>
+                                    <li><strong>3rd Degree Felony:</strong> If the actor has a previous conviction for the SJF-level offense.</li>
                                 </ul>
                             </div>
                              <div class="offense-card offense-misd-a">
@@ -181,6 +228,20 @@
                                     <li>With intent to arouse or gratify sexual desire, exposes their anus or genitals knowing the child is present, or causes the child to expose their own.</li>
                                 </ul>
                             </div>
+                             <div class="definitions-block">
+                                <p><strong>Definition of "Sexual Contact" for this offense:</strong></p>
+                                <ul>
+                                    <li>Any touching (including through clothing) of the anus, breast, or genitals of a child with intent to arouse or gratify.</li>
+                                    <li>Any touching of the child's body with the anus, breast, or genitals of a person with intent to arouse or gratify.</li>
+                                </ul>
+                            </div>
+                            <div class="defenses-block">
+                                <p><strong>Affirmative Defenses:</strong></p>
+                                <ul>
+                                    <li>The actor was the spouse of the child at the time of the offense.</li>
+                                    <li>The actor was not more than 3 years older than the victim, did not use force, and was not a registered sex offender.</li>
+                                </ul>
+                            </div>
                             <div class="offense-card offense-f3">
                                 <h4 class="font-bold text-lg">3rd Degree Felony</h4>
                                 <p>For exposing genitals with sexual intent.</p>
@@ -198,6 +259,12 @@
                              <div class="conduct-block">
                                 <p><strong>Conduct:</strong> An offense if, during a period that is 30 or more days in duration, a person commits two or more acts of sexual abuse against a victim who is a child younger than 14 years of age.</p>
                             </div>
+                            <div class="defenses-block">
+                                <p><strong>Affirmative Defense:</strong></p>
+                                <ul>
+                                    <li>The actor was not more than 5 years older than the victim, did not use force/threats, and was not a registered sex offender.</li>
+                                </ul>
+                            </div>
                              <div class="offense-card offense-f1">
                                 <h4 class="font-bold text-lg">1st Degree Felony (25 to 99 years or Life)</h4>
                                 <p>This is the punishment for Continuous Sexual Abuse of a Young Child.</p>
@@ -206,16 +273,53 @@
                         </div>
                     </details>
                      <details class="card p-0">
-                        <summary>Improper Relationship Between Educator and Student (PC 21.12)</summary>
+                        <summary><span>Improper Relationship Between Educator and Student (PC 21.12)</span> <span class="stackable-tag">Stackable</span></summary>
                         <div class="p-6 border-t">
                              <div class="conduct-block">
                                 <p><strong>Conduct:</strong> An offense if a public or private primary or secondary school employee engages in sexual contact, sexual intercourse, or deviate sexual intercourse with a person enrolled in the school where the employee works, or with a student they know is enrolled in any primary or secondary school.</p>
+                            </div>
+                            <div class="defenses-block">
+                                <p><strong>Affirmative Defenses:</strong></p>
+                                <ul>
+                                    <li>The actor was the spouse of the student at the time of the offense.</li>
+                                    <li>The relationship began before the actor's employment, and the actor is not more than 3 years older than the student.</li>
+                                </ul>
                             </div>
                              <div class="offense-card offense-f2">
                                 <h4 class="font-bold text-lg">2nd Degree Felony</h4>
                                 <p>This is the offense level for an Improper Relationship Between an Educator and Student.</p>
                             </div>
                              <a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.12" target="_blank" class="text-blue-600 hover:underline">View Penal Code 21.12</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary><span>Online Solicitation of a Minor (PC 33.021)</span> <span class="stackable-tag">Stackable</span></summary>
+                        <div class="p-6 border-t">
+                             <div class="conduct-block">
+                                <p><strong>Conduct:</strong> An offense if a person 17 or older, with intent to commit certain sex offenses (like SA, Indecency), intentionally communicates in a sexually explicit manner with a minor or distributes sexually explicit material to a minor online. Also an offense to solicit a minor to meet for sexual purposes.</p>
+                            </div>
+                             <div class="definitions-block">
+                                <p><strong>Definitions:</strong></p>
+                                <ul>
+                                    <li><strong>Minor:</strong> A person younger than 17, or who the actor believes is younger than 17.</li>
+                                    <li><strong>Sexually Explicit:</strong> Communication or material that relates to or describes sexual conduct as defined in PC 43.25.</li>
+                                </ul>
+                            </div>
+                             <div class="defenses-block">
+                                <p><strong>Enhancements & Defenses:</strong></p>
+                                <ul>
+                                    <li><strong>Enhancement:</strong> Increased to the next higher category of offense if committed during school hours and the actor knew the minor was enrolled.</li>
+                                    <li><strong>Defense:</strong> The actor was married to the minor, or was not more than 3 years older and the minor consented.</li>
+                                </ul>
+                            </div>
+                            <div class="offense-card offense-f3">
+                                <h4 class="font-bold text-lg">3rd Degree Felony</h4>
+                                <p>Base offense for communicating/distributing material.</p>
+                            </div>
+                            <div class="offense-card offense-f2">
+                                <h4 class="font-bold text-lg">2nd Degree Felony</h4>
+                                <p>For soliciting a minor to meet, or if the minor is under 14.</p>
+                            </div>
                         </div>
                     </details>
                 </div>
@@ -236,11 +340,67 @@
                                     <li>Promotes a recording known to have been made in violation of this statute.</li>
                                 </ul>
                             </div>
+                             <div class="definitions-block">
+                                <p><strong>Definitions:</strong></p>
+                                <ul>
+                                    <li><strong>Intimate Area:</strong> Naked or clothed genitals, pubic area, anus, buttocks, or female breast.</li>
+                                    <li><strong>Changing Room:</strong> A room provided for changing clothes, like a dressing room or locker room.</li>
+                                </ul>
+                            </div>
                              <div class="offense-card offense-sjf">
                                 <h4 class="font-bold text-lg">State Jail Felony</h4>
                                 <p>This is the offense level for Invasive Visual Recording.</p>
                             </div>
                              <a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.15" target="_blank" class="text-blue-600 hover:underline">View Penal Code 21.15</a>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Unlawful Disclosure/Promotion of Intimate Visual Material (PC 21.16)</summary>
+                        <div class="p-6 border-t">
+                             <div class="conduct-block">
+                                <p><strong>Conduct:</strong> An offense if a person, without consent and with intent to harm, discloses visual material depicting another person with intimate parts exposed or engaged in sexual conduct, knowing the material was expected to remain private.</p>
+                            </div>
+                             <div class="defenses-block">
+                                <p><strong>Affirmative Defenses:</strong></p>
+                                <ul>
+                                    <li>Disclosure was in the course of lawful law enforcement, medical treatment, reporting crime, or legal proceedings.</li>
+                                    <li>The material depicted voluntary exposure in a public or commercial setting.</li>
+                                </ul>
+                            </div>
+                             <div class="offense-card offense-sjf">
+                                <h4 class="font-bold text-lg">State Jail Felony</h4>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Sexual Performance by a Child (PC 43.25)</summary>
+                        <div class="p-6 border-t">
+                             <div class="conduct-block">
+                                <p><strong>Conduct:</strong> An offense if a person, knowing the character and content, employs, authorizes, or induces a child younger than 18 to engage in a sexual performance. Also an offense for a parent/guardian to consent to such a performance.</p>
+                            </div>
+                             <div class="definitions-block">
+                                <p><strong>Definitions:</strong></p>
+                                <ul>
+                                    <li><strong>Sexual Performance:</strong> Any performance (play, photo, dance, etc.) that includes sexual conduct by a child under 18.</li>
+                                    <li><strong>Sexual Conduct:</strong> Includes sexual contact, actual/simulated intercourse, bestiality, masturbation, sadomasochistic abuse, or lewd exhibition of genitals.</li>
+                                </ul>
+                            </div>
+                            <div class="defenses-block">
+                                <p><strong>Affirmative Defenses:</strong></p>
+                                <ul>
+                                    <li>The actor was the spouse of the child.</li>
+                                    <li>The conduct was for a bona fide educational, medical, judicial, or law enforcement purpose.</li>
+                                    <li>The actor is not more than two years older than the child.</li>
+                                </ul>
+                            </div>
+                             <div class="offense-card offense-f2">
+                                <h4 class="font-bold text-lg">2nd Degree Felony</h4>
+                                <p>Base offense for employing/inducing a child.</p>
+                            </div>
+                             <div class="offense-card offense-f3">
+                                <h4 class="font-bold text-lg">3rd Degree Felony</h4>
+                                <p>Base offense for producing/directing/promoting the performance.</p>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
@@ -249,17 +409,17 @@
                             <div class="conduct-block">
                                 <p><strong>Conduct:</strong> An offense if a person knowingly or intentionally possesses, or accesses with intent to view, visual material that visually depicts a child younger than 18 engaging in sexual conduct, and the person knows the material depicts the child in such a manner.</p>
                             </div>
+                            <div class="defenses-block">
+                                <p><strong>Enhancements & Defenses:</strong></p>
+                                <ul>
+                                    <li><strong>Enhancements:</strong> Offense level increases based on the number of depictions possessed (100+ for F2, 500+ for F1) or for prior convictions. Further enhanced if the actor is a childcare employee or the victim is under 10.</li>
+                                    <li><strong>Affirmative Defense:</strong> The conduct was for a bona fide educational, medical, psychological, judicial, law enforcement, or legislative purpose. Or, the actor is not more than two years older than the child.</li>
+                                    <li><strong>Defense:</strong> For law enforcement or school administrators who possess the material in good faith as part of an investigation of a violation.</li>
+                                </ul>
+                            </div>
                              <div class="offense-card offense-f3">
                                 <h4 class="font-bold text-lg">3rd Degree Felony</h4>
                                 <p>The base offense for possessing fewer than 100 depictions.</p>
-                            </div>
-                             <div class="offense-card offense-f2">
-                                <h4 class="font-bold text-lg">2nd Degree Felony</h4>
-                                <p>The offense is enhanced for possessing 100 to 499 depictions. Promoting child pornography is also a 2nd Degree Felony.</p>
-                            </div>
-                             <div class="offense-card offense-f1">
-                                <h4 class="font-bold text-lg">1st Degree Felony</h4>
-                                <p>The offense is enhanced for possessing 500 or more depictions.</p>
                             </div>
                              <a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.26" target="_blank" class="text-blue-600 hover:underline">View Penal Code 43.26</a>
                         </div>
@@ -278,8 +438,22 @@
                                 <p><strong>Prostitution (PC 43.02):</strong> An offense if a person knowingly offers or agrees to receive a fee from another to engage in sexual conduct.</p>
                                 <p><strong>Solicitation of Prostitution (PC 43.021):</strong> An offense if a person knowingly offers or agrees to pay a fee to another person for the purpose of engaging in sexual conduct.</p>
                             </div>
-                            <p><strong>Prostitution:</strong> A <strong class="font-semibold">Class B Misdemeanor</strong>, enhanced to a State Jail Felony after 3 or more convictions.</p>
-                            <p class="mt-4"><strong>Solicitation of Prostitution:</strong> A <strong class="font-semibold">State Jail Felony</strong>, enhanced to a 2nd Degree Felony if the person solicited is under 18.</p>
+                            <div class="defenses-block">
+                                <p><strong>Enhancements & Defenses:</strong></p>
+                                <ul>
+                                    <li><strong>Prostitution Enhancements:</strong> Becomes a Class A Misdemeanor for 1-2 priors, and a State Jail Felony for 3+ priors.</li>
+                                    <li><strong>Solicitation Enhancements:</strong> Becomes a 3rd Degree Felony for a prior, and a 2nd Degree Felony if the person solicited is under 18. Punishment is also increased if committed near a school.</li>
+                                    <li><strong>Defense to Prostitution:</strong> The actor was a victim of human trafficking (20A.02) or compelling prostitution (43.05).</li>
+                                </ul>
+                            </div>
+                             <div class="offense-card offense-misd-b">
+                                <h4 class="font-bold text-lg">Class B Misdemeanor</h4>
+                                <p>Base offense for Prostitution.</p>
+                            </div>
+                             <div class="offense-card offense-sjf">
+                                <h4 class="font-bold text-lg">State Jail Felony</h4>
+                                <p>Base offense for Solicitation of Prostitution.</p>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
@@ -290,12 +464,112 @@
                                 <p><strong>Aggravated Promotion of Prostitution (PC 43.04):</strong> An offense if a person knowingly owns, invests in, finances, controls, supervises, or manages a prostitution enterprise that uses two or more prostitutes.</p>
                                 <p><strong>Compelling Prostitution (PC 43.05):</strong> An offense if a person knowingly causes another by force, threat, or fraud to commit prostitution, or causes a child under 18 to commit prostitution.</p>
                             </div>
-                            <p><strong>Promotion of Prostitution:</strong> A <strong class="font-semibold">3rd Degree Felony</strong>.</p>
-                            <p class="mt-4"><strong>Aggravated Promotion of Prostitution:</strong> A <strong class="font-semibold">1st Degree Felony</strong>.</p>
-                            <p class="mt-4"><strong>Compelling Prostitution:</strong> A <strong class="font-semibold">1st Degree Felony</strong>.</p>
+                             <div class="defenses-block">
+                                <p><strong>Enhancements:</strong></p>
+                                <ul>
+                                    <li><strong>Promotion of Prostitution:</strong> Becomes a 2nd Degree Felony with a prior conviction, or a 1st Degree Felony if the person promoted is under 18.</li>
+                                </ul>
+                            </div>
+                            <div class="offense-card offense-f3">
+                                <h4 class="font-bold text-lg">3rd Degree Felony</h4>
+                                <p>Base offense for Promotion of Prostitution.</p>
+                            </div>
+                             <div class="offense-card offense-f1">
+                                <h4 class="font-bold text-lg">1st Degree Felony</h4>
+                                <p>Base offense for Aggravated Promotion & Compelling Prostitution.</p>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Online Promotion of Prostitution</summary>
+                        <div class="p-6 border-t">
+                            <div class="conduct-block">
+                                <p><strong>Online Promotion of Prostitution (PC 43.031):</strong> An offense if a person owns, manages, or operates an internet service with the intent to promote the prostitution of another.</p>
+                                <p><strong>Aggravated Online Promotion of Prostitution (PC 43.041):</strong> An offense if the conduct above involves five or more persons.</p>
+                            </div>
+                             <div class="defenses-block">
+                                <p><strong>Enhancements:</strong></p>
+                                <ul>
+                                    <li><strong>Online Promotion:</strong> Becomes F2 with a prior or if it involves a person under 18.</li>
+                                     <li><strong>Aggravated Online Promotion:</strong> Becomes F1 with a prior or if it involves two or more persons under 18.</li>
+                                </ul>
+                            </div>
+                            <div class="offense-card offense-f3">
+                                <h4 class="font-bold text-lg">3rd Degree Felony</h4>
+                                <p>Base offense for Online Promotion.</p>
+                            </div>
+                             <div class="offense-card offense-f2">
+                                <h4 class="font-bold text-lg">2nd Degree Felony</h4>
+                                <p>Base offense for Aggravated Online Promotion.</p>
+                            </div>
                         </div>
                     </details>
                  </div>
+            </div>
+            
+            <!-- Other Offenses Tab -->
+            <div id="tab-other" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Other Offenses</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Prohibited Sexual Conduct (PC 25.02)</summary>
+                        <div class="p-6 border-t">
+                            <div class="conduct-block">
+                                <p><strong>Conduct:</strong> An offense if a person engages in sexual intercourse or deviate sexual intercourse with another person the actor knows to be a relative, including:</p>
+                                <ul>
+                                    <li>Ancestor or descendant (by blood or adoption)</li>
+                                    <li>Current or former stepchild or stepparent</li>
+                                    <li>Aunt, uncle, brother, sister, nephew, niece (whole or half blood, or by adoption)</li>
+                                    <li>First cousin</li>
+                                </ul>
+                            </div>
+                             <div class="defenses-block">
+                                <p><strong>Enhancements:</strong></p>
+                                <ul>
+                                    <li><strong>2nd Degree Felony:</strong> The offense is enhanced from a 3rd Degree Felony if committed with the actor's ancestor or descendant.</li>
+                                </ul>
+                            </div>
+                             <div class="offense-card offense-f3">
+                                <h4 class="font-bold text-lg">3rd Degree Felony</h4>
+                                <p>Base offense level.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary><span>Sexual Coercion (PC 21.18)</span> <span class="stackable-tag">Stackable</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="conduct-block">
+                                <p><strong>Conduct:</strong> An offense if a person intentionally threatens (including by coercion or extortion) to commit another specified offense (like Sexual Assault, Indecency, etc.) to obtain a benefit, such as intimate visual material or a sexual act.</p>
+                            </div>
+                             <div class="defenses-block">
+                                <p><strong>Enhancements:</strong></p>
+                                <ul>
+                                    <li><strong>3rd Degree Felony:</strong> If the actor has a previous conviction for Sexual Coercion.</li>
+                                </ul>
+                            </div>
+                            <div class="offense-card offense-sjf">
+                                <h4 class="font-bold text-lg">State Jail Felony</h4>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Failure to Stop or Report Aggravated Sexual Assault of Child (PC 38.17)</summary>
+                        <div class="p-6 border-t">
+                            <div class="conduct-block">
+                                <p><strong>Conduct:</strong> An offense if a person observes the commission of a Continuous Sexual Abuse or Aggravated Sexual Assault of a child under 14 and fails to assist or immediately report it to law enforcement, provided they could do so without placing themselves in danger.</p>
+                            </div>
+                             <div class="defenses-block">
+                                <p><strong>Note:</strong></p>
+                                <ul>
+                                    <li>This statute does not apply to a person who has a legal duty to act under PC 22.04(b), such as a parent or caregiver.</li>
+                                </ul>
+                            </div>
+                            <div class="offense-card offense-misd-a">
+                                <h4 class="font-bold text-lg">Class A Misdemeanor</h4>
+                            </div>
+                        </div>
+                    </details>
+                </div>
             </div>
 
             <!-- Quiz Tab -->
