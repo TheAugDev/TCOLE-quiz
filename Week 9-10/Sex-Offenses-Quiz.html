@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sex Offenses Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Sex Offenses Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 82 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "A person commits Prohibited Sexual Conduct (PC 25.02) if they engage in sexual intercourse with a person they know to be their:",
+                options: ["Spouse", "Dating partner", "Ancestor or descendant by blood or adoption.", "Roommate."],
+                answer: "Ancestor or descendant by blood or adoption.",
+                explanation: "This statute criminalizes incestuous relationships. The penalty is higher (2nd Degree Felony) for direct ancestors/descendants compared to other relatives (3rd Degree Felony).",
+                reference: "Handout Page 1: PC 25.02(a)(1) - 'the actor's ancestor or descendant by blood or adoption'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 25.02</a>"
+            },
+            {
+                question: "What is the key element that distinguishes Sexual Assaults from other crimes, according to the handout?",
+                options: ["They are crimes of sexual desire.", "The perpetrator's purpose is to exercise power over the victim.", "They always involve a deadly weapon.", "The victim always knows the perpetrator."],
+                answer: "The perpetrator's purpose is to exercise power over the victim.",
+                explanation: "The handout emphasizes that sexual assaults are acts of violence and control, not crimes of passion or sexual desire.",
+                reference: "Handout Page 2: 'Sexual Assaults are acts of violence. The perpetrator's purpose is to exercise power over victim.'"
+            },
+            {
+                question: "A person commits Indecent Assault (PC 22.012) if, without consent and with sexual intent, they do what?",
+                options: ["Make an obscene comment.", "Stare at someone in a public place.", "Touch the anus, breast, or any part of the genitals of another person.", "Send an unwanted text message."],
+                answer: "Touch the anus, breast, or any part of the genitals of another person.",
+                explanation: "Indecent Assault criminalizes unwanted sexual touching that does not rise to the level of penetration required for Sexual Assault.",
+                reference: "Handout Page 2: PC 22.012(a)(1) - 'touches the anus, breast, or any part of the genitals of another person'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.012' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.012</a>"
+            },
+            {
+                question: "What is the definition of 'Deviate Sexual Intercourse' under PC 21.01?",
+                options: ["Any sexual contact.", "Penetration of the female sex organ by the male sex organ.", "Contact between the genitals of one person and the mouth or anus of another, or penetration of the genitals/anus with an object.", "Touching of the breast or genitals for sexual gratification."],
+                answer: "Contact between the genitals of one person and the mouth or anus of another, or penetration of the genitals/anus with an object.",
+                explanation: "This legal definition is broad, covering oral sex, anal sex, and penetration by an object.",
+                reference: "Handout Page 3: PC 21.01(1) - Defines Deviate Sexual Intercourse.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 21.01</a>"
+            },
+            {
+                question: "A person commits Sexual Assault (PC 22.011) if they intentionally or knowingly cause the penetration of the anus or sexual organ of another person by any means, under what condition?",
+                options: ["Without that person's consent.", "If the person is a stranger.", "During the nighttime.", "If the act is recorded."],
+                answer: "Without that person's consent.",
+                explanation: "The lack of consent is the central element of the offense of Sexual Assault.",
+                reference: "Handout Page 3: PC 22.011(a)(1)(A) - 'causes the penetration of the anus or sexual organ of another person by any means, without that person's consent'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.011' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.011</a>"
+            },
+            {
+                question: "What is the base penalty for Sexual Assault?",
+                options: ["State Jail Felony", "Third Degree Felony", "Second Degree Felony", "First Degree Felony"],
+                answer: "Second Degree Felony",
+                explanation: "Sexual Assault is a serious violent crime with a base penalty of a second-degree felony.",
+                reference: "Handout Page 3: PC 22.011(f) - 'An offense under this section is a felony of the second degree...'"
+            },
+            {
+                question: "Under which circumstance is a Sexual Assault enhanced to a first-degree felony?",
+                options: ["If the victim is a public servant.", "If the actor has a prior conviction for any felony.", "If the victim was a person the actor was prohibited from marrying under the Prohibited Sexual Conduct statute.", "If the assault occurs in a public place."],
+                answer: "If the victim was a person the actor was prohibited from marrying under the Prohibited Sexual Conduct statute.",
+                explanation: "Committing a sexual assault against a person with whom a sexual relationship is already prohibited by law (incest) elevates the offense to a first-degree felony.",
+                reference: "Handout Page 3: PC 22.011(f)(1)(A) - 'a felony of the first degree if the victim was: a person whom the actor was prohibited from marrying...'"
+            },
+            {
+                question: "According to PC 22.011(b), a sexual assault is without consent if the actor intentionally impairs the victim's power to control their conduct by what means?",
+                options: ["Verbally confusing them.", "Administering any substance without the victim's knowledge.", "Telling them a lie.", "Using emotional manipulation."],
+                answer: "Administering any substance without the victim's knowledge.",
+                explanation: "This provision covers drug-facilitated sexual assault, where the lack of consent is established by the actor's act of drugging the victim.",
+                reference: "Handout Page 4: PC 22.011(b)(6) - 'the actor has intentionally impaired the other person's power to appraise or control the other person's conduct by administering any substance without the other person's knowledge'."
+            },
+            {
+                question: "A person commits Aggravated Sexual Assault (PC 22.021) if they commit a sexual assault and, in the course of the same criminal episode, do what?",
+                options: ["Steal the victim's property.", "Cause serious bodily injury or attempt to cause the death of the victim.", "Flee from the scene.", "Are a repeat offender."],
+                answer: "Cause serious bodily injury or attempt to cause the death of the victim.",
+                explanation: "Causing or attempting to cause severe physical harm or death during a sexual assault is a key aggravating factor that elevates the offense.",
+                reference: "Handout Page 5: PC 22.021(a)(2)(A)(i) - 'causes serious bodily injury or attempts to cause the death of the victim...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.021' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 22.021</a>"
+            },
+            {
+                question: "What is the penalty for Aggravated Sexual Assault?",
+                options: ["Second Degree Felony", "First Degree Felony", "Capital Felony", "Life Felony"],
+                answer: "First Degree Felony",
+                explanation: "Aggravated Sexual Assault is one of the most serious offenses in the Penal Code, carrying a first-degree felony punishment.",
+                reference: "Handout Page 6: PC 22.021(e) - 'An offense under this section is a felony of the first degree.'"
+            },
+            {
+                question: "The minimum term of imprisonment for Aggravated Sexual Assault is increased to 25 years if the victim is younger than what age at the time of the offense?",
+                options: ["14 years of age", "10 years of age", "6 years of age", "17 years of age"],
+                answer: "6 years of age",
+                explanation: "This 'super aggravated' provision mandates a minimum 25-year sentence for sexual assaults against the youngest and most vulnerable victims.",
+                reference: "Handout Page 8: PC 22.021(f)(1) - 'The minimum term of imprisonment... is increased to 25 years if: the victim of the offense is younger than six years of age...'"
+            },
+            {
+                question: "A person commits Indecency with a Child (PC 21.11) if they engage in sexual contact with a child younger than what age?",
+                options: ["18 years of age", "17 years of age", "14 years of age", "6 years of age"],
+                answer: "17 years of age",
+                explanation: "The age of the victim is a critical element of this offense, with the law protecting children under the age of 17.",
+                reference: "Handout Page 6: PC 21.11(a) - 'with a child younger than 17 years of age...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.11' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 21.11</a>"
+            },
+            {
+                question: "What is the penalty for Indecency with a Child by sexual contact?",
+                options: ["Third Degree Felony", "Second Degree Felony", "First Degree Felony", "State Jail Felony"],
+                answer: "Second Degree Felony",
+                explanation: "Engaging in sexual contact with a child under 17 is a second-degree felony.",
+                reference: "Handout Page 7: PC 21.11(d) - 'An offense under Subsection (a)(1) is a felony of the second degree...'"
+            },
+            {
+                question: "It is an affirmative defense to prosecution for Indecency with a Child if the actor was not more than how many years older than the victim?",
+                options: ["One year", "Two years", "Three years", "Five years"],
+                answer: "Three years",
+                explanation: "This defense, often called the 'Romeo and Juliet' law, applies to cases involving consensual conduct between teenagers who are close in age.",
+                reference: "Handout Page 7: PC 21.11(b)(1) - 'was not more than three years older than the victim...'"
+            },
+            {
+                question: "A person commits Sexual Assault of a Child if they cause the penetration of the anus or sexual organ of a child. What is the definition of 'child' for this offense?",
+                options: ["A person younger than 18.", "A person younger than 17.", "A person younger than 14.", "A person 14 years of age or younger."],
+                answer: "A person younger than 17.",
+                explanation: "Similar to Indecency with a Child, the age for Sexual Assault of a Child is under 17.",
+                reference: "Handout Page 7: PC 22.011(c)(1) - '\"Child\" means a person younger than 17 years of age.'"
+            },
+            {
+                question: "A person commits Continuous Sexual Abuse of a Young Child (PC 21.02) if, during a period of 30 or more days, they commit how many acts of sexual abuse against a child younger than 14?",
+                options: ["One", "Two or more", "Three or more", "Five or more"],
+                answer: "Two or more",
+                explanation: "This statute targets offenders who engage in a pattern of abuse against a young child over a period of time, combining the acts into a single, severely punished offense.",
+                reference: "Handout Page 8: PC 21.02(b) - 'during a period that is 30 or more days in duration, the person commits two or more acts of sexual abuse... and the victim is: a child younger than 14 years of age...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 21.02</a>"
+            },
+            {
+                question: "What is the punishment for Continuous Sexual Abuse of a Young Child?",
+                options: ["A first-degree felony.", "A first-degree felony, punishable by life or a term of not more than 99 years or less than 25 years.", "A capital felony.", "A second-degree felony."],
+                answer: "A first-degree felony, punishable by life or a term of not more than 99 years or less than 25 years.",
+                explanation: "This offense carries one of the most severe penalties in the Penal Code, with a mandatory minimum sentence of 25 years.",
+                reference: "Handout Page 9: PC 21.02(h) - 'An offense under this section is a felony of the first degree, punishable by imprisonment... for life, or for any term of not more than 99 years or less than 25 years.'"
+            },
+            {
+                question: "A person commits Improper Relationship Between Educator and Student (PC 21.12) if they are a school employee and engage in sexual intercourse with whom?",
+                options: ["Any person under 18.", "A person enrolled in the school where the employee works.", "Any former student.", "A student from a different school district."],
+                answer: "A person enrolled in the school where the employee works.",
+                explanation: "This law creates a strict liability offense to protect students from exploitation by school employees, for whom consent is not a defense.",
+                reference: "Handout Page 10: PC 21.12(a)(1) - 'engages in sexual contact, sexual intercourse, or deviate sexual intercourse with a person who is enrolled in a public or private primary or secondary school at which the employee works'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.12' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 21.12</a>"
+            },
+            {
+                question: "A person 17 or older commits Online Solicitation of a Minor (PC 33.021) if, with the intent to commit a sex offense, they communicate in what manner with a minor?",
+                options: ["In a friendly manner.", "In a sexually explicit manner.", "In a coded manner.", "Using a fake name."],
+                answer: "In a sexually explicit manner.",
+                explanation: "The communication must be sexually explicit to meet the elements of this offense, which targets predatory online behavior.",
+                reference: "Handout Page 12: PC 33.021(b)(1) - 'communicates in a sexually explicit manner with a minor'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.33.htm#33.021' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 33.021</a>"
+            },
+            {
+                question: "A person commits Sexual Performance by a Child (PC 43.25) if they employ, authorize, or induce a child younger than what age to engage in sexual conduct in a performance?",
+                options: ["17", "16", "18", "14"],
+                answer: "18",
+                explanation: "For the purposes of child pornography and performance statutes, the age of a 'child' is younger than 18.",
+                reference: "Handout Page 13: PC 43.25(b) - 'employs, authorizes, or induces a child younger than 18 years of age to engage in... a sexual performance.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.25' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 43.25</a>"
+            },
+            {
+                question: "Under the Sex Offender Registration Program (CCP Chapter 62), a person required to register must do so with local law enforcement no later than how many days after arriving in the municipality or county?",
+                options: ["3 days", "7 days", "10 days", "30 days"],
+                answer: "7 days",
+                explanation: "The law requires prompt registration to ensure law enforcement can track the whereabouts of registered sex offenders in their jurisdiction.",
+                reference: "Handout Page 14: CCP 62.051 - 'not later than... the 7th day after the person's arrival in the municipality or county'.<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.62.htm#62.051' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 62.051</a>"
+            },
+            {
+                question: "What is the penalty for Failure to Comply with Sex Offender Registration requirements for a person who has a lifetime registration duty and must verify every 90 days?",
+                options: ["State Jail Felony", "Third Degree Felony", "Second Degree Felony", "First Degree Felony"],
+                answer: "Second Degree Felony",
+                explanation: "The penalty for failure to register is tiered based on the severity of the underlying offense and the reporting requirement. The highest-risk offenders who fail to comply face the highest penalty.",
+                reference: "Handout Page 14: CCP 62.102(b)(3) - 'a felony of the second degree if the actor... is required to verify registration once each 90-day period...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.62.htm#62.102' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 62.102</a>"
+            },
+            {
+                question: "A person commits Invasive Visual Recording (PC 21.15) if, without consent and with intent to invade privacy, they photograph or record a visual image of what?",
+                options: ["A person's face in public.", "An intimate area of another person who has a reasonable expectation of privacy.", "A person's home from the street.", "A public performance."],
+                answer: "An intimate area of another person who has a reasonable expectation of privacy.",
+                explanation: "This offense targets 'upskirting' and other forms of video voyeurism, protecting a person's privacy in their intimate areas when they are in a place where they expect not to be secretly recorded.",
+                reference: "Handout Page 16: PC 21.15(b)(1) - 'photographs... a visual image of an intimate area of another person if the other person has a reasonable expectation that the intimate area is not subject to public view'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.15' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 21.15</a>"
+            },
+            {
+                question: "A person commits Unlawful Disclosure of Intimate Visual Material (PC 21.16) if, without consent and with intent to harm, they disclose visual material depicting another person with their intimate parts exposed. What is NOT a defense to this charge?",
+                options: ["The disclosure was for a lawful law enforcement purpose.", "The depicted person voluntarily transmitted the material to the actor.", "The material was taken in a public setting where the person was voluntarily exposed.", "The actor is an interactive computer service provider."],
+                answer: "The depicted person voluntarily transmitted the material to the actor.",
+                explanation: "This is the core of the 'revenge porn' statute. The fact that someone willingly sent an intimate photo to the actor does not give the actor the right to disclose it to others without consent.",
+                reference: "Handout Page 17: PC 21.16(e)(2) - 'It is not a defense... that the depicted person... voluntarily transmitted the visual material to the actor.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.16' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 21.16</a>"
+            },
+            {
+                question: "A person commits an offense under PC 21.19 if they knowingly transmit by electronic means sexually explicit visual material to someone who has not done what?",
+                options: ["Paid for the material.", "Verified they are over 18.", "Requested or given express consent to receive it.", "Signed a waiver."],
+                answer: "Requested or given express consent to receive it.",
+                explanation: "This statute criminalizes the sending of unsolicited explicit images, making it a Class C Misdemeanor.",
+                reference: "Handout Page 18: PC 21.19(b)(2) - 'is not sent at the request of or with the express consent of the recipient.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.19' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 21.19</a>"
+            },
+            {
+                question: "A minor commits an offense under PC 43.261 if they electronically promote to another minor visual material depicting a minor engaging in sexual conduct, and what other condition is met?",
+                options: ["The material was created by an adult.", "The actor produced the material or knows another minor produced it.", "The material was sent after school hours.", "The recipient did not object."],
+                answer: "The actor produced the material or knows another minor produced it.",
+                explanation: "This law targets the peer-to-peer creation and distribution of child pornography among minors, often called 'sexting,' making it a Class C Misdemeanor for a first offense.",
+                reference: "Handout Page 19: PC 43.261(b)(1) - 'if the actor produced the visual material or knows that another minor produced the visual material'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.261' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 43.261</a>"
+            },
+            {
+                question: "A person commits Prostitution (PC 43.02) if they knowingly offer or agree to do what?",
+                options: ["Engage in sexual conduct.", "Pay a fee for sexual conduct.", "Receive a fee to engage in sexual conduct.", "Promote the prostitution of another."],
+                answer: "Receive a fee to engage in sexual conduct.",
+                explanation: "This is the definition of the act of prostitution itself—the selling of a sexual act for a fee.",
+                reference: "Handout Page 26: PC 43.02(a) - 'knowingly offers or agrees to receive a fee from another to engage in sexual conduct.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 43.02</a>"
+            },
+            {
+                question: "A person commits Solicitation of Prostitution (PC 43.021) if they knowingly offer or agree to do what?",
+                options: ["Receive a fee for sexual conduct.", "Pay a fee for the purpose of engaging in sexual conduct.", "Manage a prostitution enterprise.", "Transport a prostitute."],
+                answer: "Pay a fee for the purpose of engaging in sexual conduct.",
+                explanation: "This statute criminalizes the act of the 'john' or customer—the buying of a sexual act.",
+                reference: "Handout Page 26: PC 43.021(a) - 'knowingly offers or agrees to pay a fee to another person for the purpose of engaging in sexual conduct...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.021' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 43.021</a>"
+            },
+            {
+                question: "What is the penalty for Solicitation of Prostitution if the person solicited is younger than 18 years of age?",
+                options: ["State Jail Felony", "Third Degree Felony", "Second Degree Felony", "First Degree Felony"],
+                answer: "Second Degree Felony",
+                explanation: "Soliciting a minor for prostitution is a severely punished offense, enhanced to a second-degree felony regardless of whether the actor knew the person's age.",
+                reference: "Handout Page 26: PC 43.021(b)(2) - 'a felony of the second degree if the person to whom the actor offers or agrees to pay the fee... is: younger than 18 years of age...'"
+            },
+            {
+                question: "A person commits Aggravated Promotion of Prostitution (PC 43.04) if they knowingly own, manage, or supervise a prostitution enterprise that uses how many prostitutes?",
+                options: ["One", "Two or more", "Five or more", "Ten or more"],
+                answer: "Two or more",
+                explanation: "This first-degree felony offense targets the organizers and managers of prostitution rings involving multiple individuals.",
+                reference: "Handout Page 27: PC 43.04(a) - 'knowingly owns, invests in, finances, controls, supervises, or manages a prostitution enterprise that uses two or more prostitutes.'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.04' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 43.04</a>"
+            },
+            {
+                question: "A person commits Compelling Prostitution (PC 43.05) if they knowingly cause another to commit prostitution by what means?",
+                options: ["Offering them a large sum of money.", "Persuading them with promises.", "By force, threat, coercion, or fraud.", "By providing them with a place to work."],
+                answer: "By force, threat, coercion, or fraud.",
+                explanation: "This first-degree felony offense is essentially human trafficking for sexual purposes, criminalizing the act of forcing or tricking someone into prostitution.",
+                reference: "Handout Page 28: PC 43.05(a)(1) - 'causes another by force, threat, coercion, or fraud to commit prostitution'.<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 43.05</a>"
+            },
+            {
+                question: "What is Sexual Coercion under PC 21.18?",
+                options: ["Forcing someone to have sex.", "Threatening to commit a sex offense or other specified offense to obtain a benefit like intimate visual material or a sexual act.", "Paying someone for sex.", "Exposing oneself in public."],
+                answer: "Threatening to commit a sex offense or other specified offense to obtain a benefit like intimate visual material or a sexual act.",
+                explanation: "This offense criminalizes sexual extortion—threatening to harm someone or release their intimate photos unless they provide a sexual act or more photos.",
+                reference: "Handout Page 29: PC 21.18(b) - 'A person commits an offense if the person intentionally threatens... to obtain, in return for not committing the threatened offense... intimate visual material; or an act involving sexual conduct...'<br><a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.18' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 21.18</a>"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
