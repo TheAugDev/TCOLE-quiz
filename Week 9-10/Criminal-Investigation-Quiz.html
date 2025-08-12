@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criminal Investigation Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Back to Portal Button -->
+    <div class="fixed top-4 left-4 z-50">
+        <a href="../index.html" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl group">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            <span class="font-medium">Back to Portal</span>
+        </a>
+    </div>
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Criminal Investigation Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This final, exhaustive practice quiz now contains 68 questions covering every detail from your Criminal Investigation handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "What is the definition of a criminal investigation?",
+                options: ["The process of arresting a suspect.", "The process of legally gathering evidence of a crime.", "The process of interviewing witnesses.", "The process of presenting a case in court."],
+                answer: "The process of legally gathering evidence of a crime.",
+                explanation: "A criminal investigation is fundamentally about the legal collection of evidence related to a crime that has been or is being committed.",
+                reference: "Handout Page 1: 32.1"
+            },
+            {
+                question: "What does 'corpus delicti' literally mean?",
+                options: ["The body of the suspect.", "The body or substance of the crime.", "The weapon used in the crime.", "The victim's statement."],
+                answer: "The body or substance of the crime.",
+                explanation: "'Corpus delicti' refers to the proof establishing that a crime has actually occurred, which includes the necessary elements of that specific crime.",
+                reference: "Handout Page 1: Relevant terms and definitions"
+            },
+            {
+                question: "A criminal's characteristic method of operation is known as what?",
+                options: ["Corpus Delicti", "Reasonable Suspicion", "Modus Operandi (MO)", "Bias"],
+                answer: "Modus Operandi (MO)",
+                explanation: "Modus Operandi, or MO, is a Latin term used in law enforcement to describe a criminal's unique and consistent patterns or habits.",
+                reference: "Handout Page 1: Relevant terms and definitions"
+            },
+            {
+                question: "Which of the following is NOT listed as a primary goal of a criminal investigator?",
+                options: ["To legally arrest the suspect(s).", "To recover all stolen property.", "To secure a conviction by any means necessary.", "To present the best case possible to the prosecutor."],
+                answer: "To secure a conviction by any means necessary.",
+                explanation: "The goal is to determine the truth and present the best *legal* case. An investigator must gather all information that tends to prove *or disprove* a person's involvement.",
+                reference: "Handout Page 2: 32.3"
+            },
+            {
+                question: "Which characteristic of a criminal investigator means they take nothing for granted and verify the credibility of all information?",
+                options: ["Curious", "Observant", "Suspicious", "Logical"],
+                answer: "Suspicious",
+                explanation: "A suspicious investigator understands that victims, witnesses, and suspects may have various motivations that 'color' the information they provide, so all facts must be verified.",
+                reference: "Handout Page 3: 32.6"
+            },
+            {
+                question: "Being patient, courteous, and sympathetic with persons contacted during an investigation helps develop which key investigator characteristic?",
+                options: ["Curiosity", "Logical Thinking", "Rapport", "Suspicion"],
+                answer: "Rapport",
+                explanation: "Establishing rapport, a feeling of ease and harmony, with victims and witnesses is a prime facilitator of an investigation and is achieved through strong interpersonal communication skills.",
+                reference: "Handout Page 3: 32.6"
+            },
+            {
+                question: "What is the very first stage of a preliminary investigation at a crime scene?",
+                options: ["Processing the Crime Scene", "First Responder Investigation", "Scene Security and Protection", "Scene Wrap-up"],
+                answer: "Scene Security and Protection",
+                explanation: "Before any investigation can begin, the scene must be made safe and secured to prevent contamination or loss of evidence. The first priority is the safety of persons, then evidence.",
+                reference: "Handout Page 3: 5 Stages for the Preliminary Investigation"
+            },
+            {
+                question: "When securing a crime scene, what is a primary procedure officers should follow?",
+                options: ["Allow media access for transparency.", "Only establish an inner perimeter.", "Establish defined entry and exit points.", "Immediately start collecting evidence."],
+                answer: "Establish defined entry and exit points.",
+                explanation: "Establishing defined entry and exit points is crucial to minimize the loss, destruction, and contamination of evidence by controlling traffic in and out of the scene.",
+                reference: "Handout Page 4: 32.27"
+            },
+            {
+                question: "According to the handout, which of these special units would be called for a homicide?",
+                options: ["Bomb squad", "Military", "Fire department", "Medical Examiner/J.P."],
+                answer: "Medical Examiner/J.P.",
+                explanation: "In cases of homicide, the Medical Examiner or Justice of the Peace has specific legal duties and must be called to the scene.",
+                reference: "Handout Page 5: 32.24"
+            },
+            {
+                question: "Under which Code of Criminal Procedure article does a peace officer have the authority to prevent injury?",
+                options: ["CCP 49.25", "CCP 6.06", "CCP 49.05", "CCP 6.07"],
+                answer: "CCP 6.06",
+                explanation: "CCP Chapter 6.06 specifically grants a peace officer the legal authority to act to prevent injury.",
+                reference: "Handout Page 5: 32.26"
+            },
+            {
+                question: "Under CCP 49.22, what authority does a medical examiner have regarding the location of a death?",
+                options: ["To arrest any suspects at the scene.", "To take possession of all property in the area.", "To seal the premises of the deceased.", "To conduct a press conference."],
+                answer: "To seal the premises of the deceased.",
+                explanation: "CCP 49.22 gives the medical examiner the specific legal authority to seal the premises where a death occurred to protect the scene and evidence.",
+                reference: "Handout Page 5: 32.26"
+            },
+            {
+                question: "What are the four basic steps for crime scene processing, in order?",
+                options: ["Sketch, Photograph, Search, Collect", "Search, Photograph, Sketch, ID/Collect/Package", "Photograph, Collect, Sketch, Search", "Collect, Search, Photograph, Sketch"],
+                answer: "Search, Photograph, Sketch, ID/Collect/Package",
+                explanation: "The logical flow is to first conduct a search, then photograph the scene and evidence, then create a sketch for measurements, and finally identify, collect, and package the evidence.",
+                reference: "Handout Page 6: 4 Steps for Crime Scene Processing"
+            },
+            {
+                question: "Which of the following is an objective of a crime scene search?",
+                options: ["To quickly clean up the scene.", "To support witness testimony with physical evidence.", "To determine the suspect's sentence.", "To inform the media of the facts."],
+                answer: "To support witness testimony with physical evidence.",
+                explanation: "One of the key objectives of a search is to find physical evidence that can corroborate or refute what witnesses say, strengthening the overall case.",
+                reference: "Handout Page 7: The objectives in conducting a search..."
+            },
+            {
+                question: "Which crime scene search method is often disorganized and may result in overlooking trace evidence?",
+                options: ["Strip/Grid search", "Quadrant search", "Point-to-point search", "Circular search"],
+                answer: "Point-to-point search",
+                explanation: "The point-to-point search moves from one piece of evidence to the next as it's discovered, which can be disorganized and cause investigators to miss less obvious evidence.",
+                reference: "Handout Page 7: 32.30"
+            },
+            {
+                question: "Which search method is described as being among the most effective for outside searches?",
+                options: ["Point-to-point search", "Aerial Search", "Area Search", "Strip/Grid/Line search"],
+                answer: "Strip/Grid/Line search",
+                explanation: "The systematic nature of a strip, line, or grid search ensures thorough coverage, making it highly effective for large outdoor areas.",
+                reference: "Handout Page 8: Methods of Crime Scene Search"
+            },
+            {
+                question: "Before beginning a search, what should be done with all personnel?",
+                options: ["They should be given a copy of the final report.", "They should conduct a briefing to discuss the offense, evidence sought, and search method.", "They should individually decide on the best search method to use.", "They should immediately enter the scene to save time."],
+                answer: "They should conduct a briefing to discuss the offense, evidence sought, and search method.",
+                explanation: "A thorough briefing ensures the entire team is organized, understands their responsibilities, and knows what they are looking for, which leads to a more effective search.",
+                reference: "Handout Page 8: 32.31"
+            },
+            {
+                question: "Ideally, when should crime scene photographs be taken?",
+                options: ["After the sketch is complete.", "After evidence has been collected.", "Before the scene is disturbed.", "After the preliminary survey."],
+                answer: "Before the scene is disturbed.",
+                explanation: "Photographs should be taken as early as possible to capture the original, unaltered state of the crime scene.",
+                reference: "Handout Page 9: 4.2.3"
+            },
+            {
+                question: "What are the three major vantage points or ranges for crime scene photography?",
+                options: ["Close, Medium, Far", "Exterior, Interior, Aerial", "Overall/Long-range, Mid-range, Close-up", "Victim, Suspect, Evidence"],
+                answer: "Overall/Long-range, Mid-range, Close-up",
+                explanation: "This progression from general to specific (Overall, Mid-range, Close-up) is the standard method to visually document a crime scene.",
+                reference: "Handout Page 10: 32.34 & Page 11: 4.2.4"
+            },
+            {
+                question: "What is the purpose of a mid-range photograph?",
+                options: ["To show the entire scene from a high altitude.", "To capture examination-quality detail of a single item.", "To portray the scene from 10-20 feet away to associate evidence with areas.", "To document the photographer's credentials."],
+                answer: "To portray the scene from 10-20 feet away to associate evidence with areas.",
+                explanation: "Mid-range photos bridge the gap between the overall scene and close-up shots, showing the relationship between items of evidence and their surroundings.",
+                reference: "Handout Page 10: 32.34 & Page 11: 4.2.4"
+            },
+            {
+                question: "When photographing injuries, what is the recommended three-step process?",
+                options: ["Close-up, Mid-range, Overall", "Overall of person, Intermediate including a joint, Close-up", "Front of injury, Back of injury, Side of injury", "With scale, Without scale, With ruler"],
+                answer: "Overall of person, Intermediate including a joint, Close-up",
+                explanation: "This sequence (overall body, then an intermediate shot including a joint like an elbow or knee to show location, then a close-up) provides the clearest documentation of injuries.",
+                reference: "Handout Page 11: When photographing injuries"
+            },
+            {
+                question: "To be admissible in court, a crime scene photograph must be an accurate representation, material, relevant, and what else?",
+                options: ["Taken with a DSLR camera.", "Artistically composed.", "Free of distortion and unbiased.", "In black and white."],
+                answer: "Free of distortion and unbiased.",
+                explanation: "Legal admissibility requires that photos be a fair and accurate depiction of the scene, without any distortion or bias that could mislead the viewer.",
+                reference: "Handout Page 12: 4.2.6"
+            },
+            {
+                question: "What is a primary reason for preparing a crime scene sketch?",
+                options: ["It is faster than taking photographs.", "It can be used to replace witness testimony.", "To provide a permanent record of distances and spatial relationships.", "To make the scene look more organized for the jury."],
+                answer: "To provide a permanent record of distances and spatial relationships.",
+                explanation: "A sketch supplements photography by accurately recording the distances between various points in the scene, which photos alone cannot easily do.",
+                reference: "Handout Page 12: 32.35"
+            },
+            {
+                question: "Which measurement method involves taking measurements from two fixed permanent objects (like the corners of a room) to a piece of evidence?",
+                options: ["Rectangular coordinates", "Transecting base line", "Triangulation", "Point-to-point"],
+                answer: "Triangulation",
+                explanation: "Triangulation is a method of fixing the position of an object by measuring its distance from two known, fixed points, forming a triangle.",
+                reference: "Handout Page 12: 32.36"
+            },
+            {
+                question: "Which of the following items must be included on a final crime scene sketch?",
+                options: ["The officer's personal opinion.", "A list of all potential suspects.", "A key or legend explaining symbols.", "The estimated time of the crime."],
+                answer: "A key or legend explaining symbols.",
+                explanation: "A legend is essential for anyone viewing the sketch to understand what the various symbols, letters, or numbers represent.",
+                reference: "Handout Page 14: The crime scene sketch should include..."
+            },
+            {
+                question: "What is the definition of Chain of Custody?",
+                options: ["The order in which evidence is presented in court.", "The process of recording transactions of evidence from person to person.", "The physical chain used to secure a crime scene.", "The list of all officers who visited the scene."],
+                answer: "The process of recording transactions of evidence from person to person.",
+                explanation: "Chain of Custody is the chronological documentation that shows the seizure, custody, control, transfer, analysis, and disposition of evidence.",
+                reference: "Handout Page 14: 32.38"
+            },
+            {
+                question: "What is a key guideline for establishing and maintaining the chain of custody?",
+                options: ["Allow as many people as possible to inspect the evidence.", "Store all evidence in a single, large container.", "Avoid marking the evidence itself.", "Limit the number of persons handling the evidence."],
+                answer: "Limit the number of persons handling the evidence.",
+                explanation: "Limiting the number of people who handle evidence is a core principle of chain of custody to minimize the risk of contamination, loss, or tampering.",
+                reference: "Handout Page 14: 32.39"
+            },
+            {
+                question: "What are the four categories of evidence to be collected?",
+                options: ["Primary, Secondary, Tertiary, Quaternary", "Biological, Physical, Chemical, Digital", "Fruits of the crime, Tools of the crime, Contraband, Mere evidence", "Victim's, Suspect's, Witness's, Scene's"],
+                answer: "Fruits of the crime, Tools of the crime, Contraband, Mere evidence",
+                explanation: "These four categories help classify the different types of physical evidence found in relation to an offense.",
+                reference: "Handout Page 15: 32.40"
+            },
+            {
+                question: "Why should wet evidence (like bloodstains) be allowed to air-dry before packaging?",
+                options: ["To make it lighter for transport.", "To prevent rotting and contamination.", "To make it easier to see.", "To activate the DNA."],
+                answer: "To prevent rotting and contamination.",
+                explanation: "Packaging wet biological evidence in a sealed container (especially plastic) will cause it to rot and degrade due to bacterial growth, destroying its evidentiary value.",
+                reference: "Handout Page 15: 32.41"
+            },
+            {
+                question: "When collecting a semi-automatic firearm as evidence, what should be done with the magazine?",
+                options: ["Unload all cartridges from the magazine immediately.", "Remove the magazine but DO NOT unload it.", "Leave the magazine inside the firearm.", "Mark each cartridge in the magazine with an evidence marker."],
+                answer: "Remove the magazine but DO NOT unload it.",
+                explanation: "The magazine should be removed to make the weapon safe, but the cartridges should be left inside it. The unfired cartridge in the chamber is packaged separately.",
+                reference: "Handout Page 15: 6.1.2.A.2.d.i"
+            },
+            {
+                question: "How should a firearm found in water be packaged for transport to the lab?",
+                options: ["It should be dried thoroughly and placed in a paper bag.", "It should be placed in a plastic bag with silica gel packs.", "It should be completely submerged in the same water in a leak-proof container.", "It should be wrapped in a clean, dry cloth."],
+                answer: "It should be completely submerged in the same water in a leak-proof container.",
+                explanation: "This prevents rust from forming at a faster rate, which would happen if the firearm was exposed to air after being wet. It preserves the weapon in the condition it was found.",
+                reference: "Handout Page 17: 5. Firearms Found in Water"
+            },
+            {
+                question: "What should NOT be used to collect paint evidence due to interference from the adhesive?",
+                options: ["A clean-bladed instrument", "A paper fold", "Tape lifts", "Evidence tins"],
+                answer: "Tape lifts",
+                explanation: "The adhesive on tape can interfere with the chemical analysis of the paint, so it should not be used for collection.",
+                reference: "Handout Page 17: B. Paint evidence, #9"
+            },
+            {
+                question: "What type of packaging should be avoided for paint chips because static electricity makes removal difficult?",
+                options: ["Paper folds", "Evidence tins", "Plastic bags", "Letter envelopes"],
+                answer: "Plastic bags",
+                explanation: "Static electricity in plastic bags can cause the paint chips to cling to the sides, making them very difficult to remove intact for analysis.",
+                reference: "Handout Page 17: B. Paint evidence, #10"
+            },
+            {
+                question: "How should drug evidence from different sources (e.g., from two different people) be packaged?",
+                options: ["Packaged together to save space.", "Packaged separately so its source can be identified.", "Weighed together and then packaged.", "Left unpackaged at the scene for the lab to collect."],
+                answer: "Packaged separately so its source can be identified.",
+                explanation: "Packaging evidence from different sources separately is critical to maintaining its integrity and proving its origin later in court.",
+                reference: "Handout Page 18: D. Seized drugs, #2.a"
+            },
+            {
+                question: "When collecting a person's clothing as evidence, what is the correct procedure?",
+                options: ["Shake the clothing vigorously to remove trace evidence first.", "Place all items from one person into a single plastic bag.", "Have the person stand on a large sheet of paper while removing clothing.", "Fold wet clothing neatly and place it in an evidence bag."],
+                answer: "Have the person stand on a large sheet of paper while removing clothing.",
+                explanation: "This procedure helps catch any trace evidence that may fall from the clothing as it is being removed. The paper is then collected as a separate evidentiary item.",
+                reference: "Handout Page 18: E. When removing clothing from a person"
+            },
+            {
+                question: "How should a liquid blood sample be collected from a person?",
+                options: ["Scrape it into a plastic container.", "Absorb it onto a clean cotton cloth or swab, then air-dry.", "Blot it with a paper towel and place in a plastic bag.", "Wait for it to dry completely before collecting."],
+                answer: "Absorb it onto a clean cotton cloth or swab, then air-dry.",
+                explanation: "The correct method is to absorb the liquid blood, allow the swab/cloth to fully air-dry to prevent mold, and then package it in paper.",
+                reference: "Handout Page 19: A. Liquid blood on a person"
+            },
+            {
+                question: "What is the proper way to package a dried, bloodstained garment?",
+                options: ["Place it in a plastic or airtight container.", "Wrap it in clean paper.", "Moisten the stain before packaging.", "Seal it in a wet evidence bag."],
+                answer: "Wrap it in clean paper.",
+                explanation: "Even dried biological stains should be packaged in breathable material like paper to prevent any residual moisture from causing mold or degradation. Plastic is to be avoided.",
+                reference: "Handout Page 19: D. Bloodstains, #2"
+            },
+            {
+                question: "How are saliva samples for DNA, also known as buccal swabs, properly collected?",
+                options: ["By having the subject spit into a cup.", "By swabbing the outside of the lips.", "By rubbing clean cotton swabs on the inside surfaces of the cheeks and gums.", "By taking a blood sample from the tongue."],
+                answer: "By rubbing clean cotton swabs on the inside surfaces of the cheeks and gums.",
+                explanation: "Buccal swabs are collected by rubbing the inside of the mouth to gather cheek cells, which are a rich source of DNA.",
+                reference: "Handout Page 20: Saliva and urine samples, A"
+            },
+            {
+                question: "In a drug-induced sexual assault case, how long is GHB typically detectable in the bloodstream vs. the urine?",
+                options: ["24 hours in blood, 60 hours in urine", "4-7 hours in blood, up to 24 hours in urine", "1 hour in blood, 12 hours in urine", "12 hours in blood, 72 hours in urine"],
+                answer: "4-7 hours in blood, up to 24 hours in urine",
+                explanation: "GHB metabolizes very quickly and leaves the bloodstream within 4-7 hours, but it can still be detected in urine for up to 24 hours, making timely urine collection critical.",
+                reference: "Handout Page 21: F. Drug induced Sexual Assaults"
+            },
+            {
+                question: "What is the purpose of the debriefing held before the final survey of a crime scene?",
+                options: ["To assign blame for any mistakes made.", "To release information to the press.", "To ensure all investigative revelations are addressed and to plan follow-up.", "To complete all final paperwork on scene."],
+                answer: "To ensure all investigative revelations are addressed and to plan follow-up.",
+                explanation: "The debriefing is a crucial communication step for the entire team to share findings, discuss potential forensic testing, and establish post-scene responsibilities.",
+                reference: "Handout Page 21: 3.1.4"
+            },
+            {
+                question: "Which of the following is a key element of the continuing or follow-up investigation?",
+                options: ["Securing the initial crime scene.", "Taking initial photographs.", "Preparing appropriate line-ups.", "Making the initial arrest at the scene."],
+                answer: "Preparing appropriate line-ups.",
+                explanation: "Follow-up investigation includes tasks that occur after the initial scene processing, such as developing leads, re-interviewing witnesses, and conducting line-ups.",
+                reference: "Handout Page 22: 32.19"
+            },
+            {
+                question: "When conducting a sequential line-up, what should an officer instruct the witness?",
+                options: ["That the suspect is definitely in the line-up.", "To pick the person who looks most like the perpetrator.", "That the person who committed the crime may or may not be present.", "To discuss their choice with other witnesses."],
+                answer: "That the person who committed the crime may or may not be present.",
+                explanation: "This instruction is critical to reduce the pressure on a witness to make a choice, which helps prevent mistaken identifications.",
+                reference: "Handout Page 22: Elements of a continuing investigation"
+            },
+            {
+                question: "What is a primary reason for effective case management?",
+                options: ["To make the case file as large as possible.", "To ensure the defense attorney has limited information.", "To identify serious weaknesses in the case.", "To guarantee a conviction."],
+                answer: "To identify serious weaknesses in the case.",
+                explanation: "Good case management allows an investigator and prosecutor to review the entire investigation and identify any potential problems or weaknesses that need to be addressed before trial.",
+                reference: "Handout Page 22: 32.60"
+            },
+            {
+                question: "Which of the following items would be included in a prosecution summary?",
+                options: ["The officer's personal opinion of the suspect.", "A complete transcript of the trial.", "Legality of arrest and seizure of evidence.", "A list of potential jurors."],
+                answer: "Legality of arrest and seizure of evidence.",
+                explanation: "A prosecution summary contains the essential information for the prosecutor, including the case facts, witness information, and the legality of the actions taken by law enforcement.",
+                reference: "Handout Page 23: 32.62"
+            },
+            {
+                question: "What is 'circumstantial evidence'?",
+                options: ["Evidence given directly by an eyewitness.", "Evidence that directly proves a fact.", "Indirect evidence from which deductions are drawn to prove a fact.", "Any evidence found at the crime scene."],
+                answer: "Indirect evidence from which deductions are drawn to prove a fact.",
+                explanation: "Circumstantial evidence is not based on direct observation but on other facts that, when put together, allow for a logical inference about the fact in question.",
+                reference: "Handout Page 1: Relevant terms and definitions"
+            },
+            {
+                question: "Which of these is NOT one of the three main 'tools' of a criminal investigator?",
+                options: ["Information", "Intuition", "Instrumentation or forensic science", "Interviewing"],
+                answer: "Intuition",
+                explanation: "While intuition can be helpful, the formal tools are Information (from people/records), Instrumentation (forensics), and Interviewing (questioning victims/witnesses/suspects).",
+                reference: "Handout Page 2: 32.2"
+            },
+            {
+                question: "The first priority for a first responder arriving at a crime scene is:",
+                options: ["Securing evidence", "Interviewing witnesses", "Checking for signs of life and ensuring personal safety", "Establishing a perimeter"],
+                answer: "Checking for signs of life and ensuring personal safety",
+                explanation: "The safety of all persons on the scene, including victims, responders, and the public, is the absolute first priority before any investigative tasks begin.",
+                reference: "Handout Page 3 & 4: Stage 1: Scene Security and Protection"
+            },
+            {
+                question: "Which type of crime scene search is particularly effective for indoor scenes with regular patterns, like rooms in a building?",
+                options: ["Strip/Line Search", "Circular/Spiral Search", "Quadrant/Sector/Zone Search", "Aerial Search"],
+                answer: "Quadrant/Sector/Zone Search",
+                explanation: "This method works well by dividing a larger, defined area (like a house or a car) into smaller, more manageable sections (quadrants or zones) to be searched systematically.",
+                reference: "Handout Page 8: Quadrant, Sector, Zone or Quadrant Search"
+            },
+            {
+                question: "If you take a photo at a crime scene that is out of focus, what should you do?",
+                options: ["Delete it immediately to save space.", "Do not delete it, but keep it as part of the photo log.", "Retake the photo and delete the blurry one.", "Mark it as 'mistake' in the photo log and then delete it."],
+                answer: "Do not delete it, but keep it as part of the photo log.",
+                explanation: "Photos are assigned unique numbers and there should be no numbers unaccounted for. Deleting a photo can raise questions in court about what was depicted and why it was deleted.",
+                reference: "Handout Page 10: 32.34"
+            },
+            {
+                question: "What is the purpose of 'examination quality' photos?",
+                options: ["To show the overall crime scene.", "To document the investigators at the scene.", "To capture close-up detail of evidence, including a scale, for analysis.", "To be used for press releases."],
+                answer: "To capture close-up detail of evidence, including a scale, for analysis.",
+                explanation: "Examination quality photos are taken at a 90-degree angle with a scale to allow for forensic comparison and analysis of evidence like tool marks or fingerprints.",
+                reference: "Handout Page 12: c. Examination quality photos"
+            },
+            {
+                question: "A rough crime scene sketch made at the scene must be:",
+                options: ["Drawn perfectly to scale.", "Neat and free of any measurement markings.", "Accurate in its representation and measurements, but not necessarily to scale.", "Signed by a judge."],
+                answer: "Accurate in its representation and measurements, but not necessarily to scale.",
+                explanation: "The rough sketch is for capturing accurate data on-site. A final, neater sketch can be drawn to scale later based on the measurements from the rough sketch.",
+                reference: "Handout Page 13: Demonstrate methods for preparing a crime scene sketch"
+            },
+            {
+                question: "What are the 'fruits of the crime'?",
+                options: ["The tools used to commit the crime.", "The objects obtained by the criminal as a result of the crime.", "Any evidence left behind by the criminal.", "The motive for the crime."],
+                answer: "The objects obtained by the criminal as a result of the crime.",
+                explanation: "'Fruits of the crime' refers to the property or money that the suspect gains from the criminal act, such as stolen cash or jewelry.",
+                reference: "Handout Page 15: 32.40"
+            },
+            {
+                question: "When marking a revolver as evidence, what unique step should be taken before opening the cylinder?",
+                options: ["Empty all cartridges.", "Clean the barrel.", "Index the cylinder with a marker to show its alignment with the barrel.", "Take a photo of the serial number."],
+                answer: "Index the cylinder with a marker to show its alignment with the barrel.",
+                explanation: "This preserves crucial evidence by showing which chamber was in the firing position at the time the weapon was collected.",
+                reference: "Handout Page 16: ii. Revolvers, #1"
+            },
+            {
+                question: "When dislodging a projectile (bullet) embedded in wood, what is the proper technique?",
+                options: ["Use a tool like a screwdriver to pry or scrape the bullet out.", "Drill a hole next to the bullet to relieve pressure.", "Cut around the projectile until it falls free.", "Pull it out with pliers."],
+                answer: "Cut around the projectile until it falls free.",
+                explanation: "Prying or scraping can damage the individual markings (striations) on the bullet, which are essential for forensic comparison. Cutting the surrounding material preserves these marks.",
+                reference: "Handout Page 17: c. Dislodging projectiles"
+            },
+            {
+                question: "What is the best packaging for fresh plants, like marijuana, to minimize mold growth?",
+                options: ["Sealed plastic bags", "Airtight glass jars", "Paper or burlap sacks", "Styrofoam containers"],
+                answer: "Paper or burlap sacks",
+                explanation: "Breathable materials like paper or burlap allow the plants to dry out while in storage, which prevents the growth of mold that would destroy the evidence.",
+                reference: "Handout Page 18: (3) Fresh plants"
+            },
+            {
+                question: "When collecting a dried bloodstain from an immovable object, what should be used to moisten the swab?",
+                options: ["Saliva", "Tap water", "Bleach solution", "Distilled water"],
+                answer: "Distilled water",
+                explanation: "Distilled water is used because it is pure and free of contaminants (like chlorine or minerals in tap water) that could interfere with subsequent DNA testing.",
+                reference: "Handout Page 19: 7. Absorb suspected dried bloodstains..."
+            },
+            {
+                question: "A sexual assault victim must have a requested rape exam conducted if the assault occurred within what time frame?",
+                options: ["24 hours", "72 hours", "120 hours", "One week"],
+                answer: "120 hours",
+                explanation: "By law, a requested sexual assault evidence collection kit (rape exam) must be conducted if the assault occurred within the last 120 hours (5 days).",
+                reference: "Handout Page 21: E. Seminal evidence from sexual assault victim(s)"
+            },
+            {
+                question: "What is the final step of the 'Scene Wrap-up' stage before leaving?",
+                options: ["Debriefing the team", "Conducting a final survey", "Inventorying evidence", "Releasing the scene according to department policy"],
+                answer: "Releasing the scene according to department policy",
+                explanation: "The final survey ensures everything is collected and safe, but the very last action is the formal release of the scene, which concludes law enforcement's control over the location.",
+                reference: "Handout Page 21: 3.1.5.D.5"
+            },
+            {
+                question: "A properly prepared case file can give the defense attorney the impression that the officers are professional, which may help in what way?",
+                options: ["Getting the case dismissed.", "Ensuring a longer sentence.", "Obtaining a plea agreement.", "Getting the officer a promotion."],
+                answer: "Obtaining a plea agreement.",
+                explanation: "When the defense sees a well-organized, thorough, and professional case file, they are more likely to seek a plea agreement rather than challenge the strong case in court.",
+                reference: "Handout Page 23: 32.63"
+            },
+            {
+                question: "What level of proof is required to obtain a conviction in a criminal trial?",
+                options: ["Reasonable Suspicion", "Probable Cause", "Preponderance of the Evidence", "Proof beyond a reasonable doubt"],
+                answer: "Proof beyond a reasonable doubt",
+                explanation: "This is the highest standard of proof in the legal system and is required for a jury to find a defendant guilty in a criminal case.",
+                reference: "Handout Page 1: Relevant terms and definitions"
+            },
+            {
+                question: "A person who receives and disposes of stolen property on a regular basis is known as a:",
+                options: ["Suspect", "Complainant", "Fence", "Witness"],
+                answer: "Fence",
+                explanation: "A 'fence' is the colloquial and legal term for an individual who acts as a middleman for stolen goods.",
+                reference: "Handout Page 1: Relevant terms and definitions"
+            },
+            {
+                question: "The ability to think of other possible ways to accomplish a task or secure information is known as:",
+                options: ["Logical thinking", "Creative problem solving", "Rapport", "Bias"],
+                answer: "Creative problem solving",
+                explanation: "This characteristic involves thinking outside the box while still adhering to legal rules to find evidence or solve problems during an investigation.",
+                reference: "Handout Page 3: 32.6"
+            },
+            {
+                question: "What is the recommended minimum sample size when collecting paint evidence?",
+                options: ["1\" x 1\"", "1/4\" x 1/4\"", "1/2\" x 1/2\"", "The entire painted surface"],
+                answer: "1/2\" x 1/2\"",
+                explanation: "The handout specifies that paint samples should be at least 1/2\" x 1/2\" to ensure a sufficient amount of material for laboratory analysis.",
+                reference: "Handout Page 17: B. Paint evidence, #4"
+            },
+            {
+                question: "Which of these items would be found in a case folder but typically NOT in a prosecution summary?",
+                options: ["Case facts", "Names of witnesses", "Fingerprint cards and comparison reports", "Legality of arrest"],
+                answer: "Fingerprint cards and comparison reports",
+                explanation: "The case folder contains all reports, including detailed expert reports like fingerprint comparisons. The prosecution summary is a more concise document containing the core facts, witness info, and legal basis for the case.",
+                reference: "Handout Page 23: 32.62"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return;
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>

@@ -180,6 +180,7 @@
             <div class="nav-tab active" onclick="switchTab('overview')" data-tab="overview">📚 Overview</div>
             <div class="nav-tab" onclick="switchTab('week5-6')" data-tab="week5-6">📝 Week 5-6</div>
             <div class="nav-tab" onclick="switchTab('week7-8')" data-tab="week7-8">🎯 Week 7-8</div>
+            <div class="nav-tab" onclick="switchTab('week9-10')" data-tab="week9-10">🔍 Week 9-10</div>
             <div class="nav-tab" onclick="switchTab('quizzes')" data-tab="quizzes">🧠 All Quizzes</div>
         </div>
     </div>
@@ -189,7 +190,7 @@
         <main class="max-w-6xl mx-auto px-4 mb-12">
             <div class="glass p-8 mb-8 wow stagger-2">
                 <h2 class="text-3xl font-bold section-title mb-6 text-center">Study Progress Dashboard</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-indigo-100 rounded-xl">
                         <div class="text-3xl font-bold text-blue-600 mb-2">10</div>
                         <div class="text-gray-700 font-medium">Week 5-6 Topics</div>
@@ -198,8 +199,12 @@
                         <div class="text-3xl font-bold text-purple-600 mb-2">8</div>
                         <div class="text-gray-700 font-medium">Week 7-8 Topics</div>
                     </div>
+                    <div class="text-center p-6 bg-gradient-to-br from-green-50 to-emerald-100 rounded-xl">
+                        <div class="text-3xl font-bold text-emerald-600 mb-2">1</div>
+                        <div class="text-gray-700 font-medium">Week 9-10 Topics</div>
+                    </div>
                     <div class="text-center p-6 bg-gradient-to-br from-amber-50 to-orange-100 rounded-xl">
-                        <div class="text-3xl font-bold text-amber-600 mb-2">9</div>
+                        <div class="text-3xl font-bold text-amber-600 mb-2">10</div>
                         <div class="text-gray-700 font-medium">Practice Quizzes</div>
                     </div>
                 </div>
@@ -505,6 +510,51 @@
         </main>
     </div>
 
+    <!-- Week 9-10 Tab -->
+    <div id="week9-10" class="tab-content">
+        <main class="max-w-6xl mx-auto px-4 mb-12">
+            <div class="week-section p-8 mb-8 wow stagger-1">
+                <div class="week-badge bg-gradient-to-r from-emerald-500 to-green-500">Week 9-10 Content</div>
+                <h2 class="text-3xl font-bold section-title mb-8">Criminal Investigation & Advanced Topics</h2>
+                
+                <!-- Study Topics Section -->
+                <div class="mb-12">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                        📚 <span class="ml-2">Study Topics</span>
+                        <span class="ml-2 text-sm bg-emerald-100 text-emerald-800 px-2 py-1 rounded-full">1 Topic</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <a href="Week 9-10/Criminal-Investigation.html" class="topic-card glass p-6 flex flex-col items-center text-center hover:text-indigo-900">
+                            <svg class="w-12 h-12 mb-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <h4 class="text-lg font-bold mb-2">Criminal Investigation</h4>
+                            <p class="text-gray-600 text-sm">Advanced investigation techniques, evidence collection, and case management</p>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Practice Quizzes Section -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                        🧠 <span class="ml-2">Practice Quizzes</span>
+                        <span class="ml-2 text-sm bg-amber-100 text-amber-800 px-2 py-1 rounded-full">1 Quiz</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <a href="Week 9-10/Criminal-Investigation-Quiz.html" class="topic-card glass p-6 flex flex-col items-center text-center hover:text-indigo-900 relative">
+                            <span class="quiz-badge">🔍 Quiz</span>
+                            <svg class="w-12 h-12 mb-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <h4 class="text-lg font-bold mb-2">Criminal Investigation Quiz</h4>
+                            <p class="text-gray-600 text-sm">Test your knowledge on investigation procedures and techniques</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
     <!-- All Quizzes Tab -->
     <div id="quizzes" class="tab-content">
         <main class="max-w-6xl mx-auto px-4 mb-12">
@@ -605,6 +655,16 @@
                         <p class="text-gray-600 text-sm">Detailed quiz on assault laws, threats, and violent crimes</p>
                         <div class="mt-4 text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Week 7-8 • Comprehensive</div>
                     </a>
+
+                    <a href="Week 9-10/Criminal-Investigation-Quiz.html" class="topic-card glass p-6 flex flex-col items-center text-center hover:text-indigo-900 relative">
+                        <span class="quiz-badge bg-gradient-to-r from-emerald-500 to-green-500">🔍 Investigation</span>
+                        <svg class="w-14 h-14 mb-4 text-emerald-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 16l2.879-2.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242zM21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h3 class="text-xl font-bold mb-2">Criminal Investigation Quiz</h3>
+                        <p class="text-gray-600 text-sm">Advanced quiz on investigation techniques and case management</p>
+                        <div class="mt-4 text-xs text-gray-500 bg-gray-100 px-3 py-1 rounded-full">Week 9-10 • Advanced</div>
+                    </a>
                 </div>
 
                 <!-- Quiz Statistics -->
@@ -612,7 +672,7 @@
                     <h4 class="text-xl font-bold text-gray-800 mb-4 text-center">📊 Quiz Progress Tracking</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                         <div class="bg-white p-4 rounded-lg shadow-sm">
-                            <div class="text-2xl font-bold text-blue-600 mb-1">9</div>
+                            <div class="text-2xl font-bold text-blue-600 mb-1">10</div>
                             <div class="text-sm text-gray-600">Total Quizzes Available</div>
                         </div>
                         <div class="bg-white p-4 rounded-lg shadow-sm">
