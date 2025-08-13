@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f1f5f9; /* Light gray-blue background */
+            background-color: #f0f9ff; /* Light Blue background */
         }
         .card {
             background-color: white;
@@ -21,17 +21,42 @@
             cursor: pointer;
             font-weight: 600;
             padding: 1rem;
-            background-color: #e2e8f0; /* Lighter Gray-blue */
+            background-color: #e0f2fe; /* Lighter Blue */
             border-radius: 0.5rem;
             transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         details > summary:hover {
-            background-color: #cbd5e1;
+            background-color: #bae6fd;
         }
         details[open] > summary {
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
         }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #0ea5e9; /* Sky Blue */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-block {
+            background-color: #fafafa;
+            border-left: 4px solid #0ea5e9;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.25rem;
+        }
+        .info-block.definitions { border-left-color: #f59e0b; }
+        .info-block.procedures { border-left-color: #22c55e; }
+        .info-block.concepts { border-left-color: #8b5cf6; }
+        .info-block p { margin-bottom: 0.5rem; }
+        .info-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        
+        /* Quiz Styles */
         .quiz-option {
             transition: background-color 0.2s;
         }
@@ -43,42 +68,25 @@
             background-color: #fee2e2 !important;
             border-color: #ef4444 !important;
         }
-        .tab-button {
-            transition: all 0.3s ease;
-        }
-        .tab-button.active {
-            background-color: #475569; /* Slate Gray */
-            color: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
     </style>
 </head>
 <body class="p-4 md:p-8">
 
-    <!-- Back to Portal Button -->
-    <div class="fixed top-4 left-4 z-50">
-        <a href="../index.html" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl group">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            <span class="font-medium">Back to Portal</span>
-        </a>
-    </div>
-
     <div class="max-w-6xl mx-auto">
         <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Criminal Investigation & Crime Scene Processing</h1>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Criminal Investigation</h1>
             <p class="text-lg text-gray-600 mt-2">An Interactive Study Guide</p>
         </header>
 
         <!-- Main Tab Navigation -->
         <div class="mb-8 border-b border-gray-200">
             <nav class="flex flex-wrap -mb-px" id="main-tabs">
-                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-fundamentals">Fundamentals</button>
-                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-investigation-stages">Investigation Stages</button>
-                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-scene-processing">Scene Processing</button>
-                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-evidence">Evidence & Case Management</button>
-                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300" data-tab="tab-quiz">Knowledge Check</button>
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-fundamentals">Fundamentals</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-preliminary">Preliminary Investigation</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-processing">Scene Processing</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-collection">Evidence Collection</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-followup">Follow-Up & Case Management</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">Knowledge Check</button>
             </nav>
         </div>
 
@@ -86,168 +94,316 @@
         <main id="tab-content">
             <!-- Fundamentals Tab -->
             <div id="tab-fundamentals" class="tab-pane active">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Fundamentals of Criminal Investigation</h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Fundamentals & Goals</h2>
                 <div class="space-y-6">
-                    <details class="card p-0">
-                        <summary>Key Definitions</summary>
-                        <div class="p-6 border-t grid md:grid-cols-2 gap-4">
-                            <p><strong>Criminal Investigation:</strong> The process of legally gathering evidence of a crime that has been or is being committed.</p>
-                            <p><strong>Corpus Delicti:</strong> Literally "the body of the crime"; the proof establishing that a crime has occurred.</p>
-                            <p><strong>Evidence:</strong> Anything offered in court to prove the truth or falsity of a fact in issue.</p>
-                            <p><strong>Modus Operandi (M.O.):</strong> A criminal's characteristic method of operation.</p>
-                            <p><strong>Probable Cause:</strong> Credible information that would cause a reasonable person to believe a suspect committed a crime or that evidence will be found in a particular place.</p>
-                            <p><strong>Reasonable Suspicion:</strong> Specific articulable facts that would reasonably warrant the detention of a person.</p>
+                    <details class="card p-0" open>
+                        <summary>Core Concepts & Definitions</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p><strong>Criminal Investigation:</strong> The process of legally gathering evidence of a crime that has been or is being committed.</p>
+                                <p><strong>Crime Scene Search:</strong> A planned and coordinated legal search of a crime scene to locate physical evidence or witnesses to the crime.</p>
+                                <p><strong>Corpus Delicti:</strong> Literally "the body of the crime." The proof establishing that a crime has occurred.</p>
+                            </div>
+                            <div class="info-block definitions">
+                                <p><strong>Key Terms:</strong></p>
+                                <ul>
+                                    <li><strong>Circumstantial Evidence:</strong> Indirect evidence from which deductions are drawn.</li>
+                                    <li><strong>Complainant:</strong> The person requesting an investigation.</li>
+                                    <li><strong>Elements of a Crime:</strong> Conditions that must occur for an act to be called a specific crime.</li>
+                                    <li><strong>Evidence:</strong> Anything offered in court to prove the truth or falsity of a fact.</li>
+                                    <li><strong>Modus Operandi (MO):</strong> A criminal's characteristic method of operation.</li>
+                                    <li><strong>Probable Cause:</strong> Credible information that would cause a reasonable person to believe a suspect committed a crime or that evidence will be found in a particular place.</li>
+                                    <li><strong>Reasonable Suspicion:</strong> Specific, articulable facts that would reasonably warrant the detention of a person.</li>
+                                </ul>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
-                        <summary>Goals & Tools of an Investigator</summary>
+                        <summary>Goals of a Criminal Investigator</summary>
                         <div class="p-6 border-t">
-                            <h4 class="font-semibold text-lg mb-2">Primary Goals:</h4>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li>To determine if a crime has been committed.</li>
-                                <li>To legally obtain information and evidence to identify the person(s) responsible.</li>
-                                <li>To legally arrest the suspect(s).</li>
-                                <li>To recover all stolen property.</li>
-                                <li>To present the best case possible to the prosecutor.</li>
-                            </ul>
-                            <h4 class="font-semibold text-lg mt-4 mb-2">Investigator's Tools:</h4>
-                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li><strong>Information:</strong> Knowledge gathered from victims, witnesses, suspects, and records.</li>
-                                <li><strong>Instrumentation (Forensic Science):</strong> Techniques like fingerprinting, serology, ballistics, and DNA analysis.</li>
-                                <li><strong>Interviewing:</strong> The questioning of victims, witnesses, or suspects.</li>
-                                <li><strong>Laws of Arrest, Search, and Seizure:</strong> Knowledge of legal guidelines to ensure evidence is admissible.</li>
-                             </ul>
+                             <div class="info-block concepts">
+                                <p>The ultimate goal is to determine the truth about how a crime occurred. This includes:</p>
+                                <ul>
+                                    <li>To determine if a crime has been committed.</li>
+                                    <li>To legally obtain information and evidence to identify the person(s) responsible.</li>
+                                    <li>To legally arrest the suspect(s).</li>
+                                    <li>To recover all stolen property.</li>
+                                    <li>To present the best case possible to the prosecutor.</li>
+                                </ul>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
                         <summary>Characteristics of a Criminal Investigator</summary>
                         <div class="p-6 border-t">
-                            <ul class="list-disc list-inside grid md:grid-cols-2 gap-x-8 text-gray-700">
-                                <li><strong>Suspicious:</strong> Takes nothing for granted and verifies all information.</li>
-                                <li><strong>Curious:</strong> Desires to learn the facts and truth about people, places, and objects.</li>
-                                <li><strong>Observant:</strong> Develops the ability to take accurate notice using all five senses.</li>
-                                <li><strong>Unbiased & Unprejudiced:</strong> Avoids personal distortions of judgment.</li>
-                                <li><strong>Develops Rapport:</strong> Uses interpersonal skills to build trust with victims and witnesses.</li>
-                                <li><strong>Logical Thinking:</strong> Applies logic to compare statements, behavior, and physical evidence.</li>
-                                <li><strong>Creative Problem Solving:</strong> Thinks of alternative ways to accomplish tasks or secure information.</li>
-                            </ul>
+                             <div class="info-block concepts">
+                                <ul>
+                                    <li><strong>Suspicious:</strong> Takes nothing for granted and verifies all information.</li>
+                                    <li><strong>Curious:</strong> Desires to learn the facts and truth.</li>
+                                    <li><strong>Observant:</strong> Trained to use all five senses to give attention to details.</li>
+                                    <li><strong>Unbiased & Unprejudiced:</strong> Avoids letting personal feelings influence the investigation.</li>
+                                    <li><strong>Develops Rapport:</strong> Patient, courteous, and sympathetic to build trust.</li>
+                                    <li><strong>Logical Thinking:</strong> Applies logic to compare behavior, statements, and evidence.</li>
+                                    <li><strong>Creative Problem Solving:</strong> Thinks of alternative ways to accomplish tasks and secure evidence.</li>
+                                </ul>
+                            </div>
                         </div>
                     </details>
                 </div>
             </div>
 
-            <!-- Investigation Stages Tab -->
-            <div id="tab-investigation-stages" class="tab-pane hidden">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">The 5 Stages of a Preliminary Investigation</h2>
+            <!-- Preliminary Investigation Tab -->
+            <div id="tab-preliminary" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Preliminary Investigation & Scene Security</h2>
                 <div class="space-y-6">
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold text-slate-700 mb-2">Stage 1: Scene Security and Protection</h3>
-                        <p>The first responder's initial actions. The priority is <strong class="font-semibold">safety of persons first, then evidence</strong>. This includes checking for signs of life, noting any changes made during rescue operations, and beginning the chain of custody by controlling access.</p>
-                    </div>
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold text-slate-700 mb-2">Stage 2: First Responder Investigation</h3>
-                        <p>Involves a careful survey of the scene, conducting initial interviews, and documenting all initial observations, changes, sounds, and smells.</p>
-                    </div>
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold text-slate-700 mb-2">Stage 3: Processing the Crime Scene</h3>
-                        <p>The systematic process of searching for evidence, photographing the scene and evidence, sketching the scene, and then identifying, collecting, marking, and preserving evidence.</p>
-                    </div>
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold text-slate-700 mb-2">Stage 4: Scene Wrap-up</h3>
-                        <p>Before leaving, personnel conduct a final survey of the scene, debrief to share findings, and inventory all evidence and equipment to ensure nothing is left behind.</p>
-                    </div>
-                    <div class="card p-6">
-                        <h3 class="text-xl font-semibold text-slate-700 mb-2">Stage 5: Conclude and Document</h3>
-                        <p>The final stage involves transporting evidence, notifying next of kin if necessary, creating the case file, and writing all required reports.</p>
-                    </div>
+                    <details class="card p-0" open>
+                        <summary>5 Stages of the Preliminary Investigation</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li><strong>Scene Security and Protection:</strong> Prioritize safety of persons, then evidence. Check for signs of life and begin the chain of custody.</li>
+                                    <li><strong>First Responder Investigation:</strong> Conduct a careful scene survey, interview witnesses, and document all initial observations (sights, smells, changes).</li>
+                                    <li><strong>Processing the Crime Scene:</strong> The detailed process of searching, photographing, sketching, and collecting evidence.</li>
+                                    <li><strong>Scene Wrap-up:</strong> Debrief personnel, conduct a final survey, inventory evidence, and transport everything securely.</li>
+                                    <li><strong>Conclude and Document:</strong> Finalize reports and documentation.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Arrival & Securing the Scene</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p><strong>Upon Arrival:</strong></p>
+                                <ul>
+                                    <li>Determine if suspects are at or near the scene.</li>
+                                    <li>Assess for weapons and determine appropriate tactical action.</li>
+                                    <li>Render first aid and call for EMS if needed.</li>
+                                    <li>Locate victims, witnesses, and complainants.</li>
+                                    <li>Share known suspect/vehicle descriptions, weapons, and direction of travel with other officers.</li>
+                                </ul>
+                            </div>
+                             <div class="info-block procedures">
+                                <p><strong>Securing the Scene:</strong></p>
+                                <ul>
+                                    <li>Establish defined entry and exit points.</li>
+                                    <li>Set up inner and outer perimeters using tape, barricades, or personnel.</li>
+                                    <li>Protect the scene from contamination and removal of evidence.</li>
+                                    <li>Legal authority to protect the scene comes from CCP 6.06, 6.07, and Chapter 49.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Special Units & Assistance</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p>Determine if specialized units are needed, such as:</p>
+                                <ul>
+                                    <li>EMS / Medical Examiner / JP</li>
+                                    <li>Bomb Squad / Fire Department</li>
+                                    <li>Narcotics Investigators / Other LE Agencies</li>
+                                    <li>Crime Scene Technicians / Detectives / Supervisors</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
                 </div>
             </div>
 
             <!-- Scene Processing Tab -->
-            <div id="tab-scene-processing" class="tab-pane hidden">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Crime Scene Search & Processing</h2>
+            <div id="tab-processing" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Scene Processing: Search, Photos, Sketch</h2>
                 <div class="space-y-6">
-                    <details class="card p-0">
-                        <summary>Crime Scene Search Methods</summary>
-                        <div class="p-6 border-t grid md:grid-cols-2 gap-6">
-                            <div>
-                                <h4 class="font-semibold text-lg mb-2">Strip/Grid/Line Search</h4>
-                                <p>Among the most effective for outside searches. Can be done in one direction (strip) or two compass directions (grid) for a second view of the same area.</p>
+                    <details class="card p-0" open>
+                        <summary>Crime Scene Search</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p><strong>Objectives of a Search:</strong></p>
+                                <ul>
+                                    <li>Establish that a crime has been committed.</li>
+                                    <li>Place the suspect at the scene.</li>
+                                    <li>Eliminate persons as suspects.</li>
+                                    <li>Motivate confessions from suspects confronted with evidence.</li>
+                                    <li>Support witness testimony.</li>
+                                    <li>Determine the how, why, and when of the crime.</li>
+                                </ul>
                             </div>
-                            <div>
-                                <h4 class="font-semibold text-lg mb-2">Circular (Spiral) Search</h4>
-                                <p>Useful when an item is missing from the center of an area. The search can spiral inward or outward.</p>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-lg mb-2">Quadrant/Sector/Zone Search</h4>
-                                <p>Effective for indoor and outdoor scenes with defined borders. The scene is divided into sections (e.g., rooms in a house), which are searched individually.</p>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-lg mb-2">Point-to-Point Search</h4>
-                                <p>A preliminary method where the search moves in order of the appearance of evidence. Can be disorganized and may cause trace evidence to be overlooked.</p>
+                            <div class="info-block procedures">
+                                <p><strong>Search Methods:</strong></p>
+                                <ul>
+                                    <li><strong>Point-to-Point:</strong> Move in order of appearance of evidence. Often disorganized but can be a good preliminary step.</li>
+                                    <li><strong>Strip/Grid/Line:</strong> Most effective for outside searches. A grid search provides two views of the same area.</li>
+                                    <li><strong>Circular (Spiral):</strong> Useful when an item is missing from the center. Can start from inside or outside.</li>
+                                    <li><strong>Quadrant/Sector/Zone:</strong> Effective for indoor/outdoor scenes with defined borders (e.g., rooms, vehicles).</li>
+                                    <li><strong>Area:</strong> For small, specific areas like bushes or paths.</li>
+                                    <li><strong>Aerial:</strong> May use infrared for things like gravesites.</li>
+                                </ul>
                             </div>
                         </div>
                     </details>
                     <details class="card p-0">
                         <summary>Crime Scene Photography</summary>
                         <div class="p-6 border-t">
-                            <p class="mb-4">Photography provides a permanent visual record of the scene as it was found. All photos should be logged, and no photos (even blurry ones) should be deleted.</p>
-                            <h4 class="font-semibold text-lg mb-2">The 3 Vantage Points:</h4>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li><strong>Overall / Long-Range:</strong> An overview of the scene to establish its location (e.g., exterior of a building, aerial shots).</li>
-                                <li><strong>Mid-Range:</strong> Taken from 10-20 feet away, these photos show the relationship between items of evidence and other features of the scene.</li>
-                                <li><strong>Close-Up:</strong> Taken 5 feet or less from the subject, these are detailed photos of individual items of evidence. Examination-quality close-ups must include a scale and be taken at a 90-degree angle.</li>
-                            </ul>
+                            <div class="info-block procedures">
+                                <p><strong>Photography Procedures:</strong></p>
+                                <ul>
+                                    <li>Take photos before the scene is disturbed. When in doubt, take the photo.</li>
+                                    <li>Maintain a photo log. Do not delete out-of-focus photos.</li>
+                                    <li>Use measurement scales (photograph item first without, then with the scale).</li>
+                                    <li>Work from exterior to interior, general to specific.</li>
+                                </ul>
+                            </div>
+                            <div class="info-block concepts">
+                                <p><strong>Three Major Vantage Points:</strong></p>
+                                <ol class="list-decimal list-inside">
+                                    <li><strong>Overall / Long-Range:</strong> Overview of the scene to establish location.</li>
+                                    <li><strong>Mid-Range:</strong> Shows relationship between evidence items. Taken from 10-20 feet.</li>
+                                    <li><strong>Close-Up:</strong> Detailed shots of individual evidence items. Taken from 5 feet or less. Examination quality photos must include a scale and be taken at a 90-degree angle.</li>
+                                </ol>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
                         <summary>Crime Scene Sketching</summary>
                         <div class="p-6 border-t">
-                            <p class="mb-4">Sketches supplement photos by providing accurate distance measurements and spatial relationships between objects.</p>
-                            <h4 class="font-semibold text-lg mb-2">Measurement Methods:</h4>
-                            <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li><strong>Triangulation:</strong> Measuring from two fixed points to a piece of evidence, forming a triangle. Best for scenes with clear landmarks.</li>
-                                <li><strong>Rectangular Coordinates:</strong> Measuring an object's distance from two mutually perpendicular lines (e.g., the walls of a room).</li>
-                                <li><strong>Transecting Baseline:</strong> A tape measure is run through the scene, and objects are measured by their distance from the tape at a right angle. Useful for large, irregular outdoor areas.</li>
-                            </ul>
+                            <div class="info-block concepts">
+                                <p><strong>Value of a Sketch:</strong></p>
+                                <ul>
+                                    <li>Provides a permanent record of distances and spatial relationships.</li>
+                                    <li>Helps in reconstructing the scene and corroborating testimony.</li>
+                                    <li>Eliminates confusing details.</li>
+                                </ul>
+                            </div>
+                            <div class="info-block procedures">
+                                <p><strong>Sketching Methods:</strong></p>
+                                <ul>
+                                    <li><strong>Triangulation:</strong> A bird's-eye view using two fixed points to plot items.</li>
+                                    <li><strong>Rectangular Coordinates:</strong> Uses two mutually perpendicular lines (like walls) as baselines.</li>
+                                    <li><strong>Transecting Baseline:</strong> A tape is run across the scene, and objects are measured at right angles from the tape. Useful for large, irregular outdoor areas.</li>
+                                </ul>
+                                <p class="mt-4">A rough sketch should be made at the scene (accurate but not to scale), and a final, scaled drawing can be made later. The sketch must include a key/legend, scale, and indicate North.</p>
+                            </div>
                         </div>
                     </details>
                 </div>
             </div>
 
-            <!-- Evidence & Case Management Tab -->
-            <div id="tab-evidence" class="tab-pane hidden">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Evidence & Case Management</h2>
-                 <div class="space-y-6">
-                    <details class="card p-0">
+            <!-- Evidence Collection Tab -->
+            <div id="tab-collection" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Evidence Collection & Chain of Custody</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
                         <summary>Chain of Custody</summary>
                         <div class="p-6 border-t">
-                            <p>The process of recording all transactions of evidence from person to person since its acquisition. It maintains the integrity of the evidence by accounting for who found it, who handled it, where it was stored, and who transported it.</p>
-                            <p class="mt-2 font-bold">To maintain the chain of custody, limit the number of people who handle evidence and ensure every transfer is documented with names, dates, times, and receipts.</p>
+                             <div class="info-block concepts">
+                                <p><strong>Chain of Custody:</strong> The process of recording all transactions of evidence from person to person since its acquisition by law enforcement.</p>
+                                <p>It accounts for who found the item, where it was found, who took custody, who transported it, where it was stored, and its journey to/from the lab.</p>
+                                <ul>
+                                    <li>Limit the number of people handling evidence.</li>
+                                    <li>Record every transfer of custody (to whom, date, time, reason).</li>
+                                    <li>Anyone handling evidence should affix their name/ID and date to the package.</li>
+                                    <li>Use signed receipts for transfers.</li>
+                                </ul>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
-                        <summary>Evidence Packaging & Preservation</summary>
+                        <summary>Packaging & Preservation</summary>
                         <div class="p-6 border-t">
-                             <ul class="list-disc list-inside space-y-2 text-gray-700">
-                                <li>The purpose of proper packaging is to prevent breaking, spoiling, loss, and contamination.</li>
-                                <li>Each different item of evidence should be packaged separately.</li>
-                                <li><strong class="font-semibold">Wet evidence</strong> (e.g., bloody clothing) must be allowed to air-dry before being packaged in paper bags to prevent rotting and mold.</li>
-                                <li><strong class="font-semibold">Firearms</strong> should be made safe (unloaded), but magazines should not be unloaded. Never stick anything down the barrel.</li>
-                                <li><strong class="font-semibold">Paint evidence</strong> should be collected in a paper fold or tin, not a plastic bag, to avoid static electricity.</li>
-                             </ul>
+                             <div class="info-block procedures">
+                                <p><strong>General Principles:</strong></p>
+                                <ul>
+                                    <li>The purpose is to prevent breaking, spoiling, loss, and contamination.</li>
+                                    <li>Each item should be packaged separately.</li>
+                                    <li>Use paper bags instead of plastic for biological evidence to prevent moisture buildup and degradation.</li>
+                                    <li>Wet evidence (e.g., bloodstains) must be air-dried before final packaging. Liquid blood must be refrigerated.</li>
+                                    <li>Always use appropriate Personal Protective Equipment (PPE).</li>
+                                </ul>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
-                        <summary>Follow-up Investigation & Case Management</summary>
+                        <summary>Specific Evidence Collection</summary>
                         <div class="p-6 border-t">
-                             <h4 class="font-semibold text-lg mb-2">Follow-up Investigation:</h4>
-                             <p class="mb-4">This involves continuing inquiries, developing and revising a theory of the crime, re-interviewing witnesses, preparing line-ups (sequential is preferred), and liaising with lab technicians.</p>
-                             <h4 class="font-semibold text-lg mb-2">Case Management:</h4>
-                             <p>A properly prepared case folder is essential for prosecution. It should contain offense reports, witness/victim statements, confessions, expert reports, and a prosecution summary that includes case facts, legality of arrest/seizure, and witness information.</p>
+                             <div class="info-block procedures">
+                                <p><strong>Firearms:</strong></p>
+                                <ul>
+                                    <li>Document position of slide, cylinder, hammer, and safety before moving. Unload the weapon (but not the magazine). Do not clean.</li>
+                                    <li>Never place an object inside the barrel.</li>
+                                    <li>If found in water, submerge the firearm in the same water for transport to prevent rust.</li>
+                                </ul>
+                            </div>
+                            <div class="info-block procedures">
+                                <p><strong>Biological Evidence (Blood, Saliva, Semen):</strong></p>
+                                <ul>
+                                    <li>Absorb liquid samples onto a clean cotton swab or cloth.</li>
+                                    <li>Moisten a swab with distilled water to collect dried stains.</li>
+                                    <li>Always collect an unstained control sample from near the evidence area.</li>
+                                    <li>Air-dry all samples before packaging in paper. Do not use plastic.</li>
+                                    <li>For sexual assault exams, use a standard kit and refrigerate samples.</li>
+                                </ul>
+                            </div>
+                             <div class="info-block procedures">
+                                <p><strong>Trace Evidence (Hair, Fibers, Paint):</strong></p>
+                                <ul>
+                                    <li>Collect carefully using tweezers or by vacuuming. Package in a paper fold (druggist's fold) or a sealed container.</li>
+                                    <li>For paint, collect samples down to the metal/plastic substrate. Do not use tape lifts.</li>
+                                    <li>When removing a victim's/suspect's clothing, have them stand on clean paper to catch any falling trace evidence. Package each clothing item separately in paper bags.</li>
+                                </ul>
+                            </div>
                         </div>
                     </details>
-                 </div>
+                </div>
+            </div>
+
+            <!-- Follow-Up & Case Management Tab -->
+            <div id="tab-followup" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Follow-Up & Case Management</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Continuing Investigation</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p><strong>Elements of a Continuing Investigation:</strong></p>
+                                <ul>
+                                    <li>Follow up on leads from the preliminary investigation.</li>
+                                    <li>Develop and revise a scheme of the crime.</li>
+                                    <li>Continue searching for and interviewing witnesses.</li>
+                                    <li>Prepare and conduct appropriate line-ups (sequential is preferred).</li>
+                                    <li>Liaise with lab technicians and assess forensic reports.</li>
+                                    <li>Identify, locate, and arrest the perpetrator(s).</li>
+                                    <li>Conduct surveillance and interrogations as needed.</li>
+                                    <li>Prepare the case and confer with the prosecutor.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Case Management</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p><strong>Value of a Properly Prepared Case Folder:</strong></p>
+                                <ul>
+                                    <li>Provides an organized, factual, and thorough account of the investigation.</li>
+                                    <li>Prevents duplication of work and proves efficiency.</li>
+                                    <li>Useful for review by prosecutors and the grand jury.</li>
+                                    <li>Gives the defense attorney the impression of professionalism, which may help in obtaining a plea agreement.</li>
+                                </ul>
+                            </div>
+                             <div class="info-block procedures">
+                                <p><strong>Items Included in a Case Folder:</strong></p>
+                                <ul>
+                                    <li>Offense and supplemental reports.</li>
+                                    <li>Witness and victim statements.</li>
+                                    <li>Voluntary confessions.</li>
+                                    <li>Fingerprint cards and expert comparison reports.</li>
+                                    <li>Other pertinent reports (lab results, autopsy, etc.).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
             </div>
             
             <!-- Quiz Tab -->
@@ -259,7 +415,7 @@
                 <div id="quiz-results" class="mt-8 text-center hidden">
                     <h3 class="text-2xl font-bold">Quiz Complete!</h3>
                     <p id="quiz-score" class="text-4xl font-bold my-4"></p>
-                    <button id="retake-quiz" class="bg-slate-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-slate-700">Retake Quiz</button>
+                    <button id="retake-quiz" class="bg-sky-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-sky-700">Retake Quiz</button>
                 </div>
             </div>
         </main>
@@ -282,70 +438,73 @@ document.addEventListener('DOMContentLoaded', () => {
                     pane.classList.remove('hidden');
                 }
             });
+             if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
         });
     });
 
     // Quiz Functionality
     const quizData = [
         {
-            question: "What is the primary goal of a criminal investigation?",
-            options: ["To secure a conviction", "To determine the truth about how a crime occurred", "To make an arrest as quickly as possible", "To recover all stolen property"],
-            answer: "To determine the truth about how a crime occurred",
-            explanation: "<strong>Reference: Fundamentals.</strong> The main goal is to determine the truth by gathering all information that proves or disproves a person's involvement."
+            question: "What does 'corpus delicti' refer to in a criminal investigation?",
+            options: ["A criminal's method of operation", "On-the-scene identification of a suspect", "Proof that a crime has occurred", "A person who receives stolen property"],
+            answer: "Proof that a crime has occurred",
+            explanation: "<strong>Reference: 32.1.</strong> Corpus delicti literally means 'the body of the crime' and refers to the proof establishing that a crime was committed."
+        },
+        {
+            question: "Which of the following is NOT a primary goal of a criminal investigator?",
+            options: ["To legally obtain evidence to identify the person responsible", "To secure a conviction by any means necessary", "To recover all stolen property", "To present the best case possible to the prosecutor"],
+            answer: "To secure a conviction by any means necessary",
+            explanation: "<strong>Reference: 32.3.</strong> The investigator's basic task is to determine the truth. This requires gathering all information that tends to prove or disprove involvement, not just securing a conviction."
         },
         {
             question: "An investigator who takes nothing for granted and verifies all information is demonstrating which characteristic?",
-            options: ["Curiosity", "Suspicion", "Logical Thinking", "Rapport"],
-            answer: "Suspicion",
-            explanation: "<strong>Reference: Fundamentals.</strong> A suspicious investigator takes nothing for granted and verifies the credibility of all information from victims, witnesses, and suspects."
+            options: ["Curious", "Observant", "Suspicious", "Unbiased"],
+            answer: "Suspicious",
+            explanation: "<strong>Reference: 32.6.</strong> A suspicious investigator gathers information but always verifies its credibility."
         },
         {
-            question: "Which crime scene search method is most effective for large outdoor areas and provides two views of the same area?",
-            options: ["Circular/Spiral Search", "Point-to-Point Search", "Quadrant/Zone Search", "Grid Search"],
-            answer: "Grid Search",
-            explanation: "<strong>Reference: Scene Processing.</strong> A grid search is a variation of the strip search that uses two compass directions, making it very thorough for large outdoor scenes."
+            question: "According to the 5 stages of a preliminary investigation, what is the first and most immediate priority?",
+            options: ["Processing the Crime Scene", "First Responder Investigation", "Scene Wrap-up", "Scene Security and Protection"],
+            answer: "Scene Security and Protection",
+            explanation: "<strong>Reference: 32.22.</strong> The first stage is always securing the scene to ensure the safety of persons and the protection of evidence."
         },
         {
-            question: "A photograph taken from 10-20 feet away to show the relationship between evidence and the general scene is a:",
-            options: ["Overall/Long-Range Photo", "Mid-Range Photo", "Close-Up Photo", "Examination Quality Photo"],
-            answer: "Mid-Range Photo",
-            explanation: "<strong>Reference: Scene Processing.</strong> Mid-range photos bridge the gap between the overall scene and close-up details, showing how items of evidence relate to their surroundings."
+            question: "Which search method is most effective for large outdoor areas and provides two perpendicular views of the same area?",
+            options: ["Circular/Spiral Search", "Point-to-point Search", "Quadrant/Zone Search", "Strip/Grid Search"],
+            answer: "Strip/Grid Search",
+            explanation: "<strong>Reference: 32.30.</strong> The strip/grid method is highly effective for outdoor searches, and the grid variation provides two views for maximum thoroughness."
         },
         {
-            question: "What is the process that records the transactions of evidence from person to person since its acquisition by law enforcement?",
-            options: ["Evidence Logging", "Chain of Custody", "Property Tagging", "Case Management"],
-            answer: "Chain of Custody",
-            explanation: "<strong>Reference: Evidence & Case Management.</strong> The chain of custody is the unbroken record of every person who has handled a piece of evidence, which is crucial for its admissibility in court."
+            question: "A photograph taken from 10-20 feet away to show the relationship between different evidence items is known as a:",
+            options: ["Overall / Long-range photograph", "Mid-range photograph", "Close-up photograph", "Examination quality photograph"],
+            answer: "Mid-range photograph",
+            explanation: "<strong>Reference: 32.34.</strong> Mid-range photos portray the scene from approximately 10-20 feet and help associate the general scene with specific areas of evidence."
         },
         {
-            question: "Wet, bloody clothing should be packaged in what type of container?",
-            options: ["A sealed plastic bag", "Airtight plastic container", "A paper bag after air-drying", "A cardboard box"],
-            answer: "A paper bag after air-drying",
-            explanation: "<strong>Reference: Evidence & Case Management.</strong> Wet biological evidence must be air-dried and then packaged in paper to prevent the growth of mold and bacteria, which can destroy the evidence."
+            question: "Which sketching method uses measurements from two fixed points to plot the location of an evidence item?",
+            options: ["Rectangular Coordinates", "Transecting Baseline", "Triangulation", "Point-to-point"],
+            answer: "Triangulation",
+            explanation: "<strong>Reference: 32.36.</strong> Triangulation uses measurements from two fixed permanent objects to the evidence to plot its exact location in a bird's-eye view sketch."
         },
         {
-            question: "The legal term for the body or substance of a crime (proof that a crime has occurred) is:",
-            options: ["Modus Operandi", "Corpus Delicti", "Reasonable Suspicion", "Circumstantial Evidence"],
-            answer: "Corpus Delicti",
-            explanation: "<strong>Reference: Fundamentals.</strong> Corpus delicti literally means 'body of the crime' and refers to the essential elements that prove a crime was committed."
+            question: "The primary purpose of maintaining a strict chain of custody is to:",
+            options: ["Ensure the evidence is properly packaged.", "Preserve the integrity and admissibility of the evidence for court.", "Identify who found the evidence first.", "Make the evidence look professional for the jury."],
+            answer: "Preserve the integrity and admissibility of the evidence for court.",
+            explanation: "<strong>Reference: 32.38.</strong> The chain of custody records every transaction to ensure the evidence has not been altered or contaminated, thus preserving its value for court."
         },
         {
-            question: "A sequential identification procedure is a method used for what part of an investigation?",
-            options: ["Searching a crime scene", "Packaging evidence", "Conducting a line-up", "Interviewing a suspect"],
-            answer: "Conducting a line-up",
-            explanation: "<strong>Reference: Evidence & Case Management.</strong> A sequential line-up, where a witness views individuals one at a time, is a procedure used during the follow-up investigation."
+            question: "What is the correct procedure for packaging a wet, bloodstained shirt found at a crime scene?",
+            options: ["Place it immediately into a sealed plastic bag to preserve moisture.", "Roll it tightly and place it in a paper bag.", "Allow it to air-dry completely before packaging it in a separate paper bag.", "Freeze the item immediately while it is still wet."],
+            answer: "Allow it to air-dry completely before packaging it in a separate paper bag.",
+            explanation: "<strong>Reference: 32.41.</strong> Wet biological evidence must be air-dried before final packaging in paper to prevent rotting and degradation. Plastic bags trap moisture and should not be used."
         },
         {
-            question: "Which of the following is NOT a primary tool of a criminal investigator?",
-            options: ["Information", "Instrumentation/Forensic Science", "Media Relations", "Interviewing"],
-            answer: "Media Relations",
-            explanation: "<strong>Reference: Fundamentals.</strong> The main tools are Information, Instrumentation (Forensics), Interviewing, and knowledge of Laws of Arrest, Search, and Seizure."
-        },
-        {
-            question: "When photographing a piece of evidence for court, an examination quality close-up must include a scale and be taken at what angle?",
-            options: ["45-degree angle", "180-degree angle", "90-degree angle", "Any angle is acceptable"],
-            answer: "90-degree angle",
-            explanation: "<strong>Reference: Scene Processing.</strong> To avoid distortion and accurately represent the size of the evidence, examination quality photos must be taken at a 90-degree angle to the surface."
+            question: "Which of the following tasks is part of the continuing or follow-up investigation?",
+            options: ["Establishing the initial crime scene perimeter.", "Rendering first aid to the victim.", "Preparing and conducting witness line-ups.", "Taking initial overall photographs of the scene."],
+            answer: "Preparing and conducting witness line-ups.",
+            explanation: "<strong>Reference: 32.19.</strong> The follow-up investigation includes tasks like re-interviewing witnesses and conducting line-ups, which occur after the preliminary investigation is complete."
         }
     ];
 
@@ -369,7 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
             questionEl.innerHTML = `
                 <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
                 <div class="space-y-3" id="options-${questionNumber}">${options}</div>
-                <div class="explanation-container mt-4"></div>
+                <div class="explanation-container mt-4 hidden"></div>
             `;
             quizContainer.appendChild(questionEl);
         });
@@ -390,8 +549,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const correctAnswer = currentQuestion.answer;
 
         const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        // Prevent re-answering
+        if (optionContainer.dataset.answered) {
+            return;
+        }
+        optionContainer.dataset.answered = 'true';
+
         optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
-            opt.removeEventListener('click', selectAnswer);
             opt.style.cursor = 'default';
         });
 
@@ -409,6 +574,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Show explanation
         const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
         const explanationEl = document.createElement('div');
         explanationEl.className = 'p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700';
         explanationEl.innerHTML = currentQuestion.explanation;
@@ -422,18 +588,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function showResults() {
         setTimeout(() => {
-            quizContainer.classList.add('hidden');
+            // quizContainer.classList.add('hidden'); // Keep questions visible
             quizResultsContainer.classList.remove('hidden');
-            quizScoreEl.textContent = `${score} / ${quizData.length}`;
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
             const percentage = (score / quizData.length) * 100;
             if(percentage >= 80) {
-                quizScoreEl.style.color = '#16a34a';
+                quizScoreEl.style.color = '#16a34a'; // Green
             } else if (percentage >= 50) {
-                quizScoreEl.style.color = '#f59e0b';
+                quizScoreEl.style.color = '#f59e0b'; // Amber
             } else {
-                quizScoreEl.style.color = '#dc2626';
+                quizScoreEl.style.color = '#dc2626'; // Red
             }
-        }, 1500);
+        }, 1000);
     }
     
     retakeBtn.addEventListener('click', () => {
@@ -442,7 +608,6 @@ document.addEventListener('DOMContentLoaded', () => {
         buildQuiz();
     });
 
-    buildQuiz();
 });
 </script>
 
