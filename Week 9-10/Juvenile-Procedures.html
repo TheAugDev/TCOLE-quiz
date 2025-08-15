@@ -59,6 +59,29 @@
         .quiz-option { transition: background-color 0.2s; }
         .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
         .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+        
+        /* Flowchart Styles */
+        .flowchart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .flowchart-box {
+            border: 2px solid #9ca3af;
+            background-color: #f9fafb;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .flowchart-arrow {
+            font-size: 2rem;
+            color: #6b7280;
+            line-height: 1;
+        }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -76,6 +99,7 @@
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-custody">Custody & Processing</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-statements">Statements & Rights</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-court">Court Process & Dispositions</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-flowcharts">Process Flowcharts</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-parents">Parents & Schools</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-gangs">Youth Gangs</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">Knowledge Check</button>
@@ -261,6 +285,49 @@
                             <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.02" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 54.02</a>
                         </div>
                     </details>
+                </div>
+            </div>
+
+             <!-- Process Flowcharts Tab -->
+            <div id="tab-flowcharts" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Process Flowcharts</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">Juvenile Hearing Process</h3>
+                        <div class="flowchart-container">
+                            <div class="flowchart-box">Law Enforcement / Citizen Complaint</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Referral to Juvenile Probation Intake</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Intake Decision (Release, Informal Adjustment, Refer to Prosecutor)</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Prosecutor Files Petition</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Detention Hearing</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Adjudication Hearing (Trial)</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Disposition Hearing (Sentencing)</div>
+                        </div>
+                    </div>
+                    <div class="card p-6">
+                        <h3 class="text-xl font-bold text-center mb-4">Adult Trial Components</h3>
+                        <div class="flowchart-container">
+                             <div class="flowchart-box">Arrest / Complaint</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Booking / Filing of Charges</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Initial Appearance / Arraignment</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Grand Jury Indictment (Felony)</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Pre-Trial Hearings</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Jury Trial</div>
+                            <div class="flowchart-arrow">↓</div>
+                            <div class="flowchart-box">Sentencing</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
