@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juvenile Justice Procedures Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Juvenile Justice Procedures Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 77 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "What is the primary philosophy of the Texas Juvenile Justice Code?",
+                options: ["To punish juvenile offenders as adults.", "To provide for the care, protection, and wholesome moral, mental, and physical development of children.", "To prioritize the rights of victims over the rights of juvenile offenders.", "To ensure all juvenile cases are handled by the criminal court system."],
+                answer: "To provide for the care, protection, and wholesome moral, mental, and physical development of children.",
+                explanation: "The code's philosophy emphasizes rehabilitation and the child's welfare, distinct from the punitive focus of the adult criminal justice system.",
+                reference: "Handout Page 2: FC 51.01(1) - 'provide for the care, protection, and wholesome moral, mental, and physical development of children coming within its provisions'.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.01</a>"
+            },
+            {
+                question: "According to the Family Code, what is the age range for a 'child' under the jurisdiction of the juvenile court?",
+                options: ["A person who is 10 years of age or older and under 18.", "A person who is 10 years of age or older and under 17.", "A person younger than 18.", "A person younger than 17."],
+                answer: "A person who is 10 years of age or older and under 17.",
+                explanation: "Juvenile jurisdiction in Texas specifically applies to this age range at the time the offense is committed.",
+                reference: "Handout Page 3: FC 51.02(2)(A) - '10 years of age or older and under 17 years of age'.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.02</a>"
+            },
+            {
+                question: "What is 'Delinquent Conduct' under the Family Code?",
+                options: ["Any act that is against school rules.", "Conduct, other than a traffic offense, that violates a penal law punishable by imprisonment or by confinement in jail.", "Truancy or running away from home.", "Any disrespectful behavior towards an adult."],
+                answer: "Conduct, other than a traffic offense, that violates a penal law punishable by imprisonment or by confinement in jail.",
+                explanation: "Delinquent conduct refers to acts that would be considered crimes if committed by an adult (felonies or Class A/B misdemeanors).",
+                reference: "Handout Page 4: FC 51.03(a)(1) - 'conduct, other than a traffic offense, that violates a penal law of this state... punishable by imprisonment or by confinement in jail'.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.03</a>"
+            },
+            {
+                question: "Which of the following is an example of 'Conduct Indicating a Need for Supervision' (CINS)?",
+                options: ["Burglary of a habitation.", "Aggravated Robbery.", "The voluntary absence of a child from the child's home without consent (running away).", "Driving while intoxicated."],
+                answer: "The voluntary absence of a child from the child's home without consent (running away).",
+                explanation: "CINS offenses are status offenses—acts that are only illegal because of the person's status as a minor, such as running away, truancy, or violating curfew.",
+                reference: "Handout Page 5: FC 51.03(b)(2) - 'the voluntary absence of a child from the child's home without the consent of the child's parent or guardian for a substantial length of time...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.03</a>"
+            },
+            {
+                question: "Under FC 51.04, which court has exclusive original jurisdiction over cases involving delinquent conduct or CINS?",
+                options: ["The municipal court.", "The justice court.", "The juvenile court.", "The district court."],
+                answer: "The juvenile court.",
+                explanation: "The law establishes a specialized juvenile court system with exclusive jurisdiction to handle these specific types of cases involving children.",
+                reference: "Handout Page 6: FC 51.04(a) - 'the juvenile court has exclusive original jurisdiction over proceedings under this title.'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.04' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.04</a>"
+            },
+            {
+                question: "What is a 'Waiver of Jurisdiction' in the juvenile system?",
+                options: ["The process of a child waiving their right to an attorney.", "The process by which a juvenile court gives up its jurisdiction, allowing a child to be tried as an adult in criminal court.", "The process of transferring a case to a different county.", "The process of a victim waiving their rights in a juvenile case."],
+                answer: "The process by which a juvenile court gives up its jurisdiction, allowing a child to be tried as an adult in criminal court.",
+                explanation: "Also known as 'certification,' this is the formal process for transferring a serious juvenile case to the adult criminal justice system.",
+                reference: "Handout Page 7: FC 54.02 - 'The juvenile court may waive its exclusive original jurisdiction and transfer a child to the appropriate district court...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 54.02</a>"
+            },
+            {
+                question: "For a juvenile court to waive jurisdiction for a capital felony or first-degree felony, the child must be what age?",
+                options: ["10 years of age or older", "14 years of age or older", "15 years of age or older", "16 years of age or older"],
+                answer: "14 years of age or older",
+                explanation: "The law sets a minimum age of 14 for a child to be certified as an adult for the most serious felony offenses.",
+                reference: "Handout Page 7: FC 54.02(a)(2)(A) - 'the child was... 14 years of age or older at the time the child is alleged to have committed a capital felony, an aggravated controlled substance felony, or a felony of the first degree...'"
+            },
+            {
+                question: "What rights must be given to a child and their attorney before a waiver hearing?",
+                options: ["The right to a jury trial at the waiver hearing.", "Access to all written materials to be considered by the court.", "The right to have the hearing closed to the public.", "The right to choose the judge for the hearing."],
+                answer: "Access to all written materials to be considered by the court.",
+                explanation: "Due process requires that the child and their legal counsel have the opportunity to review all evidence, reports, and records that the judge will consider when making the critical decision to waive jurisdiction.",
+                reference: "Handout Page 8: FC 54.02(e) - 'the court shall provide the attorney for the child with access to all written matter to be considered by the court in making the transfer decision.'"
+            },
+            {
+                question: "When may a law enforcement officer take a child into custody without a warrant or court order?",
+                options: ["Only if the child commits a felony in the officer's presence.", "Pursuant to the laws of arrest of this state.", "If the child is disrespectful to the officer.", "Only with the parent's permission."],
+                answer: "Pursuant to the laws of arrest of this state.",
+                explanation: "Generally, the same laws of arrest that apply to adults (e.g., probable cause for a felony, an offense committed in view) also apply to taking a child into custody.",
+                reference: "Handout Page 9: FC 52.01(a)(2) - 'pursuant to the laws of arrest'.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.01</a>"
+            },
+            {
+                question: "An officer takes a child into custody. What is the officer's primary duty regarding the child's parent or guardian?",
+                options: ["To wait for the parent to contact them.", "To promptly give notice of the officer's action and a statement of the reason for taking the child into custody.", "To ask the child if they want their parents notified.", "To only notify the parents if an arrest is made."],
+                answer: "To promptly give notice of the officer's action and a statement of the reason for taking the child into custody.",
+                explanation: "FC 52.02(b) mandates that an officer must promptly notify the parents and inform them of the reason for the custody, ensuring parents are aware of their child's situation.",
+                reference: "Handout Page 10: FC 52.02(b) - 'A person taking a child into custody shall promptly give notice of the person's action and a statement of the reason for taking the child into custody, to... the child's parent, guardian, or custodian...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.02</a>"
+            },
+            {
+                question: "A child taken into custody for delinquent conduct that includes violence must be taken where?",
+                options: ["Directly to an adult jail.", "To a juvenile processing office for the issuance of a warning notice.", "To a certified juvenile detention facility.", "Home to their parents."],
+                answer: "To a certified juvenile detention facility.",
+                explanation: "For serious offenses involving violence, the law requires the child to be taken to a secure detention facility rather than being released or taken to a non-secure facility.",
+                reference: "Handout Page 11: FC 52.02(a)(3) - 'if the child is taken into custody for delinquent conduct that includes a violent offense... the child shall be taken to a certified juvenile detention facility...'"
+            },
+            {
+                question: "What is a 'juvenile processing office'?",
+                options: ["An adult jail.", "A courtroom for juvenile cases.", "An office designated by the juvenile board for processing children taken into custody.", "A school principal's office."],
+                answer: "An office designated by the juvenile board for processing children taken into custody.",
+                explanation: "This is a specific, designated location where law enforcement can legally take a juvenile for temporary processing like fingerprinting, photographing, and completing paperwork.",
+                reference: "Handout Page 12: FC 52.025(a) - 'A child may be brought to a juvenile processing office...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.025' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.025</a>"
+            },
+            {
+                question: "For how long may a child be detained in a juvenile processing office?",
+                options: ["For an unlimited time.", "Not to exceed 24 hours.", "Not to exceed 12 hours.", "Not to exceed six hours."],
+                answer: "Not to exceed six hours.",
+                explanation: "The law places a strict six-hour time limit on how long a child can be held in a processing office to prevent it from becoming a de facto detention facility.",
+                reference: "Handout Page 12: FC 52.025(d) - 'A child may not be detained in a juvenile processing office for more than six hours.'"
+            },
+            {
+                question: "What is a 'First Offender Program' under the Family Code?",
+                options: ["A program for juveniles who commit capital murder.", "A voluntary program for children who commit a misdemeanor, other than a traffic offense, for which they have no prior referrals.", "A mandatory boot camp for all juvenile offenders.", "A program run by the adult probation department."],
+                answer: "A voluntary program for children who commit a misdemeanor, other than a traffic offense, for which they have no prior referrals.",
+                explanation: "This program offers a diversionary path for low-level, first-time offenders, allowing them to avoid formal court proceedings by completing certain requirements.",
+                reference: "Handout Page 13: FC 52.031(a) & (b) - Describes the first offender program.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.031' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.031</a>"
+            },
+            {
+                question: "A child who is detained must have a detention hearing held no later than what time?",
+                options: ["The seventh working day after being taken into custody.", "The fifth working day after being taken into custody.", "The second working day after being taken into custody.", "Within 24 hours of being taken into custody."],
+                answer: "The second working day after being taken into custody.",
+                explanation: "This requirement ensures a prompt judicial review of the decision to detain a child, protecting their liberty interests.",
+                reference: "Handout Page 14: FC 54.01(a) - 'a detention hearing... shall be held not later than the second working day after the child is taken into custody...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 54.01</a>"
+            },
+            {
+                question: "What rights does a child have at a detention hearing?",
+                options: ["The right to a jury.", "The right to remain silent, the right to an attorney, and the right to confront and cross-examine witnesses.", "The right to have their parents testify for them.", "The right to be released immediately."],
+                answer: "The right to remain silent, the right to an attorney, and the right to confront and cross-examine witnesses.",
+                explanation: "Even at this early stage, the child is afforded fundamental due process rights, including the right to counsel and the right against self-incrimination.",
+                reference: "Handout Page 15: FC 51.10(b) & FC 54.01(d) - Outlines the rights at a hearing.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.10' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.10</a>"
+            },
+            {
+                question: "Before a child's statement can be used in court, what warning must be given by a magistrate?",
+                options: ["The standard Miranda warning.", "A warning that includes the right to have an attorney present and the right to terminate the interview at any time.", "A warning that their parents will be held responsible.", "A warning that they will be tried as an adult."],
+                answer: "A warning that includes the right to have an attorney present and the right to terminate the interview at any time.",
+                explanation: "FC 51.095 requires a specific, enhanced warning to be given by a magistrate to a child before a custodial statement can be taken, providing greater protection than the standard adult Miranda warning.",
+                reference: "Handout Page 16: FC 51.095(a)(1)(A) - Lists the specific warnings required.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.095' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.095</a>"
+            },
+            {
+                question: "For a written statement made by a child in custody to be admissible, who must be present when the child signs it (unless an attorney is present)?",
+                options: ["A law enforcement officer.", "A probation officer.", "The magistrate who gave the warnings.", "The child's parent."],
+                answer: "The magistrate who gave the warnings.",
+                explanation: "The magistrate must be present to witness the child's signature, ensuring there is no coercion and that the child understands what they are signing.",
+                reference: "Handout Page 17: FC 51.095(a)(1)(D) - 'the statement must be signed in the presence of a magistrate by the child...'"
+            },
+            {
+                question: "When can a child's oral statement made as a result of custodial interrogation be admissible in court?",
+                options: ["At any time if it is recorded.", "If the statement is found to be true and establishes the child's guilt ('statement against interest').", "If the child's parents give permission.", "Oral statements from juveniles are never admissible."],
+                answer: "If the statement is found to be true and establishes the child's guilt ('statement against interest').",
+                explanation: "This is a key exception. An oral statement can be used if it contains information, later found to be true, that only the guilty person would know, thus corroborating its reliability.",
+                reference: "Handout Page 18: FC 51.095(a)(5) - 'the statement is found to be true and tends to establish the child's guilt...'"
+            },
+            {
+                question: "Under what circumstances may a child's fingerprints be taken without the consent of the juvenile court?",
+                options: ["For any offense.", "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.", "Only if the child is 14 or older.", "Never without a court order."],
+                answer: "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.",
+                explanation: "FC 58.002 allows for fingerprinting without a court order for more serious offenses (Class B misdemeanors and above).",
+                reference: "Handout Page 19: FC 58.002(a)(1) - 'A child's fingerprints may be taken... if the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.58.htm#58.002' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 58.002</a>"
+            },
+            {
+                question: "If a child's fingerprints are taken, what must be done with the fingerprint card if the child is not referred to juvenile court within 10 days?",
+                options: ["It must be sent to the FBI.", "It must be destroyed.", "It must be filed with the district clerk.", "It must be given to the child's parents."],
+                answer: "It must be destroyed.",
+                explanation: "This provision protects the privacy of children who are not formally charged, ensuring their prints are not kept on file if the case does not proceed.",
+                reference: "Handout Page 19: FC 58.002(b) - 'If the child is not referred to the juvenile court... the law enforcement agency shall destroy the fingerprints...'"
+            },
+            {
+                question: "What is the purpose of sealing juvenile records?",
+                options: ["To make them available to the public.", "To allow a person to legally deny the arrest and proceedings ever occurred.", "To transfer them to the adult criminal justice system.", "To preserve them for historical purposes."],
+                answer: "To allow a person to legally deny the arrest and proceedings ever occurred.",
+                explanation: "Sealing records provides a fresh start, removing the legal disabilities of a juvenile record and allowing the person to move forward without the stigma of their past offenses.",
+                reference: "Handout Page 20: FC 58.259(a) - 'the person may deny the occurrence of the arrest and the existence of the sealed records...'"
+            },
+            {
+                question: "Under what circumstances are juvenile records eligible for automatic sealing (restricted access)?",
+                options: ["For any adjudicated offense.", "If the person is 19, the offense was a misdemeanor, and they were not certified as an adult.", "For all felony offenses.", "Only if the case was dismissed."],
+                answer: "If the person is 19, the offense was a misdemeanor, and they were not certified as an adult.",
+                explanation: "The law provides for automatic restriction of records for less serious offenses once the person reaches a certain age, provided they meet all the criteria.",
+                reference: "Handout Page 21: FC 58.253(c) - Lists the conditions for automatic restricted access.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.58.htm#58.253' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 58.253</a>"
+            },
+            {
+                question: "What is the primary difference between a 'child' and a 'juvenile' in the context of the Family Code?",
+                options: ["There is no difference.", "A 'child' is under 17, while a 'juvenile' is 17-18.", "The terms are used interchangeably and have the same legal meaning.", "A 'child' is a person of a certain age, while 'juvenile' is a broader term often used to describe the system or the offender."],
+                answer: "A 'child' is a person of a certain age, while 'juvenile' is a broader term often used to describe the system or the offender.",
+                explanation: "The Family Code provides a precise legal definition for 'child' (10 to under 17). 'Juvenile' is a more general term used to refer to the entire justice system and the youth involved in it.",
+                reference: "Handout Page 2: 'Child vs. Juvenile' slide."
+            },
+            {
+                question: "A 16-year-old is arrested for DWI. This is an example of what type of conduct?",
+                options: ["Conduct Indicating a Need for Supervision (CINS)", "A status offense", "Delinquent Conduct", "A traffic offense not under juvenile court jurisdiction."],
+                answer: "Delinquent Conduct",
+                explanation: "DWI is a violation of the Penal Code punishable by confinement in jail. Therefore, when committed by a child, it is classified as delinquent conduct.",
+                reference: "Handout Page 4: FC 51.03(a)(1) includes violations of penal laws punishable by jail. DWI is in the Penal Code."
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
