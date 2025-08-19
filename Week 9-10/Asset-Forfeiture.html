@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Study Guide: Asset Forfeiture</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* Slate background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #e2e8f0; /* Lighter Slate */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary:hover {
+            background-color: #cbd5e1;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #475569; /* Dark Slate */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-block {
+            background-color: #fafafa;
+            border-left: 4px solid #64748b;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .info-block.definitions { border-left-color: #f59e0b; }
+        .info-block.procedures { border-left-color: #0ea5e9; }
+        .info-block.example { border-left-color: #10b981; }
+        .info-block p { margin-bottom: 0.5rem; }
+        .info-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
+        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Asset Forfeiture</h1>
+            <p class="text-lg text-gray-600 mt-2">A Comprehensive Study Guide</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-philosophy">Philosophy & Definitions</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-defenses">Defenses to Forfeiture</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-seizure">Seizure Procedures</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-proceedings">Forfeiture Proceedings</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-funds">Use of Funds</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Philosophy & Definitions Tab -->
+            <div id="tab-philosophy" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Philosophy & Key Definitions</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Statutory Training Requirements (Occupations Code)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <p><strong>Section 1701.253(g):</strong> The commission shall establish a statewide comprehensive education and training program on asset forfeiture under Chapter 59, Code of Criminal Procedure, for officers licensed under this chapter. An officer must complete this program not later than the second anniversary of the date the officer is licensed or applies for an intermediate proficiency certificate, whichever is earlier.</p>
+                                <p><strong>Section 1701.402(d):</strong> As a requirement for an intermediate proficiency certificate, an officer must complete an education and training program on asset forfeiture established by the commission under Section 1701.253(g).</p>
+                                <a href="https://statutes.capitol.texas.gov/Docs/OC/htm/OC.1701.htm" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Occupations Code 1701</a>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0" open>
+                        <summary>Philosophy of Forfeiture</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <p class="text-xl font-bold text-center">TAKE THE PROFIT MOTIVE OUT OF CRIME!</p>
+                                <ul class="mt-4">
+                                    <li>The main goal is to deprive criminals of the profits and instrumentalities of crime.</li>
+                                    <li>Forfeiture is considered a <strong>remedial</strong> action, not an extra punishment.</li>
+                                    <li>The 8th Amendment's Excessive Fines Clause applies; the value of property forfeited must be proportional to the seriousness of the offense.</li>
+                                    <li>A criminal conviction is not necessary for forfeiture to occur, but a dismissal or acquittal raises a presumption that the property should not be forfeited.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Definition of Contraband (CCP 59.01)</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block definitions">
+                                <p><strong>Contraband</strong> is property of any nature that is:</p>
+                                <ul>
+                                    <li><strong>Used in the commission of:</strong> Any 1st or 2nd degree felony; various other felonies under the Penal Code (e.g., Arson, Robbery, Burglary, Theft); any felony under the Health and Safety Code (drug offenses).</li>
+                                    <li><strong>The proceeds gained from the commission of:</strong> A listed felony or a crime of violence.</li>
+                                    <li><strong>Acquired with proceeds from:</strong> A listed felony or a crime of violence.</li>
+                                    <li><strong>Used or intended to be used to facilitate:</strong> Certain felonies, such as those under Human Trafficking or Prostitution statutes.</li>
+                                </ul>
+                                <div class="info-block example"><p><strong>Example:</strong> A car used to transport a large quantity of cocaine for a drug deal is contraband because it was "used in the commission of" a felony under the Health and Safety Code.</p></div>
+                            </div>
+                             <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.59.htm#59.01" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 59.01</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Definition of Proceeds (CCP 59.01)</summary>
+                        <div class="p-6 border-t">
+                    <details class="card p-0">
+                        <summary>Comprehensive Scenario 1: Benavidez Case</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block example">
+                                <p><strong>Scenario:</strong> Mr. and Mrs. Benavidez accept suspicious checks and extra cash from a man named Cinco, which allows them to buy a new SUV. When Cinco is arrested for Money Laundering, the investigation leads to the Benavidez family.</p>
+                                <ul>
+                                    <li>What, if any, criminal offense have Mr. and Mrs. Benavidez committed?</li>
+                                    <li>What, if any, money received in this transaction could be considered illegal proceeds?</li>
+                                    <li>What, if anything, could be subject to seizure as part of the ongoing actions of Cinco?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Comprehensive Scenario 2: Jenkins Case</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block example">
+                                <p><strong>Scenario:</strong> Martin Jenkins, a state inspector, lives lavishly on a modest salary and is linked to narcotics smuggling. His wife also benefits from the proceeds.</p>
+                                <ul>
+                                    <li>What offense could Jenkins be charged with?</li>
+                                    <li>Could his wife be charged, and to what extent?</li>
+                                    <li>What action could be taken on the property Jenkins and his wife have accumulated?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Comprehensive Scenario 3: Del Fescue Case</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block example">
+                                <p><strong>Scenario:</strong> Tiny Tub Motors, managed by Ramon Del Fescue, deposits large sums weekly despite low car sales. The business is owned by his elderly mother.</p>
+                                <ul>
+                                    <li>What, if any, criminal offense is Del Fescue involved in?</li>
+                                    <li>What action could be taken against Del Fescue, Tiny Tub Motors, the bank account, and Ofelia Del Fescue?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                            <div class="info-block definitions">
+                                <p><strong>Proceeds</strong> includes income a person receives from:</p>
+                                <ul>
+                                    <li>A movie, book, magazine article, or other media in which the crime was reenacted.</li>
+                                    <li>The sale of tangible property the value of which is increased by the notoriety gained from the conviction.</li>
+                                    <li>Commonly understood as property derived from an event or transaction.</li>
+                                </ul>
+                                <div class="info-block example"><p><strong>Example:</strong> A drug trafficker uses cash from drug sales to buy a luxury watch. The watch is considered "property acquired with proceeds" and is subject to forfeiture.</p></div>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.59.htm#59.01" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 59.01</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Defenses Tab -->
+            <div id="tab-defenses" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Defenses to Forfeiture (CCP 59.02)</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Statutory Defenses</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li><strong>Innocent Owner Defense:</strong> The owner acquired the property before the illegal act and did not know or should not have reasonably known about the act giving rise to the forfeiture.</li>
+                                    <li><strong>Non-Consensual Use:</strong> The property was used without the owner's effective consent (e.g., it was stolen).</li>
+                                    <li><strong>Dismissal or Acquittal of Related Charges:</strong> This raises a presumption that the property should not be forfeited. The state must then prove otherwise.</li>
+                                    <li><strong>Family Violence Defense:</strong> A spouse may claim this defense if they were unable to prevent the criminal act due to family violence.</li>
+                                </ul>
+                                <div class="info-block example"><p><strong>Example:</strong> A woman lends her car to her brother. Unbeknownst to her, he uses it to commit a robbery. She can claim the innocent owner defense because she did not know of the illegal act.</p></div>
+                            </div>
+                             <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.59.htm#59.02" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 59.02</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Non-Statutory Defenses & Other Issues</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li><strong>Homestead:</strong> The issue of whether a homestead is protected from forfeiture is not fully resolved in Texas.</li>
+                                    <li><strong>Legitimate Source of Income:</strong> The owner can provide evidence that the seized property was acquired with legitimate funds.</li>
+                                    <li><strong>Fifth Amendment:</strong> In a civil forfeiture proceeding, a person's invocation of the right against self-incrimination can be commented on and may support an inference of guilt.</li>
+                                    <li><strong>Suppression of Evidence:</strong> If evidence is suppressed in the criminal case, it may still be admissible in the civil forfeiture case because different rules apply.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Seizure Procedures Tab -->
+            <div id="tab-seizure" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Seizure Procedures</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Affidavit Requirements & Waivers</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li><strong>Affidavit must include:</strong> Probable cause, location and date of seizure, owner and possessor identification, all essential parties, and justification for seizure (facts, circumstantial evidence, key factors such as proximity to drugs, canine alert, suspicious activity, amount of money, storage location).</li>
+                                    <li><strong>Preferences:</strong> Written by the seizing officer, first person, avoid hearsay unless an exception applies, keep it simple, avoid uncommon acronyms, and include a complete report if the defendant's explanation is implausible.</li>
+                                    <li><strong>Waivers:</strong> No longer allowed to solicit waivers. If no one is in possession, public notice in a newspaper is required.</li>
+                                    <li><strong>Official Oppression:</strong> Officers cannot induce a person to waive rights to seized property (Penal Code 39.03).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0" open>
+                        <summary>Pre-Seizure Planning</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Before seizing property, an officer should consider:</p>
+                                <ul>
+                                    <li><strong>Ownership:</strong> Is the property community or separate? Leased or owned?</li>
+                                    <li><strong>Liens & Mortgages:</strong> Is there enough equity in the property to make forfeiture worthwhile after paying off lienholders?</li>
+                                    <li><strong>Risks & Liabilities:</strong> What are the costs associated with seizing, storing, and maintaining the property?</li>
+                                    <li><strong>Bank Accounts:</strong> Identify account numbers, monitor activity to determine the best time to seize, and know if the account is collateral for a loan.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Methods of Seizure (CCP 59.03)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p><strong>Without a Warrant:</strong></p>
+                                <ul>
+                                    <li>The owner, operator, or agent knowingly <strong>consents</strong>.</li>
+                                    <li>The seizure is <strong>incident to a lawful arrest or search</strong>.</li>
+                                    <li>The property has been the subject of a <strong>prior judgment</strong> in favor of the state.</li>
+                                </ul>
+                            </div>
+                             <div class="info-block procedures">
+                                <p><strong>With a Warrant:</strong></p>
+                                <ul>
+                                    <li>Rules from CCP Chapter 18 apply.</li>
+                                    <li>The affidavit must show probable cause for the specific felony offense committed and describe how the property meets the definition of contraband.</li>
+                                </ul>
+                            </div>
+                             <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.59.htm#59.03" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 59.03</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- Forfeiture Proceedings Tab -->
+            <div id="tab-proceedings" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Post-Seizure & Forfeiture Proceedings</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Checklist for Civil Forfeiture Case Documentation</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li>Sworn/Notarized statement (acknowledgement of seizure, reasons/statutory basis, schedule of property seized)</li>
+                                    <li>Title/Lien/Balance info on vehicle/real property</li>
+                                    <li>Photos of vehicle (front and side)</li>
+                                    <li>Kelly Blue Book estimate (if vehicle seized)</li>
+                                    <li>Copy of search/seizure warrant, probable cause affidavit, and return</li>
+                                    <li>Copy of arrest, incident, and/or prosecution reports</li>
+                                    <li>Copy of DVD/CD evidence (photos, videos, statements, downloads, etc.)</li>
+                                    <li>Criminal and work history (if money seized)</li>
+                                    <li>Misc. documentation to enhance the civil case (must have DOB/SSN of defendants before filing)</li>
+                                </ul>
+                                <p class="mt-2 text-xs text-gray-500">Adapted from Denton County District Attorney's Report of Seizure</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0" open>
+                        <summary>Post-Seizure Procedures (CCP 59.03)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>A peace officer who seizes property has custody and must:</p>
+                                <ul>
+                                    <li>Provide the attorney representing the state with a sworn statement listing the property seized and the reasons for seizure.</li>
+                                    <li><strong>No later than 72 hours after the seizure</strong>, either place the property under seal, remove it to a place ordered by the court, or have the agency take custody.</li>
+                                    <li>If currency is seized, it must be deposited in an interest-bearing account.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Forfeiture Proceedings (CCP 59.04)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li>Forfeiture is a <strong>civil proceeding</strong>. The standard of proof is a preponderance of the evidence.</li>
+                                    <li>The attorney representing the state must begin proceedings within <strong>30 days</strong> of the date of seizure.</li>
+                                    <li>The state files a "Notice of Seizure and Intended Forfeiture," which is served on the owner and any interest holders.</li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.59.htm#59.04" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 59.04</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Use of Funds Tab -->
+            <div id="tab-funds" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Use of Forfeited Funds (CCP 59.06)</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Approved Uses</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Forfeited funds must be used for a <strong>"law enforcement purpose."</strong> This includes:</p>
+                                <ul>
+                                    <li>Equipment & Supplies</li>
+                                    <li>Investigative and training-related travel expenses</li>
+                                    <li>Crime prevention and treatment programs</li>
+                                    <li>Facility costs</li>
+                                    <li>Witness-related costs</li>
+                                    <li>Audit costs and legal fees</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Prohibited Uses</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Forfeiture money <strong>cannot</strong> be used for:</p>
+                                <ul>
+                                    <li>Political campaign donations</li>
+                                    <li>Training for any member of the judiciary</li>
+                                    <li>Purchase of alcoholic beverages</li>
+                                    <li>Increasing salaries (unless approved by the governing body)</li>
+                                    <li>Any expenditure not approved by the commissioners' court or governing body of the municipality.</li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.59.htm#59.06" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 59.06</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-slate-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-slate-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "What is the primary philosophy behind asset forfeiture?",
+            options: ["To serve as extra punishment", "To take the profit motive out of crime", "To generate revenue for the state", "To simplify criminal prosecutions"],
+            answer: "To take the profit motive out of crime",
+            explanation: "<strong>Reference: Philosophy of Forfeiture.</strong> The main goal is to deprive criminals of the profits and instrumentalities of their illegal activities."
+        },
+        {
+            question: "Under CCP 59.01, property used in the commission of which of the following is considered contraband?",
+            options: ["Any Class C Misdemeanor", "Any traffic violation", "Any first or second-degree felony", "Any civil infraction"],
+            answer: "Any first or second-degree felony",
+            explanation: "<strong>Reference: CCP 59.01.</strong> 'Contraband' is defined as property used in the commission of any first or second-degree felony, as well as other specified offenses."
+        },
+        {
+            question: "A person whose car was stolen and used in a robbery can claim which defense to forfeiture?",
+            options: ["Homestead Defense", "Fifth Amendment Defense", "Innocent Owner Defense (Non-Consensual)", "Legitimate Source of Income Defense"],
+            answer: "Innocent Owner Defense (Non-Consensual)",
+            explanation: "<strong>Reference: CCP 59.02.</strong> This defense applies when property was used without the owner's effective consent, such as when it was stolen."
+        },
+        {
+            question: "What is the time limit for a peace officer to place seized property under seal or move it to a court-ordered location?",
+            options: ["24 hours", "48 hours", "72 hours", "30 days"],
+            answer: "72 hours",
+            explanation: "<strong>Reference: Post Seizure Procedures.</strong> An officer must secure the property no later than 72 hours after the seizure."
+        },
+        {
+            question: "An attorney representing the state must begin forfeiture proceedings within how many days of the seizure?",
+            options: ["10 days", "30 days", "60 days", "90 days"],
+            answer: "30 days",
+            explanation: "<strong>Reference: CCP 59.04.</strong> The District Attorney must begin proceedings within 30 days of the date of seizure."
+        },
+        {
+            question: "Which of the following is an approved use of forfeited funds?",
+            options: ["Donating to a political campaign", "Purchasing law enforcement equipment", "Paying for judicial training", "Buying alcoholic beverages for an office party"],
+            answer: "Purchasing law enforcement equipment",
+            explanation: "<strong>Reference: CCP 59.06.</strong> Forfeited funds must be used for a 'law enforcement purpose,' which includes buying equipment."
+        },
+        {
+            question: "Forfeiture proceedings are considered what type of legal action?",
+            options: ["Criminal", "Civil", "Administrative", "Federal"],
+            answer: "Civil",
+            explanation: "<strong>Reference: CCP 59.04.</strong> Forfeiture is a civil proceeding, which means civil rules of evidence and procedure apply."
+        },
+        {
+            question: "What is the standard of proof the state must meet in a forfeiture case?",
+            options: ["Beyond a reasonable doubt", "Clear and convincing evidence", "Preponderance of the evidence", "Reasonable suspicion"],
+            answer: "Preponderance of the evidence",
+            explanation: "<strong>Reference: Forfeiture Proceedings.</strong> Because it is a civil action, the state must prove its case by a preponderance of the evidence."
+        },
+        {
+            question: "An officer seizes a large amount of cash during a drug bust. What must be done with the currency?",
+            options: ["It must be stored in the agency's evidence vault.", "It must be deposited into an interest-bearing account.", "It can be used immediately for undercover operations.", "It must be held by the court clerk."],
+            answer: "It must be deposited into an interest-bearing account.",
+            explanation: "<strong>Reference: Post Seizure Procedures.</strong> Seized currency must be deposited into an interest-bearing account within the jurisdiction of the prosecuting attorney."
+        },
+        {
+            question: "If a defendant is acquitted of the related criminal charges, what is the effect on the forfeiture case?",
+            options: ["The forfeiture case is automatically dismissed.", "It has no effect on the forfeiture case.", "It raises a presumption that the property should not be forfeited.", "It doubles the standard of proof for the state."],
+            answer: "It raises a presumption that the property should not be forfeited.",
+            explanation: "<strong>Reference: Defenses to Forfeiture.</strong> A dismissal or acquittal raises a presumption against forfeiture, which the state must then overcome with evidence."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#16a34a';
+            else if (percentage >= 50) quizScoreEl.style.color = '#f59e0b';
+            else quizScoreEl.style.color = '#dc2626';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+});
+</script>
+
+</body>
+</html>

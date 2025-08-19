@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juvenile Justice Procedures Quiz</title>
+    <title>Health and Safety Code Quiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -27,11 +27,11 @@
 
     <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
         <div class="bg-white p-8 rounded-2xl shadow-lg">
-            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Juvenile Justice Procedures Quiz</h1>
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Health and Safety Code Quiz</h1>
             <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
 
             <div id="start-screen">
-                <p class="text-lg mb-6 text-center">This final, exhaustive practice quiz now contains 65 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains an exhaustive list of questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
                 <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
             </div>
 
@@ -87,380 +87,376 @@
 
         // --- Quiz Data with References ---
         const quizData = [
-            // --- Health & Safety Code Quiz ---
             {
-                question: "Which of the following best defines a 'controlled substance' under Texas law?",
-                options: [
-                    "Any prescription drug.",
-                    "A substance, including a drug, adulterant, or dilutant, listed in Schedules I-V or Penalty Groups 1, 1-A, 1-B, 2, 2-A, 3, or 4.",
-                    "Any over-the-counter medication.",
-                    "Only substances listed in federal law."
-                ],
-                answer: "A substance, including a drug, adulterant, or dilutant, listed in Schedules I-V or Penalty Groups 1, 1-A, 1-B, 2, 2-A, 3, or 4.",
-                explanation: "A controlled substance includes drugs and other substances listed in the Texas Schedules or Penalty Groups, including the aggregate weight of any mixture.",
-                reference: "HSC 481.002(5) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                question: "Under HSC 481.002, what does the term 'Controlled Substance' include besides the drug itself?",
+                options: ["Only the pure drug compound.", "The aggregate weight of any mixture, solution, or other substance containing the controlled substance.", "The packaging and any paraphernalia found with the drug.", "Only substances listed in federal schedules."],
+                answer: "The aggregate weight of any mixture, solution, or other substance containing the controlled substance.",
+                explanation: "This is a critical definition for charging purposes. The total weight of the entire substance (including cutting agents, adulterants, and dilutants) is used to determine the penalty level, not just the weight of the pure narcotic.",
+                reference: "Handout Page 1: HSC 481.002(5) - 'Includes the aggregate weight of any mixture, solution, or other substance containing a controlled substance...'<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.002</a>"
             },
             {
-                question: "What is a 'Penalty Group' in the context of the Texas Health & Safety Code?",
-                options: [
-                    "A group of people penalized for drug offenses.",
-                    "A classification system for controlled substances that determines criminal penalties.",
-                    "A list of dangerous drugs only.",
-                    "A group of law enforcement officers."
-                ],
-                answer: "A classification system for controlled substances that determines criminal penalties.",
-                explanation: "Penalty Groups (PG 1, 1-A, 1-B, 2, 2-A, 3, 4) categorize drugs and set the punishment range for offenses.",
-                reference: "HSC 481.102-105 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.102' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                question: "What is a 'Controlled substance analogue'?",
+                options: ["A legal, over-the-counter version of a controlled substance.", "A substance with a chemical structure or effect substantially similar to a Penalty Group 1, 1-A, or 2 substance.", "Any substance that is not a controlled substance.", "A counterfeit substance with a fake trademark."],
+                answer: "A substance with a chemical structure or effect substantially similar to a Penalty Group 1, 1-A, or 2 substance.",
+                explanation: "This definition allows the law to cover 'designer drugs' that are created to mimic the effects of illegal substances but may not be specifically listed in the penalty groups.",
+                reference: "Handout Page 1: HSC 481.002(6) - Defines a controlled substance analogue."
             },
             {
-                question: "Which of the following is NOT included in the definition of 'marihuana' under Texas law?",
-                options: [
-                    "The plant Cannabis sativa L.",
-                    "The resin extracted from the plant.",
-                    "The seeds of the plant.",
-                    "Every compound or preparation of the plant or its seeds."
-                ],
-                answer: "The resin extracted from the plant.",
-                explanation: "Resin, mature stalks, and sterilized seeds are excluded from the legal definition of marihuana.",
-                reference: "HSC 481.002(26) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                question: "What defines a 'Counterfeit substance' under the HSC?",
+                options: ["A substance that looks like a controlled substance but has no effect.", "A controlled substance that, without authorization, bears the trademark or label of a legitimate manufacturer.", "Any illegally manufactured drug.", "A legal substance sold as an illegal one."],
+                answer: "A controlled substance that, without authorization, bears the trademark or label of a legitimate manufacturer.",
+                explanation: "The key element is the fraudulent labeling or marking of a controlled substance to pass it off as a product from a different, legitimate source.",
+                reference: "Handout Page 2: HSC 481.002(7) - Defines 'Counterfeit substance'."
             },
             {
-                question: "What is the legal definition of 'deliver' in the Health & Safety Code?",
-                options: [
-                    "To sell a controlled substance only.",
-                    "To transfer, actually or constructively, a controlled substance, counterfeit substance, or drug paraphernalia, including offering to sell.",
-                    "To manufacture a controlled substance.",
-                    "To possess a controlled substance."
-                ],
-                answer: "To transfer, actually or constructively, a controlled substance, counterfeit substance, or drug paraphernalia, including offering to sell.",
-                explanation: "'Deliver' includes any transfer, whether or not for money, and includes offers to sell.",
-                reference: "HSC 481.002(8) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                question: "What does the term 'Manufacture' exclude?",
+                options: ["Chemical synthesis of a new drug.", "Packaging or repackaging of a substance.", "The preparation or compounding of a controlled substance by a practitioner for administering to a patient.", "Extracting a substance from a plant."],
+                answer: "The preparation or compounding of a controlled substance by a practitioner for administering to a patient.",
+                explanation: "'Manufacture' refers to illegal production. It specifically excludes the legitimate activities of a practitioner in the course of their professional practice.",
+                reference: "Handout Page 2: HSC 481.002(25) - Explains what 'Manufacture' does not include."
             },
             {
-                question: "Which Penalty Group includes heroin, cocaine, and methamphetamine?",
-                options: [
-                    "Penalty Group 1",
-                    "Penalty Group 2",
-                    "Penalty Group 3",
-                    "Penalty Group 4"
-                ],
+                question: "What is the key difference between the definitions of 'Deliver' and 'Distribute'?",
+                options: ["'Deliver' includes an offer to sell, while 'Distribute' does not.", "'Distribute' is for large quantities, while 'Deliver' is for small quantities.", "'Deliver' is a legal term, while 'Distribute' is a slang term.", "'Distribute' means to deliver a controlled substance *other than* by administering or dispensing it."],
+                answer: "'Distribute' means to deliver a controlled substance *other than* by administering or dispensing it.",
+                explanation: "'Deliver' is a broad term for any transfer, including an offer to sell. 'Distribute' is a specific type of delivery that is not part of a legitimate medical practice (administering/dispensing).",
+                reference: "Handout Page 3: Compares the definitions of Deliver and Distribute."
+            },
+            {
+                question: "How is 'Administer' defined in the Health and Safety Code?",
+                options: ["Handing a prescription to a patient.", "Selling a controlled substance.", "The direct application of a controlled substance to a patient's body by a practitioner.", "Writing a prescription for a controlled substance."],
+                answer: "The direct application of a controlled substance to a patient's body by a practitioner.",
+                explanation: "'Administer' refers to the actual act of introducing the substance into the body, such as through injection or ingestion, under the direct supervision of a practitioner.",
+                reference: "Handout Page 3: HSC 481.002(1) - Defines 'Administer'."
+            },
+            {
+                question: "What is the legal definition of 'Possession' under the Health and Safety Code?",
+                options: ["Ownership of a substance.", "Actual care, custody, control, or management.", "Being in the same room as a substance.", "Having knowledge of a substance's location."],
+                answer: "Actual care, custody, control, or management.",
+                explanation: "This is a critical legal standard. Possession is not just ownership; it's about having control over the substance. This can be 'actual' (on your person) or 'constructive' (in a place you control, like your car or house).",
+                reference: "Handout Page 4: HSC 481.002(38) - '\"Possession\" means actual care, custody, control, or management.'"
+            },
+            {
+                question: "What parts of the Cannabis sativa L. plant are excluded from the definition of 'Marihuana'?",
+                options: ["The leaves and flowers.", "The mature stalks of the plant, fiber produced from the stalks, and sterilized seeds.", "The seeds and roots.", "Any part of the plant that has been dried."],
+                answer: "The mature stalks of the plant, fiber produced from the stalks, and sterilized seeds.",
+                explanation: "The legal definition of marihuana specifically excludes parts of the plant that have industrial uses and are not typically used for intoxication, as well as seeds that cannot germinate.",
+                reference: "Handout Page 5: HSC 481.002(26) - Lists the exclusions from the definition of 'Marihuana'."
+            },
+            {
+                question: "According to the Agriculture Code, what is the maximum legal delta-9 tetrahydrocannabinol (THC) concentration for a plant to be classified as 'Hemp'?",
+                options: ["3.0 percent", "1.0 percent", "0.5 percent", "Not more than 0.3 percent"],
+                answer: "Not more than 0.3 percent",
+                explanation: "This specific THC threshold is the legal dividing line between non-controlled hemp and controlled marihuana.",
+                reference: "Handout Page 5: Agriculture Code 121.001 - 'with a delta-9 tetrahydrocannabinol concentration of not more than 0.3 percent on a dry weight basis.'<br><a href='https://statutes.capitol.texas.gov/Docs/AG/htm/AG.121.htm#121.001' target='_blank' class='text-indigo-600 hover:underline'>Agriculture Code § 121.001</a>"
+            },
+            {
+                question: "Which of the six major categories of controlled substances is known for slowing down the brain and body's functions?",
+                options: ["Stimulants", "Hallucinogens", "Depressants", "Narcotics"],
+                answer: "Depressants",
+                explanation: "Depressants, such as alcohol, Xanax, and Valium, reduce excitability and calm the central nervous system.",
+                reference: "Handout Page 7: 'Depressants: slows down the brain & body.'"
+            },
+            {
+                question: "Heroin, Morphine, and OxyContin belong to which major drug category?",
+                options: ["Stimulants", "Hallucinogens", "Depressants", "Narcotic analgesics"],
+                answer: "Narcotic analgesics",
+                explanation: "These are all opiates or opioids, which are classified as narcotic analgesics known for relieving pain and inducing euphoria.",
+                reference: "Handout Page 7: The chart lists these examples under 'Narcotic analgesics'."
+            },
+            {
+                question: "Cocaine and Methamphetamine belong to which major drug category?",
+                options: ["Stimulants", "Depressants", "Hallucinogens", "Cannabis"],
+                answer: "Stimulants",
+                explanation: "These substances increase heart rate and blood pressure, causing excitement and alertness, which are characteristic effects of CNS stimulants.",
+                reference: "Handout Page 9: 'CNS Stimulants' chart lists cocaine and methamphetamine as examples."
+            },
+            {
+                question: "LSD, Peyote, and Psilocybin (mushrooms) belong to which major drug category?",
+                options: ["Stimulants", "Depressants", "Hallucinogens", "Narcotics"],
+                answer: "Hallucinogens",
+                explanation: "These substances are known for distorting a person's senses and perception of reality.",
+                reference: "Handout Page 10: 'Hallucinogens' chart lists these as examples."
+            },
+            {
+                question: "Cocaine, Heroin, and Methamphetamine are all found in which Texas Penalty Group?",
+                options: ["Penalty Group 1", "Penalty Group 2", "Penalty Group 3", "Penalty Group 4"],
                 answer: "Penalty Group 1",
-                explanation: "PG 1 includes the most serious narcotics such as heroin, cocaine, and methamphetamine.",
-                reference: "HSC 481.102 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.102' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                explanation: "Penalty Group 1 contains many of the most dangerous and highly addictive narcotics and stimulants.",
+                reference: "Handout Page 17: The 'Penalty Groups 1-3' chart lists these substances under Penalty Group 1."
             },
             {
-                question: "What is the punishment for possession of less than 1 gram of a Penalty Group 1 substance?",
-                options: [
-                    "Class A Misdemeanor",
-                    "State Jail Felony",
-                    "Third Degree Felony",
-                    "Second Degree Felony"
-                ],
+                question: "Lysergic acid diethylamide (LSD) is the primary substance listed in which Penalty Group?",
+                options: ["Penalty Group 1", "Penalty Group 1A", "Penalty Group 2", "Penalty Group 2A"],
+                answer: "Penalty Group 1A",
+                explanation: "Penalty Group 1A was created specifically for LSD, and its penalties are based on the number of abuse units (doses) rather than weight.",
+                reference: "Handout Page 12 & 17: HSC 481.1021 - 'Penalty Group 1-A consists of: lysergic acid diethylamide (LSD)...'<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.1021' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.1021</a>"
+            },
+            {
+                question: "Fentanyl and its derivatives are listed in which Penalty Group?",
+                options: ["Penalty Group 1", "Penalty Group 1B", "Penalty Group 2", "Penalty Group 3"],
+                answer: "Penalty Group 1B",
+                explanation: "Due to its extreme potency and danger, Fentanyl and its analogues were placed in their own penalty group, 1B, which carries severe penalties.",
+                reference: "Handout Page 12: HSC 481.1022 - 'PENALTY GROUP 1-B.' lists Fentanyl.<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.1022' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.1022</a>"
+            },
+            {
+                question: "THC, other than marihuana, and synthetic cannabinoids (K2, Spice) are found in which two Penalty Groups, respectively?",
+                options: ["PG 1 and PG 1A", "PG 2 and PG 2A", "PG 3 and PG 4", "PG 1 and PG 2"],
+                answer: "PG 2 and PG 2A",
+                explanation: "THC extracts like wax and oils are in Penalty Group 2. The man-made chemical compounds known as synthetic cannabinoids are in Penalty Group 2A.",
+                reference: "Handout Page 13 & 14: 'Penalty Group 2: ...THC...'; 'PG2A SYNTHETIC CANNABINOIDS'."
+            },
+            {
+                question: "Xanax (Alprazolam), Valium (Diazepam), and anabolic steroids are found in which Penalty Group?",
+                options: ["Penalty Group 1", "Penalty Group 2", "Penalty Group 3", "Penalty Group 4"],
+                answer: "Penalty Group 3",
+                explanation: "Penalty Group 3 contains many commonly abused prescription medications, including depressants like benzodiazepines and anabolic steroids.",
+                reference: "Handout Page 14 & 17: The charts list these substances under Penalty Group 3."
+            },
+            {
+                question: "A person knowingly possesses less than one gram of cocaine. What is the penalty?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Third Degree Felony", "Second Degree Felony"],
                 answer: "State Jail Felony",
-                explanation: "Possession of less than 1 gram of a PG 1 substance is a state jail felony.",
-                reference: "HSC 481.115(b) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.115' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                explanation: "Possession of any amount of a Penalty Group 1 substance under one gram is a State Jail Felony.",
+                reference: "Handout Page 19: HSC 481.115(b) - 'state jail felony if the amount... is... less than one gram.'<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.115' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.115</a>"
             },
             {
-                question: "Which of the following is considered 'drug paraphernalia' under Texas law?",
-                options: [
-                    "A glass pipe used to smoke marihuana.",
-                    "A prescription bottle with a valid label.",
-                    "A sealed bottle of aspirin.",
-                    "A plastic sandwich bag with no residue."
-                ],
-                answer: "A glass pipe used to smoke marihuana.",
-                explanation: "Drug paraphernalia includes equipment used to plant, manufacture, package, or introduce a controlled substance into the body.",
-                reference: "HSC 481.002(17) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
-            },
-            {
-                question: "Which offense is committed if a person knowingly delivers marihuana to a child under 18 years old?",
-                options: [
-                    "Class A Misdemeanor",
-                    "State Jail Felony",
-                    "Second Degree Felony",
-                    "Third Degree Felony"
-                ],
+                question: "A person knowingly manufactures or delivers 3 grams of methamphetamine. What is the penalty?",
+                options: ["State Jail Felony", "Third Degree Felony", "Second Degree Felony", "First Degree Felony"],
                 answer: "Second Degree Felony",
-                explanation: "Delivery of marihuana to a child is a second degree felony under HSC 481.122.",
-                reference: "HSC 481.122 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.122' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                explanation: "Manufacture or Delivery of a Penalty Group 1 substance in an amount of one gram or more but less than four grams is a second-degree felony.",
+                reference: "Handout Page 16: HSC 481.112(c) - 'felony of the second degree if the amount... is... one gram or more but less than four grams.'<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.112' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.112</a>"
             },
             {
-                question: "What is the legal consequence for possession of drug paraphernalia?",
-                options: [
-                    "Class C Misdemeanor",
-                    "Class B Misdemeanor",
-                    "State Jail Felony",
-                    "Third Degree Felony"
-                ],
-                answer: "Class C Misdemeanor",
-                explanation: "Possession of drug paraphernalia is a Class C misdemeanor, but delivery can be a higher offense.",
-                reference: "HSC 481.125 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.125' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                question: "What is the penalty for possessing 10 abuse units of LSD (Penalty Group 1A)?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Third Degree Felony", "Second Degree Felony"],
+                answer: "State Jail Felony",
+                explanation: "Possession of fewer than 20 abuse units of a PG 1A substance is a State Jail Felony.",
+                reference: "Handout Page 19: HSC 481.1151(b)(1) - 'state jail felony if the number of abuse units... is fewer than 20'.<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.1151' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.1151</a>"
             },
             {
-                question: "Which of the following is a CNS depressant?",
-                options: [
-                    "Cocaine",
-                    "Valium",
-                    "Methamphetamine",
-                    "LSD"
-                ],
-                answer: "Valium",
-                explanation: "Valium is a CNS depressant, while cocaine and methamphetamine are stimulants, and LSD is a hallucinogen.",
-                reference: "See Drug Categories in HSC 481 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
-            },
-            {
-                question: "What is the minimum age for a person to be prosecuted for delivery of a controlled substance to a child?",
-                options: [
-                    "10 years old",
-                    "15 years old",
-                    "18 years old",
-                    "21 years old"
-                ],
-                answer: "18 years old",
-                explanation: "The statute applies when the deliverer is 18 or older and the recipient is under 18.",
-                reference: "HSC 481.122 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.122' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
-            },
-            {
-                question: "Which of the following is NOT a function of a 'practitioner' under the Health & Safety Code?",
-                options: [
-                    "Dispense controlled substances in the course of professional practice.",
-                    "Prescribe controlled substances.",
-                    "Manufacture controlled substances for personal use.",
-                    "Administer controlled substances to patients."
-                ],
-                answer: "Manufacture controlled substances for personal use.",
-                explanation: "A practitioner may prescribe, dispense, or administer, but not manufacture for personal use.",
-                reference: "HSC 481.002(39) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
-            },
-            {
-                question: "What is the penalty for possession of 2 ounces or less of marihuana?",
-                options: [
-                    "Class C Misdemeanor",
-                    "Class B Misdemeanor",
-                    "State Jail Felony",
-                    "Third Degree Felony"
-                ],
+                question: "What is the penalty for possessing two ounces or less of a synthetic cannabinoid (Penalty Group 2A)?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
                 answer: "Class B Misdemeanor",
-                explanation: "Possession of 2 ounces or less of marihuana is a Class B misdemeanor.",
-                reference: "HSC 481.121 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.121' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                explanation: "The lowest-level possession offense for synthetic cannabinoids is a Class B Misdemeanor.",
+                reference: "Handout Page 20: HSC 481.1161(b)(1) - 'Class B misdemeanor if the amount... is two ounces or less'.<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.1161' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.1161</a>"
             },
             {
-                question: "Which of the following is a Penalty Group 2 substance?",
-                options: [
-                    "LSD",
-                    "Psilocybin (mushrooms)",
-                    "Cocaine",
-                    "Oxycodone"
-                ],
-                answer: "Psilocybin (mushrooms)",
-                explanation: "PG 2 includes hallucinogens like psilocybin, PCP, and mescaline.",
-                reference: "HSC 481.103 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.103' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                question: "What is the penalty for possessing less than 28 grams of a Penalty Group 3 substance, such as Xanax without a prescription?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "The lowest-level possession offense for a PG 3 substance is a Class A Misdemeanor.",
+                reference: "Handout Page 20: HSC 481.117(b) - 'Class A misdemeanor if the amount... is... less than 28 grams.'"
             },
             {
-                question: "Which of the following is a sign of CNS stimulant overdose?",
-                options: [
-                    "Slurred speech",
-                    "Hallucinations",
-                    "Shallow breathing",
-                    "Increased body temperature"
-                ],
-                answer: "Increased body temperature",
-                explanation: "CNS stimulant overdose can cause agitation, increased body temperature, hallucinations, and seizures.",
-                reference: "See Drug Categories in HSC 481 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                question: "What is the penalty for possessing two ounces or less of marihuana?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "No offense"],
+                answer: "Class B Misdemeanor",
+                explanation: "Possession of two ounces or less of marihuana is the most common marijuana charge and is a Class B Misdemeanor.",
+                reference: "Handout Page 22: HSC 481.121(b)(1) - 'Class B misdemeanor if the amount... is two ounces or less'.<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.121' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.121</a>"
             },
             {
-                question: "What is the legal definition of 'manufacture' under the Health & Safety Code?",
-                options: [
-                    "The production, preparation, compounding, or processing of a controlled substance, including packaging or labeling, except by a practitioner as an incident to administering or dispensing.",
-                    "The use of a controlled substance.",
-                    "The sale of a controlled substance.",
-                    "The possession of a controlled substance."
-                ],
-                answer: "The production, preparation, compounding, or processing of a controlled substance, including packaging or labeling, except by a practitioner as an incident to administering or dispensing.",
-                explanation: "'Manufacture' includes all steps in making a controlled substance, except for certain practitioner activities.",
-                reference: "HSC 481.002(25) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+                question: "A person delivers one-fourth of an ounce of marihuana to a friend and does not receive any money or remuneration. What is the offense level?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class B Misdemeanor",
+                explanation: "This is a specific provision for the non-commercial delivery of a small amount of marihuana, making it a Class B Misdemeanor. If the person had received payment, it would be a Class A Misdemeanor.",
+                reference: "Handout Page 22: HSC 481.120(b)(1) - 'Class B misdemeanor if the amount... is one-fourth ounce or less and the person... does not receive remuneration...'"
             },
             {
-                question: "A child taken into custody for delinquent conduct that includes violence must be taken where?",
-                options: ["Directly to an adult jail.", "To a juvenile processing office for the issuance of a warning notice.", "To a certified juvenile detention facility.", "Home to their parents."],
-                answer: "To a certified juvenile detention facility.",
-                explanation: "For serious offenses involving violence, the law requires the child to be taken to a secure detention facility rather than being released or taken to a non-secure facility.",
-                reference: "Handout Page 11: FC 52.02(a)(3) - 'if the child is taken into custody for delinquent conduct that includes a violent offense... the child shall be taken to a certified juvenile detention facility...'"
+                question: "Under the Texas Compassionate-Use Program, what is the maximum THC concentration for a substance to be considered 'low-THC cannabis'?",
+                options: ["0.3 percent", "0.5 percent", "1.0 percent", "3.0 percent"],
+                answer: "1.0 percent",
+                explanation: "The Compassionate-Use Program allows for a slightly higher THC content (up to 1.0%) than what is legally defined as hemp (0.3%).",
+                reference: "Handout Page 22: OC 169.001(3) - 'contains not more than one percent by weight of tetrahydrocannabinols.'<br><a href='https://statutes.capitol.texas.gov/Docs/OC/htm/OC.169.htm#169.001' target='_blank' class='text-indigo-600 hover:underline'>Occupations Code § 169.001</a>"
             },
             {
-                question: "What is a 'juvenile processing office'?",
-                options: ["An adult jail.", "A courtroom for juvenile cases.", "An office designated by the juvenile board for processing children taken into custody.", "A school principal's office."],
-                answer: "An office designated by the juvenile board for processing children taken into custody.",
-                explanation: "This is a specific, designated location where law enforcement can legally take a juvenile for temporary processing like fingerprinting, photographing, and completing paperwork.",
-                reference: "Handout Page 12: FC 52.025(a) - 'A child may be brought to a juvenile processing office...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.025' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.025</a>"
+                question: "Which of the following is a qualifying medical condition for a prescription of low-THC cannabis under the Compassionate-Use Program?",
+                options: ["Chronic back pain", "Anxiety", "Epilepsy, multiple sclerosis, or cancer", "Glaucoma"],
+                answer: "Epilepsy, multiple sclerosis, or cancer",
+                explanation: "The program is limited to a specific list of severe medical conditions, including epilepsy, MS, spasticity, ALS, autism, cancer, and incurable neurodegenerative diseases.",
+                reference: "Handout Page 23: OC 169.003(3)(A) - Lists the qualifying conditions."
             },
             {
-                question: "For how long may a child be detained in a juvenile processing office?",
-                options: ["For an unlimited time.", "Not to exceed 24 hours.", "Not to exceed 12 hours.", "Not to exceed six hours."],
-                answer: "Not to exceed six hours.",
-                explanation: "The law places a strict six-hour time limit on how long a child can be held in a processing office to prevent it from becoming a de facto detention facility.",
-                reference: "Handout Page 12: FC 52.025(d) - 'A child may not be detained in a juvenile processing office for more than six hours.'"
+                question: "The 'overdose defense' provides an affirmative defense to prosecution for possession if the actor was the first person to request emergency medical assistance for a possible overdose and what other conditions were met?",
+                options: ["They left the scene before police arrived.", "They remained on the scene and cooperated with medical and law enforcement personnel.", "They administered Narcan themselves.", "They had no prior arrests."],
+                answer: "They remained on the scene and cooperated with medical and law enforcement personnel.",
+                explanation: "This defense, designed to save lives, requires the person to stay and cooperate fully with first responders.",
+                reference: "Handout Page 24: 'remained on the scene until the medical assistance arrived, and cooperated with medical assistance and law enforcement'."
             },
             {
-                question: "What is a 'First Offender Program' under the Family Code?",
-                options: ["A program for juveniles who commit capital murder.", "A voluntary program for children who commit a misdemeanor, other than a traffic offense, for which they have no prior referrals.", "A mandatory boot camp for all juvenile offenders.", "A program run by the adult probation department."],
-                answer: "A voluntary program for children who commit a misdemeanor, other than a traffic offense, for which they have no prior referrals.",
-                explanation: "This program offers a diversionary path for low-level, first-time offenders, allowing them to avoid formal court proceedings by completing certain requirements.",
-                reference: "Handout Page 13: FC 52.031(a) & (b) - Describes the first offender program.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.031' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.031</a>"
+                question: "The overdose defense is NOT available if, at the time of the call, a peace officer was in the process of arresting the actor or what else?",
+                options: ["Conducting a traffic stop nearby.", "Executing a search warrant describing the actor or the place.", "Writing a report in their car.", "Investigating an unrelated call down the street."],
+                answer: "Executing a search warrant describing the actor or the place.",
+                explanation: "The defense does not apply if law enforcement action against the person was already underway when the call for help was made.",
+                reference: "Handout Page 25: 'a peace officer was in the process of arresting the actor or executing a search warrant...'"
             },
             {
-                question: "A child who is detained must have a detention hearing held no later than what time?",
-                options: ["The seventh working day after being taken into custody.", "The fifth working day after being taken into custody.", "The second working day after being taken into custody.", "Within 24 hours of being taken into custody."],
-                answer: "The second working day after being taken into custody.",
-                explanation: "This requirement ensures a prompt judicial review of the decision to detain a child, protecting their liberty interests.",
-                reference: "Handout Page 14: FC 54.01(a) - 'a detention hearing... shall be held not later than the second working day after the child is taken into custody...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 54.01</a>"
+                question: "A person commits an offense under HSC 481.122 if they knowingly deliver a controlled substance or marihuana to a person who is a child (under 18) or what other category of person?",
+                options: ["A person over 65.", "A person enrolled in a public or private primary or secondary school.", "A college student.", "An off-duty police officer."],
+                answer: "A person enrolled in a public or private primary or secondary school.",
+                explanation: "This statute creates a second-degree felony for delivering drugs to minors or to students in a school environment, regardless of the student's age.",
+                reference: "Handout Page 25: HSC 481.122(a)(2) - 'is enrolled in a public or private primary or secondary school'.<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.122' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.122</a>"
             },
             {
-                question: "What rights does a child have at a detention hearing?",
-                options: ["The right to a jury.", "The right to remain silent, the right to an attorney, and the right to confront and cross-examine witnesses.", "The right to have their parents testify for them.", "The right to be released immediately."],
-                answer: "The right to remain silent, the right to an attorney, and the right to confront and cross-examine witnesses.",
-                explanation: "Even at this early stage, the child is afforded fundamental due process rights, including the right to counsel and the right against self-incrimination.",
-                reference: "Handout Page 15: FC 51.10(b) & FC 54.01(d) - Outlines the rights at a hearing.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.10' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.10</a>"
+                question: "An intent to unlawfully manufacture methamphetamine is presumed if a person possesses certain precursors along with at least three other items. Which of the following is one of those items?",
+                options: ["A large amount of cash.", "A firearm.", "Anhydrous ammonia.", "A stolen vehicle."],
+                answer: "Anhydrous ammonia.",
+                explanation: "The possession of key precursors and lab equipment creates a legal presumption that the person intended to manufacture methamphetamine.",
+                reference: "Handout Page 26: HSC 481.124(b) - Lists the items that create the presumption.<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.124' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.124</a>"
             },
             {
-                question: "Before a child's statement can be used in court, what warning must be given by a magistrate?",
-                options: ["The standard Miranda warning.", "A warning that includes the right to have an attorney present and the right to terminate the interview at any time.", "A warning that their parents will be held responsible.", "A warning that they will be tried as an adult."],
-                answer: "A warning that includes the right to have an attorney present and the right to terminate the interview at any time.",
-                explanation: "FC 51.095 requires a specific, enhanced warning to be given by a magistrate to a child before a custodial statement can be taken, providing greater protection than the standard adult Miranda warning.",
-                reference: "Handout Page 16: FC 51.095(a)(1)(A) - Lists the specific warnings required.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.095' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.095</a>"
+                question: "What is the penalty for knowingly or intentionally possessing drug paraphernalia with the intent to use it?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "No offense"],
+                answer: "Class C Misdemeanor",
+                explanation: "Possession of drug paraphernalia for personal use is a Class C Misdemeanor, punishable by a fine only.",
+                reference: "Handout Page 27: HSC 481.125(d) - 'An offense under Subsection (a) is a Class C misdemeanor.'<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.125' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.125</a>"
             },
             {
-                question: "For a written statement made by a child in custody to be admissible, who must be present when the child signs it (unless an attorney is present)?",
-                options: ["A law enforcement officer.", "A probation officer.", "The magistrate who gave the warnings.", "The child's parent."],
-                answer: "The magistrate who gave the warnings.",
-                explanation: "The magistrate must be present to witness the child's signature, ensuring there is no coercion and that the child understands what they are signing.",
-                reference: "Handout Page 17: FC 51.095(a)(1)(D) - 'the statement must be signed in the presence of a magistrate by the child...'"
+                question: "The penalty for Delivery of Drug Paraphernalia is enhanced from a Class A Misdemeanor to a State Jail Felony under what circumstance?",
+                options: ["If the paraphernalia is sold near a school.", "If the actor is 18 or older and delivers to a person younger than 18 who is at least 3 years younger.", "If the actor has any prior drug conviction.", "If the paraphernalia is for manufacturing drugs."],
+                answer: "If the actor is 18 or older and delivers to a person younger than 18 who is at least 3 years younger.",
+                explanation: "This enhancement specifically targets adults who provide drug paraphernalia to younger minors.",
+                reference: "Handout Page 27: HSC 481.125(c) & (f) - 'An offense under Subsection (c) is a state jail felony.'"
             },
             {
-                question: "When can a child's oral statement made as a result of custodial interrogation be admissible in court?",
-                options: ["At any time if it is recorded.", "If the statement is found to be true and establishes the child's guilt ('statement against interest').", "If the child's parents give permission.", "Oral statements from juveniles are never admissible."],
-                answer: "If the statement is found to be true and establishes the child's guilt ('statement against interest').",
-                explanation: "This is a key exception. An oral statement can be used if it contains information, later found to be true, that only the guilty person would know, thus corroborating its reliability.",
-                reference: "Handout Page 18: FC 51.095(a)(5) - 'the statement is found to be true and tends to establish the child's guilt...'"
+                question: "A person commits an offense under HSC 481.133 if they knowingly deliver or possess with intent to deliver what?",
+                options: ["A simulated controlled substance.", "A dangerous drug.", "A substance or device designed to falsify drug test results.", "An illegal prescription."],
+                answer: "A substance or device designed to falsify drug test results.",
+                explanation: "This statute criminalizes the sale of items like synthetic urine or adulterants that are intended to defeat a lawfully administered drug test.",
+                reference: "Handout Page 28: HSC 481.133(b) - 'delivers, possesses with intent to deliver, or manufactures with intent to deliver a substance or device designed to falsify drug test results.'<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.133' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.133</a>"
             },
             {
-                question: "Under what circumstances may a child's fingerprints be taken without the consent of the juvenile court?",
-                options: ["For any offense.", "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.", "Only if the child is 14 or older.", "Never without a court order."],
-                answer: "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.",
-                explanation: "FC 58.002 allows for fingerprinting without a court order for more serious offenses (Class B misdemeanors and above).",
-                reference: "Handout Page 19: FC 58.002(a)(1) - 'A child's fingerprints may be taken... if the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.58.htm#58.002' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 58.002</a>"
+                question: "Under HSC 481.141, if a person dies as a result of using a controlled substance delivered by a defendant, what happens to the punishment for the delivery offense?",
+                options: ["It remains the same.", "The defendant is charged with Murder instead.", "The punishment for the delivery offense is increased by one degree.", "A mandatory life sentence is imposed."],
+                answer: "The punishment for the delivery offense is increased by one degree.",
+                explanation: "This statute provides a specific enhancement for drug dealers whose products cause death or serious bodily injury, increasing the felony level of the underlying delivery charge.",
+                reference: "Handout Page 28: HSC 481.141(a) - 'the punishment for the offense is increased by one degree.'<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.141' target='_blank' class='text-indigo-600 hover:underline'>HSC § 481.141</a>"
             },
             {
-                question: "If a child's fingerprints are taken, what must be done with the fingerprint card if the child is not referred to juvenile court within 10 days?",
-                options: ["It must be sent to the FBI.", "It must be destroyed.", "It must be filed with the district clerk.", "It must be given to the child's parents."],
-                answer: "It must be destroyed.",
-                explanation: "This provision protects the privacy of children who are not formally charged, ensuring their prints are not kept on file if the case does not proceed.",
-                reference: "Handout Page 19: FC 58.002(b) - 'If the child is not referred to the juvenile court... the law enforcement agency shall destroy the fingerprints...'"
+                question: "A person commits an offense under HSC 482.002 if they knowingly deliver a simulated controlled substance and do what?",
+                options: ["Believe it is a real controlled substance.", "Represent it to be a controlled substance in a manner that would lead a reasonable person to believe it is.", "Sell it for more than its actual value.", "Deliver it to a minor."],
+                answer: "Represent it to be a controlled substance in a manner that would lead a reasonable person to believe it is.",
+                explanation: "The crime is not the substance itself, but the fraud. It's illegal to pass off a fake substance as a real controlled substance.",
+                reference: "Handout Page 29: HSC 482.002(a)(2) - 'represents the substance to be a controlled substance in a manner that would lead a reasonable person to believe that the substance is a controlled substance'.<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.482.htm#482.002' target='_blank' class='text-indigo-600 hover:underline'>HSC § 482.002</a>"
             },
             {
-                question: "What is the purpose of sealing juvenile records?",
-                options: ["To make them available to the public.", "To allow a person to legally deny the arrest and proceedings ever occurred.", "To transfer them to the adult criminal justice system.", "To preserve them for historical purposes."],
-                answer: "To allow a person to legally deny the arrest and proceedings ever occurred.",
-                explanation: "Sealing records provides a fresh start, removing the legal disabilities of a juvenile record and allowing the person to move forward without the stigma of their past offenses.",
-                reference: "Handout Page 20: FC 58.259(a) - 'the person may deny the occurrence of the arrest and the existence of the sealed records...'"
+                question: "What is the effect of a deadly weapon finding on a State Jail Felony drug offense?",
+                options: ["It has no effect on the punishment.", "It enhances the punishment to a third-degree felony.", "It adds a mandatory 5-year sentence.", "It makes the person ineligible for probation."],
+                answer: "It enhances the punishment to a third-degree felony.",
+                explanation: "Under PC 12.35(c)(1), using a deadly weapon during the commission of a State Jail Felony elevates the punishment range to that of a third-degree felony.",
+                reference: "Handout Page 29: 'PC 12.35(c)(1): SJF punished as a 3rd if a deadly weapon is used in the offense or immediate flight.'"
             },
             {
-                question: "Under what circumstances are juvenile records eligible for automatic sealing (restricted access)?",
-                options: ["For any adjudicated offense.", "If the person is 19, the offense was a misdemeanor, and they were not certified as an adult.", "For all felony offenses.", "Only if the case was dismissed."],
-                answer: "If the person is 19, the offense was a misdemeanor, and they were not certified as an adult.",
-                explanation: "The law provides for automatic restriction of records for less serious offenses once the person reaches a certain age, provided they meet all the criteria.",
-                reference: "Handout Page 21: FC 58.253(c) - Lists the conditions for automatic restricted access.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.58.htm#58.253' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 58.253</a>"
+                question: "What is a 'Dangerous Drug' under HSC 483.001?",
+                options: ["Any substance in Penalty Groups 1-4.", "A drug that is unsafe for self-medication and requires a prescription, but is not in a penalty group.", "Any illegal substance.", "Heroin, cocaine, and methamphetamine."],
+                answer: "A drug that is unsafe for self-medication and requires a prescription, but is not in a penalty group.",
+                explanation: "This category covers all prescription drugs that are not classified as controlled substances, such as antibiotics, blood pressure medication, etc.",
+                reference: "Handout Page 33: HSC 483.001(2) - 'a device or a drug that is unsafe for self-medication and that is not included in Schedules I through V or Penalty Groups 1 through 4...'<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.483.htm#483.001' target='_blank' class='text-indigo-600 hover:underline'>HSC § 483.001</a>"
             },
             {
-                question: "What is the primary difference between a 'child' and a 'juvenile' in the context of the Family Code?",
-                options: ["There is no difference.", "A 'child' is under 17, while a 'juvenile' is 17-18.", "The terms are used interchangeably and have the same legal meaning.", "A 'child' is a person of a certain age, while 'juvenile' is a broader term often used to describe the system or the offender."],
-                answer: "A 'child' is a person of a certain age, while 'juvenile' is a broader term often used to describe the system or the offender.",
-                explanation: "The Family Code provides a precise legal definition for 'child' (10 to under 17). 'Juvenile' is a more general term used to refer to the entire justice system and the youth involved in it.",
-                reference: "Handout Page 2: 'Child vs. Juvenile' slide."
+                question: "What is the penalty for possessing a dangerous drug without a valid prescription?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "Possession of a dangerous drug is a Class A Misdemeanor.",
+                reference: "Handout Page 34: HSC 483.041(d) - 'An offense under this section is a Class A misdemeanor.'<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.483.htm#483.041' target='_blank' class='text-indigo-600 hover:underline'>HSC § 483.041</a>"
             },
             {
-                question: "A 16-year-old is arrested for DWI. This is an example of what type of conduct?",
-                options: ["Conduct Indicating a Need for Supervision (CINS)", "A status offense", "Delinquent Conduct", "A traffic offense not under juvenile court jurisdiction."],
-                answer: "Delinquent Conduct",
-                explanation: "DWI is a violation of the Penal Code punishable by confinement in jail. Therefore, when committed by a child, it is classified as delinquent conduct.",
-                reference: "Handout Page 4: FC 51.03(a)(1) includes violations of penal laws punishable by jail. DWI is in the Penal Code."
+                question: "What is the penalty for delivering or offering to deliver a dangerous drug?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Third Degree Felony", "Second Degree Felony"],
+                answer: "State Jail Felony",
+                explanation: "While simple possession is a misdemeanor, the delivery of a dangerous drug is a State Jail Felony.",
+                reference: "Handout Page 35: HSC 483.042(d) - 'An offense under this section is a state jail felony.'<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.483.htm#483.042' target='_blank' class='text-indigo-600 hover:underline'>HSC § 483.042</a>"
             },
             {
-                question: "A 15-year-old is caught with a vape pen at school. This is a violation of the Education Code. What type of conduct is this?",
-                options: ["Delinquent Conduct", "Conduct Indicating a Need for Supervision (CINS)", "A felony", "Not a juvenile offense"],
-                answer: "Conduct Indicating a Need for Supervision (CINS)",
-                explanation: "Violations of the Education Code, such as possession of tobacco or e-cigarettes on school property, fall under the category of CINS.",
-                reference: "Handout Page 5: FC 51.03(b)(6) - 'conduct that violates a school district's previously adopted code of conduct...'"
+                question: "A person obtains a dangerous drug by using a forged prescription. What offense have they committed, and what is the penalty?",
+                options: ["Theft, Class B Misdemeanor", "Forgery, State Jail Felony", "Forging or Altering Prescription (HSC 483.045), Class B Misdemeanor", "Possession of Dangerous Drug, Class A Misdemeanor"],
+                answer: "Forging or Altering Prescription (HSC 483.045), Class B Misdemeanor",
+                explanation: "HSC 483.045 specifically criminalizes prescription fraud. The base offense is a Class B Misdemeanor, enhanced to a Class A for a prior conviction under the chapter.",
+                reference: "Handout Page 36: HSC 483.045 - 'obtains or attempts to obtain a dangerous drug by using a forged... prescription... An offense under this section is a Class B misdemeanor...'<br><a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.483.htm#483.045' target='_blank' class='text-indigo-600 hover:underline'>HSC § 483.045</a>"
             },
             {
-                question: "A juvenile court can waive jurisdiction for a third-degree felony if the child was what age at the time of the offense?",
-                options: ["10 years of age or older", "14 years of age or older", "15 years of age or older", "16 years of age or older"],
-                answer: "15 years of age or older",
-                explanation: "The minimum age for certification for second-degree, third-degree, and state jail felonies is 15.",
-                reference: "Handout Page 7: FC 54.02(a)(2)(B) - '15 years of age or older at the time the child is alleged to have committed a felony of the second or third degree or a state jail felony...'"
+                question: "What is the key difference regarding accomplice testimony between dangerous drug cases (HSC 483) and controlled substance cases (HSC 481)?",
+                options: ["There is no difference.", "In dangerous drug cases, a conviction CAN be obtained on uncorroborated accomplice testimony; in controlled substance cases, it CANNOT.", "In controlled substance cases, a conviction CAN be obtained on uncorroborated accomplice testimony; in dangerous drug cases, it CANNOT.", "Accomplice testimony is not allowed in either type of case."],
+                answer: "In dangerous drug cases, a conviction CAN be obtained on uncorroborated accomplice testimony; in controlled substance cases, it CANNOT.",
+                explanation: "This is a significant legal distinction. HSC 483.072 specifically allows for conviction on uncorroborated testimony for dangerous drugs, while CCP 38.14 (the general rule) and CCP 38.141 (for undercover agents) require corroboration for controlled substance cases.",
+                reference: "Handout Page 38: Compares HSC 483.072 (Uncorroborated Testimony) with CCP 38.14 (Testimony of Accomplice)."
             },
             {
-                question: "Which of these is NOT a factor a juvenile court must consider when deciding whether to waive jurisdiction?",
-                options: ["The sophistication and maturity of the child.", "The child's family income.", "The prospects of adequate protection of the public.", "The seriousness of the offense."],
-                answer: "The child's family income.",
-                explanation: "The court must consider factors related to the child's character, the offense, and public safety. Financial status is not a legally permissible factor.",
-                reference: "Handout Page 8: FC 54.02(f) - Lists the factors to be considered."
+                question: "A person who is not a licensed peace officer is acting covertly for a law enforcement agency. Under CCP 38.141, can a defendant be convicted of a controlled substance offense based on this person's testimony alone?",
+                options: ["Yes, their testimony is sufficient.", "No, the testimony must be corroborated by other evidence tending to connect the defendant to the offense.", "Only if the person is a registered confidential informant.", "Only for misdemeanor offenses."],
+                answer: "No, the testimony must be corroborated by other evidence tending to connect the defendant to the offense.",
+                explanation: "This statute provides a safeguard, requiring that the testimony of a non-officer undercover agent or informant be supported by other independent evidence linking the defendant to the crime.",
+                reference: "Handout Page 39: CCP 38.141 - 'A defendant may not be convicted... on the testimony of a person who is not a licensed peace officer... unless the testimony is corroborated by other evidence...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.38.htm#38.141' target='_blank' class='text-indigo-600 hover:underline'>Texas Code of Criminal Procedure Art. 38.141</a>"
             },
             {
-                question: "An officer has probable cause to believe a 16-year-old has run away from home. Under which statute can the officer take the child into custody without a warrant?",
-                options: ["FC 52.01(a)(1) - Pursuant to a court order.", "FC 52.01(a)(2) - Pursuant to the laws of arrest.", "FC 52.01(a)(3) - Pursuant to probable cause of CINS.", "An officer cannot take a runaway into custody without a warrant."],
-                answer: "FC 52.01(a)(3) - Pursuant to probable cause of CINS.",
-                explanation: "This specific provision allows an officer to take a child into custody without a warrant if they have probable cause to believe the child has engaged in conduct indicating a need for supervision, such as running away.",
-                reference: "Handout Page 9: FC 52.01(a)(3) - 'by a law-enforcement officer if there is probable cause to believe that the child has engaged in... conduct indicating a need for supervision...'"
+                question: "What is the penalty for manufacturing a substance in Penalty Group 1 if a child younger than 18 is present on the premises?",
+                options: ["The penalty is increased by one degree.", "It becomes an automatic first-degree felony.", "A mandatory 25-year sentence is added.", "The penalty is doubled."],
+                answer: "The penalty is increased by one degree.",
+                explanation: "HSC 481.1122 provides a specific enhancement for endangering a child during the manufacture of a PG 1 substance, increasing the punishment by one felony degree.",
+                reference: "Handout Page 17: HSC 481.1122 - 'the punishments... are increased by one degree.'"
             },
             {
-                question: "An officer takes a 15-year-old into custody for misdemeanor theft and releases them to their parents after issuing a warning. What is this procedure called?",
-                options: ["A field release", "A station adjustment", "A disposition without referral to court", "An informal disposition"],
-                answer: "A disposition without referral to court",
-                explanation: "FC 52.03 allows a law enforcement agency to dispose of a case without referring it to juvenile court, essentially giving a warning for minor offenses.",
-                reference: "Handout Page 13: FC 52.03 - 'A law enforcement officer authorized by this title to take a child into custody may dispose of the case of a child... without referral to the juvenile court...'"
+                question: "What is the penalty for possessing more than 4 ounces but less than 5 pounds of marihuana?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Third Degree Felony", "Second Degree Felony"],
+                answer: "State Jail Felony",
+                explanation: "Possession of marihuana in this weight range is a State Jail Felony.",
+                reference: "Handout Page 22: HSC 481.121(b)(3) - 'state jail felony if the amount... is five pounds or less but more than four ounces'."
             },
             {
-                question: "A child is detained in a certified detention facility. Who must the superintendent of the facility promptly notify?",
-                options: ["The child's school.", "The juvenile court.", "The local media.", "The arresting officer's supervisor."],
-                answer: "The juvenile court.",
-                explanation: "Prompt notification to the court is required to trigger the legal timelines for detention hearings and other judicial proceedings.",
-                reference: "Handout Page 14: FC 54.01(a) - 'The superintendent... shall promptly notify the juvenile court of the detention...'"
+                question: "What is the penalty for delivering more than 50 pounds but less than 2,000 pounds of marihuana?",
+                options: ["State Jail Felony", "Third Degree Felony", "Second Degree Felony", "First Degree Felony"],
+                answer: "First Degree Felony",
+                explanation: "Delivery of a large quantity of marihuana (50-2,000 lbs) is a first-degree felony.",
+                reference: "Handout Page 22: HSC 481.120(b)(5) - 'felony of the first degree if the amount... is 2,000 pounds or less but more than 50 pounds'."
             },
             {
-                question: "For a child's written statement to be admissible, it must show on its face that the child, prior to and during the making of the statement, intelligently, knowingly, and voluntarily waived what rights?",
-                options: ["The rights listed in the U.S. Constitution.", "The rights set out in the magistrate's warning under FC 51.095(a)(1)(A).", "The right to a speedy trial.", "The right to have their parents present."],
-                answer: "The rights set out in the magistrate's warning under FC 51.095(a)(1)(A).",
-                explanation: "The statement itself must explicitly document the waiver of the specific, enhanced rights that the magistrate is required to provide to the juvenile.",
-                reference: "Handout Page 17: FC 51.095(a)(1)(C) - 'the child, prior to and during the making of the statement, knowingly, intelligently, and voluntarily waives the rights set out in the warning prescribed by Paragraph (A)...'"
+                question: "What is the penalty for possessing a substance in Penalty Group 4 in an amount less than 28 grams?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class B Misdemeanor",
+                explanation: "The lowest level offense for possessing a PG 4 substance is a Class B Misdemeanor.",
+                reference: "Handout Page 21: HSC 481.118(b) - 'Class B misdemeanor if the amount... is... less than 28 grams.'"
             },
             {
-                question: "A child makes a spontaneous statement ('res gestae') that is electronically recorded in a jurisdiction that requires recording of such statements. Is this statement admissible?",
-                options: ["No, juvenile statements are never admissible.", "Only if a magistrate was present.", "Yes, if it was a statement of facts that are a part of the res gestae of the conduct.", "No, because it was recorded without consent."],
-                answer: "Yes, if it was a statement of facts that are a part of the res gestae of the conduct.",
-                explanation: "Res gestae, or excited utterances, are a major exception to the strict rules for juvenile statements. A spontaneous statement made during or immediately after an event is generally admissible.",
-                reference: "Handout Page 18: FC 51.095(a)(6) - 'the statement was res gestae of the delinquent conduct or the conduct indicating a need for supervision or of the arrest.'"
+                question: "What is the penalty for distributing, selling, or exposing for sale a kratom product to a minor (under 18)?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "No offense, kratom is legal."],
+                answer: "Class C Misdemeanor",
+                explanation: "HSC 444.004 makes it a Class C Misdemeanor to sell or distribute kratom to a person younger than 18 years of age.",
+                reference: "Handout Page 26: HSC 444.004 - 'person distributes, sells, or exposes for sale a kratom product to an individual younger than 18 years of age. (b) class c'"
             },
             {
-                question: "When is it permissible to photograph a child without a court order?",
-                options: ["At any time for any reason.", "Only for felony offenses.", "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.", "Never without parental consent."],
-                answer: "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.",
-                explanation: "Similar to fingerprinting, photographing a juvenile is permitted without a court order for more serious offenses (Class B misdemeanors and above).",
-                reference: "Handout Page 19: FC 58.0021(a) - 'A child's photograph may be taken... if the child is taken into custody... for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.'"
+                question: "What is the penalty for a pharmacist refilling a prescription for a dangerous drug without authorization?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class B Misdemeanor",
+                explanation: "Unauthorized refilling of a prescription for a dangerous drug is a Class B Misdemeanor, enhanced to a Class A for prior convictions.",
+                reference: "Handout Page 37: HSC 483.047 - 'An offense under this section is a Class B misdemeanor...'"
             },
             {
-                question: "A person's juvenile records have been sealed. They apply for a job that asks if they have ever been arrested. How can they legally answer?",
-                options: ["They must disclose the juvenile arrest.", "They can legally deny the arrest and the existence of the sealed records.", "They must provide a copy of the sealing order.", "They must answer 'yes' but can state the record was sealed."],
-                answer: "They can legally deny the arrest and the existence of the sealed records.",
-                explanation: "The effect of a sealing order is to legally nullify the event for most purposes, including employment applications, allowing the person a clean slate.",
-                reference: "Handout Page 20: FC 58.259(a) - 'the person may deny the occurrence of the arrest and the existence of the sealed records...'"
+                question: "What offense is committed if a person required to permit an inspection of dangerous drug records refuses to do so?",
+                options: ["Interference with Public Duties", "Refusal to Permit Inspection", "Obstruction of Justice", "Tampering with Governmental Record"],
+                answer: "Refusal to Permit Inspection",
+                explanation: "HSC 483.050 creates the specific offense of 'Refusal to Permit Inspection' for failing to allow a required inspection.",
+                reference: "Handout Page 37: HSC 483.050 - 'Refusal to Permit Inspection.'"
             },
             {
-                question: "Which of the following would make a juvenile's record INELIGIBLE for automatic restricted access (sealing)?",
-                options: ["The offense was a misdemeanor.", "The person has reached the age of 19.", "The person was certified and tried as an adult.", "The case was handled informally without adjudication."],
-                answer: "The person was certified and tried as an adult.",
-                explanation: "Certification as an adult is a major disqualifier for automatic sealing, as the case then becomes part of the adult criminal record system.",
-                reference: "Handout Page 21: FC 58.253(c)(3) - 'the person was not certified to stand trial as an adult...'"
+                question: "Under what circumstances may a pharmacist provide an emergency 72-hour refill of a dangerous drug without a doctor's authorization?",
+                options: ["Any time a patient requests it.", "Only if the patient is out of state.", "If failure to refill might interrupt therapy or cause suffering, and the practitioner cannot be reached after reasonable effort.", "If the patient has a valid ID."],
+                answer: "If failure to refill might interrupt therapy or cause suffering, and the practitioner cannot be reached after reasonable effort.",
+                explanation: "HSC 483.047(b) allows for a limited emergency refill under specific conditions to ensure patient safety when the doctor is unavailable.",
+                reference: "Handout Page 37: HSC 483.047(b) - Lists the conditions for an emergency refill."
+            },
+            {
+                question: "What is the penalty for diverting a controlled substance for your own personal use if you have access to it through your profession (e.g., a nurse or pharmacist)?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Third Degree Felony", "Second Degree Felony"],
+                answer: "State Jail Felony",
+                explanation: "HSC 481.1285(c) makes it a State Jail Felony for a professional to convert controlled substances they have access to for their own use.",
+                reference: "Handout Page 38: HSC 481.1285(c) - 'An offense under Subsection (b)(1) is a state jail felony.'"
+            },
+            {
+                question: "What is the penalty for diverting a controlled substance for the unlawful use of another person if you have access to it through your profession?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Third Degree Felony", "Second Degree Felony"],
+                answer: "Third Degree Felony",
+                explanation: "HSC 481.1285(c) makes it a Third Degree Felony for a professional to divert controlled substances to another person.",
+                reference: "Handout Page 38: HSC 481.1285(c) - 'An offense under Subsection (b)(2) is a felony of the third degree.'"
             }
         ];
 

@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Forfeiture Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Asset Forfeiture Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 90 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            // Existing Questions 1-30
+            {
+                question: "According to Occupations Code 1701.253(g), when must a peace officer complete the asset forfeiture training program?",
+                options: ["Within the first year of being licensed.", "Before being issued a basic peace officer license.", "Not later than the second anniversary of being licensed or the date they apply for an intermediate certificate, whichever is earlier.", "Only if they are assigned to a narcotics unit."],
+                answer: "Not later than the second anniversary of being licensed or the date they apply for an intermediate certificate, whichever is earlier.",
+                explanation: "The law sets a specific deadline for this mandatory training to ensure all officers have a foundational knowledge of asset forfeiture early in their careers.",
+                reference: "Handout Page 1: Occupations Code, Section 1701.253 (g).<br><a href='https://statutes.capitol.texas.gov/Docs/OC/htm/OC.1701.htm#1701.253' target='_blank' class='text-indigo-600 hover:underline'>Occupations Code § 1701.253</a>"
+            },
+            {
+                question: "As a requirement for which TCOLE certificate must an officer complete the asset forfeiture training program?",
+                options: ["Basic Peace Officer Certificate", "Intermediate Proficiency Certificate", "Advanced Proficiency Certificate", "Master Peace Officer Certificate"],
+                answer: "Intermediate Proficiency Certificate",
+                explanation: "Occupations Code 1701.402(d) specifically mandates the completion of asset forfeiture training as a prerequisite for obtaining an intermediate certificate.",
+                reference: "Handout Page 1: Occupations Code, Section 1701.402 (d)."
+            },
+            {
+                question: "What is the primary philosophy behind asset forfeiture?",
+                options: ["To serve as an extra punishment for criminals.", "To take the profit motive out of crime.", "To generate revenue for the state.", "To seize property from anyone suspected of a crime."],
+                answer: "To take the profit motive out of crime.",
+                explanation: "The main goal is to disrupt criminal enterprises by removing the financial incentive and the tools used to commit crimes. It is considered remedial, not punitive.",
+                reference: "Handout Page 2: 'TAKE THE PROFIT MOTIVE OUT OF CRIME!!'"
+            },
+            {
+                question: "What does the 8th Amendment's 'Excessive Fines Clause' require in forfeiture cases?",
+                options: ["That all seized property must be returned.", "That the value of the property forfeited must bear some relationship to the gravity of the offense.", "That only cash can be seized.", "That forfeiture is not allowed for misdemeanors."],
+                answer: "That the value of the property forfeited must bear some relationship to the gravity of the offense.",
+                explanation: "This principle of proportionality prevents the government from seizing an amount of property that is grossly disproportionate to the seriousness of the underlying crime.",
+                reference: "Handout Page 2: 'Proportionality of property to be forfeited to the seriousness of the offense.'"
+            },
+            {
+                question: "Under CCP 59.01, what is the definition of 'Contraband'?",
+                options: ["Only illegal drugs and firearms.", "Any property used in the commission of any crime.", "Property of any nature that is used in the commission of specific listed felonies or certain misdemeanors.", "Only money gained from illegal activities."],
+                answer: "Property of any nature that is used in the commission of specific listed felonies or certain misdemeanors.",
+                explanation: "The definition is broad in the type of property it covers (real, personal, tangible, intangible) but is strictly limited to property connected to offenses specified in the statute.",
+                reference: "Handout Page 2: CCP 59.01 - 'Contraband as defined by CCP 59.01 means property of any nature... that is used in the commission of... [listed offenses]'.<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.59.htm#59.01' target='_blank' class='text-indigo-600 hover:underline'>CCP Art. 59.01</a>"
+            },
+            {
+                question: "What is the difference between 'proceeds' and 'instrumentalities' of a crime?",
+                options: ["There is no difference.", "Proceeds are property gained from the crime, while instrumentalities are property used to commit the crime.", "Instrumentalities are cash, while proceeds are physical property.", "Proceeds are only from felonies, while instrumentalities can be from misdemeanors."],
+                answer: "Proceeds are property gained from the crime, while instrumentalities are property used to commit the crime.",
+                explanation: "This is a fundamental distinction in forfeiture law. For example, the money from a drug sale is 'proceeds,' while the car used to transport the drugs is an 'instrumentality.'",
+                reference: "Handout Page 2: 'PROCEEDS VS INSTRUMENTALITIES'"
+            },
+            {
+                question: "Is a criminal conviction necessary to forfeit property?",
+                options: ["Yes, a conviction is always required.", "Only for felony offenses.", "No, forfeiture is a civil action and does not require a criminal conviction.", "Yes, and the conviction cannot be for a lesser charge."],
+                answer: "No, forfeiture is a civil action and does not require a criminal conviction.",
+                explanation: "Forfeiture cases are *in rem* (against the property), not *in personam* (against the person). The standard of proof is lower (preponderance of the evidence), and the case can proceed even without a criminal conviction.",
+                reference: "Handout Page 2 & 3: 'Filing of criminal offense not necessary' and 'Conviction of criminal offense not necessary.'"
+            },
+            {
+                question: "Under CCP 59.01(7), the definition of 'Proceeds' includes income a person receives from a movie or book in which the crime was reenacted, or from what other source?",
+                options: ["A legitimate inheritance.", "The sale of tangible property the value of which is increased by the notoriety gained from the conviction.", "A winning lottery ticket.", "A standard employment salary."],
+                answer: "The sale of tangible property the value of which is increased by the notoriety gained from the conviction.",
+                explanation: "This part of the definition, often called a 'murderabilia' or 'notoriety for profit' law, is designed to prevent criminals from profiting from the fame their crimes generate.",
+                reference: "Handout Page 3: CCP Article 59.01(7)(B)."
+            },
+            {
+                question: "What is the 'Innocent Owner Defense'?",
+                options: ["A defense for someone who didn't know their property was being used in a crime.", "A defense for a person who committed a crime but owns no property.", "A claim that the property was a gift.", "A defense that only applies to spouses."],
+                answer: "A defense for someone who didn't know their property was being used in a crime.",
+                explanation: "This statutory defense protects owners who can prove they acquired the property before the illegal act and did not know, nor should have reasonably known, of the act giving rise to the forfeiture.",
+                reference: "Handout Page 4: '\"INNOCENT\" OWNER DEFENSE'"
+            },
+            {
+                question: "Besides proving they acquired property before the illegal act without knowledge, what is the other way an owner can assert the 'Innocent Owner Defense'?",
+                options: ["By proving they were out of the country at the time.", "By proving that after the act, they had no reasonable cause to believe the property was contraband and did not purposefully avoid learning it was.", "By proving the property was a gift.", "By proving they have no criminal record."],
+                answer: "By proving that after the act, they had no reasonable cause to believe the property was contraband and did not purposefully avoid learning it was.",
+                explanation: "This second prong of the defense protects an owner who, even after the crime, was truly unaware that their property had become contraband and was not willfully blind to that fact.",
+                reference: "Handout Page 4: 'After the act giving rise to forfeiture, the owner was without reasonable cause to believe that the property was contraband...'"
+            },
+            {
+                question: "What is the effect of a dismissal or acquittal of related criminal charges on a forfeiture case?",
+                options: ["It automatically stops the forfeiture case.", "It has no effect on the forfeiture case.", "It raises a presumption that the property should not be forfeited.", "It requires the state to pay the owner's legal fees."],
+                answer: "It raises a presumption that the property should not be forfeited.",
+                explanation: "While not an absolute bar to forfeiture, an acquittal in the criminal case creates a legal presumption that the state must overcome to proceed with the civil forfeiture.",
+                reference: "Handout Page 4 & 5: 'Dismissal or acquittal of related charges - raises presumption property should not be forfeited.'"
+            },
+            {
+                question: "Is community property a valid defense to forfeiture in Texas?",
+                options: ["Yes, community property is always protected.", "No, community property is not a defense.", "Only if the spouse was unaware of the crime.", "Yes, but only for real estate."],
+                answer: "No, community property is not a defense.",
+                explanation: "The handout explicitly states that the community property defense is not a valid non-statutory defense against forfeiture.",
+                reference: "Handout Page 5: 'Community property-Not a defense (Go-forth).'"
+            },
+            {
+                question: "During a civil forfeiture proceeding, if a defendant invokes their Fifth Amendment right against self-incrimination, what can happen?",
+                options: ["The case is immediately dismissed.", "The invocation can be used as a comment on any inference it may support.", "The defendant is held in contempt of court.", "Nothing, it has no bearing on the civil case."],
+                answer: "The invocation can be used as a comment on any inference it may support.",
+                explanation: "Unlike in a criminal trial, in a civil forfeiture case, a person's refusal to answer questions by pleading the Fifth can be pointed out to the jury, who may draw a negative inference from it.",
+                reference: "Handout Page 5: 'Invocation of right can be used as a comment on any inference it may support.'"
+            },
+            {
+                question: "What is the 'Homestead' defense in forfeiture cases in Texas?",
+                options: ["It is a guaranteed defense that protects a primary residence from forfeiture.", "It is not a settled issue in Texas law.", "It only applies if the home is fully paid off.", "It is only a defense against federal, not state, forfeiture."],
+                answer: "It is not a settled issue in Texas law.",
+                explanation: "The handout notes that whether Texas's strong homestead protection laws can serve as a defense against civil forfeiture is an unresolved legal question.",
+                reference: "Handout Page 5: 'Homestead exemption not settled in Texas.'"
+            },
+            {
+                question: "Which of the following is a critical issue to consider during pre-seizure planning?",
+                options: ["The color of the property.", "The media's interest in the case.", "Whether the property has liens or mortgages against it.", "The suspect's political affiliation."],
+                answer: "Whether the property has liens or mortgages against it.",
+                explanation: "It's crucial to determine the amount of equity in a property. If a bank or other lienholder has a primary claim that exceeds the property's value, it may not be worth the time and expense to seize it.",
+                reference: "Handout Page 6: 'Pre-Seizure Planning... Liens and mortgages (is it worth it?).'"
+            },
+            {
+                question: "When can property be seized without a warrant?",
+                options: ["At any time if an officer has a hunch.", "Only with a court order.", "When the owner knowingly consents, or it is seized incident to a lawful arrest or search.", "Only if the property is in plain view."],
+                answer: "When the owner knowingly consents, or it is seized incident to a lawful arrest or search.",
+                explanation: "The law allows for warrantless seizures under specific, well-defined exceptions, including consent and searches incident to a lawful arrest.",
+                reference: "Handout Page 7: 'Without Warrant... Owner, operator, or agent knowingly consents... Incident to lawful arrest, search, or lawful search incident to arrest.'"
+            },
+            {
+                question: "What level of proof is required for an officer to have probable cause for a seizure?",
+                options: ["Beyond a reasonable doubt.", "A reasonable belief that a substantial connection exists between the property and the criminal activity.", "A mere suspicion or hunch.", "Clear and convincing evidence."],
+                answer: "A reasonable belief that a substantial connection exists between the property and the criminal activity.",
+                explanation: "This is the standard for probable cause in forfeiture cases. The officer must be able to articulate facts that support a reasonable belief of a 'substantial connection' or 'nexus' between the asset and the crime.",
+                reference: "Handout Page 7: 'Reasonable belief that a substantial connection exists between the property to be forfeited and the criminal activity defined by statute.'"
+            },
+            {
+                question: "An officer is executing a search warrant for drugs and finds a large amount of cash in plain view next to the drugs. What legal doctrine allows for the seizure of the cash?",
+                options: ["The Automobile Exception", "The Plain View Doctrine", "The Good Faith Exception", "The Exigency Doctrine"],
+                answer: "The Plain View Doctrine",
+                explanation: "If an officer is lawfully in a location and sees an item whose incriminating nature is immediately apparent (like cash next to a large quantity of drugs), they can seize it without a separate warrant.",
+                reference: "Handout Page 7 & 8: Lists 'Plain view' as an exception to the warrant requirement."
+            },
+            {
+                question: "What is a key difference between a regular search warrant and a contraband warrant?",
+                options: ["A contraband warrant does not require probable cause.", "A contraband warrant must also show in the affidavit the specific felony committed and that the property fits the definition of contraband.", "Only a Texas Ranger can obtain a contraband warrant.", "A contraband warrant is only for vehicles."],
+                answer: "A contraband warrant must also show in the affidavit the specific felony committed and that the property fits the definition of contraband.",
+                explanation: "A contraband warrant has additional requirements beyond a standard search warrant; it must specifically link the property to be seized to a qualifying offense under Chapter 59.",
+                reference: "Handout Page 7: 'Contraband warrant must also show in affidavit the specific felony offense committed and the described property complies with the definition of contraband from CCP 59.01.'"
+            },
+            {
+                question: "An officer convinces a suspect to sign a waiver to their seized car by promising to drop the criminal charges. This action could be considered what offense?",
+                options: ["Bribery", "Tampering with a Witness", "Official Oppression", "Theft"],
+                answer: "Official Oppression",
+                explanation: "PC 39.03 (Official Oppression) prohibits a public servant from misusing their official power. Inducing a person to waive their rights to property under false pretenses could fall under this statute.",
+                reference: "Handout Page 8: 'You cannot commit any act which could be construed as inducing a person to waive their rights to their seized property (Official Oppression).'"
+            },
+            {
+                question: "After seizing property, a peace officer must provide a sworn statement to the attorney representing the state. What must this statement include?",
+                options: ["The suspect's criminal history.", "A schedule of the property seized and a list of reasons supporting the seizure.", "The names of all officers at the scene.", "A recommendation for the criminal charge."],
+                answer: "A schedule of the property seized and a list of reasons supporting the seizure.",
+                explanation: "This sworn statement is the foundational document for the civil case. It must clearly list what was seized and articulate the probable cause for the seizure.",
+                reference: "Handout Page 8: 'Must provide attorney representing state a sworn statement containing: Schedule of property seized... And list of reasons supporting seizure.'"
+            },
+            {
+                question: "No later than how many hours after a seizure must a peace officer place the property under seal or move it to a location ordered by the court?",
+                options: ["24 hours", "48 hours", "72 hours", "96 hours"],
+                answer: "72 hours",
+                explanation: "This 72-hour deadline ensures that seized property is quickly and properly secured to maintain its integrity as evidence.",
+                reference: "Handout Page 8: 'No later than 72 hours after seizure must: Place property under seal; Remove property to a place ordered by court...'"
+            },
+            {
+                question: "What must be done with currency that is seized?",
+                options: ["It must be stored in the police department's evidence vault.", "It must be deposited in an interest-bearing account in the jurisdiction of the prosecuting attorney.", "It can be used immediately for undercover operations.", "It must be given to the state comptroller."],
+                answer: "It must be deposited in an interest-bearing account in the jurisdiction of the prosecuting attorney.",
+                explanation: "Seized cash cannot be spent. It must be deposited into a special account where it can earn interest, which becomes part of the asset if the forfeiture is successful.",
+                reference: "Handout Page 8 & 9: 'Currency... Deposit in interest bearing account in jurisdiction of prosecuting attorney.'"
+            },
+            {
+                question: "Which of the following is a key element that must be identified in a forfeiture affidavit?",
+                options: ["The suspect's motive.", "The estimated street value of any drugs.", "The identity of the owner and the person in possession of the property.", "The suspect's prior criminal history."],
+                answer: "The identity of the owner and the person in possession of the property.",
+                explanation: "The affidavit must identify all essential parties, including both the legal owner of the property and the person who had physical possession of it at the time of the seizure, as they both have potential claims.",
+                reference: "Handout Page 9 & 11: 'Affidavit requirements... Identify the owner of the property. Identity who was in possession of the property.'"
+            },
+            {
+                question: "What is a best practice for writing a forfeiture affidavit?",
+                options: ["Write in the third person (e.g., 'Officer Smith observed...').", "Include as much hearsay as possible to tell the whole story.", "Write in the first person ('I observed...') and keep it as simple as possible.", "Always include the defendant's explanation for the property."],
+                answer: "Write in the first person ('I observed...') and keep it as simple as possible.",
+                explanation: "Writing in the first person is based on direct knowledge and is stronger in court. Avoiding jargon and unnecessary complexity makes the affidavit clearer and more effective.",
+                reference: "Handout Page 10 & 11: 'Affidavit preferences: Should be written by the seizing officer. First person, based on direct knowledge... Keep it simple as possible.'"
+            },
+            {
+                question: "What is the standard of proof for the state to win a forfeiture case?",
+                options: ["Beyond a reasonable doubt", "Clear and convincing evidence", "Preponderance of the evidence", "Reasonable suspicion"],
+                answer: "Preponderance of the evidence",
+                explanation: "Because forfeiture is a civil action, the state only needs to prove that it is 'more likely than not' that the property is contraband, a much lower standard than in a criminal case.",
+                reference: "Handout Page 11: 'Civil Proceeding... Preponderance of evidence (for now).'"
+            },
+            {
+                question: "The attorney representing the state must begin forfeiture proceedings within how many days of the date of seizure?",
+                options: ["10 days", "30 days", "60 days", "90 days"],
+                answer: "30 days",
+                explanation: "CCP 59.04 establishes a strict 30-day deadline for the prosecutor to file the forfeiture lawsuit, protecting property owners from indefinite seizure without legal action.",
+                reference: "Handout Page 11: 'District Attorney must begin proceedings within 30 days of your date of seizure.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.59.htm#59.04' target='_blank' class='text-indigo-600 hover:underline'>CCP Art. 59.04</a>"
+            },
+            {
+                question: "What is 'federal adoption' in the context of asset forfeiture?",
+                options: ["A process where a state case is moved to federal court.", "A process where a local or state law enforcement agency asks a federal agency to take over a seizure case.", "A law requiring local agencies to adopt federal forfeiture guidelines.", "A program for adopting seized animals."],
+                answer: "A process where a local or state law enforcement agency asks a federal agency to take over a seizure case.",
+                explanation: "This is a process where a state seizure is 'adopted' by a federal agency to be prosecuted under federal law, often because federal forfeiture laws are more favorable to law enforcement.",
+                reference: "Handout Page 12: Lists 'Federal adoption' under 'Other Considerations'."
+            },
+            {
+                question: "Which of the following is an approved use of forfeited funds under CCP 59.06?",
+                options: ["Paying for political campaign donations.", "Purchasing equipment for a law enforcement agency.", "Increasing the salary of the elected District Attorney.", "Buying alcoholic beverages for an office party."],
+                answer: "Purchasing equipment for a law enforcement agency.",
+                explanation: "The law allows forfeited funds to be used for specific 'law enforcement purposes,' which explicitly includes buying equipment, supplies, and paying for training-related travel.",
+                reference: "Handout Page 13: 'Approved Uses of Forfeited Funds... Equipment, Supplies...'"
+            },
+            {
+                question: "Which of the following is a PROHIBITED use of forfeited funds?",
+                options: ["Paying for witness-related costs.", "Funding a crime prevention program.", "Donating to a political campaign or paying for travel that violates local policy.", "Paying for legal fees associated with the forfeiture."],
+                answer: "Donating to a political campaign or paying for travel that violates local policy.",
+                explanation: "CCP 59.06(d-1) lists several specific prohibitions to prevent the misuse of forfeiture funds, including political donations and unauthorized travel.",
+                reference: "Handout Page 13: 'Forfeiture money cannot be used for: Political campaign donations... Travel expenses for training that would violate generally applicable restrictions...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.59.htm#59.06' target='_blank' class='text-indigo-600 hover:underline'>CCP Art. 59.06</a>"
+            },
+            // Newly Added Questions 31-90
+            {
+                question: "Forfeiture is considered what type of legal action?",
+                options: ["Punitive", "Remedial", "Criminal", "Administrative"],
+                answer: "Remedial",
+                explanation: "The main goal of forfeiture is to be remedial by removing the tools and profits of crime, rather than to serve as an extra punishment (punitive).",
+                reference: "Handout Page 2: 'Remedial, not punitive'"
+            },
+            {
+                question: "Contraband property can be seized if it was used in the commission of which of the following?",
+                options: ["Any Class C Misdemeanor", "Any first or second-degree felony under the Penal Code", "Any civil infraction", "Any city ordinance violation"],
+                answer: "Any first or second-degree felony under the Penal Code",
+                explanation: "CCP 59.01 specifically lists the types of offenses that qualify for forfeiture, which includes any first or second-degree felony.",
+                reference: "Handout Page 2: 'Any first or second-degree felony under Penal Code (PC)'"
+            },
+            {
+                question: "What is the legal term for property derived from an event or transaction related to a crime?",
+                options: ["Assets", "Instrumentalities", "Proceeds", "Collateral"],
+                answer: "Proceeds",
+                explanation: "'Proceeds' is the term used to describe property, such as money, gained from committing a crime.",
+                reference: "Handout Page 3: 'Proceeds Definitions - Property derived from an event or transaction'"
+            },
+            {
+                question: "Under the statutory 'Innocent Owner Defense', what must an owner prove if they acquired the property *before* the illegal act?",
+                options: ["They were out of the state at the time of the act.", "They had no prior criminal record.", "They did not know or should not reasonably have known of the act giving rise to the forfeiture.", "The property was a gift from a family member."],
+                answer: "They did not know or should not reasonably have known of the act giving rise to the forfeiture.",
+                explanation: "This is the core of the innocent owner defense for pre-acquired property. The owner must demonstrate a lack of knowledge about the criminal use of their property.",
+                reference: "Handout Page 4: 'Did not know or should not reasonably have known of the act...'"
+            },
+            {
+                question: "Is there a spousal defense to forfeiture if one spouse commits a crime using marital property?",
+                options: ["Yes, a spouse is always protected.", "Only if the property was purchased before the marriage.", "No, except in cases of family violence where the spouse was unable to prevent the act.", "Yes, if the innocent spouse co-signs for the property."],
+                answer: "No, except in cases of family violence where the spouse was unable to prevent the act.",
+                explanation: "Generally, there is no spousal defense. The only exception provided is for a spouse who was a victim of family violence and could not stop the criminal act.",
+                reference: "Handout Page 4: 'No spousal defense (except in cases when because of family violence the spouse was unable to prevent the criminal act)'"
+            },
+            {
+                question: "What is a non-statutory defense where a defendant might argue the seized substance is not what the state claims it is?",
+                options: ["Homestead Defense", "Legitimate Source of Income Defense", "Controlled Substances Analogue Defense", "Fifth Amendment Defense"],
+                answer: "Controlled Substances Analogue Defense",
+                explanation: "This defense involves denying that a seized substance is an illegal analogue. However, the state only needs to prove it's an analogue by structure OR effect, not both.",
+                reference: "Handout Page 4: 'Non-Statutory Defenses - Controlled Substances Analogue'"
+            },
+            {
+                question: "In a civil forfeiture case, what happens if the defendant pleads the Fifth Amendment?",
+                options: ["The case is dismissed.", "The judge must grant them immunity.", "It has no effect on the case.", "The invocation can be used to support a negative inference against them."],
+                answer: "The invocation can be used to support a negative inference against them.",
+                explanation: "Unlike a criminal case, in a civil forfeiture proceeding, a jury can be told about the defendant's refusal to testify and may infer guilt from it.",
+                reference: "Handout Page 5: 'Invocation of right can be used as a comment on any inference it may support'"
+            },
+            {
+                question: "During pre-seizure planning for a business, what is a key consideration regarding its inventory?",
+                options: ["The color and model of the inventory.", "Whether there are liens against the inventory.", "The age of the inventory.", "The popularity of the inventory."],
+                answer: "Whether there are liens against the inventory.",
+                explanation: "Before seizing a business's assets, it's crucial to know if a third party, like a bank, has a financial claim (lien) on the inventory, which could affect its forfeiture value.",
+                reference: "Handout Page 6: 'Businesses... Liens against inventory'"
+            },
+            {
+                question: "What is 'substitute property' in the context of forfeiture?",
+                options: ["Property given to the defendant in exchange for their testimony.", "Property that can be seized when the original contraband can no longer be located.", "A rental car used while the primary vehicle is seized.", "Property that is similar in value to the seized item."],
+                answer: "Property that can be seized when the original contraband can no longer be located.",
+                explanation: "If the original property to be forfeited is gone, hidden, or diminished in value, the state can go after other 'substitute' property owned by the defendant.",
+                reference: "Handout Page 6: 'Substitute Property - Contraband can no longer be located'"
+            },
+            {
+                question: "What is one of the exceptions to the search warrant requirement for a seizure?",
+                options: ["The officer has a strong hunch.", "The property is located in a high-crime area.", "Emergency searches, also known as exigencies.", "The property is worth less than $1,000."],
+                answer: "Emergency searches, also known as exigencies.",
+                explanation: "Warrantless searches and seizures are permitted in emergency situations (exigencies) where there is no time to obtain a warrant, such as when evidence is about to be destroyed.",
+                reference: "Handout Page 7: 'Exceptions to Warrant Requirement... Emergency searches (exigencies)'"
+            },
+            {
+                question: "What is a 'safety sweep' in the context of searches?",
+                options: ["A search of a vehicle for safety defects.", "A quick, limited search of a premises incident to an arrest to check for other people who may pose a threat.", "A mandatory search before any public event.", "Cleaning an area after a search is complete."],
+                answer: "A quick, limited search of a premises incident to an arrest to check for other people who may pose a threat.",
+                explanation: "A safety sweep is a limited exception to the warrant requirement, allowing officers to look in adjacent spaces for potential threats following an arrest.",
+                reference: "Handout Page 8: 'Safety sweep of adjacent rooms'"
+            },
+            {
+                question: "In the sworn statement to the prosecuting attorney, what is the list of seized property called?",
+                options: ["The Inventory List", "Schedule A", "The Seizure Catalog", "The Evidence Log"],
+                answer: "Schedule A",
+                explanation: "The official term for the schedule of property seized that must be included in the sworn statement to the attorney is 'Schedule A'.",
+                reference: "Handout Page 8: 'Schedule of property seized (Schedule A)'"
+            },
+            {
+                question: "What must be included in the forfeiture petition regarding all parties involved?",
+                options: ["Only the name of the person arrested.", "Only the name of the property owner.", "All owners, interest holders, lien holders, and the person who had custody.", "Only the names of the seizing officers."],
+                answer: "All owners, interest holders, lien holders, and the person who had custody.",
+                explanation: "The legal petition must be comprehensive and include every person or entity with a potential legal claim to the property to ensure due process.",
+                reference: "Handout Page 9: 'Petition requirements... All owners or interest holders must be included... Lien holders... Person who had custody...'"
+            },
+            {
+                question: "In a forfeiture affidavit, what is a key factor connecting money to drug activity?",
+                options: ["The money is old and worn.", "The money is all in the same denomination.", "Proximity of the money to drugs.", "The money is neatly stacked."],
+                answer: "Proximity of the money to drugs.",
+                explanation: "The close physical proximity of cash to illegal narcotics is strong circumstantial evidence that the money is proceeds from drug sales.",
+                reference: "Handout Page 9: 'Identify key factors connecting the drugs to the property - Proximity to drugs'"
+            },
+            {
+                question: "What is a 'canine alert' in the context of a forfeiture affidavit?",
+                options: ["A dog barking at the suspect.", "A certified police dog indicating the presence of narcotics odor on the property (like cash).", "A warning that a dangerous dog is on the premises.", "A local animal shelter alert."],
+                answer: "A certified police dog indicating the presence of narcotics odor on the property (like cash).",
+                explanation: "A positive alert from a trained narcotics detection dog is a significant piece of evidence used to establish probable cause that money is linked to drug trafficking.",
+                reference: "Handout Page 10: 'Canine alert'"
+            },
+            {
+                question: "Why is it generally unnecessary to include the defendant's explanation for the property in the affidavit?",
+                options: ["The defendant's explanation is always a lie.", "It is considered hearsay and is usually self-serving.", "The officer's opinion is more important.", "It is required to be in a separate report."],
+                answer: "It is considered hearsay and is usually self-serving.",
+                explanation: "The affidavit should be based on the officer's direct knowledge and facts. The defendant's explanation is typically excluded unless it's completely implausible and can be disproven.",
+                reference: "Handout Page 10: 'Defendant's explanation of where the property came from is not necessary'"
+            },
+            {
+                question: "What legal document is used to officially notify parties of a forfeiture lawsuit?",
+                options: ["A press release", "A service of civil citation", "A subpoena", "A search warrant"],
+                answer: "A service of civil citation",
+                explanation: "In a civil forfeiture case, parties with an interest in the property are formally served with a civil citation, which is the official notice that a lawsuit has been filed against the property.",
+                reference: "Handout Page 12: 'Service of civil citation upon parties'"
+            },
+            {
+                question: "Who is generally responsible for filing a forfeiture proceeding?",
+                options: ["The seizing officer", "A felony prosecutor", "A judge", "The head of the law enforcement agency"],
+                answer: "A felony prosecutor",
+                explanation: "Only a felony prosecutor, such as a District Attorney, has the authority to initiate and file a civil forfeiture lawsuit.",
+                reference: "Handout Page 11: 'Only a felony prosecutor can file'"
+            },
+            {
+                question: "If property is seized by federal agents and then given to a local agency, when does the 30-day deadline to file forfeiture proceedings begin?",
+                options: ["The day the federal agents seized it.", "The day the local agency gets the property.", "The day the suspect is arrested.", "The day the property is officially cataloged."],
+                answer: "The day the local agency gets the property.",
+                explanation: "The 30-day clock for the state to file starts ticking only when the local agency physically receives the property from the federal agency.",
+                reference: "Handout Page 11: 'If seized by federal agents and then given to a local agency, 30-day timeframe begins to run when the local agency gets the property'"
+            },
+            {
+                question: "What is the general term for the process of gathering evidence in a civil case, which includes interrogatories and depositions?",
+                options: ["Investigation", "Civil Discovery", "Negotiation", "Trial Prep"],
+                answer: "Civil Discovery",
+                explanation: "Civil discovery is the formal pre-trial process in a civil lawsuit where parties exchange information through methods like written questions (interrogatories) and sworn testimony (depositions).",
+                reference: "Handout Page 12: 'Things to consider in forfeiture cases - Civil Discovery'"
+            },
+            {
+                question: "Forfeited funds must generally be spent on a...",
+                options: ["'public good purpose'", "'city beautification purpose'", "'law enforcement purpose'", "'judicial purpose'"],
+                answer: "'law enforcement purpose'",
+                explanation: "CCP 59.06 strictly governs the use of forfeited funds, mandating that they be used for activities directly related to law enforcement.",
+                reference: "Handout Page 13: 'Must be spent on a \"law enforcement purpose\"'"
+            },
+            {
+                question: "Can forfeiture funds be used to pay for training for a judge?",
+                options: ["Yes, if the training is related to forfeiture law.", "Yes, with approval from the commissioner's court.", "No, this is a prohibited use.", "Only for municipal judges."],
+                answer: "No, this is a prohibited use.",
+                explanation: "CCP 59.06(d-1) explicitly prohibits the use of forfeiture money for the training of any member of the judiciary.",
+                reference: "Handout Page 13: 'Forfeiture money cannot be used for: Training for any member of the judiciary'"
+            },
+            {
+                question: "Can forfeiture funds be used to purchase alcoholic beverages?",
+                options: ["Yes, for official agency functions.", "Only beer and wine are allowed.", "No, this is a prohibited use.", "Yes, if it's for an undercover operation."],
+                answer: "No, this is a prohibited use.",
+                explanation: "The law is very clear that purchasing alcoholic beverages is a specifically prohibited use of any funds obtained through asset forfeiture.",
+                reference: "Handout Page 13: 'Forfeiture money cannot be used for: To purchase alcoholic beverages'"
+            },
+            {
+                question: "Under what condition can forfeiture funds be used to increase employee salaries?",
+                options: ["At the discretion of the agency head.", "Only for officers involved in the seizure.", "Never, under any circumstances.", "Only if approved by the governing body (e.g., commissioner's court)."],
+                answer: "Only if approved by the governing body (e.g., commissioner's court).",
+                explanation: "Using forfeiture funds for salary increases is generally prohibited unless the agency's governing body, such as the county commissioner's court or city council, explicitly approves it.",
+                reference: "Handout Page 13: 'Increasing salaries, unless approved by the governing body.'"
+            },
+            {
+                question: "Which of the following offenses is specifically listed as a qualifying offense for forfeiture?",
+                options: ["Class C Misdemeanor Theft", "Any felony under Chapter 481, Health and Safety Code (Texas Controlled Substances Act)", "Speeding in a school zone", "Public Intoxication"],
+                answer: "Any felony under Chapter 481, Health and Safety Code (Texas Controlled Substances Act)",
+                explanation: "The Texas Controlled Substances Act is one of the primary statutes under which asset forfeiture is pursued for drug-related offenses.",
+                reference: "Handout Page 2: 'any felony under Chapter 481, Health and Safety Code (Texas Controlled Substances Act)'"
+            },
+            {
+                question: "What is an 'instrumentality' of a crime?",
+                options: ["The money gained from the crime.", "The location where the crime was planned.", "Property used to commit or facilitate the crime.", "A person who assists in the crime."],
+                answer: "Property used to commit or facilitate the crime.",
+                explanation: "An instrumentality is the tool or property used to make the crime happen, such as a vehicle used to transport drugs or a computer used for fraud.",
+                reference: "Handout Page 2: 'a property used to further the commission of the offense'"
+            },
+            {
+                question: "What does 'in rem' refer to in the context of a forfeiture proceeding?",
+                options: ["A lawsuit against a person.", "A lawsuit against the property itself.", "A criminal proceeding.", "A federal lawsuit."],
+                answer: "A lawsuit against the property itself.",
+                explanation: "Forfeiture is an 'in rem' proceeding, meaning the legal action is directed at the property, which is considered the 'defendant,' not the person who owns it.",
+                reference: "General legal principle discussed throughout the handout."
+            },
+            {
+                question: "What is the 'family violence' exception to the spousal defense rule?",
+                options: ["The defense applies if the couple is currently in counseling.", "The defense applies if the innocent spouse was unable to prevent the criminal act due to family violence.", "The defense applies if the couple has children.", "The defense applies if the criminal act was a misdemeanor."],
+                answer: "The defense applies if the innocent spouse was unable to prevent the criminal act due to family violence.",
+                explanation: "This narrow exception protects a spouse who was a victim of abuse and was powerless to stop the other spouse from using property illegally.",
+                reference: "Handout Page 4: 'except in cases when because of family violence the spouse was unable to prevent the criminal act'"
+            },
+            {
+                question: "In the 'Controlled Substances Analogue' defense, the state must prove the substance is an analogue by:",
+                options: ["Structure and effect", "Structure only", "Effect only", "Structure or effect"],
+                answer: "Structure or effect",
+                explanation: "The state has a lower burden of proof in these cases; it only needs to show the substance is an analogue by its chemical structure OR its effect on the human body, not necessarily both.",
+                reference: "Handout Page 4: 'State need only show the substance is an analogue by structure or effect (not both)'"
+            },
+            {
+                question: "What is a major risk to consider in pre-seizure planning for real property?",
+                options: ["The property's curb appeal.", "The amount of equity over the mortgage.", "The age of the roof.", "The number of bedrooms."],
+                answer: "The amount of equity over the mortgage.",
+                explanation: "If the amount owed on a mortgage is close to or exceeds the property's market value, there is little to no equity to forfeit, making the seizure financially unviable.",
+                reference: "Handout Page 6: 'Equity over mortgage'"
+            },
+            {
+                question: "If contraband has been co-mingled with legitimate property, what can happen?",
+                options: ["Only the legitimate property can be seized.", "None of the property can be seized.", "The entire property may become subject to forfeiture.", "The case must be transferred to federal court."],
+                answer: "The entire property may become subject to forfeiture.",
+                explanation: "Co-mingling, or mixing illegal funds with legitimate funds, can taint the entire amount, potentially making all of it subject to seizure.",
+                reference: "Handout Page 6: 'Co-mingling'"
+            },
+            {
+                question: "What is the area within a person's 'immediate control' at the time of arrest?",
+                options: ["The entire house they are in.", "Any property they own in the city.", "The area from which they might gain possession of a weapon or destructible evidence.", "The vehicle they were driving."],
+                answer: "The area from which they might gain possession of a weapon or destructible evidence.",
+                explanation: "This is a well-established exception to the warrant requirement, allowing officers to search the area immediately around an arrestee to ensure their own safety and prevent evidence destruction.",
+                reference: "Handout Page 7: 'Area within immediate control at time of arrest'"
+            },
+            {
+                question: "Besides placing property under seal, what is another option for securing it within 72 hours of seizure?",
+                options: ["Leaving it with the suspect's family.", "Requiring the law enforcement agency to take custody and move it to a proper location.", "Selling it at auction immediately.", "Donating it to a local charity."],
+                answer: "Requiring the law enforcement agency to take custody and move it to a proper location.",
+                explanation: "The officer has a few options for securing property post-seizure, including placing it under seal or having their agency formally take custody and store it properly.",
+                reference: "Handout Page 8: 'Require law enforcement agency to take custody of the property and move it to a proper location.'"
+            },
+            {
+                question: "When writing a forfeiture affidavit, what should be avoided?",
+                options: ["Stating the date and location of the seizure.", "Writing in the first person.", "Using acronyms and abbreviations that are not commonly known.", "Identifying the owner of the property."],
+                answer: "Using acronyms and abbreviations that are not commonly known.",
+                explanation: "The affidavit should be as clear and simple as possible for a judge or jury to understand. Police jargon, acronyms, and complex abbreviations should be avoided.",
+                reference: "Handout Page 10: 'Avoid acronyms and abbreviations that are not commonly known'"
+            },
+            {
+                question: "What is 'standing' in the context of a forfeiture case?",
+                options: ["The officer's rank and seniority.", "The legal right of a person to challenge the forfeiture in court.", "The physical location where the case is tried.", "The current status of the criminal case."],
+                answer: "The legal right of a person to challenge the forfeiture in court.",
+                explanation: "To contest a forfeiture, a person must have 'standing,' which means they must have a recognized legal interest in the property being seized.",
+                reference: "Handout Page 10: 'Standing'"
+            },
+            {
+                question: "In a civil forfeiture proceeding, is the respondent (the property owner) entitled to an appointed counsel if they cannot afford one?",
+                options: ["Yes, under all circumstances.", "Only for felony-level seizures.", "No, because it is a civil case.", "Only if they are a first-time offender."],
+                answer: "No, because it is a civil case.",
+                explanation: "The Sixth Amendment right to counsel applies to criminal proceedings. Since forfeiture is a civil action, the respondent is not entitled to a court-appointed attorney.",
+                reference: "Handout Page 11: 'Respondent not entitled to appointed counsel'"
+            },
+            {
+                question: "Where must a forfeiture case generally be filed?",
+                options: ["In the county where the owner resides.", "In any county in the state.", "In the county where the property was seized.", "In federal court."],
+                answer: "In the county where the property was seized.",
+                explanation: "Jurisdiction for the forfeiture lawsuit typically lies in the county where the seizure physically took place.",
+                reference: "Handout Page 11: 'In general, can only file in the County where the property is seized'"
+            },
+            {
+                question: "What are 'interrogatories'?",
+                options: ["Sworn, in-person testimony before a court reporter.", "Informal questions asked at the scene.", "Written questions sent to the opposing party in a lawsuit, which must be answered in writing under oath.", "Questions asked by a judge during a hearing."],
+                answer: "Written questions sent to the opposing party in a lawsuit, which must be answered in writing under oath.",
+                explanation: "Interrogatories are a standard tool in the civil discovery process used to obtain factual information from the other side.",
+                reference: "Handout Page 12: 'Civil Discovery - Interrogatories'"
+            },
+            {
+                question: "What are 'depositions'?",
+                options: ["Written questions answered under oath.", "Sworn, in-person testimony given by a party or witness before trial.", "The initial police report filed in the case.", "A formal offer to settle the case."],
+                answer: "Sworn, in-person testimony given by a party or witness before trial.",
+                explanation: "A deposition is part of civil discovery where lawyers ask questions of a witness under oath, and the testimony is recorded by a court reporter.",
+                reference: "Handout Page 12: 'Civil Discovery - Depositions'"
+            },
+            {
+                question: "Can forfeiture funds be used to pay for State Bar and legal association dues for prosecutors?",
+                options: ["No, this is a conflict of interest.", "Yes, this is an approved use.", "Only with a judge's order.", "Only for the elected District Attorney."],
+                answer: "Yes, this is an approved use.",
+                explanation: "The law specifically lists legal fees and association dues as an approved 'official purpose' for an attorney's office.",
+                reference: "Handout Page 13: 'Approved Uses... Legal fees... State Bar and legal association dues'"
+            },
+            {
+                question: "The philosophy of forfeiture is NOT intended to be a means of...",
+                options: ["justice.", "oppression.", "crime prevention.", "remediation."],
+                answer: "oppression.",
+                explanation: "The guiding principle is that forfeiture should be used to seek justice and remove the profits from crime, not as a tool to oppress individuals.",
+                reference: "Handout Page 2: 'Not intended to be a means of oppression'"
+            },
+            {
+                question: "Property used in the commission of a Class A misdemeanor under Subchapter B, Chapter 365, Health and Safety Code, is contraband if...",
+                options: ["the defendant has no prior convictions.", "it is the defendant's first offense.", "the defendant has been previously convicted twice of an offense under that subchapter.", "the value of the property exceeds $1,000."],
+                answer: "the defendant has been previously convicted twice of an offense under that subchapter.",
+                explanation: "For certain misdemeanors, the property only becomes contraband if the defendant is a repeat offender, as specified in the statute.",
+                reference: "Handout Page 2"
+            },
+            {
+                question: "According to CCP Art. 18.095, what part of a gambling device may an officer seize in their discretion?",
+                options: ["The entire machine only.", "The cash box inside the machine.", "Only the programmable main circuit board.", "The power cord and peripherals."],
+                answer: "Only the programmable main circuit board.",
+                explanation: "This statute allows an officer to seize just the essential circuit board of a gambling device instead of the entire bulky machine, which simplifies evidence handling.",
+                reference: "Handout Page 3: 'seize only the programmable main circuit board of the device'"
+            },
+            {
+                question: "A statutory defense exists if the property was used without the owner's...",
+                options: ["written permission.", "verbal approval.", "effective consent.", "prior knowledge of the specific crime."],
+                answer: "effective consent.",
+                explanation: "If an owner can prove their property was used without their 'effective consent' (e.g., it was stolen), they have a strong statutory defense against its forfeiture.",
+                reference: "Handout Page 4: 'Use or intended to be used without the effective consent of the owner'"
+            },
+            {
+                question: "Suppression of evidence in the related criminal case has what effect on the civil forfeiture case?",
+                options: ["It automatically causes the forfeiture case to be dismissed.", "It should have no effect because different rules apply.", "It creates a presumption against forfeiture.", "It requires the state to meet a higher burden of proof."],
+                answer: "It should have no effect because different rules apply.",
+                explanation: "The rules of evidence, particularly the exclusionary rule, apply differently in civil and criminal courts. Therefore, evidence suppressed in the criminal case may still be admissible in the civil forfeiture case.",
+                reference: "Handout Page 5: 'Suppression of evidence in criminal case - Different rules apply - Should have no effect on civil case'"
+            },
+            {
+                question: "A key part of pre-seizure planning for bank accounts is to...",
+                options: ["notify the bank manager in advance.", "monitor the account to determine the best time to seize.", "seize the account on a holiday.", "ask the owner for their PIN."],
+                answer: "monitor the account to determine the best time to seize.",
+                explanation: "Strategic monitoring allows law enforcement to seize the account when the balance is highest, maximizing the effectiveness of the seizure.",
+                reference: "Handout Page 6: 'Monitor the account to determine best time to seize'"
+            },
+            {
+                question: "A seizure of property is permitted incident to a...",
+                options: ["lawful arrest, search, or lawful search incident to arrest.", "traffic warning.", "consensual encounter.", "hunch that a crime has occurred."],
+                answer: "lawful arrest, search, or lawful search incident to arrest.",
+                explanation: "This is a foundational principle of search and seizure law. A lawful arrest gives officers the authority to search the person and their immediate control, and seize contraband found.",
+                reference: "Handout Page 7: 'Incident to lawful arrest, search, or lawful search incident to arrest'"
+            },
+            {
+                question: "When writing the affidavit, the officer should set themselves up as...",
+                options: ["a concerned citizen.", "a witness.", "an expert.", "a neutral party."],
+                answer: "an expert.",
+                explanation: "The officer should detail their training, experience, and knowledge in the affidavit to establish their credibility and expertise in identifying contraband and criminal activity.",
+                reference: "Handout Page 9: 'Set yourself up as an expert'"
+            },
+            {
+                question: "Hearsay should generally be avoided in an affidavit unless...",
+                options: ["it makes the story more interesting.", "it is subject to a recognized exception.", "the suspect has already been convicted.", "it comes from a confidential informant."],
+                answer: "it is subject to a recognized exception.",
+                explanation: "While direct, first-person knowledge is preferred, hearsay (an out-of-court statement) can be included if it falls under a legal exception like 'Statement Against Interest' or 'Excited Utterance'.",
+                reference: "Handout Page 10: 'Avoid hearsay unless subject to exception or no other option'"
+            },
+            {
+                question: "All documents filed in a forfeiture proceeding are considered...",
+                options: ["sealed records.", "confidential.", "for official use only.", "public record."],
+                answer: "public record.",
+                explanation: "Forfeiture is a civil court proceeding, and as such, the filings are generally open to the public for inspection.",
+                reference: "Handout Page 11: 'Everything filed is a public record'"
+            },
+            {
+                question: "An example of an approved use for forfeiture funds is paying for...",
+                options: ["a new vehicle for the mayor.", "witness-related costs.", "a holiday party for the department.", "lobbying efforts at the state capitol."],
+                answer: "witness-related costs.",
+                explanation: "The statute allows funds to be used for costs associated with criminal investigations and prosecutions, which includes expenses for witnesses.",
+                reference: "Handout Page 13: 'Approved Uses... Witness-related costs'"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
