@@ -88,6 +88,148 @@
         // --- Quiz Data with References ---
         const quizData = [
             // ...existing questions...
+                        // --- New questions generated from Juvenile-Procedure.txt ---
+                        {
+                            question: "What is the primary purpose of Title III, Juvenile Justice Code?",
+                            options: [
+                                "To punish juveniles as adults",
+                                "To provide for the care, protection, and wholesome development of children",
+                                "To prioritize the rights of victims over juveniles",
+                                "To ensure all juvenile cases are handled in criminal court"
+                            ],
+                            answer: "To provide for the care, protection, and wholesome development of children",
+                            explanation: "Texas Family Code 51.01 sets out the purposes of the juvenile justice system: to protect the public and children, provide treatment and rehabilitation, and ensure fair judicial procedures. The focus is on care, protection, and development, not just punishment. <br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.01' target='_blank' class='text-indigo-600 hover:underline'>Read FC 51.01</a>",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.01' target='_blank' class='text-indigo-600 hover:underline'>FC 51.01</a>"
+                        },
+                        {
+                            question: "According to the Family Code, who is considered a 'child'?",
+                            options: [
+                                "A person under 10 years old",
+                                "A person 10 years of age or older and under 17, or 17+ and under 18 with qualifying conduct",
+                                "A person 18 or older",
+                                "Any person under 21"
+                            ],
+                            answer: "A person 10 years of age or older and under 17, or 17+ and under 18 with qualifying conduct",
+                            explanation: "Texas Family Code 51.02(2) defines a 'child' as a person 10 years or older and under 17, or 17+ and under 18 if the conduct occurred before turning 17. <br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>Read FC 51.02</a>",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(2)</a>"
+                        },
+                        {
+                            question: "Which of the following is a 'status offense'?",
+                            options: [
+                                "Burglary",
+                                "Truancy",
+                                "Aggravated assault",
+                                "DWI"
+                            ],
+                            answer: "Truancy",
+                            explanation: "A status offense is conduct that would not be a crime if committed by an adult, such as truancy, running away, or certain minor-only violations. See <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(15)</a> and <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.03' target='_blank' class='text-indigo-600 hover:underline'>FC 51.03(b)</a>.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(15)</a>"
+                        },
+                        {
+                            question: "What is a 'nonoffender' under the Family Code?",
+                            options: [
+                                "A child who commits a felony",
+                                "A child subject to court jurisdiction for abuse/neglect or held solely for deportation",
+                                "A child who is a habitual truant",
+                                "A child who violates a traffic ordinance"
+                            ],
+                            answer: "A child subject to court jurisdiction for abuse/neglect or held solely for deportation",
+                            explanation: "A nonoffender is a child involved in the court system for reasons other than criminal conduct, such as abuse/neglect or immigration. <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>Read FC 51.02(8)</a>.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(8)</a>"
+                        },
+                        {
+                            question: "Which of the following is NOT a valid court order under the Family Code?",
+                            options: [
+                                "An order entered under Section 54.04 for a status offender",
+                                "A verbal warning from a police officer",
+                                "A written order from a juvenile court judge",
+                                "A court order for supervision after adjudication"
+                            ],
+                            answer: "A verbal warning from a police officer",
+                            explanation: "A valid court order must be entered by a court, not simply a verbal warning from law enforcement. See <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(17)</a> for the definition of valid court order.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(17)</a>"
+                        },
+                        {
+                            question: "What is the difference between a secure correctional facility and a secure detention facility?",
+                            options: [
+                                "Correctional is for adjudicated juveniles, detention is for accused juveniles",
+                                "Detention is for adults only",
+                                "Correctional is for adults only",
+                                "There is no difference"
+                            ],
+                            answer: "Correctional is for adjudicated juveniles, detention is for accused juveniles",
+                            explanation: "A secure correctional facility is for juveniles who have been adjudicated (found delinquent), while a secure detention facility is for temporary holding of accused juveniles. <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(13)-(14)</a>.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(13)-(14)</a>"
+                        },
+                        {
+                            question: "Which of the following is NOT a status offense?",
+                            options: [
+                                "Running away",
+                                "TABC violation applicable only to minors",
+                                "Class C traffic offense",
+                                "Student code of conduct violation"
+                            ],
+                            answer: "Class C traffic offense",
+                            explanation: "Traffic offenses are specifically excluded from status offenses. See <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(15)</a> and <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.03' target='_blank' class='text-indigo-600 hover:underline'>FC 51.03(b)</a>.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(15)</a>"
+                        },
+                        {
+                            question: "What is the minimum age for a person to be considered a 'child' under the Texas Family Code?",
+                            options: ["8", "10", "12", "14"],
+                            answer: "10",
+                            explanation: "A child is defined as a person 10 years of age or older. See <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(2)</a>.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>FC 51.02(2)</a>"
+                        },
+                        {
+                            question: "Which of the following is a requirement for a valid nonsecure custody for a JP/municipal offense?",
+                            options: ["Unlocked area", "No physical restraints", "Continuous visual supervision", "All of the above"],
+                            answer: "All of the above",
+                            explanation: "Nonsecure custody must be in an unlocked area, with no restraints, and under constant supervision. See <a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.45A.htm#45A.453' target='_blank' class='text-indigo-600 hover:underline'>CCP 45A.453</a>.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.45A.htm#45A.453' target='_blank' class='text-indigo-600 hover:underline'>CCP 45A.453</a>"
+                        },
+                        {
+                            question: "Which of the following is NOT a right of a party in a juvenile proceeding?",
+                            options: ["Right to a fair hearing", "Right to have constitutional rights recognized", "Right to be tried as an adult", "Right to legal counsel"],
+                            answer: "Right to be tried as an adult",
+                            explanation: "Juvenile proceedings are civil in nature and do not guarantee a right to be tried as an adult. See <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.01' target='_blank' class='text-indigo-600 hover:underline'>FC 51.01</a> and <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.10' target='_blank' class='text-indigo-600 hover:underline'>FC 51.10</a>.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.01' target='_blank' class='text-indigo-600 hover:underline'>FC 51.01</a>, <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.10' target='_blank' class='text-indigo-600 hover:underline'>FC 51.10</a>"
+                        },
+                        {
+                            question: "Which of the following is a difference between adult and juvenile case terminology?",
+                            options: ["Arrest Warrant vs. Directive to Apprehend", "Defendant vs. Respondent", "Conviction vs. Adjudication", "All of the above"],
+                            answer: "All of the above",
+                            explanation: "Juvenile and adult courts use different terms for similar concepts. For example, a juvenile is 'taken into custody' instead of 'arrested.' See the Adult vs. Juvenile section in the handout.",
+                            reference: "Juvenile-Procedure.txt, Adult vs. Juvenile section"
+                        },
+                        {
+                            question: "Which of the following is NOT a possible outcome of a juvenile disposition hearing?",
+                            options: ["Probation", "Commitment to TJJD", "Imprisonment in TDCJ for a misdemeanor", "Dismissal"],
+                            answer: "Imprisonment in TDCJ for a misdemeanor",
+                            explanation: "Juvenile misdemeanors do not result in TDCJ imprisonment. See <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.04' target='_blank' class='text-indigo-600 hover:underline'>FC 54.04</a>.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.04' target='_blank' class='text-indigo-600 hover:underline'>FC 54.04</a>"
+                        },
+                        {
+                            question: "Which of the following is a requirement for a valid field release of a juvenile?",
+                            options: ["Release to a responsible adult", "Written promise to appear", "Offense is fine-only or traffic", "All of the above"],
+                            answer: "All of the above",
+                            explanation: "All these are required for a valid field release. See <a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.14.htm#14.06' target='_blank' class='text-indigo-600 hover:underline'>CCP 14.06</a>.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.14.htm#14.06' target='_blank' class='text-indigo-600 hover:underline'>CCP 14.06</a>"
+                        },
+                        {
+                            question: "Which of the following is a possible reason for holding a juvenile in detention?",
+                            options: ["Likely to abscond", "Lacks adequate supervision", "Danger to self or public", "All of the above"],
+                            answer: "All of the above",
+                            explanation: "Detention may be ordered for risk of absconding, lack of supervision, or danger to self/public. See <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.01' target='_blank' class='text-indigo-600 hover:underline'>FC 54.01(e)</a>.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.01' target='_blank' class='text-indigo-600 hover:underline'>FC 54.01(e)</a>"
+                        },
+                        {
+                            question: "Which of the following is NOT a purpose of the juvenile justice code?",
+                            options: ["To provide for the care and protection of children", "To punish children as adults", "To provide treatment and rehabilitation", "To ensure fair judicial procedures"],
+                            answer: "To punish children as adults",
+                            explanation: "The code emphasizes care, protection, and rehabilitation, not adult punishment. See <a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.01' target='_blank' class='text-indigo-600 hover:underline'>FC 51.01</a>.",
+                            reference: "<a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.01' target='_blank' class='text-indigo-600 hover:underline'>FC 51.01</a>"
+                        }
+            ,
             // --- Additional comprehensive questions below ---
             {
                 question: "Which of the following is a status offense?",
