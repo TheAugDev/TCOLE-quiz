@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juvenile Justice Procedures Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Juvenile Justice Procedures Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This final, exhaustive practice quiz now contains 65 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            // --- Health & Safety Code Quiz ---
+            {
+                question: "Which of the following best defines a 'controlled substance' under Texas law?",
+                options: [
+                    "Any prescription drug.",
+                    "A substance, including a drug, adulterant, or dilutant, listed in Schedules I-V or Penalty Groups 1, 1-A, 1-B, 2, 2-A, 3, or 4.",
+                    "Any over-the-counter medication.",
+                    "Only substances listed in federal law."
+                ],
+                answer: "A substance, including a drug, adulterant, or dilutant, listed in Schedules I-V or Penalty Groups 1, 1-A, 1-B, 2, 2-A, 3, or 4.",
+                explanation: "A controlled substance includes drugs and other substances listed in the Texas Schedules or Penalty Groups, including the aggregate weight of any mixture.",
+                reference: "HSC 481.002(5) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "What is a 'Penalty Group' in the context of the Texas Health & Safety Code?",
+                options: [
+                    "A group of people penalized for drug offenses.",
+                    "A classification system for controlled substances that determines criminal penalties.",
+                    "A list of dangerous drugs only.",
+                    "A group of law enforcement officers."
+                ],
+                answer: "A classification system for controlled substances that determines criminal penalties.",
+                explanation: "Penalty Groups (PG 1, 1-A, 1-B, 2, 2-A, 3, 4) categorize drugs and set the punishment range for offenses.",
+                reference: "HSC 481.102-105 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.102' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "Which of the following is NOT included in the definition of 'marihuana' under Texas law?",
+                options: [
+                    "The plant Cannabis sativa L.",
+                    "The resin extracted from the plant.",
+                    "The seeds of the plant.",
+                    "Every compound or preparation of the plant or its seeds."
+                ],
+                answer: "The resin extracted from the plant.",
+                explanation: "Resin, mature stalks, and sterilized seeds are excluded from the legal definition of marihuana.",
+                reference: "HSC 481.002(26) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "What is the legal definition of 'deliver' in the Health & Safety Code?",
+                options: [
+                    "To sell a controlled substance only.",
+                    "To transfer, actually or constructively, a controlled substance, counterfeit substance, or drug paraphernalia, including offering to sell.",
+                    "To manufacture a controlled substance.",
+                    "To possess a controlled substance."
+                ],
+                answer: "To transfer, actually or constructively, a controlled substance, counterfeit substance, or drug paraphernalia, including offering to sell.",
+                explanation: "'Deliver' includes any transfer, whether or not for money, and includes offers to sell.",
+                reference: "HSC 481.002(8) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "Which Penalty Group includes heroin, cocaine, and methamphetamine?",
+                options: [
+                    "Penalty Group 1",
+                    "Penalty Group 2",
+                    "Penalty Group 3",
+                    "Penalty Group 4"
+                ],
+                answer: "Penalty Group 1",
+                explanation: "PG 1 includes the most serious narcotics such as heroin, cocaine, and methamphetamine.",
+                reference: "HSC 481.102 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.102' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "What is the punishment for possession of less than 1 gram of a Penalty Group 1 substance?",
+                options: [
+                    "Class A Misdemeanor",
+                    "State Jail Felony",
+                    "Third Degree Felony",
+                    "Second Degree Felony"
+                ],
+                answer: "State Jail Felony",
+                explanation: "Possession of less than 1 gram of a PG 1 substance is a state jail felony.",
+                reference: "HSC 481.115(b) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.115' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "Which of the following is considered 'drug paraphernalia' under Texas law?",
+                options: [
+                    "A glass pipe used to smoke marihuana.",
+                    "A prescription bottle with a valid label.",
+                    "A sealed bottle of aspirin.",
+                    "A plastic sandwich bag with no residue."
+                ],
+                answer: "A glass pipe used to smoke marihuana.",
+                explanation: "Drug paraphernalia includes equipment used to plant, manufacture, package, or introduce a controlled substance into the body.",
+                reference: "HSC 481.002(17) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "Which offense is committed if a person knowingly delivers marihuana to a child under 18 years old?",
+                options: [
+                    "Class A Misdemeanor",
+                    "State Jail Felony",
+                    "Second Degree Felony",
+                    "Third Degree Felony"
+                ],
+                answer: "Second Degree Felony",
+                explanation: "Delivery of marihuana to a child is a second degree felony under HSC 481.122.",
+                reference: "HSC 481.122 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.122' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "What is the legal consequence for possession of drug paraphernalia?",
+                options: [
+                    "Class C Misdemeanor",
+                    "Class B Misdemeanor",
+                    "State Jail Felony",
+                    "Third Degree Felony"
+                ],
+                answer: "Class C Misdemeanor",
+                explanation: "Possession of drug paraphernalia is a Class C misdemeanor, but delivery can be a higher offense.",
+                reference: "HSC 481.125 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.125' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "Which of the following is a CNS depressant?",
+                options: [
+                    "Cocaine",
+                    "Valium",
+                    "Methamphetamine",
+                    "LSD"
+                ],
+                answer: "Valium",
+                explanation: "Valium is a CNS depressant, while cocaine and methamphetamine are stimulants, and LSD is a hallucinogen.",
+                reference: "See Drug Categories in HSC 481 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "What is the minimum age for a person to be prosecuted for delivery of a controlled substance to a child?",
+                options: [
+                    "10 years old",
+                    "15 years old",
+                    "18 years old",
+                    "21 years old"
+                ],
+                answer: "18 years old",
+                explanation: "The statute applies when the deliverer is 18 or older and the recipient is under 18.",
+                reference: "HSC 481.122 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.122' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "Which of the following is NOT a function of a 'practitioner' under the Health & Safety Code?",
+                options: [
+                    "Dispense controlled substances in the course of professional practice.",
+                    "Prescribe controlled substances.",
+                    "Manufacture controlled substances for personal use.",
+                    "Administer controlled substances to patients."
+                ],
+                answer: "Manufacture controlled substances for personal use.",
+                explanation: "A practitioner may prescribe, dispense, or administer, but not manufacture for personal use.",
+                reference: "HSC 481.002(39) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "What is the penalty for possession of 2 ounces or less of marihuana?",
+                options: [
+                    "Class C Misdemeanor",
+                    "Class B Misdemeanor",
+                    "State Jail Felony",
+                    "Third Degree Felony"
+                ],
+                answer: "Class B Misdemeanor",
+                explanation: "Possession of 2 ounces or less of marihuana is a Class B misdemeanor.",
+                reference: "HSC 481.121 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.121' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "Which of the following is a Penalty Group 2 substance?",
+                options: [
+                    "LSD",
+                    "Psilocybin (mushrooms)",
+                    "Cocaine",
+                    "Oxycodone"
+                ],
+                answer: "Psilocybin (mushrooms)",
+                explanation: "PG 2 includes hallucinogens like psilocybin, PCP, and mescaline.",
+                reference: "HSC 481.103 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.103' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "Which of the following is a sign of CNS stimulant overdose?",
+                options: [
+                    "Slurred speech",
+                    "Hallucinations",
+                    "Shallow breathing",
+                    "Increased body temperature"
+                ],
+                answer: "Increased body temperature",
+                explanation: "CNS stimulant overdose can cause agitation, increased body temperature, hallucinations, and seizures.",
+                reference: "See Drug Categories in HSC 481 <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "What is the legal definition of 'manufacture' under the Health & Safety Code?",
+                options: [
+                    "The production, preparation, compounding, or processing of a controlled substance, including packaging or labeling, except by a practitioner as an incident to administering or dispensing.",
+                    "The use of a controlled substance.",
+                    "The sale of a controlled substance.",
+                    "The possession of a controlled substance."
+                ],
+                answer: "The production, preparation, compounding, or processing of a controlled substance, including packaging or labeling, except by a practitioner as an incident to administering or dispensing.",
+                explanation: "'Manufacture' includes all steps in making a controlled substance, except for certain practitioner activities.",
+                reference: "HSC 481.002(25) <a href='https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002' target='_blank' class='text-indigo-600 hover:underline'>View Statute</a>"
+            },
+            {
+                question: "A child taken into custody for delinquent conduct that includes violence must be taken where?",
+                options: ["Directly to an adult jail.", "To a juvenile processing office for the issuance of a warning notice.", "To a certified juvenile detention facility.", "Home to their parents."],
+                answer: "To a certified juvenile detention facility.",
+                explanation: "For serious offenses involving violence, the law requires the child to be taken to a secure detention facility rather than being released or taken to a non-secure facility.",
+                reference: "Handout Page 11: FC 52.02(a)(3) - 'if the child is taken into custody for delinquent conduct that includes a violent offense... the child shall be taken to a certified juvenile detention facility...'"
+            },
+            {
+                question: "What is a 'juvenile processing office'?",
+                options: ["An adult jail.", "A courtroom for juvenile cases.", "An office designated by the juvenile board for processing children taken into custody.", "A school principal's office."],
+                answer: "An office designated by the juvenile board for processing children taken into custody.",
+                explanation: "This is a specific, designated location where law enforcement can legally take a juvenile for temporary processing like fingerprinting, photographing, and completing paperwork.",
+                reference: "Handout Page 12: FC 52.025(a) - 'A child may be brought to a juvenile processing office...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.025' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.025</a>"
+            },
+            {
+                question: "For how long may a child be detained in a juvenile processing office?",
+                options: ["For an unlimited time.", "Not to exceed 24 hours.", "Not to exceed 12 hours.", "Not to exceed six hours."],
+                answer: "Not to exceed six hours.",
+                explanation: "The law places a strict six-hour time limit on how long a child can be held in a processing office to prevent it from becoming a de facto detention facility.",
+                reference: "Handout Page 12: FC 52.025(d) - 'A child may not be detained in a juvenile processing office for more than six hours.'"
+            },
+            {
+                question: "What is a 'First Offender Program' under the Family Code?",
+                options: ["A program for juveniles who commit capital murder.", "A voluntary program for children who commit a misdemeanor, other than a traffic offense, for which they have no prior referrals.", "A mandatory boot camp for all juvenile offenders.", "A program run by the adult probation department."],
+                answer: "A voluntary program for children who commit a misdemeanor, other than a traffic offense, for which they have no prior referrals.",
+                explanation: "This program offers a diversionary path for low-level, first-time offenders, allowing them to avoid formal court proceedings by completing certain requirements.",
+                reference: "Handout Page 13: FC 52.031(a) & (b) - Describes the first offender program.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.031' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.031</a>"
+            },
+            {
+                question: "A child who is detained must have a detention hearing held no later than what time?",
+                options: ["The seventh working day after being taken into custody.", "The fifth working day after being taken into custody.", "The second working day after being taken into custody.", "Within 24 hours of being taken into custody."],
+                answer: "The second working day after being taken into custody.",
+                explanation: "This requirement ensures a prompt judicial review of the decision to detain a child, protecting their liberty interests.",
+                reference: "Handout Page 14: FC 54.01(a) - 'a detention hearing... shall be held not later than the second working day after the child is taken into custody...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 54.01</a>"
+            },
+            {
+                question: "What rights does a child have at a detention hearing?",
+                options: ["The right to a jury.", "The right to remain silent, the right to an attorney, and the right to confront and cross-examine witnesses.", "The right to have their parents testify for them.", "The right to be released immediately."],
+                answer: "The right to remain silent, the right to an attorney, and the right to confront and cross-examine witnesses.",
+                explanation: "Even at this early stage, the child is afforded fundamental due process rights, including the right to counsel and the right against self-incrimination.",
+                reference: "Handout Page 15: FC 51.10(b) & FC 54.01(d) - Outlines the rights at a hearing.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.10' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.10</a>"
+            },
+            {
+                question: "Before a child's statement can be used in court, what warning must be given by a magistrate?",
+                options: ["The standard Miranda warning.", "A warning that includes the right to have an attorney present and the right to terminate the interview at any time.", "A warning that their parents will be held responsible.", "A warning that they will be tried as an adult."],
+                answer: "A warning that includes the right to have an attorney present and the right to terminate the interview at any time.",
+                explanation: "FC 51.095 requires a specific, enhanced warning to be given by a magistrate to a child before a custodial statement can be taken, providing greater protection than the standard adult Miranda warning.",
+                reference: "Handout Page 16: FC 51.095(a)(1)(A) - Lists the specific warnings required.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.095' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.095</a>"
+            },
+            {
+                question: "For a written statement made by a child in custody to be admissible, who must be present when the child signs it (unless an attorney is present)?",
+                options: ["A law enforcement officer.", "A probation officer.", "The magistrate who gave the warnings.", "The child's parent."],
+                answer: "The magistrate who gave the warnings.",
+                explanation: "The magistrate must be present to witness the child's signature, ensuring there is no coercion and that the child understands what they are signing.",
+                reference: "Handout Page 17: FC 51.095(a)(1)(D) - 'the statement must be signed in the presence of a magistrate by the child...'"
+            },
+            {
+                question: "When can a child's oral statement made as a result of custodial interrogation be admissible in court?",
+                options: ["At any time if it is recorded.", "If the statement is found to be true and establishes the child's guilt ('statement against interest').", "If the child's parents give permission.", "Oral statements from juveniles are never admissible."],
+                answer: "If the statement is found to be true and establishes the child's guilt ('statement against interest').",
+                explanation: "This is a key exception. An oral statement can be used if it contains information, later found to be true, that only the guilty person would know, thus corroborating its reliability.",
+                reference: "Handout Page 18: FC 51.095(a)(5) - 'the statement is found to be true and tends to establish the child's guilt...'"
+            },
+            {
+                question: "Under what circumstances may a child's fingerprints be taken without the consent of the juvenile court?",
+                options: ["For any offense.", "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.", "Only if the child is 14 or older.", "Never without a court order."],
+                answer: "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.",
+                explanation: "FC 58.002 allows for fingerprinting without a court order for more serious offenses (Class B misdemeanors and above).",
+                reference: "Handout Page 19: FC 58.002(a)(1) - 'A child's fingerprints may be taken... if the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.58.htm#58.002' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 58.002</a>"
+            },
+            {
+                question: "If a child's fingerprints are taken, what must be done with the fingerprint card if the child is not referred to juvenile court within 10 days?",
+                options: ["It must be sent to the FBI.", "It must be destroyed.", "It must be filed with the district clerk.", "It must be given to the child's parents."],
+                answer: "It must be destroyed.",
+                explanation: "This provision protects the privacy of children who are not formally charged, ensuring their prints are not kept on file if the case does not proceed.",
+                reference: "Handout Page 19: FC 58.002(b) - 'If the child is not referred to the juvenile court... the law enforcement agency shall destroy the fingerprints...'"
+            },
+            {
+                question: "What is the purpose of sealing juvenile records?",
+                options: ["To make them available to the public.", "To allow a person to legally deny the arrest and proceedings ever occurred.", "To transfer them to the adult criminal justice system.", "To preserve them for historical purposes."],
+                answer: "To allow a person to legally deny the arrest and proceedings ever occurred.",
+                explanation: "Sealing records provides a fresh start, removing the legal disabilities of a juvenile record and allowing the person to move forward without the stigma of their past offenses.",
+                reference: "Handout Page 20: FC 58.259(a) - 'the person may deny the occurrence of the arrest and the existence of the sealed records...'"
+            },
+            {
+                question: "Under what circumstances are juvenile records eligible for automatic sealing (restricted access)?",
+                options: ["For any adjudicated offense.", "If the person is 19, the offense was a misdemeanor, and they were not certified as an adult.", "For all felony offenses.", "Only if the case was dismissed."],
+                answer: "If the person is 19, the offense was a misdemeanor, and they were not certified as an adult.",
+                explanation: "The law provides for automatic restriction of records for less serious offenses once the person reaches a certain age, provided they meet all the criteria.",
+                reference: "Handout Page 21: FC 58.253(c) - Lists the conditions for automatic restricted access.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.58.htm#58.253' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 58.253</a>"
+            },
+            {
+                question: "What is the primary difference between a 'child' and a 'juvenile' in the context of the Family Code?",
+                options: ["There is no difference.", "A 'child' is under 17, while a 'juvenile' is 17-18.", "The terms are used interchangeably and have the same legal meaning.", "A 'child' is a person of a certain age, while 'juvenile' is a broader term often used to describe the system or the offender."],
+                answer: "A 'child' is a person of a certain age, while 'juvenile' is a broader term often used to describe the system or the offender.",
+                explanation: "The Family Code provides a precise legal definition for 'child' (10 to under 17). 'Juvenile' is a more general term used to refer to the entire justice system and the youth involved in it.",
+                reference: "Handout Page 2: 'Child vs. Juvenile' slide."
+            },
+            {
+                question: "A 16-year-old is arrested for DWI. This is an example of what type of conduct?",
+                options: ["Conduct Indicating a Need for Supervision (CINS)", "A status offense", "Delinquent Conduct", "A traffic offense not under juvenile court jurisdiction."],
+                answer: "Delinquent Conduct",
+                explanation: "DWI is a violation of the Penal Code punishable by confinement in jail. Therefore, when committed by a child, it is classified as delinquent conduct.",
+                reference: "Handout Page 4: FC 51.03(a)(1) includes violations of penal laws punishable by jail. DWI is in the Penal Code."
+            },
+            {
+                question: "A 15-year-old is caught with a vape pen at school. This is a violation of the Education Code. What type of conduct is this?",
+                options: ["Delinquent Conduct", "Conduct Indicating a Need for Supervision (CINS)", "A felony", "Not a juvenile offense"],
+                answer: "Conduct Indicating a Need for Supervision (CINS)",
+                explanation: "Violations of the Education Code, such as possession of tobacco or e-cigarettes on school property, fall under the category of CINS.",
+                reference: "Handout Page 5: FC 51.03(b)(6) - 'conduct that violates a school district's previously adopted code of conduct...'"
+            },
+            {
+                question: "A juvenile court can waive jurisdiction for a third-degree felony if the child was what age at the time of the offense?",
+                options: ["10 years of age or older", "14 years of age or older", "15 years of age or older", "16 years of age or older"],
+                answer: "15 years of age or older",
+                explanation: "The minimum age for certification for second-degree, third-degree, and state jail felonies is 15.",
+                reference: "Handout Page 7: FC 54.02(a)(2)(B) - '15 years of age or older at the time the child is alleged to have committed a felony of the second or third degree or a state jail felony...'"
+            },
+            {
+                question: "Which of these is NOT a factor a juvenile court must consider when deciding whether to waive jurisdiction?",
+                options: ["The sophistication and maturity of the child.", "The child's family income.", "The prospects of adequate protection of the public.", "The seriousness of the offense."],
+                answer: "The child's family income.",
+                explanation: "The court must consider factors related to the child's character, the offense, and public safety. Financial status is not a legally permissible factor.",
+                reference: "Handout Page 8: FC 54.02(f) - Lists the factors to be considered."
+            },
+            {
+                question: "An officer has probable cause to believe a 16-year-old has run away from home. Under which statute can the officer take the child into custody without a warrant?",
+                options: ["FC 52.01(a)(1) - Pursuant to a court order.", "FC 52.01(a)(2) - Pursuant to the laws of arrest.", "FC 52.01(a)(3) - Pursuant to probable cause of CINS.", "An officer cannot take a runaway into custody without a warrant."],
+                answer: "FC 52.01(a)(3) - Pursuant to probable cause of CINS.",
+                explanation: "This specific provision allows an officer to take a child into custody without a warrant if they have probable cause to believe the child has engaged in conduct indicating a need for supervision, such as running away.",
+                reference: "Handout Page 9: FC 52.01(a)(3) - 'by a law-enforcement officer if there is probable cause to believe that the child has engaged in... conduct indicating a need for supervision...'"
+            },
+            {
+                question: "An officer takes a 15-year-old into custody for misdemeanor theft and releases them to their parents after issuing a warning. What is this procedure called?",
+                options: ["A field release", "A station adjustment", "A disposition without referral to court", "An informal disposition"],
+                answer: "A disposition without referral to court",
+                explanation: "FC 52.03 allows a law enforcement agency to dispose of a case without referring it to juvenile court, essentially giving a warning for minor offenses.",
+                reference: "Handout Page 13: FC 52.03 - 'A law enforcement officer authorized by this title to take a child into custody may dispose of the case of a child... without referral to the juvenile court...'"
+            },
+            {
+                question: "A child is detained in a certified detention facility. Who must the superintendent of the facility promptly notify?",
+                options: ["The child's school.", "The juvenile court.", "The local media.", "The arresting officer's supervisor."],
+                answer: "The juvenile court.",
+                explanation: "Prompt notification to the court is required to trigger the legal timelines for detention hearings and other judicial proceedings.",
+                reference: "Handout Page 14: FC 54.01(a) - 'The superintendent... shall promptly notify the juvenile court of the detention...'"
+            },
+            {
+                question: "For a child's written statement to be admissible, it must show on its face that the child, prior to and during the making of the statement, intelligently, knowingly, and voluntarily waived what rights?",
+                options: ["The rights listed in the U.S. Constitution.", "The rights set out in the magistrate's warning under FC 51.095(a)(1)(A).", "The right to a speedy trial.", "The right to have their parents present."],
+                answer: "The rights set out in the magistrate's warning under FC 51.095(a)(1)(A).",
+                explanation: "The statement itself must explicitly document the waiver of the specific, enhanced rights that the magistrate is required to provide to the juvenile.",
+                reference: "Handout Page 17: FC 51.095(a)(1)(C) - 'the child, prior to and during the making of the statement, knowingly, intelligently, and voluntarily waives the rights set out in the warning prescribed by Paragraph (A)...'"
+            },
+            {
+                question: "A child makes a spontaneous statement ('res gestae') that is electronically recorded in a jurisdiction that requires recording of such statements. Is this statement admissible?",
+                options: ["No, juvenile statements are never admissible.", "Only if a magistrate was present.", "Yes, if it was a statement of facts that are a part of the res gestae of the conduct.", "No, because it was recorded without consent."],
+                answer: "Yes, if it was a statement of facts that are a part of the res gestae of the conduct.",
+                explanation: "Res gestae, or excited utterances, are a major exception to the strict rules for juvenile statements. A spontaneous statement made during or immediately after an event is generally admissible.",
+                reference: "Handout Page 18: FC 51.095(a)(6) - 'the statement was res gestae of the delinquent conduct or the conduct indicating a need for supervision or of the arrest.'"
+            },
+            {
+                question: "When is it permissible to photograph a child without a court order?",
+                options: ["At any time for any reason.", "Only for felony offenses.", "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.", "Never without parental consent."],
+                answer: "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.",
+                explanation: "Similar to fingerprinting, photographing a juvenile is permitted without a court order for more serious offenses (Class B misdemeanors and above).",
+                reference: "Handout Page 19: FC 58.0021(a) - 'A child's photograph may be taken... if the child is taken into custody... for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.'"
+            },
+            {
+                question: "A person's juvenile records have been sealed. They apply for a job that asks if they have ever been arrested. How can they legally answer?",
+                options: ["They must disclose the juvenile arrest.", "They can legally deny the arrest and the existence of the sealed records.", "They must provide a copy of the sealing order.", "They must answer 'yes' but can state the record was sealed."],
+                answer: "They can legally deny the arrest and the existence of the sealed records.",
+                explanation: "The effect of a sealing order is to legally nullify the event for most purposes, including employment applications, allowing the person a clean slate.",
+                reference: "Handout Page 20: FC 58.259(a) - 'the person may deny the occurrence of the arrest and the existence of the sealed records...'"
+            },
+            {
+                question: "Which of the following would make a juvenile's record INELIGIBLE for automatic restricted access (sealing)?",
+                options: ["The offense was a misdemeanor.", "The person has reached the age of 19.", "The person was certified and tried as an adult.", "The case was handled informally without adjudication."],
+                answer: "The person was certified and tried as an adult.",
+                explanation: "Certification as an adult is a major disqualifier for automatic sealing, as the case then becomes part of the adult criminal record system.",
+                reference: "Handout Page 21: FC 58.253(c)(3) - 'the person was not certified to stand trial as an adult...'"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Study Guide: Health and Safety Code</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fefce8; /* Light Yellow background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #fef9c3; /* Lighter Yellow */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary:hover {
+            background-color: #fef08a;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #eab308; /* Amber */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-block {
+            background-color: #fafafa;
+            border-left: 4px solid #eab308;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .info-block.definitions { border-left-color: #f59e0b; }
+        .info-block.procedures { border-left-color: #0ea5e9; }
+        .info-block.example { border-left-color: #10b981; }
+        .info-block p { margin-bottom: 0.5rem; }
+        .info-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .offense-card {
+            border-left-width: 4px;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .offense-misd-c { border-color: #fbbf24; background-color: #fefce8; }
+        .offense-misd-b { border-color: #a78bfa; background-color: #f5f3ff; }
+        .offense-misd-a { border-color: #34d399; background-color: #f0fdf4; }
+        .offense-sjf { border-color: #fb923c; background-color: #fff7ed; }
+        .offense-f3 { border-color: #f87171; background-color: #fef2f2; }
+        .offense-f2 { border-color: #ef4444; background-color: #fee2e2; }
+        .offense-f1 { border-color: #b91c1c; background-color: #fde2e4; }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
+        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Health and Safety Code</h1>
+            <p class="text-lg text-gray-600 mt-2">A Comprehensive Study Guide</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-definitions">Definitions</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-categories">Drug Categories & Symptoms</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-penalty-groups">Penalty Groups</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-offenses-cs">Controlled Substance Offenses</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-offenses-mj">Marihuana & Paraphernalia</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-offenses-dd">Dangerous Drugs</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-other">Other Procedures</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Definitions Tab -->
+            <div id="tab-definitions" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Key Definitions (HSC 481.002)</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Core Substance & Statutory Definitions</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <ul>
+                                    <li><strong>Drug:</strong> A substance (other than a device or its component/part) that is recognized as a drug in the official United States Pharmacopoeia, Homeopathic Pharmacopoeia, or National Formulary; intended for use in diagnosis, cure, mitigation, treatment, or prevention of disease; or intended to affect the structure or function of the body (not food). <em>(HSC 481.002(16))</em></li>
+                                    <li><strong>Controlled Substance:</strong> A substance, including a drug, adulterant, or dilutant, listed in Schedules I-V or Penalty Groups 1, 1-A, 1-B, 2, 2-A, 3, or 4. Includes the aggregate weight of any mixture. <em>Does not include hemp or tetrahydrocannabinols in hemp.</em> <em>(HSC 481.002(5))</em></li>
+                                    <li><strong>Controlled Substance Analogue:</strong> A substance with a chemical structure or effect substantially similar to a controlled substance in Schedule I/II or Penalty Groups 1, 1-A, 1-B, 2, or 2-A. <em>(HSC 481.002(6))</em></li>
+                                    <li><strong>Counterfeit Substance:</strong> A controlled substance that, without authorization, bears or is in a container/label with an actual or simulated trademark, trade name, or identifying mark of a manufacturer/distributor/dispenser other than the actual manufacturer. <em>(HSC 481.002(7))</em></li>
+                                    <li><strong>Immediate Precursor:</strong> A substance designated by rule as a principal compound used or produced primarily for use in the manufacture of a controlled substance, or as an immediate chemical intermediary, or whose control is necessary to prevent/limit manufacture. <em>(HSC 481.002(22))</em></li>
+                                    <li><strong>Dangerous Drug:</strong> A device or drug unsafe for self-medication and not included in Schedules I-V or Penalty Groups 1-4. Typically, prescription drugs requiring a legend such as "Rx only." <em>(HSC 483.001(2))</em></li>
+                                    <li><strong>Marihuana:</strong> The plant Cannabis sativa L., its seeds, and every compound or preparation of the plant or its seeds. <em>Does not include resin, mature stalks, or sterilized seeds.</em> <em>(HSC 481.002(26))</em></li>
+                                    <li><strong>Drug Paraphernalia:</strong> Equipment, product, or material used or intended for use in planting, manufacturing, packaging, concealing, or introducing a controlled substance into the human body. <em>(HSC 481.002(17))</em></li>
+                                    <li><strong>Controlled Premises:</strong> A place where original or other records required under this chapter are kept, or a place (factory, warehouse, etc.) where a person registered under this chapter may lawfully hold, manufacture, distribute, dispense, administer, possess, or otherwise dispose of a controlled substance. <em>(HSC 481.002(4))</em></li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.002</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Action, Person, and Process Definitions</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <ul>
+                                    <li><strong>Possession:</strong> Actual care, custody, control, or management. <em>(HSC 481.002(38))</em></li>
+                                    <li><strong>Deliver:</strong> To transfer, actually or constructively, a controlled substance, counterfeit substance, or drug paraphernalia to another, regardless of agency relationship. <strong>Includes offering to sell.</strong> <em>(HSC 481.002(8))</em></li>
+                                    <li><strong>Delivery:</strong> The act of delivering. <em>(HSC 481.002(9))</em></li>
+                                    <li><strong>Distribute:</strong> To deliver a controlled substance other than by administering or dispensing. <em>(HSC 481.002(14))</em></li>
+                                    <li><strong>Distributor:</strong> A person who distributes. <em>(HSC 481.002(15))</em></li>
+                                    <li><strong>Manufacture:</strong> The production, preparation, propagation, compounding, conversion, or processing of a controlled substance (other than marihuana), by extraction, chemical synthesis, or both. Includes packaging/repackaging and labeling/relabeling. <em>Does not include preparation/compounding by a practitioner as an incident to administering or dispensing in professional practice or research.</em> <em>(HSC 481.002(25))</em></li>
+                                    <li><strong>Production:</strong> Includes the manufacturing, planting, cultivating, growing, or harvesting of a controlled substance. <em>(HSC 481.002(43))</em></li>
+                                    <li><strong>Dispense:</strong> The delivery of a controlled substance in the course of professional practice or research, by a practitioner or person acting under the lawful order of a practitioner, to an ultimate user or research subject. Includes prescribing, administering, packaging, labeling, or compounding necessary to prepare the substance for delivery. <em>(HSC 481.002(12))</em></li>
+                                    <li><strong>Dispenser:</strong> A practitioner, institutional practitioner, pharmacist, or pharmacy that dispenses a controlled substance. <em>(HSC 481.002(13))</em></li>
+                                    <li><strong>Administer:</strong> To directly apply a controlled substance by injection, inhalation, ingestion, or other means to the body of a patient or research subject by a practitioner (or agent in their presence), or by the patient/research subject at the direction and in the presence of a practitioner. <em>(HSC 481.002(1))</em></li>
+                                    <li><strong>Human Consumption:</strong> The injection, inhalation, ingestion, or application of a substance to or into a human body. <em>(HSC 481.002(21))</em></li>
+                                    <li><strong>Practitioner:</strong> A physician, dentist, veterinarian, podiatrist, scientific investigator, or other person licensed, registered, or otherwise permitted to distribute, dispense, analyze, conduct research with, or administer a controlled substance in the course of professional practice or research in this state; or a pharmacy, hospital, or other institution so licensed; or a person practicing in and licensed by another state as a physician, dentist, veterinarian, or podiatrist, with a current DEA registration; or an advanced practice registered nurse or physician assistant to whom a physician has delegated authority under the Occupations Code. <em>(HSC 481.002(39))</em></li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.002</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- Drug Categories Tab -->
+            <div id="tab-categories" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Drug Categories & Symptoms</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>CNS Depressants</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Function:</strong> Slows down the brain and body.</p>
+                            <p><strong>Examples:</strong> Alcohol, GHB, Rohypnol, Valium, Xanax.</p>
+                            <p><strong>Symptoms/OD Signs:</strong> Slurred speech, disorientation, drunken behavior without odor of alcohol. Overdose can cause shallow breathing, clammy skin, weak pulse, coma, and death.</p>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Narcotic Analgesics</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Function:</strong> Relieve pain, induce euphoria, and create mood changes.</p>
+                            <p><strong>Examples:</strong> Opium, Codeine, Heroin, Morphine, Methadone, Vicodin, OxyContin.</p>
+                            <p><strong>Symptoms/OD Signs:</strong> Droopy eyelids, depressed reflexes, dry mouth, "on the nod," constricted pupils. Overdose can cause slow and shallow breathing, clammy skin, convulsions, coma, and death.</p>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>CNS Stimulants</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Function:</strong> Increases heart rate and blood pressure, increases alertness, causes excitement.</p>
+                            <p><strong>Examples:</strong> Adderall, Amphetamines, Cocaine, Methamphetamine.</p>
+                            <p><strong>Symptoms/OD Signs:</strong> Anxiety, euphoria, irritability, talkativeness, grinding teeth (bruxism), runny nose. Overdose can cause agitation, increased body temperature, hallucinations, and seizures.</p>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Hallucinogens</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Function:</strong> Distorts senses and perception.</p>
+                            <p><strong>Examples:</strong> LSD, Peyote, Psilocybin, MDMA (Ecstasy).</p>
+                            <p><strong>Symptoms/OD Signs:</strong> Hallucinations, dazed appearance, body tremors, paranoia, difficulty with speech. Overdose is unlikely but delusions can create dangerous or suicidal behavior.</p>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Cannabis (Marihuana)</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Function:</strong> Alters mind, increases heart rate, relaxes.</p>
+                            <p><strong>Examples:</strong> Marihuana, THC, some CBD oils, K2/Spice (synthetics are in PG 2-A).</p>
+                            <p><strong>Symptoms/OD Signs:</strong> Bloodshot eyes, body tremors, impaired time perception, increased appetite, burnt marihuana odor. No overdose, but can cause paranoia and psychosis.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Penalty Groups Tab -->
+            <div id="tab-penalty-groups" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Penalty Groups</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Penalty Group 1 / 1-A / 1-B</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <p><strong>Penalty Group 1 (HSC 481.102):</strong> Includes opiates and opium derivatives like Heroin, Cocaine, Methamphetamine, GHB, Ketamine, and Oxycodone.</p>
+                                <p class="mt-2"><strong>Penalty Group 1-A (HSC 481.1021):</strong> Primarily consists of LSD (Lysergic Acid Diethylamide) and its analogues. Punishments are based on number of abuse units.</p>
+                                <p class="mt-2"><strong>Penalty Group 1-B (HSC 481.1022):</strong> Consists of Fentanyl, its derivatives, and analogues.</p>
+                            </div>
+                             <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.102" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View PG 1, 1-A, 1-B</a>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Penalty Group 2 / 2-A</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <p><strong>Penalty Group 2 (HSC 481.103):</strong> Includes hallucinogens like PCP, Mescaline (Peyote), and Psilocybin (Mushrooms). It also includes THC other than marihuana (e.g., waxes, oils, edibles where the plant is not visible).</p>
+                                <p class="mt-2"><strong>Penalty Group 2-A (HSC 481.1031):</strong> Consists of synthetic cannabinoids, such as substances commonly known as K2 or Spice.</p>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.103" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View PG 2, 2-A</a>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Penalty Group 3 / 4</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <p><strong>Penalty Group 3 (HSC 481.104):</strong> Includes stimulants and depressants with a potential for abuse, such as Valium (Diazepam), Xanax (Alprazolam), Ritalin, and anabolic steroids.</p>
+                                <p class="mt-2"><strong>Penalty Group 4 (HSC 481.105):</strong> Includes compounds or mixtures containing limited quantities of narcotics, such as codeine in cough syrup, that also have nonnarcotic active medicinal ingredients.</p>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.104" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View PG 3, 4</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Controlled Substance Offenses Tab -->
+            <div id="tab-offenses-cs" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Controlled Substance Offenses</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Manufacture or Delivery (HSC 481.112 - 481.114)</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Conduct:</strong> A person knowingly manufactures, delivers, or possesses with intent to deliver a controlled substance.</p>
+                            <div class="info-block example"><p><strong>Example:</strong> A person sells a baggie containing less than one gram of cocaine to an undercover officer. This is a State Jail Felony under PG 1.</p></div>
+                            <div class="offense-card offense-sjf"><strong>PG 1 (<1g):</strong> State Jail Felony</div>
+                            <div class="offense-card offense-f2"><strong>PG 1 (1g to <4g):</strong> 2nd Degree Felony</div>
+                            <div class="offense-card offense-f1"><strong>PG 1 (4g to <200g):</strong> 1st Degree Felony</div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.112" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View M/D Statutes</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Possession (HSC 481.115 - 481.118)</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Conduct:</strong> A person knowingly or intentionally possesses a controlled substance without a valid prescription.</p>
+                             <div class="info-block example"><p><strong>Example:</strong> During a traffic stop, an officer finds two grams of methamphetamine in a person's pocket. This is a 3rd Degree Felony under PG 1.</p></div>
+                            <div class="offense-card offense-sjf"><strong>PG 1 (<1g):</strong> State Jail Felony</div>
+                            <div class="offense-card offense-f3"><strong>PG 1 (1g to <4g):</strong> 3rd Degree Felony</div>
+                            <div class="offense-card offense-f2"><strong>PG 1 (4g to <200g):</strong> 2nd Degree Felony</div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.115" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Possession Statutes</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Delivery of CS or Marihuana to a Child (HSC 481.122)</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Conduct:</strong> A person knowingly delivers a controlled substance (PG 1, 1-A, 1-B, 2, or 3) or marihuana to a person who is a child (under 18) or enrolled in a primary/secondary school.</p>
+                            <div class="info-block example"><p><strong>Example:</strong> A 25-year-old sells a THC vape cartridge (PG 2) to a 16-year-old high school student.</p></div>
+                            <div class="offense-card offense-f2"><strong>2nd Degree Felony</strong></div>
+                             <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.122" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.122</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Marihuana & Paraphernalia Tab -->
+            <div id="tab-offenses-mj" class="tab-pane hidden">
+                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Marihuana & Paraphernalia Offenses</h2>
+                <div class="space-y-6">
+                     <details class="card p-0" open>
+                        <summary>Possession of Marihuana (HSC 481.121)</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Conduct:</strong> A person knowingly or intentionally possesses a usable quantity of marihuana.</p>
+                            <div class="info-block example"><p><strong>Example:</strong> An officer finds a plastic baggie containing three ounces of marihuana in a person's car during a lawful search.</p></div>
+                            <div class="offense-card offense-misd-b"><strong>2oz or less:</strong> Class B Misdemeanor</div>
+                            <div class="offense-card offense-misd-a"><strong>>2oz to 4oz:</strong> Class A Misdemeanor</div>
+                            <div class="offense-card offense-sjf"><strong>>4oz to 5lbs:</strong> State Jail Felony</div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.121" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.121</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Delivery of Marihuana (HSC 481.120)</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Conduct:</strong> A person knowingly or intentionally delivers marihuana.</p>
+                            <div class="info-block example"><p><strong>Example:</strong> A person gives a friend a quarter-ounce of marihuana with no money exchanged.</p></div>
+                            <div class="offense-card offense-misd-b"><strong>1/4oz or less (no remuneration):</strong> Class B Misdemeanor</div>
+                            <div class="offense-card offense-misd-a"><strong>1/4oz or less (with remuneration):</strong> Class A Misdemeanor</div>
+                            <div class="offense-card offense-sjf"><strong>>1/4oz to 5lbs:</strong> State Jail Felony</div>
+                             <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.120" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.120</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Possession or Delivery of Drug Paraphernalia (HSC 481.125)</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Conduct:</strong> A person knowingly or intentionally uses, possesses with intent to use, or delivers drug paraphernalia.</p>
+                            <div class="info-block example"><p><strong>Example:</strong> A person is found with a glass pipe that has burnt marihuana residue inside.</p></div>
+                            <div class="offense-card offense-misd-c"><strong>Possession:</strong> Class C Misdemeanor</div>
+                            <div class="offense-card offense-misd-a"><strong>Delivery:</strong> Class A Misdemeanor</div>
+                            <div class="offense-card offense-sjf"><strong>Delivery by person 18+ to person <18:</strong> State Jail Felony</div>
+                             <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.125" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.125</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Dangerous Drugs Tab -->
+            <div id="tab-offenses-dd" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Dangerous Drug Offenses (HSC Chapter 483)</h2>
+                 <div class="space-y-6">
+                     <details class="card p-0" open>
+                        <summary>Possession of Dangerous Drug (HSC 483.041)</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Conduct:</strong> A person possesses a dangerous drug unless obtained from a pharmacist or practitioner via a valid prescription.</p>
+                             <div class="info-block example"><p><strong>Example:</strong> A person is found with a bottle of Alprazolam (Xanax) that has someone else's name on the prescription label.</p></div>
+                            <div class="offense-card offense-misd-a"><strong>Class A Misdemeanor</strong></div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.483.htm#483.041" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 483.041</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Delivery or Offer of Delivery of Dangerous Drug (HSC 483.042)</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Conduct:</strong> A person delivers or offers to deliver a dangerous drug without proper authorization.</p>
+                            <div class="info-block example"><p><strong>Example:</strong> A person sells their own prescription Xanax pills to a friend.</p></div>
+                            <div class="offense-card offense-sjf"><strong>State Jail Felony</strong></div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.483.htm#483.042" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 483.042</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Forging or Altering Prescription (HSC 483.045)</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Conduct:</strong> A person forges a prescription, increases the quantity on a prescription, or obtains a dangerous drug using a forged, fictitious, or altered prescription.</p>
+                            <div class="info-block example"><p><strong>Example:</strong> A person finds a blank prescription pad and writes a prescription for a dangerous drug, signing a doctor's name.</p></div>
+                            <div class="offense-card offense-misd-b"><strong>Class B Misdemeanor</strong> (Enhanceable to Class A with prior conviction)</div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.483.htm#483.045" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 483.045</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Other Procedures Tab -->
+            <div id="tab-other" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Other Offenses & Procedures</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>The Overdose Defense</summary>
+                        <div class="p-6 border-t">
+                            <p>A defense to prosecution for possession offenses is available if the actor was the <strong>first person to request emergency medical assistance</strong> in response to a possible overdose of another person, remained on scene, and cooperated with medical/law enforcement personnel.</p>
+                            <div class="info-block procedures">
+                                <p><strong>This defense is NOT available if:</strong></p>
+                                <ul>
+                                    <li>At the time of the request, an officer was already in the process of arresting the actor or executing a search warrant.</li>
+                                    <li>The actor was committing another offense (other than simple possession).</li>
+                                    <li>The actor has a prior conviction under the Health & Safety Code.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Manufacture/Delivery of CS Causing Death or SBI (HSC 481.141)</summary>
+                        <div class="p-6 border-t">
+                            <p>If a person dies or suffers SBI as a result of using a controlled substance manufactured or delivered by the defendant, the punishment for the M/D offense is <strong>increased by one degree</strong>.</p>
+                            <div class="info-block example"><p><strong>Example:</strong> A dealer sells fentanyl (PG 1-B, <1g, 3rd Degree Felony) to a person who then overdoses and dies. The dealer's charge can be enhanced to a 2nd Degree Felony.</p></div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.141" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.141</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Uncorroborated Testimony</summary>
+                        <div class="p-6 border-t">
+                            <p><strong>Dangerous Drugs (HSC 483.072):</strong> A conviction under Chapter 483 (Dangerous Drugs) <strong>may be obtained</strong> on the uncorroborated testimony of a party to the offense.</p>
+                            <p class="mt-4"><strong>Controlled Substances (CCP 38.141):</strong> A defendant <strong>may not be convicted</strong> of a Chapter 481 (Controlled Substances) offense on the testimony of a person who is not a licensed peace officer acting covertly unless the testimony is corroborated by other evidence tending to connect the defendant with the offense.</p>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-amber-500 text-white font-semibold py-2 px-6 rounded-md hover:bg-amber-600">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "What does 'possession' mean under the Health and Safety Code?",
+            options: ["Ownership of a substance", "Actual care, custody, control, or management", "Being in the same room as a substance", "Knowledge of a substance's location"],
+            answer: "Actual care, custody, control, or management",
+            explanation: "<strong>Reference: HSC 481.002(38).</strong> Possession is defined as actual care, custody, control, or management."
+        },
+        {
+            question: "Which Penalty Group contains cocaine, heroin, and methamphetamine?",
+            options: ["Penalty Group 1", "Penalty Group 2", "Penalty Group 3", "Penalty Group 4"],
+            answer: "Penalty Group 1",
+            explanation: "<strong>Reference: HSC 481.102.</strong> Penalty Group 1 includes many opiates, opium derivatives, and cocaine and methamphetamine."
+        },
+        {
+            question: "A person possesses 3 grams of a substance in Penalty Group 1. What is the offense level?",
+            options: ["State Jail Felony", "3rd Degree Felony", "2nd Degree Felony", "1st Degree Felony"],
+            answer: "3rd Degree Felony",
+            explanation: "<strong>Reference: HSC 481.115(c).</strong> Possession of 1 gram or more but less than 4 grams of a PG 1 substance is a 3rd Degree Felony."
+        },
+        {
+            question: "An officer finds a person with 3 ounces of marihuana. What is the offense level?",
+            options: ["Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony", "3rd Degree Felony"],
+            answer: "Class A Misdemeanor",
+            explanation: "<strong>Reference: HSC 481.121(b)(2).</strong> Possession of four ounces or less but more than two ounces of marihuana is a Class A Misdemeanor."
+        },
+        {
+            question: "A person sells a THC vape cartridge to a 16-year-old. What is the most serious offense committed?",
+            options: ["Delivery of Marihuana", "Possession of Drug Paraphernalia", "Delivery of CS to a Child", "Possession of CS PG 2"],
+            answer: "Delivery of CS to a Child",
+            explanation: "<strong>Reference: HSC 481.122.</strong> THC is a PG 2 substance. Knowingly delivering it to a child (under 18) is a 2nd Degree Felony, which is more serious than simple delivery of PG 2."
+        },
+        {
+            question: "The term for a prescription drug that is not in a penalty group and is unsafe for self-medication is:",
+            options: ["Controlled Substance", "Counterfeit Substance", "Dangerous Drug", "Simulated Substance"],
+            answer: "Dangerous Drug",
+            explanation: "<strong>Reference: HSC 483.001(2).</strong> A dangerous drug is one that requires a prescription but is not listed in the controlled substance penalty groups."
+        },
+        {
+            question: "What is the offense level for possessing a dangerous drug, such as Xanax without a prescription?",
+            options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+            answer: "Class A Misdemeanor",
+            explanation: "<strong>Reference: HSC 483.041(d).</strong> Possession of a Dangerous Drug is a Class A Misdemeanor."
+        },
+        {
+            question: "A person gives a friend a quarter-ounce of marihuana and receives no money for it. What is the offense?",
+            options: ["No offense", "Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor"],
+            answer: "Class B Misdemeanor",
+            explanation: "<strong>Reference: HSC 481.120(b)(1).</strong> Delivery of one-fourth ounce or less of marihuana without receiving remuneration is a Class B Misdemeanor."
+        },
+        {
+            question: "Which Penalty Group specifically lists synthetic cannabinoids like K2 and Spice?",
+            options: ["Penalty Group 1-A", "Penalty Group 2", "Penalty Group 2-A", "Penalty Group 3"],
+            answer: "Penalty Group 2-A",
+            explanation: "<strong>Reference: HSC 481.1031.</strong> Penalty Group 2-A consists of synthetic cannabinoids."
+        },
+        {
+            question: "A person possesses a glass pipe with burnt marihuana residue. What is the offense?",
+            options: ["Possession of Marihuana", "Possession of Drug Paraphernalia", "No Offense", "Possession of CS PG 2"],
+            answer: "Possession of Drug Paraphernalia",
+            explanation: "<strong>Reference: HSC 481.125(a).</strong> Possessing with intent to use drug paraphernalia is a Class C Misdemeanor."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#16a34a';
+            else if (percentage >= 50) quizScoreEl.style.color = '#f59e0b';
+            else quizScoreEl.style.color = '#dc2626';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+});
+</script>
+
+</body>
+</html>
