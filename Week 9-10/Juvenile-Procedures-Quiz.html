@@ -87,180 +87,231 @@
 
         // --- Quiz Data with References ---
         const quizData = [
+            // ...existing questions...
+            // --- Additional comprehensive questions below ---
             {
-                question: "What is the primary philosophy of the Texas Juvenile Justice Code?",
-                options: ["To punish juvenile offenders as adults.", "To provide for the care, protection, and wholesome moral, mental, and physical development of children.", "To prioritize the rights of victims over the rights of juvenile offenders.", "To ensure all juvenile cases are handled by the criminal court system."],
-                answer: "To provide for the care, protection, and wholesome moral, mental, and physical development of children.",
-                explanation: "The code's philosophy emphasizes rehabilitation and the child's welfare, distinct from the punitive focus of the adult criminal justice system.",
-                reference: "Handout Page 2: FC 51.01(1) - 'provide for the care, protection, and wholesome moral, mental, and physical development of children coming within its provisions'.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.01</a>"
+                question: "Which of the following is a status offense?",
+                options: ["Burglary", "Truancy", "Assault", "DWI"],
+                answer: "Truancy",
+                explanation: "Status offenses are acts that are only illegal due to the minor's age, such as truancy, running away, or curfew violations.",
+                reference: "FC 51.02(15); FC 51.03(b)"
             },
             {
-                question: "According to the Family Code, what is the age range for a 'child' under the jurisdiction of the juvenile court?",
-                options: ["A person who is 10 years of age or older and under 18.", "A person who is 10 years of age or older and under 17.", "A person younger than 18.", "A person younger than 17."],
-                answer: "A person who is 10 years of age or older and under 17.",
-                explanation: "Juvenile jurisdiction in Texas specifically applies to this age range at the time the offense is committed.",
-                reference: "Handout Page 3: FC 51.02(2)(A) - '10 years of age or older and under 17 years of age'.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.02</a>"
+                question: "Who is considered a 'nonoffender' under the Family Code?",
+                options: ["A child who commits a felony", "A child subject to court jurisdiction for abuse/neglect or held solely for deportation", "A child who commits a status offense", "A child who is a habitual truant"],
+                answer: "A child subject to court jurisdiction for abuse/neglect or held solely for deportation",
+                explanation: "Nonoffenders are children involved in the court system for reasons other than criminal conduct, such as abuse/neglect or immigration.",
+                reference: "FC 51.02(11)"
             },
             {
-                question: "What is 'Delinquent Conduct' under the Family Code?",
-                options: ["Any act that is against school rules.", "Conduct, other than a traffic offense, that violates a penal law punishable by imprisonment or by confinement in jail.", "Truancy or running away from home.", "Any disrespectful behavior towards an adult."],
-                answer: "Conduct, other than a traffic offense, that violates a penal law punishable by imprisonment or by confinement in jail.",
-                explanation: "Delinquent conduct refers to acts that would be considered crimes if committed by an adult (felonies or Class A/B misdemeanors).",
-                reference: "Handout Page 4: FC 51.03(a)(1) - 'conduct, other than a traffic offense, that violates a penal law of this state... punishable by imprisonment or by confinement in jail'.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.03</a>"
+                question: "Which of the following is NOT a right of a parent under FC 151.001?",
+                options: ["To consent to medical care", "To designate the child's residence", "To commit the child to jail without due process", "To receive child support payments"],
+                answer: "To commit the child to jail without due process",
+                explanation: "Parents have many rights, but cannot unilaterally commit a child to jail without legal process.",
+                reference: "FC 151.001"
             },
             {
-                question: "Which of the following is an example of 'Conduct Indicating a Need for Supervision' (CINS)?",
-                options: ["Burglary of a habitation.", "Aggravated Robbery.", "The voluntary absence of a child from the child's home without consent (running away).", "Driving while intoxicated."],
-                answer: "The voluntary absence of a child from the child's home without consent (running away).",
-                explanation: "CINS offenses are status offenses—acts that are only illegal because of the person's status as a minor, such as running away, truancy, or violating curfew.",
-                reference: "Handout Page 5: FC 51.03(b)(2) - 'the voluntary absence of a child from the child's home without the consent of the child's parent or guardian for a substantial length of time...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.03' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.03</a>"
+                question: "What is the maximum time a child may be held in nonsecure custody for a JP/municipal offense?",
+                options: ["2 hours", "6 hours", "12 hours", "24 hours"],
+                answer: "6 hours",
+                explanation: "Nonsecure custody for JP/municipal offenses is limited to 6 hours, and the child must not be physically restrained.",
+                reference: "CCP 45A.453"
             },
             {
-                question: "Under FC 51.04, which court has exclusive original jurisdiction over cases involving delinquent conduct or CINS?",
-                options: ["The municipal court.", "The justice court.", "The juvenile court.", "The district court."],
-                answer: "The juvenile court.",
-                explanation: "The law establishes a specialized juvenile court system with exclusive jurisdiction to handle these specific types of cases involving children.",
-                reference: "Handout Page 6: FC 51.04(a) - 'the juvenile court has exclusive original jurisdiction over proceedings under this title.'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.04' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.04</a>"
+                question: "Who must be notified within 24 hours when a student is arrested for a felony?",
+                options: ["The student's parent", "The school superintendent or designee", "The school board", "The student's teacher"],
+                answer: "The school superintendent or designee",
+                explanation: "CCP 15.27 requires law enforcement to notify the superintendent or designee within 24 hours of a felony arrest or referral.",
+                reference: "CCP 15.27"
             },
             {
-                question: "What is a 'Waiver of Jurisdiction' in the juvenile system?",
-                options: ["The process of a child waiving their right to an attorney.", "The process by which a juvenile court gives up its jurisdiction, allowing a child to be tried as an adult in criminal court.", "The process of transferring a case to a different county.", "The process of a victim waiving their rights in a juvenile case."],
-                answer: "The process by which a juvenile court gives up its jurisdiction, allowing a child to be tried as an adult in criminal court.",
-                explanation: "Also known as 'certification,' this is the formal process for transferring a serious juvenile case to the adult criminal justice system.",
-                reference: "Handout Page 7: FC 54.02 - 'The juvenile court may waive its exclusive original jurisdiction and transfer a child to the appropriate district court...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 54.02</a>"
+                question: "What is the penalty for unauthorized disclosure of school notification information?",
+                options: ["Class A misdemeanor", "Class B misdemeanor", "Class C misdemeanor", "Felony"],
+                answer: "Class C misdemeanor",
+                explanation: "Unauthorized disclosure of confidential school notification information is a Class C misdemeanor.",
+                reference: "CCP 15.27"
             },
             {
-                question: "For a juvenile court to waive jurisdiction for a capital felony or first-degree felony, the child must be what age?",
-                options: ["10 years of age or older", "14 years of age or older", "15 years of age or older", "16 years of age or older"],
-                answer: "14 years of age or older",
-                explanation: "The law sets a minimum age of 14 for a child to be certified as an adult for the most serious felony offenses.",
-                reference: "Handout Page 7: FC 54.02(a)(2)(A) - 'the child was... 14 years of age or older at the time the child is alleged to have committed a capital felony, an aggravated controlled substance felony, or a felony of the first degree...'"
+                question: "Which of the following is a requirement for a valid juvenile confession?",
+                options: ["Given in the presence of a law enforcement officer", "Given after warnings by a magistrate", "Given without any warnings", "Given only to a parent"],
+                answer: "Given after warnings by a magistrate",
+                explanation: "Juvenile confessions must be preceded by warnings from a magistrate, not just law enforcement.",
+                reference: "FC 51.095"
             },
             {
-                question: "What rights must be given to a child and their attorney before a waiver hearing?",
-                options: ["The right to a jury trial at the waiver hearing.", "Access to all written materials to be considered by the court.", "The right to have the hearing closed to the public.", "The right to choose the judge for the hearing."],
-                answer: "Access to all written materials to be considered by the court.",
-                explanation: "Due process requires that the child and their legal counsel have the opportunity to review all evidence, reports, and records that the judge will consider when making the critical decision to waive jurisdiction.",
-                reference: "Handout Page 8: FC 54.02(e) - 'the court shall provide the attorney for the child with access to all written matter to be considered by the court in making the transfer decision.'"
+                question: "Which of the following is a right at a juvenile adjudication hearing?",
+                options: ["Right to a jury trial", "Right to remain silent", "Right to confront witnesses", "All of the above"],
+                answer: "All of the above",
+                explanation: "Juveniles have the right to a jury, to remain silent, and to confront witnesses at adjudication.",
+                reference: "FC 54.03"
             },
             {
-                question: "When may a law enforcement officer take a child into custody without a warrant or court order?",
-                options: ["Only if the child commits a felony in the officer's presence.", "Pursuant to the laws of arrest of this state.", "If the child is disrespectful to the officer.", "Only with the parent's permission."],
-                answer: "Pursuant to the laws of arrest of this state.",
-                explanation: "Generally, the same laws of arrest that apply to adults (e.g., probable cause for a felony, an offense committed in view) also apply to taking a child into custody.",
-                reference: "Handout Page 9: FC 52.01(a)(2) - 'pursuant to the laws of arrest'.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.01</a>"
+                question: "What is the minimum age for a child to be certified as an adult for a first-degree felony?",
+                options: ["10", "12", "14", "16"],
+                answer: "14",
+                explanation: "A child must be at least 14 years old to be certified as an adult for a first-degree felony.",
+                reference: "FC 54.02(a)(2)(A)"
             },
             {
-                question: "An officer takes a child into custody. What is the officer's primary duty regarding the child's parent or guardian?",
-                options: ["To wait for the parent to contact them.", "To promptly give notice of the officer's action and a statement of the reason for taking the child into custody.", "To ask the child if they want their parents notified.", "To only notify the parents if an arrest is made."],
-                answer: "To promptly give notice of the officer's action and a statement of the reason for taking the child into custody.",
-                explanation: "FC 52.02(b) mandates that an officer must promptly notify the parents and inform them of the reason for the custody, ensuring parents are aware of their child's situation.",
-                reference: "Handout Page 10: FC 52.02(b) - 'A person taking a child into custody shall promptly give notice of the person's action and a statement of the reason for taking the child into custody, to... the child's parent, guardian, or custodian...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.02</a>"
+                question: "Which of the following is a risk factor for youth gang involvement?",
+                options: ["Lack of parental supervision", "Peer pressure", "Community disorganization", "All of the above"],
+                answer: "All of the above",
+                explanation: "Risk factors for gang involvement include individual, family, peer, school, and community factors.",
+                reference: "Youth Gangs section, handout"
             },
             {
-                question: "A child taken into custody for delinquent conduct that includes violence must be taken where?",
-                options: ["Directly to an adult jail.", "To a juvenile processing office for the issuance of a warning notice.", "To a certified juvenile detention facility.", "Home to their parents."],
-                answer: "To a certified juvenile detention facility.",
-                explanation: "For serious offenses involving violence, the law requires the child to be taken to a secure detention facility rather than being released or taken to a non-secure facility.",
-                reference: "Handout Page 11: FC 52.02(a)(3) - 'if the child is taken into custody for delinquent conduct that includes a violent offense... the child shall be taken to a certified juvenile detention facility...'"
+                question: "Which of the following is NOT a valid reason for detention of a juvenile?",
+                options: ["No suitable supervision", "Danger to self or public", "To punish the child", "Risk of absconding"],
+                answer: "To punish the child",
+                explanation: "Detention is not for punishment, but for safety, supervision, and court appearance reasons.",
+                reference: "FC 53.02"
             },
             {
-                question: "What is a 'juvenile processing office'?",
-                options: ["An adult jail.", "A courtroom for juvenile cases.", "An office designated by the juvenile board for processing children taken into custody.", "A school principal's office."],
-                answer: "An office designated by the juvenile board for processing children taken into custody.",
-                explanation: "This is a specific, designated location where law enforcement can legally take a juvenile for temporary processing like fingerprinting, photographing, and completing paperwork.",
-                reference: "Handout Page 12: FC 52.025(a) - 'A child may be brought to a juvenile processing office...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.025' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.025</a>"
+                question: "What is the purpose of a detention hearing?",
+                options: ["To determine guilt or innocence", "To determine if continued detention is necessary", "To sentence the child", "To appoint a guardian"],
+                answer: "To determine if continued detention is necessary",
+                explanation: "Detention hearings are to review the need for continued detention, not to determine guilt.",
+                reference: "FC 54.01"
             },
             {
-                question: "For how long may a child be detained in a juvenile processing office?",
-                options: ["For an unlimited time.", "Not to exceed 24 hours.", "Not to exceed 12 hours.", "Not to exceed six hours."],
-                answer: "Not to exceed six hours.",
-                explanation: "The law places a strict six-hour time limit on how long a child can be held in a processing office to prevent it from becoming a de facto detention facility.",
-                reference: "Handout Page 12: FC 52.025(d) - 'A child may not be detained in a juvenile processing office for more than six hours.'"
+                question: "Which of the following is a possible outcome of a disposition hearing?",
+                options: ["Probation", "Commitment to TJJD", "Dismissal", "All of the above"],
+                answer: "All of the above",
+                explanation: "Disposition hearings can result in probation, commitment, or dismissal, among other outcomes.",
+                reference: "FC 54.04"
             },
             {
-                question: "What is a 'First Offender Program' under the Family Code?",
-                options: ["A program for juveniles who commit capital murder.", "A voluntary program for children who commit a misdemeanor, other than a traffic offense, for which they have no prior referrals.", "A mandatory boot camp for all juvenile offenders.", "A program run by the adult probation department."],
-                answer: "A voluntary program for children who commit a misdemeanor, other than a traffic offense, for which they have no prior referrals.",
-                explanation: "This program offers a diversionary path for low-level, first-time offenders, allowing them to avoid formal court proceedings by completing certain requirements.",
-                reference: "Handout Page 13: FC 52.031(a) & (b) - Describes the first offender program.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.031' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 52.031</a>"
+                question: "What is the difference between a secure detention facility and a secure correctional facility?",
+                options: ["Detention is for temporary holding, correctional is for adjudicated juveniles", "There is no difference", "Correctional is for adults only", "Detention is for adults only"],
+                answer: "Detention is for temporary holding, correctional is for adjudicated juveniles",
+                explanation: "Detention is for pre-adjudication, correctional is for post-adjudication placement.",
+                reference: "FC 51.02(7)-(8)"
             },
             {
-                question: "A child who is detained must have a detention hearing held no later than what time?",
-                options: ["The seventh working day after being taken into custody.", "The fifth working day after being taken into custody.", "The second working day after being taken into custody.", "Within 24 hours of being taken into custody."],
-                answer: "The second working day after being taken into custody.",
-                explanation: "This requirement ensures a prompt judicial review of the decision to detain a child, protecting their liberty interests.",
-                reference: "Handout Page 14: FC 54.01(a) - 'a detention hearing... shall be held not later than the second working day after the child is taken into custody...'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 54.01</a>"
+                question: "Which of the following is a requirement for nonsecure custody?",
+                options: ["Unlocked area", "No physical restraints", "Continuous visual supervision", "All of the above"],
+                answer: "All of the above",
+                explanation: "Nonsecure custody must be in an unlocked area, with no restraints, and under constant supervision.",
+                reference: "CCP 45A.453"
             },
             {
-                question: "What rights does a child have at a detention hearing?",
-                options: ["The right to a jury.", "The right to remain silent, the right to an attorney, and the right to confront and cross-examine witnesses.", "The right to have their parents testify for them.", "The right to be released immediately."],
-                answer: "The right to remain silent, the right to an attorney, and the right to confront and cross-examine witnesses.",
-                explanation: "Even at this early stage, the child is afforded fundamental due process rights, including the right to counsel and the right against self-incrimination.",
-                reference: "Handout Page 15: FC 51.10(b) & FC 54.01(d) - Outlines the rights at a hearing.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.10' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.10</a>"
+                question: "What is the first step in the juvenile process flowchart?",
+                options: ["Referral to juvenile court", "Law enforcement/citizen complaint", "Detention hearing", "Adjudication hearing"],
+                answer: "Law enforcement/citizen complaint",
+                explanation: "The process begins with a complaint or referral to authorities.",
+                reference: "Process Flowcharts section"
             },
             {
-                question: "Before a child's statement can be used in court, what warning must be given by a magistrate?",
-                options: ["The standard Miranda warning.", "A warning that includes the right to have an attorney present and the right to terminate the interview at any time.", "A warning that their parents will be held responsible.", "A warning that they will be tried as an adult."],
-                answer: "A warning that includes the right to have an attorney present and the right to terminate the interview at any time.",
-                explanation: "FC 51.095 requires a specific, enhanced warning to be given by a magistrate to a child before a custodial statement can be taken, providing greater protection than the standard adult Miranda warning.",
-                reference: "Handout Page 16: FC 51.095(a)(1)(A) - Lists the specific warnings required.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.095' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 51.095</a>"
+                question: "Which of the following is a difference between adult and juvenile court terminology?",
+                options: ["Defendant vs. Respondent", "Conviction vs. Adjudication", "Sentencing vs. Disposition", "All of the above"],
+                answer: "All of the above",
+                explanation: "Juvenile and adult courts use different terms for similar concepts.",
+                reference: "Process Flowcharts section"
             },
             {
-                question: "For a written statement made by a child in custody to be admissible, who must be present when the child signs it (unless an attorney is present)?",
-                options: ["A law enforcement officer.", "A probation officer.", "The magistrate who gave the warnings.", "The child's parent."],
-                answer: "The magistrate who gave the warnings.",
-                explanation: "The magistrate must be present to witness the child's signature, ensuring there is no coercion and that the child understands what they are signing.",
-                reference: "Handout Page 17: FC 51.095(a)(1)(D) - 'the statement must be signed in the presence of a magistrate by the child...'"
+                question: "Who may waive a child's rights in a juvenile proceeding?",
+                options: ["The child alone", "The child's attorney alone", "The child and the child's attorney", "The child's parent"],
+                answer: "The child and the child's attorney",
+                explanation: "Both the child and their attorney must agree to waive rights in juvenile proceedings.",
+                reference: "FC 51.09"
             },
             {
-                question: "When can a child's oral statement made as a result of custodial interrogation be admissible in court?",
-                options: ["At any time if it is recorded.", "If the statement is found to be true and establishes the child's guilt ('statement against interest').", "If the child's parents give permission.", "Oral statements from juveniles are never admissible."],
-                answer: "If the statement is found to be true and establishes the child's guilt ('statement against interest').",
-                explanation: "This is a key exception. An oral statement can be used if it contains information, later found to be true, that only the guilty person would know, thus corroborating its reliability.",
-                reference: "Handout Page 18: FC 51.095(a)(5) - 'the statement is found to be true and tends to establish the child's guilt...'"
+                question: "What is required for a polygraph examination of a child in custody?",
+                options: ["Consent of the child's attorney or juvenile court", "Consent of the parent", "No consent required", "Only law enforcement approval"],
+                answer: "Consent of the child's attorney or juvenile court",
+                explanation: "A polygraph requires consent from the child's attorney or the court.",
+                reference: "FC 51.151"
             },
             {
-                question: "Under what circumstances may a child's fingerprints be taken without the consent of the juvenile court?",
-                options: ["For any offense.", "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.", "Only if the child is 14 or older.", "Never without a court order."],
-                answer: "If the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.",
-                explanation: "FC 58.002 allows for fingerprinting without a court order for more serious offenses (Class B misdemeanors and above).",
-                reference: "Handout Page 19: FC 58.002(a)(1) - 'A child's fingerprints may be taken... if the child is taken into custody for conduct that constitutes a felony or a misdemeanor punishable by confinement in jail.'<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.58.htm#58.002' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 58.002</a>"
+                question: "Which of the following is a possible penalty for failure to report suspected child abuse?",
+                options: ["Class A misdemeanor", "Class B misdemeanor", "Class C misdemeanor", "Felony"],
+                answer: "Class A misdemeanor",
+                explanation: "Failure to report suspected child abuse is a Class A misdemeanor in Texas.",
+                reference: "FC 261.109"
             },
             {
-                question: "If a child's fingerprints are taken, what must be done with the fingerprint card if the child is not referred to juvenile court within 10 days?",
-                options: ["It must be sent to the FBI.", "It must be destroyed.", "It must be filed with the district clerk.", "It must be given to the child's parents."],
-                answer: "It must be destroyed.",
-                explanation: "This provision protects the privacy of children who are not formally charged, ensuring their prints are not kept on file if the case does not proceed.",
-                reference: "Handout Page 19: FC 58.002(b) - 'If the child is not referred to the juvenile court... the law enforcement agency shall destroy the fingerprints...'"
+                question: "Which of the following is a valid reason for a field release of a juvenile?",
+                options: ["Fine-only offense", "Felony offense", "Violent offense", "All of the above"],
+                answer: "Fine-only offense",
+                explanation: "Field release is allowed for fine-only or traffic offenses, not for felonies or violence.",
+                reference: "CCP 14.06"
             },
             {
-                question: "What is the purpose of sealing juvenile records?",
-                options: ["To make them available to the public.", "To allow a person to legally deny the arrest and proceedings ever occurred.", "To transfer them to the adult criminal justice system.", "To preserve them for historical purposes."],
-                answer: "To allow a person to legally deny the arrest and proceedings ever occurred.",
-                explanation: "Sealing records provides a fresh start, removing the legal disabilities of a juvenile record and allowing the person to move forward without the stigma of their past offenses.",
-                reference: "Handout Page 20: FC 58.259(a) - 'the person may deny the occurrence of the arrest and the existence of the sealed records...'"
+                question: "What is the maximum fine for contempt in JP/municipal court for a child?",
+                options: ["$100", "$250", "$500", "$1000"],
+                answer: "$500",
+                explanation: "The maximum fine for contempt in JP/municipal court is $500.",
+                reference: "CCP 45A.457"
             },
             {
-                question: "Under what circumstances are juvenile records eligible for automatic sealing (restricted access)?",
-                options: ["For any adjudicated offense.", "If the person is 19, the offense was a misdemeanor, and they were not certified as an adult.", "For all felony offenses.", "Only if the case was dismissed."],
-                answer: "If the person is 19, the offense was a misdemeanor, and they were not certified as an adult.",
-                explanation: "The law provides for automatic restriction of records for less serious offenses once the person reaches a certain age, provided they meet all the criteria.",
-                reference: "Handout Page 21: FC 58.253(c) - Lists the conditions for automatic restricted access.<br><a href='https://statutes.capitol.texas.gov/Docs/FA/htm/FA.58.htm#58.253' target='_blank' class='text-indigo-600 hover:underline'>Texas Family Code § 58.253</a>"
+                question: "Which of the following is a requirement for school notification under CCP 15.27?",
+                options: ["Oral notice within 24 hours", "Written notice within 7 days", "Both oral and written notice", "All of the above"],
+                answer: "All of the above",
+                explanation: "Both oral and written notice are required for school notification under CCP 15.27.",
+                reference: "CCP 15.27"
             },
             {
-                question: "What is the primary difference between a 'child' and a 'juvenile' in the context of the Family Code?",
-                options: ["There is no difference.", "A 'child' is under 17, while a 'juvenile' is 17-18.", "The terms are used interchangeably and have the same legal meaning.", "A 'child' is a person of a certain age, while 'juvenile' is a broader term often used to describe the system or the offender."],
-                answer: "A 'child' is a person of a certain age, while 'juvenile' is a broader term often used to describe the system or the offender.",
-                explanation: "The Family Code provides a precise legal definition for 'child' (10 to under 17). 'Juvenile' is a more general term used to refer to the entire justice system and the youth involved in it.",
-                reference: "Handout Page 2: 'Child vs. Juvenile' slide."
+                question: "What is the penalty for unauthorized disclosure of confidential juvenile information?",
+                options: ["Class A misdemeanor", "Class B misdemeanor", "Class C misdemeanor", "Felony"],
+                answer: "Class C misdemeanor",
+                explanation: "Unauthorized disclosure of confidential juvenile information is a Class C misdemeanor.",
+                reference: "FC 58.007"
             },
             {
-                question: "A 16-year-old is arrested for DWI. This is an example of what type of conduct?",
-                options: ["Conduct Indicating a Need for Supervision (CINS)", "A status offense", "Delinquent Conduct", "A traffic offense not under juvenile court jurisdiction."],
-                answer: "Delinquent Conduct",
-                explanation: "DWI is a violation of the Penal Code punishable by confinement in jail. Therefore, when committed by a child, it is classified as delinquent conduct.",
-                reference: "Handout Page 4: FC 51.03(a)(1) includes violations of penal laws punishable by jail. DWI is in the Penal Code."
+                question: "Which of the following is a requirement for a valid school notification?",
+                options: ["Marked 'PERSONAL and CONFIDENTIAL'", "Sent to the student's teacher", "Sent to the school board", "None of the above"],
+                answer: "Marked 'PERSONAL and CONFIDENTIAL'",
+                explanation: "Written school notifications must be marked 'PERSONAL and CONFIDENTIAL'.",
+                reference: "CCP 15.27"
+            },
+            {
+                question: "Which of the following is a requirement for a valid juvenile record sealing?",
+                options: ["No pending charges", "No adult felony convictions", "Sufficient time since discharge", "All of the above"],
+                answer: "All of the above",
+                explanation: "All these conditions must be met for record sealing.",
+                reference: "FC 58.256"
+            },
+            {
+                question: "Which of the following is a possible outcome of a juvenile court finding?",
+                options: ["Adjudication", "Dismissal", "Supervision", "All of the above"],
+                answer: "All of the above",
+                explanation: "Juvenile court findings can result in adjudication, dismissal, or supervision.",
+                reference: "FC 54.03, 54.04"
+            },
+            {
+                question: "What is the purpose of the 'sight and sound' separation rule?",
+                options: ["To keep juveniles from seeing or hearing adult inmates", "To keep parents away from children", "To separate boys and girls", "To separate staff from juveniles"],
+                answer: "To keep juveniles from seeing or hearing adult inmates",
+                explanation: "Sight and sound separation is required to protect juveniles from adult inmates.",
+                reference: "FC 51.12(f)"
+            },
+            {
+                question: "Which of the following is a requirement for a valid field release?",
+                options: ["Release to a responsible adult", "Written promise to appear", "Offense is fine-only or traffic", "All of the above"],
+                answer: "All of the above",
+                explanation: "All these are required for a valid field release.",
+                reference: "CCP 14.06"
+            },
+            {
+                question: "Which of the following is a requirement for a valid juvenile processing office?",
+                options: ["Designated by the juvenile board", "Not a cell or holding facility", "No child left unattended", "All of the above"],
+                answer: "All of the above",
+                explanation: "A juvenile processing office must meet all these requirements.",
+                reference: "FC 52.025"
+            },
+            {
+                question: "Which of the following is a requirement for a valid nonsecure custody?",
+                options: ["Unlocked area", "No physical restraints", "Continuous visual supervision", "All of the above"],
+                answer: "All of the above",
+                explanation: "Nonsecure custody must be in an unlocked area, with no restraints, and under constant supervision.",
+                reference: "CCP 45A.453"
+            },
+            {
+                question: "Which of the following is a requirement for a valid school notification?",
+                options: ["Oral notice within 24 hours", "Written notice within 7 days", "Marked 'PERSONAL and CONFIDENTIAL'", "All of the above"],
+                answer: "All of the above",
+                explanation: "All these are required for a valid school notification.",
+                reference: "CCP 15.27"
             }
         ];
 

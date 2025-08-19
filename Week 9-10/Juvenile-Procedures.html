@@ -96,12 +96,15 @@
         <div class="mb-8 border-b border-gray-200">
             <nav class="flex flex-wrap -mb-px" id="main-tabs">
                 <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-definitions">Definitions & Conduct</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-school-notification">School Notification</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-detention">Intake & Detention</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-disposition">Disposition & JP/Muni Court</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-parental-rights">Parental Rights</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-youth-gangs">Youth Gangs</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-custody">Custody & Processing</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-statements">Statements & Rights</button>
-                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-court">Court Process & Dispositions</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-court">Court Process</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-flowcharts">Process Flowcharts</button>
-                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-parents">Parents & Schools</button>
-                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-gangs">Youth Gangs</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">Knowledge Check</button>
             </nav>
         </div>
@@ -110,61 +113,247 @@
         <main id="tab-content">
             <!-- Definitions & Conduct Tab -->
             <div id="tab-definitions" class="tab-pane active">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Key Definitions & Types of Conduct</h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Key Definitions & Statutory Authority</h2>
                 <div class="space-y-6">
                     <details class="card p-0" open>
-                        <summary>Key Definitions (FC 51.02)</summary>
+                        <summary>Comprehensive Definitions & Purpose (FC 51.01, 51.02)</summary>
                         <div class="p-6 border-t">
                             <div class="info-block definitions">
                                 <ul>
-                                    <li><strong>Child:</strong> A person who is 10 years of age or older and under 17; OR 17 or older and under 18 who is alleged to have engaged in delinquent conduct or CINS as a result of acts committed before turning 17.</li>
-                                    <li><strong>Status Offender:</strong> A child accused of conduct that would <strong>NOT</strong> be a crime if committed by an adult (e.g., runaway, truancy).</li>
-                                    <li><strong>Nonoffender:</strong> A child subject to court jurisdiction for abuse/neglect, or held solely for deportation.</li>
-                                    <li><strong>Secure Correctional/Detention Facility:</strong> A facility with construction fixtures designed to physically restrict the movements of juveniles.</li>
-                                    <li><strong>Referral to juvenile court:</strong> The referral of a child or the child's case to the office or official... designated by the juvenile board to process children within the juvenile justice system.</li>
+                                    <li><strong>Purpose (FC 51.01):</strong> Protection of the public, promote punishment for criminal acts, remove taint of criminality from children, provide treatment/rehab, protect community welfare, and ensure fair judicial procedure. <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.01" target="_blank" class="text-blue-600 hover:underline">View FC 51.01</a></li>
+                                    <li><strong>Child:</strong> 10-16 years old, or 17+ and under 18 if alleged to have engaged in delinquent conduct or CINS before turning 17. <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02" target="_blank" class="text-blue-600 hover:underline">View FC 51.02</a></li>
+                                    <li><strong>Status Offender:</strong> Accused/adjudicated/convicted for conduct that would not be criminal for an adult (truancy, runaway, school code violations, TABC/minor-only offenses, etc.).</li>
+                                    <li><strong>Nonoffender:</strong> Child subject to court jurisdiction for abuse/neglect, or held solely for deportation.</li>
+                                    <li><strong>Secure Correctional/Detention Facility:</strong> Facility with construction fixtures designed to physically restrict movement; used for adjudicated juveniles or nonoffenders.</li>
+                                    <li><strong>Referral to juvenile court:</strong> Any way a case gets to juvenile officials (arrest, report, etc.).</li>
+                                    <li><strong>Other Key Terms:</strong> Parent, custodian, guardian, dual status child, party, prosecuting attorney, valid court order, etc. (see FC 51.02 for all definitions).</li>
                                 </ul>
                             </div>
-                            <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.02" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 51.02</a>
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li><strong>CCP 15.27:</strong> Law enforcement must notify school officials within 24 hours of arrest or referral for felonies or certain misdemeanors. <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.15.htm#15.27" target="_blank" class="text-blue-600 hover:underline">View CCP 15.27</a></li>
+                                    <li><strong>CCP 45A.453:</strong> Nonsecure custody for JP/municipal cases: max 6 hours, no physical restraints, continuous visual supervision, unlocked area. <a href="https://statutes.capitol.texas.gov/Docs/CN/htm/CN.45A.htm#45A.453" target="_blank" class="text-blue-600 hover:underline">View CCP 45A.453</a></li>
+                                    <li><strong>Health & Safety Code 261.101:</strong> Officers must report suspected child abuse/neglect to CPS. <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.261.htm#261.101" target="_blank" class="text-blue-600 hover:underline">View FC 261.101</a></li>
+                                </ul>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
-                        <summary>Delinquent Conduct vs. CINS (FC 51.03)</summary>
+                        <summary>Delinquent Conduct & CINS (FC 51.03, 51.031)</summary>
                         <div class="p-6 border-t">
-                             <div class="info-block concepts">
-                                <p><strong>Delinquent Conduct:</strong></p>
-                                <ul>
-                                    <li>Conduct, other than a traffic offense, that violates a state or federal penal law punishable by imprisonment or jail. (Most Class B misdemeanors and above).</li>
-                                    <li>Violations of certain court orders (contempt).</li>
-                                    <li>DWI, Intoxication Assault, Intoxication Manslaughter.</li>
-                                </ul>
-                                <div class="info-block example"><p><strong>Example:</strong> A 15-year-old steals a car (Unauthorized Use of a Vehicle, a state jail felony).</p></div>
-                            </div>
                             <div class="info-block concepts">
-                                <p><strong>Conduct Indicating a Need for Supervision (CINS):</strong></p>
-                                <ul>
-                                    <li>Class C misdemeanors (other than traffic).</li>
-                                    <li>Running away from home.</li>
-                                    <li>Inhaling paint or glue fumes.</li>
-                                    <li>Expellable violations of a school district's code of conduct.</li>
-                                </ul>
-                                <div class="info-block example"><p><strong>Example:</strong> A 14-year-old is found by police at 2 AM after having left home two days ago without permission.</p></div>
+                                <p><strong>Delinquent Conduct:</strong> Violates penal law (Class B or above), court order contempt, DWI/Intoxication offenses, repeat DUI-minor, etc. <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.03" target="_blank" class="text-blue-600 hover:underline">View FC 51.03</a></p>
+                                <p><strong>Habitual Felony Conduct:</strong> Two prior final felony adjudications, third offense is a felony (other than state jail). <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.031" target="_blank" class="text-blue-600 hover:underline">View FC 51.031</a></p>
+                                <p><strong>CINS:</strong> Class C misdemeanors (other than traffic), runaway, inhalant use, school code violations, prostitution, electronic transmission of certain visual material, etc.</p>
                             </div>
-                             <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.03" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 51.03</a>
+                        </div>
+                    </details>
+                    <!-- Additional details, statutory links, and all content from the TXT will be added in further patches, section by section, until the entire handout is represented. -->
+                </div>
+            </div>
+            <!-- School Notification & Reporting Tab -->
+            <div id="tab-school-notification" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">School Notification & Reporting</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Statutory Requirement (CCP 15.27)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li><strong>Oral notification</strong> to the superintendent or designee must be made within 24 hours or before the next school day, whichever is earlier, for a student's arrest, referral, conviction, or adjudication for felonies and certain misdemeanors.</li>
+                                    <li><strong>Written notification</strong> (marked "PERSONAL and CONFIDENTIAL") must be mailed <strong>within 7 days</strong> of the oral notice and include all facts from the oral notice, the name of the person notified, and the date/time of the oral notice.</li>
+                                    <li>Both oral and written notices must include all pertinent details of the arrest/referral, including any assaultive behavior, violence, weapons used or possessed, and any information needed for threat assessment or safety planning if requested by the superintendent.</li>
+                                    <li>Electronic notice may substitute for oral notice; if so, written notice is not required.</li>
+                                    <li>School officials must notify all personnel with direct supervisory responsibility over the student. All personnel must keep the information confidential.</li>
+                                    <li>Unauthorized disclosure is a Class C misdemeanor. Failure to report by law enforcement, school, or prosecution personnel must be reported to TCOLE, State Board for Educator Certification, or the elected DA, as appropriate.</li>
+                                    <li>Prosecutors and probation/parole officers have similar notification duties for convictions, adjudications, and student transfers.</li>
+                                </ul>
+                                <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.15.htm#15.27" target="_blank" class="text-blue-600 hover:underline">View CCP 15.27</a>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
-                        <summary>Habitual Felony Conduct (FC 51.031)</summary>
+                        <summary>Who Must Be Notified & What Must Be Included</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li>Notification must go to the superintendent or designee of the school district in which the student is enrolled (or principal for private schools).</li>
+                                    <li>School officials must notify all instructional/support personnel with direct supervisory responsibility over the student.</li>
+                                    <li>Notices must include all pertinent details: offense, violence, weapons, and any threat assessment or safety plan information requested.</li>
+                                    <li>All personnel must keep the information confidential; unauthorized disclosure is a Class C misdemeanor.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Failure to Report & Penalties</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li>Failure to report by law enforcement, school, or prosecution personnel must be reported to TCOLE, State Board for Educator Certification, or the elected DA, as appropriate.</li>
+                                    <li>Prosecutors and probation/parole officers have similar notification duties for convictions, adjudications, and student transfers.</li>
+                                    <li>It is a Class C misdemeanor to intentionally disclose unauthorized information.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Example Scenario</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block example">
+                                <p><strong>Example:</strong> An officer arrests a 16-year-old student for a felony. The agency must orally notify the school superintendent within 24 hours or before the next school day, and mail written notice within 7 days. The school must notify all staff with direct supervisory responsibility for the student.</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Intake, Detention, and Hearings Tab -->
+            <div id="tab-detention" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Intake, Detention, and Hearings</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Preliminary Investigation (FC 53.01)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Upon referral, the intake/probation officer or board designee must determine if the person is a child and if there is probable cause for delinquent conduct, CINS, or nonoffender status. If not, the person must be released.</p>
+                                <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.53.htm#53.01" target="_blank" class="text-blue-600 hover:underline">View FC 53.01</a>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Release from Detention (FC 53.02)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li>Release is required unless detention is warranted for: risk of absconding, no suitable supervision, no parent to return child to court, danger to self/public, prior delinquency and likely to reoffend, or use/possession of firearm in alleged offense.</li>
+                                    <li>Conditions of release may be imposed (similar to bond).</li>
+                                    <li>Absent these, the child must be released while the case proceeds.</li>
+                                </ul>
+                                <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.53.htm#53.02" target="_blank" class="text-blue-600 hover:underline">View FC 53.02</a>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Detention Hearings (FC 54.01, 54.011)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li>Detention hearing (no jury) must be held within 2 working days (or 1st working day if detained on Friday/Saturday).</li>
+                                    <li>Parents must be notified; court must appoint attorney if not retained.</li>
+                                    <li>Written reports from probation/court staff are considered; officers should have all reports/statements ready.</li>
+                                    <li>Unless justified, the court must release the child. If detained, new hearing every 10 days.</li>
+                                    <li>Status offenders/nonoffenders: hearing within 24 hours, must be released unless valid court order violation; nonoffenders may not be detained in secure facilities (Class B misdemeanor for violation).</li>
+                                </ul>
+                                <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.01" target="_blank" class="text-blue-600 hover:underline">View FC 54.01</a> | <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.54.htm#54.011" target="_blank" class="text-blue-600 hover:underline">View FC 54.011</a>
+                            </div>
+                            <div class="info-block example mt-4"><p><strong>Example:</strong> A 14-year-old is detained for aggravated assault. The court must hold a hearing within 2 working days and notify the parents. If the child is a status offender, a hearing must be held within 24 hours and the child released unless a valid court order was violated.</p></div>
+                            <div class="info-block procedures mt-4">
+                                <ul>
+                                    <li><strong>Secure Detention Facility:</strong> Used for temporary placement of accused juveniles or nonoffenders. Must be physically separated from adults (sight and sound separation).</li>
+                                    <li><strong>Secure Correctional Facility:</strong> Used for adjudicated juveniles or nonoffenders, includes construction fixtures for physical restriction.</li>
+                                    <li><strong>Nonsecure Custody:</strong> Unlocked, multipurpose area (not a cell), no physical restraints, continuous visual supervision, max 6 hours.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Directive to Apprehend & Field Release (FC 52.015, CCP 14.06)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li><strong>Directive to Apprehend:</strong> Juvenile court may issue on request of law enforcement/probation officer if probable cause exists. Not subject to appeal.</li>
+                                    <li><strong>Field Release:</strong> Officers may issue a citation instead of custody for certain fine-only or traffic offenses, or for public intoxication if released to a responsible adult.</li>
+                                </ul>
+                            </div>
+                            <div class="info-block example"><p><strong>Example:</strong> An officer issues a field release citation to a 16-year-old for a traffic offense, releasing them to their parent at the scene.</p></div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.015" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View FC 52.015</a> | <a href="https://statutes.capitol.texas.gov/Docs/CN/htm/CN.14.htm#14.06" target="_blank" class="text-blue-600 hover:underline">View CCP 14.06</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Disposition & Municipal/JP Court Tab -->
+            <div id="tab-disposition" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Disposition, First Offender Programs, and JP/Municipal Court</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Disposition Without Referral (FC 52.03, 52.031, 52.032)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li>Class C (non-traffic) cases may be disposed of without court referral if authorized by juvenile board guidelines and reported in writing by the officer.</li>
+                                    <li>No disposition may keep the child in law enforcement custody or require periodic reporting.</li>
+                                    <li>First Offender Programs: For CINS, Class C (non-traffic), or delinquent conduct (not for felonies/violence/firearms). Child/parent must consent; successful completion closes the case without court referral.</li>
+                                </ul>
+                                <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.03" target="_blank" class="text-blue-600 hover:underline">View FC 52.03</a> | <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.031" target="_blank" class="text-blue-600 hover:underline">View FC 52.031</a> | <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.032" target="_blank" class="text-blue-600 hover:underline">View FC 52.032</a>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>JP/Municipal Court: Fines, Contempt, and Orders (CCP 45A.461, 45A.457)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li>Children (10-17) may not be confined for failure to pay fines, appear, or contempt in JP/municipal court.</li>
+                                    <li>Contempt: Court may refer to juvenile court or impose fines (up to $500) or suspend/deny driver's license.</li>
+                                    <li>Orders may require services, program attendance, parental involvement, and address notification. Failure to comply may result in contempt or Class C misdemeanor.</li>
+                                </ul>
+                                <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.45A.htm#45A.461" target="_blank" class="text-blue-600 hover:underline">View CCP 45A.461</a> | <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.45A.htm#45A.457" target="_blank" class="text-blue-600 hover:underline">View CCP 45A.457</a>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Parental Rights & Duties Tab -->
+            <div id="tab-parental-rights" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Parental Rights & Duties</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Parental Rights & Duties (FC 151.001, 151.003, 153.074)</summary>
                         <div class="p-6 border-t">
                             <div class="info-block definitions">
-                                <p>Conduct violating a penal law of the grade of felony (other than a state jail felony), IF:</p>
                                 <ul>
-                                    <li>The child who engaged in the conduct has at least <strong>two previous final adjudications</strong> as having engaged in delinquent conduct violating a penal law of the grade of felony;</li>
-                                    <li>The second previous final adjudication is for conduct that occurred after the date the first previous adjudication became final; and</li>
-                                    <li>All appeals relating to the previous adjudications have been exhausted.</li>
+                                    <li>Physical possession, moral/religious training, designate residence</li>
+                                    <li>Care, control, protection, reasonable discipline</li>
+                                    <li>Support (clothing, food, shelter, medical/dental care, education)</li>
+                                    <li>Manage child's estate (unless guardian appointed)</li>
+                                    <li>Consent to marriage, enlistment, medical/psychological/surgical care</li>
+                                    <li>Represent child in legal actions, make legal decisions</li>
+                                    <li>Receive/give support payments, hold/disburse funds</li>
+                                    <li>Inheritance rights</li>
+                                    <li>Make educational decisions</li>
+                                    <li>Corporal punishment: Only by parent, grandparent, stepparent, or guardian with duty of control</li>
+                                    <li>State agencies may not violate fundamental parental rights (FC 151.003)</li>
+                                    <li>During periods of possession, conservators have care, support, medical, and religious training rights (FC 153.074)</li>
                                 </ul>
-                                <div class="info-block example"><p><strong>Example:</strong> A 16-year-old commits an Aggravated Robbery and has two prior final adjudications for Burglary of a Habitation.</p></div>
                             </div>
-                            <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.031" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 51.031</a>
+                            <div class="info-block example mt-4"><p><strong>Example:</strong> A parent may consent to medical care for their child, but a stepparent may only do so if they have legal authority or are the managing conservator.</p></div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.151.htm#151.001" target="_blank" class="text-blue-600 hover:underline">View FC 151.001</a> | <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.151.htm#151.003" target="_blank" class="text-blue-600 hover:underline">View FC 151.003</a> | <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.153.htm#153.074" target="_blank" class="text-blue-600 hover:underline">View FC 153.074</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Youth Gangs & Risk Factors Tab -->
+            <div id="tab-youth-gangs" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Youth Gangs: Risk Factors & Needs</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Youth Gangs: Risk Factors & Needs</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <ul>
+                                    <li><strong>Five Domains of Risk Factors:</strong> Individual, Family, School, Peers, Community</li>
+                                    <li>Needs met by gangs: Status, self-worth, acceptance, fun/excitement, credibility, protection, identity, bonding, wealth, survival</li>
+                                    <li>Societal strains: Unemployment, lack of bonding, discrimination, uncaring community, poor self-control, intimidation/aggression, illegal activity profitability</li>
+                                    <li>Phases: Minor mischief, seeking identity (colors, signals, graffiti, etc.), crime/criminal behavior</li>
+                                    <li>Most youth are not forced to join; joining is not permanent; multiple risk domains increase likelihood</li>
+                                </ul>
+                            </div>
+                            <div class="info-block example mt-4"><p><strong>Example:</strong> A 15-year-old joins a gang for protection and acceptance at school. The school resource officer identifies risk factors in the family and peer domains and refers the youth to intervention services.</p></div>
+                            <a href="https://www.dps.texas.gov/director_staff/media_and_communications/2018/txGangThreatAssessment201811.pdf" target="_blank" class="text-blue-600 hover:underline">Texas Gang Threat Assessment (DPS)</a>
                         </div>
                     </details>
                 </div>
@@ -177,16 +366,37 @@
                     <details class="card p-0" open>
                         <summary>Taking into Custody & Release (FC 52.01, 52.02)</summary>
                         <div class="p-6 border-t">
-                            <p class="mb-4">Taking a child into custody is <strong>not an arrest</strong> except for the purpose of determining the validity of taking him into custody or the validity of a search.</p>
                             <div class="info-block procedures">
-                                <p><strong>After taking a child into custody, an officer shall without unnecessary delay:</strong></p>
+                                <p>Taking a child into custody is <strong>not an arrest</strong> except for the purpose of determining the validity of taking him into custody or the validity of a search.</p>
                                 <ul>
-                                    <li>Release the child to a parent, guardian, or other responsible adult.</li>
-                                    <li>Bring the child before the office or official designated by the juvenile board.</li>
-                                    <li>Bring the child to a designated detention facility.</li>
+                                    <li>Release to parent, guardian, custodian, or other responsible adult if they promise to bring the child to court.</li>
+                                    <li>Bring the child before the office/official designated by the juvenile board.</li>
+                                    <li>Bring the child to a designated detention facility or magistrate for delinquent conduct.</li>
+                                    <li>For Class C and Transportation Code offenses, citation may be issued instead of custody.</li>
                                 </ul>
-                                <div class="info-block example"><p><strong>Example:</strong> An officer sees a 15-year-old spray-painting graffiti on a wall, takes them into custody, and transports them to the county's juvenile processing office to await a parent.</p></div>
                             </div>
+                            <div class="info-block example mt-4"><p><strong>Example:</strong> An officer sees a 15-year-old spray-painting graffiti on a wall, takes them into custody, and transports them to the county's juvenile processing office to await a parent.</p></div>
+                            <div class="info-block procedures mt-4">
+                                <ul>
+                                    <li><strong>Nonsecure Custody:</strong> Unlocked, multipurpose area (not a cell), no physical restraints, continuous visual supervision, max 6 hours. May not be used for residential purposes.</li>
+                                    <li><strong>Cannot be secured to a stationary object (e.g., cuffing rail, chair, desk).</strong></li>
+                                    <li>Must be under continuous visual supervision by law enforcement or facility staff.</li>
+                                </ul>
+                            </div>
+                            <div class="info-block example mt-4"><p><strong>Example:</strong> A 13-year-old is held in a police station lobby (not a cell) for processing, under constant supervision, and released to a parent within 2 hours.</p></div>
+                            <div class="info-block procedures mt-4">
+                                <ul>
+                                    <li><strong>Field Release:</strong> For traffic or fine-only offenses, officers may issue a citation and release the child to a responsible adult at the scene.</li>
+                                </ul>
+                            </div>
+                            <div class="info-block example mt-4"><p><strong>Example:</strong> An officer issues a citation to a 14-year-old for a city ordinance violation and releases them to their guardian at the scene.</p></div>
+                            <div class="info-block procedures mt-4">
+                                <ul>
+                                    <li><strong>Civil vs. Criminal Incidents:</strong> Many custody disputes are civil. Officers may only intervene if a crime is about to occur or the child is in immediate danger. Must report to CPS if there is concern for the child's health or safety, even if no criminal offense is met.</li>
+                                    <li><strong>Relevant Penal Code Offenses:</strong> Interference with Child Custody (PC 25.03), Enticing a Child (PC 25.04), Harboring Runaway Child (PC 25.06), Interference with Rights of Guardian (PC 25.10).</li>
+                                </ul>
+                            </div>
+                            <div class="info-block example mt-4"><p><strong>Example:</strong> During a custody dispute, an officer finds no crime but is concerned for the child's safety. The officer files a CPS report and documents the report number in their incident report.</p></div>
                             <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.01" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 52.01 & 52.02</a>
                         </div>
                     </details>
@@ -201,25 +411,35 @@
                                     <li>A child may NOT be left unattended.</li>
                                 </ul>
                             </div>
-                            <div class="info-block procedures">
+                            <div class="info-block procedures mt-4">
                                 <p><strong>Nonsecure Custody for JP/Municipal Offenses (CCP 45A.453):</strong></p>
                                 <ul>
                                     <li>A child <strong>may not be secured physically to a cuffing rail, chair, or any stationary object</strong>.</li>
                                     <li>The child must be under <strong>continuous visual supervision</strong>.</li>
                                     <li>Detention in a place of nonsecure custody may not exceed <strong>six hours</strong>.</li>
+                                    <li>Nonsecure custody must be in an unlocked, multipurpose area (not a cell or secure area).</li>
+                                    <li>Residential use of the area is prohibited.</li>
+                                </ul>
+                                <ul>
+                                    <li><strong>Field Release (CCP 14.06):</strong> Officers may issue a citation instead of custody for certain fine-only or traffic offenses. <a href="https://statutes.capitol.texas.gov/Docs/CN/htm/CN.14.htm#14.06" target="_blank" class="text-blue-600 hover:underline">View CCP 14.06</a></li>
                                 </ul>
                             </div>
-                             <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.025" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 52.025</a>
+                            <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.52.htm#52.025" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 52.025</a>
                         </div>
                     </details>
-                     <details class="card p-0">
+                    <details class="card p-0">
                         <summary>Collection of Records (FC 58.001)</summary>
                         <div class="p-6 border-t">
                             <div class="info-block procedures">
                                 <p>Law enforcement shall forward all information (reports, fingerprints, photos) for a child taken into custody to the juvenile court on or before the <strong>10th calendar day</strong> after the date the child is taken into custody.</p>
-                                <div class="info-block example"><p><strong>Example:</strong> An officer takes a child into custody on August 1st. The complete file must be sent to the juvenile probation department by August 11th.</p></div>
+                                <div class="info-block example mt-4"><p><strong>Example:</strong> An officer takes a child into custody on August 1st. The complete file must be sent to the juvenile probation department by August 11th.</p></div>
                             </div>
-                             <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.58.htm#58.001" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 58.001</a>
+                            <div class="info-block procedures mt-4">
+                                <ul>
+                                    <li><strong>CCP 45A.454:</strong> Special requirements for citations/complaints for conduct on school property or vehicles (must submit offense report and witness/victim statements for children 12+). <a href="https://statutes.capitol.texas.gov/Docs/CN/htm/CN.45A.htm#45A.454" target="_blank" class="text-blue-600 hover:underline">View CCP 45A.454</a></li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.58.htm#58.001" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 58.001</a>
                         </div>
                     </details>
                 </div>
@@ -244,6 +464,17 @@
                                 <div class="info-block example"><p><strong>Example:</strong> A detective takes a 16-year-old burglary suspect to a magistrate. The judge reads the rights, the juvenile waives them, writes a confession, and signs it in front of the judge alone. The statement is admissible.</p></div>
                             </div>
                              <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.095" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 51.095</a>
+                            <div class="info-block procedures mt-4">
+                                <p><strong>Audio/Video Statement:</strong> Same magistrate warnings as written, but warnings must be recorded and child must waive each right on the recording. Each voice/person must be identified. Defense attorney is entitled to a copy at least 20 days before the proceeding.</p>
+                                <p><strong>Oral Statement:</strong> Admissible if facts are found to be true and tend to establish guilt (e.g., finding stolen property), or if made in open court, grand jury, or preliminary hearing.</p>
+                            </div>
+                            <div class="info-block example"><p><strong>Example:</strong> A juvenile confesses to theft during a recorded interview after being warned by a magistrate. The recording is provided to the defense attorney before trial.</p></div>
+                            <div class="info-block procedures mt-4">
+                                <ul>
+                                    <li><strong>Important:</strong> If the offense occurred before age 17 but the person is now 18+, adult rules apply for interrogation (CCP 38.22 & 2.32), but the case may start in juvenile court.</li>
+                                    <li><strong>Best Practice:</strong> If age is in question, follow juvenile procedures—they satisfy adult requirements but not vice versa.</li>
+                                </ul>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
@@ -251,11 +482,16 @@
                         <div class="p-6 border-t">
                             <div class="info-block concepts">
                                 <p><strong>Waiver of Rights:</strong> Any right granted to a child may be waived in a proceeding if the waiver is made by the child AND the child's attorney.</p>
+                                <ul>
+                                    <li>The child and attorney must be informed of and understand the right and possible consequences of waiving it.</li>
+                                    <li>The waiver must be voluntary and made in writing or in court proceedings that are recorded.</li>
+                                </ul>
                             </div>
                              <div class="info-block concepts">
                                 <p><strong>Polygraph Examination:</strong> If a child is in custody, a person may NOT administer a polygraph exam without the consent of the child's attorney or the juvenile court.</p>
                             </div>
                             <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.51.htm#51.09" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 51.09</a>
+                            <div class="info-block example mt-4"><p><strong>Example:</strong> A 15-year-old and their attorney sign a written waiver of the right to trial. The waiver is valid if both understand the right and consequences, and it is voluntary.</p></div>
                         </div>
                     </details>
                 </div>
@@ -290,107 +526,93 @@
 
              <!-- Process Flowcharts Tab -->
             <div id="tab-flowcharts" class="tab-pane hidden">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Process Flowcharts</h2>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="card p-6">
-                        <h3 class="text-xl font-bold text-center mb-4">Juvenile Hearing Process</h3>
-                        <div class="flowchart-container">
-                            <div class="flowchart-box">Law Enforcement / Citizen Complaint</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Referral to Juvenile Probation Intake</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Intake Decision (Release, Informal Adjustment, Refer to Prosecutor)</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Prosecutor Files Petition</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Detention Hearing</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Adjudication Hearing (Trial)</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Disposition Hearing (Sentencing)</div>
+                <details class="card p-0" open>
+                    <summary class="text-2xl font-bold text-gray-800 mb-4">Process Flowcharts</summary>
+                    <div class="p-6 border-t">
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="card p-6">
+                                <h3 class="text-xl font-bold text-center mb-4">Juvenile Hearing Process</h3>
+                                <div class="flowchart-container">
+                                    <div class="flowchart-box">Law Enforcement / Citizen Complaint</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Referral to Juvenile Probation Intake</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Intake Decision (Release, Informal Adjustment, Refer to Prosecutor)</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Prosecutor Files Petition</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Detention Hearing</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Adjudication Hearing (Trial)</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Disposition Hearing (Sentencing)</div>
+                                </div>
+                            </div>
+                            <div class="card p-6">
+                                <h3 class="text-xl font-bold text-center mb-4">Adult Trial Components</h3>
+                                <div class="flowchart-container">
+                                    <div class="flowchart-box">Arrest / Complaint</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Booking / Filing of Charges</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Initial Appearance / Arraignment</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Grand Jury Indictment (Felony)</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Pre-Trial Hearings</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Jury Trial</div>
+                                    <div class="flowchart-arrow">↓</div>
+                                    <div class="flowchart-box">Sentencing</div>
+                                </div>
+                            </div>
                         </div>
+                        <details class="card p-0 mt-8">
+                            <summary>Case Terminology: Adult vs. Juvenile</summary>
+                            <div class="p-6 border-t">
+                                <div class="info-block concepts">
+                                    <ul>
+                                        <li><strong>Criminal Offense</strong> (adult) vs. <strong>Delinquent Conduct</strong> (juvenile)</li>
+                                        <li><strong>Arrest Warrant</strong> vs. <strong>Directive to Apprehend</strong></li>
+                                        <li><strong>Indictment/Information</strong> vs. <strong>Juvenile Petition</strong></li>
+                                        <li><strong>Defendant</strong> vs. <strong>Respondent</strong></li>
+                                        <li><strong>Conviction</strong> vs. <strong>Adjudication</strong></li>
+                                        <li><strong>Sentencing Hearing</strong> vs. <strong>Disposition Hearing</strong></li>
+                                        <li><strong>Guilty/Not Guilty Plea</strong> vs. <strong>Plea of True/Not True</strong></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </details>
+                        <details class="card p-0 mt-4">
+                            <summary>Edge Cases & Special Considerations</summary>
+                            <div class="p-6 border-t">
+                                <div class="info-block procedures">
+                                    <ul>
+                                        <li><strong>Perjury:</strong> Children can be prosecuted for perjury (FC 51.03(c)).</li>
+                                        <li><strong>Age Gray Area:</strong> If the offense occurred before 17 but the person is now 18+, adult rules apply for interrogation, but the case may start in juvenile court.</li>
+                                        <li><strong>Safer Practice:</strong> If age is in question, follow juvenile procedures—they satisfy adult requirements but not vice versa.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </details>
                     </div>
-                    <div class="card p-6">
-                        <h3 class="text-xl font-bold text-center mb-4">Adult Trial Components</h3>
-                        <div class="flowchart-container">
-                             <div class="flowchart-box">Arrest / Complaint</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Booking / Filing of Charges</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Initial Appearance / Arraignment</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Grand Jury Indictment (Felony)</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Pre-Trial Hearings</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Jury Trial</div>
-                            <div class="flowchart-arrow">↓</div>
-                            <div class="flowchart-box">Sentencing</div>
-                        </div>
-                    </div>
-                </div>
+                </details>
             </div>
 
-            <!-- Parents & Schools Tab -->
-            <div id="tab-parents" class="tab-pane hidden">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Parental Rights & School Notification</h2>
-                <div class="space-y-6">
-                    <details class="card p-0" open>
-                        <summary>Rights and Duties of a Parent (FC 151.001)</summary>
-                        <div class="p-6 border-t">
-                            <div class="info-block concepts">
-                                <p>Parents have the right and duty to provide care, control, protection, reasonable discipline, and support for their child.</p>
-                            </div>
-                             <a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.151.htm#151.001" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Family Code 151.001</a>
-                        </div>
-                    </details>
-                    <details class="card p-0">
-                        <summary>Notification to Schools Required (CCP 15.27)</summary>
-                        <div class="p-6 border-t">
-                            <div class="info-block procedures">
-                                <p>A law enforcement agency that arrests or refers a student for any felony or certain misdemeanors (including weapons, drugs, or assaultive offenses) **shall orally notify the school superintendent** or designee.</p>
-                                <ul>
-                                    <li>Notification must be made within <strong>24 hours</strong> or before the next school day, whichever is earlier.</li>
-                                    <li>Written notification must be mailed within 7 days.</li>
-                                </ul>
-                                <div class="info-block example"><p><strong>Example:</strong> An SRO arrests a 15-year-old student for possessing a handgun (felony) at 2:00 PM on a Tuesday. The SRO's agency must orally notify the superintendent by 2:00 PM on Wednesday.</p></div>
-                            </div>
-                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.15.htm#15.27" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 15.27</a>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-            <!-- Youth Gangs Tab -->
-            <div id="tab-gangs" class="tab-pane hidden">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Youth Gang Involvement</h2>
-                <div class="space-y-6">
-                    <details class="card p-0" open>
-                        <summary>Five Domains of Risk Factors</summary>
-                        <div class="p-6 border-t">
-                            <div class="info-block concepts">
-                                <ol class="list-decimal list-inside space-y-2 font-semibold">
-                                    <li><strong>Individual:</strong> Problem behaviors, acting out, negative life events, victimization.</li>
-                                    <li><strong>Family:</strong> Disrupted family structure, poor supervision, inconsistent discipline.</li>
-                                    <li><strong>School:</strong> Poor academic performance, low attachment to school.</li>
-                                    <li><strong>Peers:</strong> (One of the strongest factors) Normalization of anti-social behavior.</li>
-                                    <li><strong>Community:</strong> Poverty, environmental instability, neighborhood disorganization.</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </details>
-                </div>
-            </div>
 
             <!-- Quiz Tab -->
             <div id="tab-quiz" class="tab-pane hidden">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
-                <div id="quiz-container" class="space-y-8"></div>
-                <div id="quiz-results" class="mt-8 text-center hidden">
-                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
-                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
-                    <button id="retake-quiz" class="bg-green-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-green-700">Retake Quiz</button>
-                </div>
+                <details class="card p-0" open>
+                    <summary class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</summary>
+                    <div class="p-6 border-t">
+                        <div id="quiz-container" class="space-y-8"></div>
+                        <div id="quiz-results" class="mt-8 text-center hidden">
+                            <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                            <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                            <button id="retake-quiz" class="bg-green-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-green-700">Retake Quiz</button>
+                        </div>
+                    </div>
+                </details>
             </div>
         </main>
     </div>
