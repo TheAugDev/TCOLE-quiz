@@ -1,0 +1,1002 @@
+Arrest Search and Seizure Relating to Search Warrants 
+The Basic Criteria for Search Warrants
+ Search Warrant Definition
+ 
+ a judge’s written order authorizing a law enforcement officer to 
+conduct a search of a specified place and to seize evidence 
+
+ Black’s Law Dictionary, 7th Ed., 1999, West Group, Inc.
+ Instructor Intro 
+Teach TCOLE AS&S curriculum related to Search Warrants 
+1
+ 2
+ Art. 18.01. SEARCH WARRANT. (a) A "search warrant" is a written order, issued by a 
+magistrate and directed to a peace officer, commanding him to search for any 
+property or thing and to seize the same and bring it before such magistrate or 
+commanding him to search for and photograph a child and to deliver to the 
+magistrate any of the film exposed pursuant to the order. 
+(b) No search warrant shall issue for any purpose in this state unless sufficient facts 
+are first presented to satisfy the issuing magistrate that probable cause does in fact 
+exist for its issuance. A sworn affidavit setting forth substantial facts establishing 
+probable cause shall be filed in every instance in which a search warrant is requested. 
+Except as otherwise provided by this code, the affidavit becomes public information 
+when the search warrant for which the affidavit was presented is executed, and the 
+magistrate's clerk shall make a copy of the affidavit available for public inspection in 
+the clerk's office during normal business hours. 
+(c) A search warrant may not be issued under Article 18.02(a)(10) unless the sworn 
+affidavit required by Subsection (b) sets forth sufficient facts to establish probable 
+cause: (1) that a specific offense has been committed, (2) that the specifically 
+described property or items that are to be searched for or seized constitute evidence 
+of that offense or evidence that a particular person committed that offense, and (3) 
+that the property or items constituting evidence to be searched for or seized are 
+located at or on the particular person, place, or thing to be searched. Except as 
+provided by Subsections (d), (i), and (j), only a judge of a municipal court of record or 
+a county court who is an attorney licensed by the State of Texas, a statutory county 
+court judge, a district court judge, a judge of the Court of Criminal Appeals, including 
+the presiding judge, a justice of the Supreme Court of Texas, including the chief 
+justice, or a magistrate with jurisdiction over criminal cases serving a district court 
+may issue warrants under Article 18.02(a)(10). 
+(d) Only the specifically described property or items set forth in a search warrant 
+issued under Article 18.02(a)(10) or property, items or contraband enumerated in 
+Article 18.02(a)(1), (2), (3), (4), (5), (6), (7), (8), (9), or (12) may be seized. A 
+subsequent search warrant may be issued pursuant to Article 18.02(a)(10) to search 
+the same person, place, or thing subjected to a prior search under Article 18.02(a)(10) 
+only if the subsequent search warrant is issued by a judge of a statutory county court, 
+a district court, a court of appeals, the court of criminal appeals, or the supreme 
+court. 
+(e) A search warrant may not be issued under Article 18.02(a)(10) to search for and 
+seize property or items that are not described in Article 18.02(a)(1), (2), (3), (4), (5), 
+(6), (7), (8), or (9) and that are located in an office of a newspaper, news magazine, 
+television station, or radio station, and in no event may property or items not 
+described in Article 18.02(a)(1), (2), (3), (4), (5), (6), (7), (8), or (9) be legally seized in 
+any search pursuant to a search warrant of an office of a newspaper, news magazine, 
+television station, or radio station. 
+CCP 18.01 Continued 
+Search Warrants: CCP 18.01
+ 
+ Shall not be issued w/o sufficient facts presented to a magistrate with probable 
+cause that the facts exist 
+
+ Sworn affidavits explaining the facts that establishing probable cause shall be filed 
+for all search warrants.
+ 3
+ (f) A search warrant may not be issued pursuant to Article 18.021 of this code unless 
+the sworn affidavit required by Subsection (b) of this article sets forth sufficient facts 
+to establish probable cause: 
+(1) that a specific offense has been committed; 
+(2) that a specifically described person has been a victim of the offense; 
+(3) that evidence of the offense or evidence that a particular person committed the 
+offense can be detected by photographic means; and 
+(4) that the person to be searched for and photographed is located at the particular 
+place to be searched. 
+(g) A search warrant may not be issued under Article 18.02(a)(12) unless the sworn 
+affidavit required by Subsection (b) of this article sets forth sufficient facts to 
+establish probable cause that a specific felony offense has been committed and that 
+the specifically described property or items that are to be searched for or seized 
+constitute contraband as defined in Article 59.01 of this code and are located at or on 
+the particular person, place, or thing to be searched. 
+(h) Except as provided by Subsection (i) of this article, a warrant under Article 
+18.02(a)(12) may only be issued by: 
+(1) a judge of a municipal court of record who is an attorney licensed by the state; 
+(2) a judge of a county court who is an attorney licensed by the state; or 
+(3) a judge of a statutory county court, district court, the court of criminal appeals, or 
+the supreme court. 
+(i) In a county that does not have a municipal court of record with a courtroom 
+located in that county and a judge who is an attorney licensed by the state, a county 
+court judge who is an attorney licensed by the state, or a statutory county court 
+judge, any magistrate may issue a search warrant under Article 18.02(a)(10) or (12). 
+This subsection is not applicable to a subsequent search warrant under Article 
+18.02(a)(10). 
+(j) Any magistrate who is an attorney licensed by this state may issue a search 
+warrant under Article 18.02(a)(10) to collect a blood specimen from a person who: 
+(1) is arrested for an offense under Section 49.04, 49.045, 49.05, 49.06, 49.061, 
+49.065, 49.07, or 49.08, Penal Code; and 
+(2) refuses to submit to a breath or blood alcohol test. 
+Review example of search warrants 
+4
+ 5
+ Review example of search warrants 
+Review example of search warrants 
+Search Warrants: CCP 18.01
+ 
+ Magistrates may consider info via telephone or electronically: 
+st
+ 
+ Applicants or other testimony must 1
+ be under oath
+ 
+ Applicants that electronically attest must be noted in writing
+ 
+ If testimony or other exhibits are considered, magistrates must:
+ A.
+ Record it verbatim electronically, via a court reporter, or in writing;
+ 6
+ B.
+ Transcribe recordings/notes, certify as accurate, & sign;
+ C.
+ Preserve the recordings, notes, any other written records or exhibits;
+ 7
+ CCP 18.01 Continued 
+(b-1)(1) For purposes of this article, a magistrate may consider information 
+communicated by telephone or other reliable electronic means in determining 
+whether to issue a search warrant. The magistrate may examine an applicant for a 
+search warrant and any person on whose testimony the application is based. The 
+applicant or other person must be placed under oath before the examination. 
+(2) If an applicant for a search warrant attests to the contents of an affidavit 
+submitted by reliable electronic means, the magistrate must acknowledge the 
+attestation in writing on the affidavit. If the magistrate considers additional testimony 
+or exhibits, the magistrate must: 
+(A) ensure that the testimony is recorded verbatim by an electronic recording device, 
+by a court reporter, or in writing; 
+(B) ensure that any recording or reporter's notes are transcribed and that the 
+transcription is certified as accurate and is preserved; 
+(C) sign, certify the accuracy of, and preserve any other written record; and 
+(D) ensure that the exhibits are preserved. 
+(3) An applicant for a search warrant who submits information as authorized by this 
+subsection must prepare a proposed duplicate original of the warrant and must read 
+or otherwise transmit its contents verbatim to the magistrate. A magistrate must 
+enter into an original search warrant the contents of a proposed duplicate original 
+that are read to the magistrate. If the applicant transmits the contents by reliable 
+electronic means, the transmission received by the magistrate may serve as the 
+original search warrant. 
+(4) The magistrate may modify a search warrant that is submitted as described by 
+Subdivision (3). If the magistrate modifies the warrant, the magistrate must: 
+(A) transmit the modified version to the applicant by reliable electronic means; or 
+(B) file the modified original and direct the applicant to modify the proposed 
+duplicate original accordingly. 
+(5) A magistrate who issues a search warrant for which information is provided by 
+telephone or reliable electronic means must: 
+(A) sign the original documents; 
+(B) enter the date and time of issuance on the warrant; and 
+(C) transmit the warrant by reliable electronic means to the applicant or direct the 
+applicant to sign the judge's name and enter the date and time on the duplicate 
+original. 
+(6) Evidence obtained pursuant to a search warrant for which information was 
+provided in accordance with this subsection is not subject to suppression on the 
+ground that issuing the warrant in compliance with this subsection was unreasonable 
+under the circumstances, absent a finding of bad faith. 
+CCP 18.01 Continued 
+Search Warrants: CCP 18.01
+ 
+ Applicants must prepare a proposed duplicate original of the warrant 
+and read or otherwise transmit its contents verbatim to the magistrate  
+
+ Magistrates must enter the contents into an original search warrant 
+
+ If transmitted electronically, a transmission may serve as the original
+ 
+ Magistrates may modify a submitted search warrant but must:
+ o
+ transmit the modified version to the applicant by electronic means; or
+ o
+ file the modified original & direct the applicant to modify their duplicate
+ Search Warrants: CCP 18.01
+ 
+ Magistrates who issue a search warrant for info provided by telephone 
+or reliable electronic means must:
+ 
+ sign the original documents;
+ 
+ enter the date and time of issuance on the warrant; and
+ 
+ transmit the warrant electronically to the applicant OR 
+
+ direct him/her to sign the judge's name & enter the date & time on the duplicate 
+original.
+ 
+ Evidence obtained via a valid search warrant is not subject to 
+suppression as unreasonable, absent a finding of bad faith.
+ Grounds for issuance: CCP 18.02
+ 1.
+ property acquired by theft or manner making it an offense 
+2.
+ property specially designed, made, or adapted for common illegal use
+ 3.
+ arms & munitions kept or prepared for the purposes of insurrection or riot 
+4.
+ Prohibited weapons under the Penal Code 
+5.
+ gambling devices/equipment or altered gambling equipment/paraphernalia
+ 6.
+ obscene materials kept or prepared for commercial distribution or exhibition, subject 
+to the additional rules set forth by law; 
+7.
+ drug, cont. substance, immediate or chemical precursors, or cont. substance prop., 
+apparatus, or paraphernalia: kept, prepared, or manufactured;
+ 8.
+ any property the possession of which is prohibited by law 
+9.
+ implements or instruments used in the commission of a crime 
+Grounds for issuance: CCP 18.02
+ 10.
+ property or items, except the accused’s personal writings, constituting 
+evidence of an offense or tends to show someone committed an offense 
+11.
+ Persons
+ 
+ ;
+ CCP 18.03: Search warrant may authorize arrest 
+AKA: Evidentiary 
+Search warrants
+ 
+ If the facts presented establish probable cause that a person committed an 
+offense: the search warrant may also order the arrest of such person. 
+12.
+ contraband subject to forfeiture under Chapter 59 of this code;
+ (4) The magistrate may modify a search warrant that is submitted as described by 
+Subdivision (3). If the magistrate modifies the warrant, the magistrate must: 
+(A) transmit the modified version to the applicant by reliable electronic means; or 
+(B) file the modified original and direct the applicant to modify the proposed 
+duplicate original accordingly. 
+8
+ 9
+ 10
+ 11
+ (5) A magistrate who issues a search warrant for which information is provided by 
+telephone or reliable electronic means must: 
+(A) sign the original documents; 
+(B) enter the date and time of issuance on the warrant; and 
+(C) transmit the warrant by reliable electronic means to the applicant or direct the 
+applicant to sign the judge's name and enter the date and time on the duplicate 
+original. 
+(6) Evidence obtained pursuant to a search warrant for which information was 
+provided in accordance with this subsection is not subject to suppression on the 
+ground that issuing the warrant in compliance with this subsection was unreasonable 
+under the circumstances, absent a finding of bad faith. 
+Art. 18.02. GROUNDS FOR ISSUANCE. (a) A search warrant may be issued to search 
+for and seize: 
+(1) property acquired by theft or in any other manner which makes its acquisition a 
+penal offense; 
+(2) property specially designed, made, or adapted for or commonly used in the 
+commission of an offense; 
+(3) arms and munitions kept or prepared for the purposes of insurrection or riot; 
+(4) weapons prohibited by the Penal Code; 
+(5) gambling devices or equipment, altered gambling equipment, or gambling 
+paraphernalia; 
+(6) obscene materials kept or prepared for commercial distribution or exhibition, 
+subject to the additional rules set forth by law; 
+(7) a drug, controlled substance, immediate precursor, chemical precursor, or other 
+controlled substance property, including an apparatus or paraphernalia kept, 
+prepared, or manufactured in violation of the laws of this state; 
+(8) any property the possession of which is prohibited by law; 
+(9) implements or instruments used in the commission of a crime; 
+Art. 18.02. GROUNDS FOR ISSUANCE.  
+(10) property or items, except the personal writings by the accused, constituting 
+evidence of an offense or constituting evidence tending to show that a particular 
+person committed an offense; 
+(11) persons; 
+(12) contraband subject to forfeiture under Chapter 59 of this code; 
+Art. 18.03. SEARCH WARRANT MAY ORDER ARREST. If the facts presented to the 
+magistrate under Article 18.02 of this chapter also establish the existence of probable 
+cause that a person has committed some offense under the laws of this state, the 
+search warrant may, in addition, order the arrest of such person 
+Search warrants for items under #10 are called evidentiary search warrant 
+Search Warrants: CCP 18.01
+.02 (10)
+ 
+ For items under (
+ 10
+ ) affidavits must create probable cause:  
+1)
+ a specific offense has been committed, 
+2)
+ AKA: Evidentiary 
+Search warrants
+ specifically described property or items that are to be searched for or seized constitute evidence 
+of the offense or someone committed it, &
+ 3)
+ property or items constituting evidence to be searched for or seized will be located at or on the 
+particular person, place, or thing 
+
+ Search warrants may not be issued under (
+ 12
+ ) unless the sworn affidavit sets forth 
+facts to establish probable cause that
+ 
+ a specific felony offense has been committed and 
+
+ the specifically described property or items that are to be searched for or seized constitute 
+contraband as defined in 59.01 (Asset Forfeiture Items)
+ 
+ & will be located at or on the particular person, place, or thing
+ 12
+ What if you see other evidence in plain view that 
+is NOT listed in the Search Warrant?
+ Search Warrants: CCP 18.01
+.02 (10)
+ 10) 
+13
+ property or items, except the accused’s personal writings, constituting 
+evidence of an offense or tends to show someone committed an offense 
+
+ A search warrant may not be issued under (
+ 10
+ ) to search for and seize property or 
+items that are not described in (1
+9) and are located in an office of a newspaper, 
+news magazine, television station, or radio station, and 
+
+ In no event may property or items not described in (1
+9) be legally seized pursuant 
+to a search warrant of an office of a newspaper, news magazine, television station, 
+or radio station.
+ Search Warrants: CCP 18.02
+ 
+ Search warrants under 18.02 
+(10 & 12
+ ) may only be issued by:
+ 1)
+ 14
+ judge of a municipal court of record or county court who are licensed attorneys, or judge of a 
+statutory county court; or
+ 2)
+ judge of district courts, court of criminal appeals, or supreme court; but
+ 3)
+ When a county does not have judges listed in #1 then any magistrate may issue a search 
+warrant under Article 18.02 (a)(10) or (12).  
+
+ This does not apply to 
+subsequent search
+ 
+ warrants under (
+ 10
+ ).
+ They may be issued to search the same person, place, or thing from a prior search only if 
+
+ issued by a judge of a district court, a court of appeals, the court of criminal appeals, or the 
+supreme court.
+ 15
+ Horton Vs California 
+Does the application of the plain-view exception to the Fourth Amendment depend 
+on officers’ discovery of incriminating evidence inadvertently? 
+No. Officers’ discovery of incriminating evidence in plain view from a lawful vantage 
+point is an exception to the warrant requirement even I the officers didn’t discover 
+the evidence inadvertently. 
+Plain-View – Lawful to be = Lawful to See 
+10) property or items, except the accused’s personal writings, constituting evidence 
+of an offense or tends to show someone committed an offense  
+A search warrant may not be issued under (10) to search for and seize property or 
+items that are not described in (1-9) and are located in an office of a newspaper, 
+news magazine, television station, or radio station, and  
+In no event may property or items not described in (1-9) be legally seized pursuant to 
+a search warrant of an office of a newspaper, news magazine, television station, or 
+radio station. 
+Evidentiary and asset forfeiture search warrants allow only certain judges that can 
+issue them 
+Search warrants under 18.02 (10 & 12) may only be issued by: 
+• judge of a municipal court of record or county court who are licensed 
+attorneys, or judge of a statutory county court; or 
+• judge of district courts, court of criminal appeals, or supreme court; 
+but 
+When a county does not have judges listed in #1 then any magistrate 
+may issue a search warrant under Article 18.02 (a)(10) or (12).  ame person, 
+place, or thing from a prior search only if  
+issued by a judge of a district court, a court of appeals, the court of 
+criminal appeals, or the supreme court. 
+Search Warrants: 18.02
+ 
+ Any magistrate who is an attorney licensed by this state may issue a 
+search warrant under 18.02 (
+ 10
+ ) to collect a blood specimen from a 
+person who:
+ 
+ is arrested for an offense under Section 49.04, 49.045, 49.05, 49.06, 49.065, 
+49.07, or 49.08, Penal Code; and
+ 
+ refuses to submit to a breath or blood alcohol test.
+ Grounds for issuance: CCP 18.02
+ These below may also be specifically described for search & seizure
+ 13.
+ electronic customer data held in electronic storage, including the contents 
+of and records and other information related to a wire communication or 
+electronic communication held in electronic storage; or
+ 14.
+ a cellular telephone or other wireless communications device, subject to 
+Article 18.0215.
+ 18.0215:  ACCESS TO CELL PHONE OR  
+OTHER WIRELESS DEVICE. 
+
+ Peace officers may not search cell
+without a warrant:
+ 
+ phones or wireless devices, pursuant to a lawful arrest 
+They may only be issued by judges in the same judicial district for:
+ (1)  peace officer’s agency if in the officer's possession; or
+ (2)  the likely location of the telephone or device.
+ 
+ Only officers may apply for warrants under this article & applications must be written, signed & 
+sworn to, or affirmed before judges that: 
+(1)  state the name, department, agency, & address of the applicant;
+ (2)  identify the device to be searched;
+ (3)  state the name of the owner or possessor device to be searched;
+ (4)  state the judicial district for: the peace officer’s agency if in the officer's possession or likely 
+location of the device; & 
+(5)  state the facts & circumstances for probable cause to believe:
+ criminal activity has been, is, or will be committed; and
+ 
+ searching the device is likely to produce evidence in the investigation
+ 
+ Access to Wireless Devices
+ 
+ Officers may search a device without a warrant if:
+ 
+ Not prohibited by other law and
+ 
+ owner or possessor consents;
+ 
+ device is reported stolen by the owner or possessor; or
+ 
+ officer reasonably believes that:
+ 
+ the device is in the possession of a fugitive with a felony warrant; or
+ 
+ there exists an immediate life
+threatening situation, under 18A.201
+ 
+ hostage, barricade, or other emergency where a person unlawfully & directly: threatens another 
+with death; or exposes to risk of SBI
+ 
+Officer must apply for a device warrant as soon as practicable after a search is conducted during a 
+fugitive or life
+ threatening situation
+ 
+ If the judge finds that the situation did not occur and declines the warrant, any evidence obtained 
+is not admissible in a criminal action
+ Any magistrate who is an attorney licensed by this state may issue a search warrant 
+under 18.02 (10) to collect a blood specimen from a person who: 
+is arrested for an offense under Section 49.04, 49.045, 49.05, 49.06, 49.065, 49.07, or 
+49.08, Penal Code; and refuses to submit to a breath or blood alcohol test. 
+16
+ :
+ 17
+ 18
+ 19
+ CCP 18.02 continued 
+(13) electronic customer data held in electronic storage, including the contents of and 
+records and other information related to a wire communication or electronic 
+communication held in electronic storage; or 
+(14) a cellular telephone or other wireless communications device, subject to Article 
+18.0215. 
+(b) For purposes of Subsection (a)(13):  
+(1) "Electronic communication" and "wire communication" have the meanings 
+assigned by Article 18A.001. 
+(2) "Electronic customer data" and "electronic storage" have the meanings assigned 
+by Article 18B.001. 
+Peace officers may not search cell-phones or wireless devices, pursuant to a lawful 
+arrest without a warrant: 
+They may only be issued by judges in the same judicial district for: 
+(1)  peace officer’s agency if in the officer's possession; or 
+(2)  the likely location of the telephone or device. 
+Only officers may apply for warrants under this article & applications must 
+be written, signed & sworn to, or affirmed before judges that:  
+(1)  state the name, department, agency, & address of the applicant; 
+(2)  identify the device to be searched; 
+(3)  state the name of the owner or possessor device to be searched; 
+(4)  state the judicial district for: the peace officer’s agency if in the 
+officer's possession or likely location of the device; &  
+(5)  state the facts & circumstances for probable cause to believe: 
+criminal activity has been, is, or will be committed; and 
+searching the device is likely to produce evidence in the 
+investigation 
+Officers may search a device without a warrant if: 
+Not prohibited by other law and owner or possessor consents; 
+device is reported stolen by the owner or possessor; orofficer reasonably believes 
+that: 
+the device is in the possession of a fugitive with a felony warrant; or 
+there exists an immediate life-threatening situation, under 18A.201 
+hostage, barricade, or other emergency where a person unlawfully & directly: 
+threatens another with death; or exposes to risk of SBI 
+Officer must apply for a device warrant as soon as practicable after a search is 
+conducted during a fugitive or life-threatening situation 
+If the judge finds that the situation did not occur and declines the warrant, any 
+evidence obtained is not admissible in a criminal action 
+Access electronic customer data held in 
+electronic storage
+ 
+ 18B.354. WARRANT ISSUED IN THIS STATE: APPLICATION AND ISSUANCE OF 
+WARRANT
+ 
+ (a) a 
+district judge 
+may issue a search warrant under this article for 
+electronic 
+customer data held in electronic storage
+ . 
+
+ i.e
+ Google Drives, Snapchat, Instagram, Facebook
+ Issuance of search warrant to 
+photograph injured child 
+
+CCP 18.021
+ May be issued to search & photograph a child victim of injury to a child, 
+aggravated & sex assault, or continuous sex abuse.
+ 
+ The sworn affidavit must establish probable cause that: 
+a specific offense was committed to a specifically described victim;
+ 
+ 
+ evidence of the offense or evidence that a person committed the offense can be detected by 
+photographic means;  and
+ the person to be searched for & photographed is located at the place
+ 
+ 
+ In addition to 18.04, a warrant shall identify as near as may be: 
+child to be located & photo'd, name/describe the place/thing for search, & 
+
+ command any officer of the county to search for & photograph the child
+ 
+ 
+ Agency photographer may access & act under an officer’s direction
+ 
+ Officer or assistant shall be a person of the same sex as the victim
+ 
+ Child may not be removed from the premises found except under FC 262, subchapters A & B
+ 
+ After execution, officers shall take possession photos & deliver it forthwith to the magistrate  
+20
+ 21
+ Art. 18B.354. WARRANT ISSUED IN THIS STATE: APPLICATION AND ISSUANCE OF 
+WARRANT. (a) On the filing of an application by an authorized peace officer, a district 
+judge may issue a search warrant under this article for electronic customer data held 
+in electronic storage, including the contents of and records and other information 
+related to a wire or electronic communication held in electronic storage, by a 
+provider of an electronic communications service or a provider of a remote 
+computing service described by Article 18B.355(b), regardless of whether the 
+customer data is held at a location in this state or another state. An application made 
+under this subsection must demonstrate probable cause for the issuance of the 
+warrant and must be supported by the oath of the authorized peace officer. 
+(b) A search warrant may not be issued under this article unless the sworn affidavit 
+required by Article 18.01(b) provides sufficient and substantial facts to establish 
+probable cause that: 
+(1) a specific offense has been committed; and 
+(2) the electronic customer data sought: 
+(A) constitutes evidence of that offense or evidence that a particular person 
+committed that offense; and 
+(B) is held in electronic storage by the service provider on which the warrant is served 
+under Article 18B.355(c). 
+(c) Only the electronic customer data described in the sworn affidavit required by 
+Article 18.01(b) may be seized under the warrant. 
+(d) A warrant issued under this article shall run in the name of "The State of Texas." 
+(e) Article 18.011 applies to an affidavit presented under Article 18.01(b) for the 
+issuance of a warrant under this article, and the affidavit may be sealed in the 
+manner provided by that article. 
+Art. 18.021. ISSUANCE OF SEARCH WARRANT TO PHOTOGRAPH INJURED CHILD. (a) 
+A search warrant may be issued to search for and photograph a child who is alleged 
+to be the victim of the offenses of injury to a child as prohibited by Section 22.04, 
+Penal Code; sexual assault of a child as prohibited by Section 22.011(a), Penal Code; 
+aggravated sexual assault of a child as prohibited by Section 22.021, Penal Code; or 
+continuous sexual abuse of young child or disabled individual as prohibited by Section 
+21.02, Penal Code. 
+(b) The officer executing the warrant may be accompanied by a photographer who is 
+employed by a law enforcement agency and who acts under the direction of the 
+officer executing the warrant. The photographer is entitled to access to the child in 
+the same manner as the officer executing the warrant. 
+(c) In addition to the requirements of Subdivisions (1), (4), and (5) of Article 18.04 of 
+this code, a warrant issued under this article shall identify, as near as may be, the 
+child to be located and photographed, shall name or describe, as near as may be, the 
+place or thing to be searched, and shall command any peace officer of the proper 
+county to search for and cause the child to be photographed. 
+(d) After having located and photographed the child, the peace officer executing the 
+warrant shall take possession of the exposed film and deliver it forthwith to the 
+magistrate. The child may not be removed from the premises on which he or she is 
+located except under Subchapters A and B, Chapter 262, Family Code. 
+(e) A search warrant under this section shall be executed by a peace officer of the 
+same sex as the alleged victim or, if the officer is not of the same sex as the alleged 
+victim, the peace officer must be assisted by a person of the same sex as the alleged 
+victim. The person assisting an officer under this subsection must be acting under the 
+direction of the officer and must be with the alleged victim during the taking of the 
+photographs. 
+Search Warrants DEFINED: CCP 18.01
+ 
+ Written orders, issued by a magistrate and directed to a peace officer, commanding 
+him to search for any property or thing and to seize the same and 
+
+ bring it before such magistrate or commanding him to search for and photograph a child 
+and 
+
+ to deliver to the magistrate any of the film exposed pursuant to the order. 
+
+ Except for 18.011 
+affidavits
+ becomes public info upon execution & are available for 
+public inspection
+ Sealing of Affidavit 
+
+CCP 18.011
+ Felony prosecutor may request a district or appellate judge to seal with a 
+compelling state interest that:
+ 
+ Public disclosure would jeopardize the safety of a victim, witness, confidential informant, or 
+destruction of evidence 
+
+ Or affidavit contains info from an un
+expired court ordered wire
+ st
+ 
+ If granted, it expires on the 31
+ day after execution
+ 
+ Only 1
+30 day extension can be requested (before expiration)
+ 
+ This does not 
+prohibit the:
+ 
+tap
+ disclosure of info on the contents of a search warrant, its return, or the inventory of property taken; 
+or
+ the right of a defendant to discover the contents of an affidavit.
+ 
+ Contents of warrant CCP 18.04
+ 
+ It shall contain the following requisites:
+ 
+ Run in the name of "The State of Texas,”
+ 
+ identify, as near as may be, that which is to be seized,
+ 
+ name or describe, as near as may be, the person, place, or thing to be 
+searched, 
+
+ command any peace officer of the proper county to search forthwith the 
+person, place, or thing named 
+
+ dated and signed by the magistrate, and
+ 
+ the magistrate's name appear in clearly legible handwriting or in typewritten 
+form with the magistrate's signature
+ Advantages of a search warrant (Intermediate CS)
+ 
+ Evidence seized may be more readily accepted by courts 
+
+ An officer may be protected from civil liability.  
+
+ May shift the legal burden to the defendant to show the evidence was 
+seized illegally.
+ Written orders, issued by a magistrate and directed to a peace officer, commanding 
+him to search for any property or thing and to seize the same and  
+bring it before such magistrate or commanding him to search for and 
+photograph a child and  
+to deliver to the magistrate any of the film exposed pursuant to the order.  
+22
+ 23
+ Except for 18.011 affidavits becomes public info upon execution & are available for 
+public inspection 
+Art. 18.011. SEALING OF AFFIDAVIT. (a) An attorney representing the state in the 
+prosecution of felonies may request a district judge or the judge of an appellate court 
+to seal an affidavit presented under Article 18.01(b). The judge may order the 
+affidavit sealed if the attorney establishes a compelling state interest in that: 
+(1) public disclosure of the affidavit would jeopardize the safety of a victim, witness, 
+or confidential informant or cause the destruction of evidence; or 
+(2) the affidavit contains information obtained from a court-ordered wiretap that has 
+not expired at the time the attorney representing the state requests the sealing of 
+the affidavit. 
+(b) An order sealing an affidavit under this section expires on the 31st day after the 
+date on which the search warrant for which the affidavit was presented is executed. 
+After an original order sealing an affidavit is issued under this article, an attorney 
+representing the state in the prosecution of felonies may request, and a judge may 
+grant, before the 31st day after the date on which the search warrant for which the 
+affidavit was presented is executed, on a new finding of compelling state interest, 
+one 30-day extension of the original order. 
+(c) On the expiration of an order issued under Subsection (b) and any extension, the 
+affidavit must be unsealed. 
+24
+ 25
+ (d) An order issued under this section may not: 
+(1) prohibit the disclosure of information relating to the contents of a search warrant, 
+the return of a search warrant, or the inventory of property taken pursuant to a 
+search warrant; or 
+(2) affect the right of a defendant to discover the contents of an affidavit. 
+Art. 18.04. CONTENTS OF WARRANT.  
+A search warrant issued under this chapter, Chapter 18A, or Chapter 18B shall be 
+sufficient if it contains the following requisites: 
+(1) that it run in the name of "The State of Texas"; 
+(2) that it identify, as near as may be, that which is to be seized and name or describe, 
+as near as may be, the person, place, or thing to be searched; 
+(3) that it command any peace officer of the proper county to search forthwith the 
+person, place, or thing named; 
+(4) that it be dated and signed by the magistrate; and 
+(5) that the magistrate's name appear in clearly legible handwriting or in typewritten 
+form with the magistrate's signature. 
+Advantages of a search warrant 
+Evidence seized may be more readily accepted by courts  
+An officer may be protected from civil liability.   
+May shift the legal burden to the defendant to show the evidence was seized illegally 
+Warrants for fire, health and code 
+inspections 
+CCP 18.05
+ 
+ May be issued to inspect any specified premises for the:
+ 
+ presence of a fire or health hazard or unsafe building condition;
+ 
+ violation of any fire, health, building regulation, statute, or ordinance
+ 
+ May be issued to a state, county, city, or other political subdivision’s fire marshal, 
+health officer, or code enforcement when:
+ 
+ PC of fire/health hazard, violation, or unsafe building condition such as:  
+The type, age, general condition, & use purpose of the premises 
+
+ 
+ The presence of hazards or violations in and the general condition of premises near the premises sought 
+to be inspected
+ City/county may designate 1 or more code enforcement officials for this 
+
+ 
+ Other political subdivisions may designate not more than 1, only if they routinely inspect premises for the 
+above reasons
+ 
+ Search warrants may not be issued here to county code enforcement with a population of 3.3 
+million or more to inspect for an unsafe building condition or violation of a building regulation, 
+statute, or ordinance.  
+Execution of warrants & 
+Days Allowed to Run: CCP 18.06 & 18.07:
+ 
+ Officers shall execute it without delay & forthwith return to the proper magistrate 
+
+ Upon searching the place ordered, officers shall:
+ 
+ present a copy of the warrant to the owner, someone in possession, or leave a copy
+ 
+ before taking property, prepare a written inventory of the property
+ 
+ legibly endorse his name on the inventory, and
+ 
+ present a inventory copy to the owner, possessor, or leave one
+ 
+ Run times below exclude the day of issuance & execution:
+ 
+ Unless a shorter period is given, a typical search warrant is: 
+
+ 18B.354: 
+10 days
+ 3 days
+ , unless specified sooner, for electronic customer data held in electronic 
+storage, by a provider of an electronic communications or remote computing service
+ 
+ 15 days
+ for DNA specimens for DNA analysis & comparison, including blood and saliva samples
+ 26
+ 27
+ Art. 18.05. WARRANTS FOR FIRE, HEALTH, AND CODE INSPECTIONS. 
+(a) Except as provided by Subsection (e) of this article, a search warrant may be 
+issued to a fire marshal, health officer, or code enforcement official of the state or of 
+any county, city, or other political subdivision for the purpose of allowing the 
+inspection of any specified premises to determine the presence of a fire or health 
+hazard or unsafe building condition or a violation of any fire, health, or building 
+regulation, statute, or ordinance. 
+(b) A search warrant may not be issued under this article except upon the 
+presentation of evidence of probable cause to believe that a fire or health hazard or 
+violation or unsafe building condition is present in the premises sought to be 
+inspected. 
+(c) In determining probable cause, the magistrate is not limited to evidence of specific 
+knowledge, but may consider any of the following: 
+(1) the age and general condition of the premises;  
+(2) previous violations or hazards found present in the premises;  
+(3) the type of premises;  
+(4) the purposes for which the premises are used; and 
+(5) the presence of hazards or violations in and the general condition of premises 
+near the premises sought to be inspected. 
+(d) Each city or county may designate one or more code enforcement officials for the 
+purpose of being issued a search warrant as authorized by Subsection (a) of this 
+article. A political subdivision other than a city or county may designate not more 
+than one code enforcement official for the purpose of being issued a search warrant 
+as authorized by Subsection (a) of this article only if the political subdivision routinely 
+inspects premises to determine whether there is a fire or health hazard or unsafe 
+building condition or a violation of fire, health, or building regulation, statute, or 
+ordinance. 
+(e) A search warrant may not be issued under this article to a code enforcement 
+official of a county with a population of 3.3 million or more for the purpose of 
+allowing the inspection of specified premises to determine the presence of an unsafe 
+building condition or a violation of a building regulation, statute, or ordinance. 
+Art. 18.06. EXECUTION OF WARRANTS.  
+(a) A peace officer to whom a search warrant is delivered shall execute the warrant 
+without delay and shall return the warrant to the proper magistrate.  
+(b) On searching the place ordered to be searched, the officer executing the warrant 
+shall present a copy of the warrant to the owner of the place, if he is present. If the 
+owner of the place is not present but a person who is present is in possession of the 
+place, the officer shall present a copy of the warrant to the person. Before the officer 
+takes property from the place, he shall prepare a written inventory of the property to 
+be taken. He shall legibly endorse his name on the inventory and present a copy of 
+the inventory to the owner or other person in possession of the property. If neither 
+the owner nor a person in possession of the property is present when the officer 
+executes the warrant, the officer shall leave a copy of the warrant and the inventory 
+at the place. 
+Art. 18.065. EXECUTION OF WARRANT ISSUED BY DISTRICT JUDGE FOR DNA 
+SPECIMEN. 
+(a) A warrant issued by the judge of a district court under Article 18.02(a)(10) to 
+collect a DNA specimen from a person for the purpose of connecting that person to 
+an offense may be executed in any county in this state. 
+(b) This article does not apply to a warrant issued by a justice of the peace, judge, or 
+other magistrate other than a judge of a district court 
+Art. 18.067. EXECUTION OF WARRANT FOR BLOOD SPECIMEN IN INTOXICATION 
+OFFENSE. Notwithstanding any other law, a warrant issued under Article 18.02(a)(10) 
+to collect a blood specimen from a person suspected of committing an intoxication 
+offense under Section 49.04, 49.045, 49.05, 49.06, 49.061, 49.065, 49.07, or 49.08, 
+Penal Code, may be executed: 
+(1) in any county adjacent to the county in which the warrant was issued; and 
+(2) by any law enforcement officer authorized to make an arrest in the county of 
+execution. 
+Art. 18.07. DAYS ALLOWED FOR WARRANT TO RUN. (a) Unless the magistrate directs 
+in the warrant a shorter period for the execution of any search warrant issued under 
+this chapter, Chapter 18A, or Chapter 18B, the period allowed for the execution of 
+the warrant, exclusive of the day of its issuance and of the day of its execution, is: 
+(1) 15 whole days if the warrant is issued solely to search for and seize specimens 
+from a specific person for DNA analysis and comparison, including blood and saliva 
+samples; 
+(2) 10 whole days if the warrant is issued under Article 18B.354 or Subchapter G-1, 
+Chapter 18B; or 
+(3) three whole days if the warrant is issued for a purpose other than that described 
+by Subdivision (1) or (2). 
+(b) The magistrate issuing a search warrant under this chapter, Chapter 18A, or 
+Chapter 18B shall endorse on the search warrant the date and hour of its issuance. 
+(c) If a warrant is issued to search for and seize data or information contained in or on 
+a computer, disk drive, flash drive, cellular telephone, or other electronic, 
+communication, or data storage device, the warrant is considered to have been 
+executed within the time allowed under Subsection (a) if the device was seized 
+before the expiration of the time allowed. Notwithstanding any other law, any data 
+or information contained in or on a device seized may be recovered and analyzed 
+after the expiration of the time allowed under Subsection (a). 
+Power of officer executing warrant
+ CCP 18.08
+ Art. 18.08. POWER OF OFFICER EXECUTING WARRANT. In the execution of a search 
+warrant, the officer may call to his aid any number of citizens in this county, who shall 
+be bound to aid in the execution of the same. 
+In the execution of a search warrant, the officer may call to 
+his aid any number of citizens in this county, who shall be 
+bound to aid in the execution of the same. 
+28
+ What can you do with those present during 
+a search warrant’s execution
+ Shall seize accused & property CCP 18.09
+ 29
+ 
+ When the property directed to search for & seize is found, the officer 
+shall take possession and:
+ 
+ carry it before the magistrate
+ 
+ arrest any person whom he is directed to arrest & immediately take such person 
+before the magistrate
+ 
+ "seizure" in the context of property = 
+
+ restraint of property, whether by physical force or display of an officer's authority, and 
+
+ includes the collection of property or act of taking possession
+ 30
+ Muehler V. Mena USSC 544 US 93 (2005) 
+Do police officer violate the fourth amendment by detaining innocent occupants of a 
+home in which a search warrant is being executed, for the duration of the search? 
+No. Officers are allowed to detain the premises’ occupants while the search occurs.  
+Art. 18.09. SHALL SEIZE ACCUSED AND PROPERTY.  
+When the property which the officer is directed to search for and seize is found he 
+shall take possession of the same and carry it before the magistrate. He shall also 
+arrest any person whom he is directed to arrest by the warrant and immediately take 
+such person before the magistrate. For purposes of this chapter, "seizure," in the 
+context of property, means the restraint of property, whether by physical force or by 
+a display of an officer's authority, and includes the collection of property or the act of 
+taking possession of property. 
+Seizure of Circuit Board 
+CCP 18.095
+ 
+ In a search & seize of a gambling device, equipment, altered 
+equipment, or paraphernalia, it’s the officer discretion to:
+ 
+ seize only the programmable main circuit board of the device if the board is 
+designed as a subassembly or 
+
+ essential part of device, equipment, or paraphernalia to provide the info 
+necessary for gambling
+ 
+ Carry the circuit board before the magistrate, and 
+
+ Retain custody of the circuit board as the property seized. 
+Custody & How return made: 
+CCP 18.10 and 18.11
+ 
+ Not later than 3 whole days after the execution, officer:
+ 
+ 31
+ Upon returning, shall state on the back of the warrant or paper attached, the manner it 
+was executed
+ 
+ shall deliver a copy of the inventory of the property taken into his possession 
+
+ who seized the property, shall retain custody of it until the magistrate issues an order 
+for safekeeping the property:
+ 
+ Property may not be removed from the county in which it was seized without an order from 
+a magistrate in the county
+ 
+ This does not prevent the officer or department from forwarding any item(s) to a laboratory 
+for scientific analysis. 
+Return and Inventory Example
+ 32
+ 33
+ No Knock Search Warrants v. 
+Knock & Announce Warrants 
+34
+ Art. 18.095. SEIZURE OF CIRCUIT BOARD OF GAMBLING DEVICE, EQUIPMENT, OR 
+PARAPHERNALIA. For purposes of this chapter, an officer directed under a search 
+warrant to search for and seize a gambling device or equipment, altered gambling 
+equipment, or gambling paraphernalia in the discretion of the officer may: 
+(1) seize only the programmable main circuit board of the device, equipment, or 
+paraphernalia if that circuit board is designed as a subassembly or essential part of 
+the device, equipment, or paraphernalia to provide the information necessary for the 
+device, equipment, or paraphernalia to operate as a gambling device or equipment, 
+altered gambling equipment, or gambling paraphernalia; 
+(2) carry the circuit board before the magistrate; and 
+(3) retain custody of the circuit board as the property seized pursuant to the warrant 
+as required under this chapter. 
+Art. 18.10. HOW RETURN MADE. 
+(a) Not later than three whole days after executing a search warrant, the officer shall 
+return the search warrant. Upon returning the search warrant, the officer shall state 
+on the back of the same, or on some paper attached to it, the manner in which the 
+warrant has been executed. The officer shall also deliver to the magistrate a copy of 
+the inventory of the property taken into his possession under the warrant. The failure 
+of an officer to make a timely return of an executed search warrant or to submit an 
+inventory of the property taken into the officer's possession under the warrant does 
+not bar the admission of evidence under Article 38.23. The officer who seized the 
+property shall retain custody of it until the magistrate issues an order directing the 
+manner of safekeeping the property. Except as otherwise provided by Subsection (b), 
+the property may not be removed from the county in which it was seized without an 
+order approving the removal, issued by a magistrate in the county in which the 
+warrant was issued; provided, however, nothing herein shall prevent the officer, or 
+his department, from forwarding any item or items seized to a laboratory for 
+scientific analysis. 
+(b) For the purposes of complying with this article, property seized pursuant to a 
+warrant executed under Article 18.067 may be removed from the county in which it 
+was seized and returned to the county in which the warrant was issued without a 
+court order. 
+Art. 18.11. CUSTODY OF PROPERTY FOUND.  
+Property seized pursuant to a search warrant shall be kept as provided by the order 
+of a magistrate issued in accordance with Article 18.10 of this code. 
+• Show and discuss the example inventory paperwork pic 
+Wilson v Arkansas USSC  514 US 927 (1995) 
+Is the common-law knock and announce rule part of the fourth amendments 
+reasonableness requirement governing searches? 
+Yes. The fourth amendment ordinarily requires officers to knock and announce their 
+authority before entering a home to execute a warrant.  
+However, that rule is not meant to be inflexible rule. Courts should evaluate the 
+reasonableness of a no-knock warrant on a case-by-case basis. 
+No Knock Search Warrants v. 
+Knock & Announce Warrants 
+
+ Exceptions are a “reasonable suspicion” that knocking and announcing would:
+ 
+ Present a threat of physical violence, such as criminal history or propensity for violence,
+ 
+ Be futile or a “useless” gesture, or
+ 
+ Result in the likelihood that evidence would be destroyed.
+ 
+ No knock warrants can be obtained when this reasonable 
+suspicion is articulated in the warrant
+ THE END: Questions?
+ 10.10. Discuss the difference between no knock search warrant vs knock and 
+announce warrant.  
+• Purpose of “no knock” warrant allows officers to enter the premises without 
+warning to occupants…to protect officers from being shot if occupants are known to 
+be armed or to prevent disposal of contraband.  
+• Disadvantage of “no knock” warrant: Occupant may believe being attacked by home 
+invaders and try to defend self.  
+35
+ 36
+ • “Knock and announce” entry is designed to let occupants know its police that want 
+to enter premises…they knock and announce presence and wait a reasonable amount 
+of time. Both parties less at risk if door is opened peacefully.  
+• Disadvantage of “knock and announce”: Could give time for occupants to reach for 
+weapons or destroy evidence.  
+• However, little difference in how carried out: in knock and announce, officers have 
+to knock on door, but it does not specify how loud the knock and announcement has 
+to be, nor how long they need to wait for response. So, the difference is of just a few 
+seconds.  
+Conclusion 
+• Q/A session over key areas might be helpful for the students’ retention. 
+• Be available for student questions 
+• Remind students that they not only need to understand this material but be able 
+to apply the material as well 

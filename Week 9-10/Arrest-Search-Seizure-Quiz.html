@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrest, Search & Seizure Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Arrest, Search & Seizure Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains an exhaustive list of questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "What is the definition of a 'search warrant' according to CCP 18.01?",
+                options: ["A verbal order from a judge to search a location.", "A written order from a magistrate, directed to a peace officer, commanding him to search for and seize property or photograph a child.", "A form filled out by an officer requesting to search a place.", "A notice given to a suspect that their property will be searched."],
+                answer: "A written order from a magistrate, directed to a peace officer, commanding him to search for and seize property or photograph a child.",
+                explanation: "This is the precise legal definition provided in the Code of Criminal Procedure, outlining the key components: it must be a written order from a magistrate to a peace officer for a specific purpose.",
+                reference: "Handout Page 1: CCP Art. 18.01. SEARCH WARRANT.<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.18.htm#18.01' target='_blank' class='text-indigo-600 hover:underline'>CCP Art. 18.01</a>"
+            },
+            // --- Additional questions for exhaustive coverage ---
+            {
+                question: "What must an officer do with property seized under a search warrant before removing it from the county?",
+                options: [
+                    "Obtain an order from a magistrate in the county where the warrant was issued.",
+                    "Send it directly to the district attorney.",
+                    "Destroy it if not needed.",
+                    "Give it to the property owner."
+                ],
+                answer: "Obtain an order from a magistrate in the county where the warrant was issued.",
+                explanation: "Property seized under a warrant may not be removed from the county in which it was seized without an order from a magistrate in that county, except for certain exceptions like forwarding to a lab.",
+                reference: "Handout Page 11: CCP 18.10(a)"
+            },
+            {
+                question: "What is required for a search warrant to be issued for fire, health, or code inspections?",
+                options: [
+                    "A tip from a neighbor.",
+                    "Probable cause to believe a hazard or violation exists.",
+                    "A request from the fire marshal only.",
+                    "A city council vote."
+                ],
+                answer: "Probable cause to believe a hazard or violation exists.",
+                explanation: "A search warrant for fire, health, or code inspections must be based on probable cause that a hazard or violation exists (CCP 18.05).",
+                reference: "Handout Page 9: CCP 18.05."
+            },
+            {
+                question: "Who may issue a search warrant for electronic customer data held in electronic storage?",
+                options: [
+                    "Any magistrate in the state.",
+                    "A district judge.",
+                    "A justice of the peace.",
+                    "A municipal court judge."
+                ],
+                answer: "A district judge.",
+                explanation: "Only a district judge may issue a search warrant for electronic customer data held in electronic storage (CCP 18B.354).",
+                reference: "Handout Page 7: CCP 18B.354."
+            },
+            {
+                question: "What must a sworn affidavit for a search warrant set forth?",
+                options: [
+                    "The officer's opinion.",
+                    "Substantial facts establishing probable cause.",
+                    "A summary of the investigation.",
+                    "A list of all property to be seized."
+                ],
+                answer: "Substantial facts establishing probable cause.",
+                explanation: "A sworn affidavit must set forth substantial facts establishing probable cause for the issuance of a search warrant.",
+                reference: "Handout Page 1: CCP 18.01(b)"
+            },
+            {
+                question: "What is the process for executing a warrant to photograph an injured child?",
+                options: [
+                    "Any officer may photograph the child alone.",
+                    "A peace officer of the same sex as the alleged victim, or an officer assisted by a person of the same sex, must execute the warrant.",
+                    "The child must be removed from the premises.",
+                    "A parent must be present."
+                ],
+                answer: "A peace officer of the same sex as the alleged victim, or an officer assisted by a person of the same sex, must execute the warrant.",
+                explanation: "The law requires that the officer executing the warrant to photograph an injured child be of the same sex as the victim, or be assisted by someone of the same sex, to protect the child's dignity.",
+                reference: "Handout Page 7: CCP 18.021(e)"
+            },
+            {
+                question: "What is the officer’s power regarding calling citizens to aid in executing a warrant?",
+                options: [
+                    "Officers may not involve citizens.",
+                    "Officers may call to their aid any number of citizens in the county, who are bound to assist.",
+                    "Only the sheriff can call for aid.",
+                    "Citizens may only observe."
+                ],
+                answer: "Officers may call to their aid any number of citizens in the county, who are bound to assist.",
+                explanation: "CCP 18.08 allows officers to enlist the help of citizens in executing a warrant, and those citizens are legally bound to assist.",
+                reference: "Handout Page 10: CCP 18.08"
+            },
+            {
+                question: "What is the process for returning a search warrant after execution?",
+                options: [
+                    "The officer must return the warrant to the magistrate and state how it was executed, providing an inventory of property taken.",
+                    "The officer must destroy the warrant.",
+                    "The officer must file the warrant with the police department.",
+                    "The officer must give the warrant to the property owner."
+                ],
+                answer: "The officer must return the warrant to the magistrate and state how it was executed, providing an inventory of property taken.",
+                explanation: "After executing a search warrant, the officer must return it to the magistrate, state how it was executed, and provide an inventory of seized property.",
+                reference: "Handout Page 11: CCP 18.10(a)"
+            },
+            {
+                question: "What must be filed in every instance in which a search warrant is requested?",
+                options: ["A preliminary report.", "A witness statement.", "A sworn affidavit setting forth substantial facts establishing probable cause.", "A request form from the District Attorney's office."],
+                answer: "A sworn affidavit setting forth substantial facts establishing probable cause.",
+                explanation: "A search warrant cannot be issued without a sworn affidavit. This document contains the facts and circumstances that justify the search and is the basis for the magistrate's probable cause determination.",
+                reference: "Handout Page 1: CCP 18.01(b) - 'A sworn affidavit setting forth substantial facts establishing probable cause shall be filed in every instance...'"
+            },
+            {
+                question: "For an evidentiary search warrant under CCP 18.02(a)(10), the affidavit must establish probable cause for three things. Which of the following is NOT one of them?",
+                options: ["That a specific offense has been committed.", "That the suspect has a prior criminal record.", "That the items to be seized constitute evidence of that offense.", "That the items to be seized are located at the place to be searched."],
+                answer: "That the suspect has a prior criminal record.",
+                explanation: "The affidavit must connect the crime, the evidence, and the location. A suspect's prior record is not a required element to establish probable cause for the search itself.",
+                reference: "Handout Page 1: CCP 18.01(c) - Lists the three required elements."
+            },
+            {
+                question: "Under what circumstances may a magistrate consider information communicated by telephone to issue a search warrant?",
+                options: ["Only in misdemeanor cases.", "Never, the officer must appear in person.", "The magistrate may examine an applicant by phone, but the applicant must be placed under oath.", "Only if the district attorney approves it first."],
+                answer: "The magistrate may examine an applicant by phone, but the applicant must be placed under oath.",
+                explanation: "CCP 18.01(b-1) allows for telephonic or electronic means to obtain a warrant, but maintains the constitutional requirement that the information be provided under oath.",
+                reference: "Handout Page 3: CCP 18.01(b-1)(1) - 'The applicant or other person must be placed under oath before the examination.'"
+            },
+            {
+                question: "Which of the following items are grounds for a search warrant under CCP 18.02?",
+                options: ["Property the officer thinks might be stolen.", "Property specially designed, made, or adapted for or commonly used in the commission of an offense.", "Any property located in a suspect's home.", "Property that is not illegal but the officer finds suspicious."],
+                answer: "Property specially designed, made, or adapted for or commonly used in the commission of an offense.",
+                explanation: "This ground allows for the seizure of 'instrumentalities' of a crime, such as lock picks for burglary or scales for drug distribution.",
+                reference: "Handout Page 4: CCP 18.02(a)(2) - 'property specially designed, made, or adapted for or commonly used in the commission of an offense'.<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.18.htm#18.02' target='_blank' class='text-indigo-600 hover:underline'>CCP Art. 18.02</a>"
+            },
+            {
+                question: "What is an 'evidentiary search warrant'?",
+                options: ["A warrant to search for a person.", "A warrant issued under CCP 18.02(a)(10) to search for property or items that constitute evidence of an offense.", "A warrant to search for contraband.", "A warrant that does not require an affidavit."],
+                answer: "A warrant issued under CCP 18.02(a)(10) to search for property or items that constitute evidence of an offense.",
+                explanation: "This is the specific term for a warrant that seeks 'mere evidence' of a crime (like a bloody shirt or a suspect's computer) rather than contraband (like illegal drugs).",
+                reference: "Handout Page 5: 'Search warrants for items under #10 are called evidentiary search warrant.'"
+            },
+            {
+                question: "What did the Supreme Court rule in *Horton v. California* regarding the plain-view doctrine?",
+                options: ["Officers must discover evidence inadvertently for it to be admissible under plain view.", "The plain-view exception is valid even if the discovery of the evidence was not inadvertent.", "Plain view only applies to evidence listed in the warrant.", "Plain view does not apply inside a private residence."],
+                answer: "The plain-view exception is valid even if the discovery of the evidence was not inadvertent.",
+                explanation: "This case removed the 'inadvertence' requirement. As long as an officer is lawfully in a location and the incriminating nature of an item is immediately apparent, it can be seized, even if the officer expected to find it.",
+                reference: "Handout Page 5: 'No. Officers' discovery of incriminating evidence in plain view... is an exception to the warrant requirement even if the officers didn't discover the evidence inadvertently.'"
+            },
+            {
+                question: "A search warrant may not be issued to search for and seize evidence from the office of a newspaper or television station unless the items are what?",
+                options: ["Directly related to a capital murder.", "Described in Articles 18.02(a)(1) through (9), such as stolen property or prohibited weapons.", "Considered classified information.", "Owned by the station itself."],
+                answer: "Described in Articles 18.02(a)(1) through (9), such as stolen property or prohibited weapons.",
+                explanation: "This rule provides special protection for the press. An evidentiary warrant (a)(10) cannot be used to search a news office; the items sought must be contraband or fruits/instrumentalities of a crime as listed in the other subsections.",
+                reference: "Handout Page 5: CCP 18.01(e) - 'A search warrant may not be issued under Article 18.02(a)(10) to search for and seize property... located in an office of a newspaper...'"
+            },
+            {
+                question: "Under what circumstances can any magistrate issue a blood search warrant for a DWI suspect who refuses to provide a specimen?",
+                options: ["At any time for any DWI arrest.", "Only if the suspect has prior DWI convictions.", "The magistrate must be an attorney licensed by the state.", "Only if there was a crash involving serious injury."],
+                answer: "The magistrate must be an attorney licensed by the state.",
+                explanation: "CCP 18.01(j) specifies that for DWI blood warrants, the issuing magistrate must be a licensed attorney, ensuring a higher level of legal scrutiny for this invasive type of search.",
+                reference: "Handout Page 6: CCP 18.01(j) - 'Any magistrate who is an attorney licensed by this state may issue a search warrant under Article 18.02(a)(10) to collect a blood specimen...'"
+            },
+            {
+                question: "An officer reasonably believes a suspect's cell phone contains evidence of a crime. What is generally required to search the phone after a lawful arrest?",
+                options: ["The suspect's consent.", "A search warrant.", "Probable cause is sufficient.", "The phone can be searched immediately incident to arrest."],
+                answer: "A search warrant.",
+                explanation: "The Supreme Court has ruled that people have a high expectation of privacy in their cell phones. Therefore, searching a phone's digital contents generally requires a warrant, even after a lawful arrest.",
+                reference: "Handout Page 6: 'Peace officers may not search cell-phones or wireless devices, pursuant to a lawful arrest without a warrant.'"
+            },
+            {
+                question: "Under what exigent circumstance can an officer search a cell phone without a warrant?",
+                options: ["If they believe the suspect will remotely wipe the data.", "If there exists an immediate life-threatening situation.", "If the phone is not password protected.", "If the suspect is arrested for a felony."],
+                answer: "If there exists an immediate life-threatening situation.",
+                explanation: "The law provides a narrow exception for life-threatening emergencies, such as a kidnapping or hostage situation, where the information on the phone is needed to save a life.",
+                reference: "Handout Page 6: 'there exists an immediate life-threatening situation, under 18A.201.'"
+            },
+            {
+                question: "A search warrant is issued to photograph an injured child. Who must execute the warrant?",
+                options: ["Any peace officer.", "A peace officer of the same sex as the alleged victim, or an officer assisted by a person of the same sex.", "A Child Protective Services investigator.", "A detective from the crimes against children unit."],
+                answer: "A peace officer of the same sex as the alleged victim, or an officer assisted by a person of the same sex.",
+                explanation: "CCP 18.021(e) includes this requirement to protect the privacy and dignity of the child victim during the execution of this sensitive type of warrant.",
+                reference: "Handout Page 7: CCP 18.021(e) - 'A search warrant under this section shall be executed by a peace officer of the same sex as the alleged victim...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.18.htm#18.021' target='_blank' class='text-indigo-600 hover:underline'>CCP Art. 18.021</a>"
+            },
+            {
+                question: "A prosecutor requests that a search warrant affidavit be sealed. What must the prosecutor establish for the judge to grant the order?",
+                options: ["That the case is a high-profile felony.", "A compelling state interest, such as protecting a witness or preventing the destruction of evidence.", "That the defendant has requested it.", "That the media has already reported on the case."],
+                answer: "A compelling state interest, such as protecting a witness or preventing the destruction of evidence.",
+                explanation: "Sealing an affidavit is an exception to the public records rule and requires the state to show a compelling reason why public disclosure would harm the investigation or endanger individuals.",
+                reference: "Handout Page 8: CCP 18.011(a) - 'The judge may order the affidavit sealed if the attorney establishes a compelling state interest...'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.18.htm#18.011' target='_blank' class='text-indigo-600 hover:underline'>CCP Art. 18.011</a>"
+            },
+            {
+                question: "What is one of the five requisites of a search warrant's contents under CCP 18.04?",
+                options: ["It must state the suspect's name.", "It must run in the name of 'The State of Texas'.", "It must be signed by the chief of police.", "It must list the potential criminal charges."],
+                answer: "It must run in the name of 'The State of Texas'.",
+                explanation: "This is the first required element listed in the statute, establishing the legal authority under which the warrant is issued.",
+                reference: "Handout Page 8: CCP 18.04(1) - 'that it run in the name of \"The State of Texas\"'.<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.18.htm#18.04' target='_blank' class='text-indigo-600 hover:underline'>CCP Art. 18.04</a>"
+            },
+            {
+                question: "What is a primary advantage of obtaining a search warrant before conducting a search?",
+                options: ["It allows the officer to search any location they want.", "It may protect the officer from civil liability and shifts the legal burden to the defendant.", "It is faster than getting consent.", "It guarantees a conviction."],
+                answer: "It may protect the officer from civil liability and shifts the legal burden to the defendant.",
+                explanation: "A warrant provides a layer of judicial approval. If the warrant is later found to be invalid, the officer may be protected by the 'good faith' exception, and the burden is on the defense to prove the seizure was illegal.",
+                reference: "Handout Page 8: 'Advantages of a search warrant... An officer may be protected from civil liability. May shift the legal burden to the defendant...'"
+            },
+            {
+                question: "What is the standard time period allowed for the execution of a typical search warrant (not for DNA or electronic data)?",
+                options: ["15 whole days", "10 whole days", "5 whole days", "3 whole days"],
+                answer: "3 whole days",
+                explanation: "CCP 18.07 sets a three-day time limit for executing most search warrants, excluding the day of issuance and the day of execution, to ensure the probable cause doesn't become stale.",
+                reference: "Handout Page 9: CCP 18.07(a)(3) - 'three whole days if the warrant is issued for a purpose other than that described by Subdivision (1) or (2).'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.18.htm#18.07' target='_blank' class='text-indigo-600 hover:underline'>CCP Art. 18.07</a>"
+            },
+            {
+                question: "How long does an officer have to execute a search warrant issued solely to collect a DNA specimen?",
+                options: ["3 whole days", "10 whole days", "15 whole days", "30 whole days"],
+                answer: "15 whole days",
+                explanation: "The law allows a longer execution period for DNA warrants because the probable cause (the person's identity) does not become stale as quickly as it might for evidence at a location.",
+                reference: "Handout Page 9: CCP 18.07(a)(1) - '15 whole days if the warrant is issued solely to search for and seize specimens from a specific person for DNA analysis...'"
+            },
+            {
+                question: "According to the Supreme Court in *Muehler v. Mena*, can officers detain the innocent occupants of a home while a search warrant is being executed?",
+                options: ["No, innocent occupants must be allowed to leave.", "Yes, officers are allowed to detain the premises' occupants for the duration of the search.", "Only if the occupants are suspected of a crime.", "Only for a brief period of time."],
+                answer: "Yes, officers are allowed to detain the premises' occupants for the duration of the search.",
+                explanation: "The Court ruled that detaining occupants during a search is reasonable to ensure officer safety, prevent flight, and facilitate the orderly completion of the search.",
+                reference: "Handout Page 10: 'No. Officers are allowed to detain the premises' occupants while the search occurs.'"
+            },
+            {
+                question: "An officer executes a search warrant and seizes property. What must the officer do with the warrant after execution?",
+                options: ["File it in the case folder.", "Return the search warrant to the proper magistrate not later than three whole days after executing it.", "Give it to the property owner.", "Destroy it after 30 days."],
+                answer: "Return the search warrant to the proper magistrate not later than three whole days after executing it.",
+                explanation: "CCP 18.10 requires a prompt 'return' of the warrant to the issuing magistrate. On the return, the officer must state how the warrant was executed and provide an inventory of seized items.",
+                reference: "Handout Page 11: CCP 18.10(a) - 'Not later than three whole days after executing a search warrant, the officer shall return the search warrant.'<br><a href='https://statutes.capitol.texas.gov/Docs/CN/htm/CN.18.htm#18.10' target='_blank' class='text-indigo-600 hover:underline'>CCP Art. 18.10</a>"
+            },
+            {
+                question: "What did the Supreme Court rule in *Wilson v. Arkansas* regarding the 'knock and announce' rule?",
+                options: ["Officers must always knock and announce their presence.", "The knock and announce rule is part of the Fourth Amendment's reasonableness requirement, but it is not inflexible.", "The knock and announce rule is unconstitutional.", "Officers never have to knock and announce."],
+                answer: "The knock and announce rule is part of the Fourth Amendment's reasonableness requirement, but it is not inflexible.",
+                explanation: "The Court affirmed the 'knock and announce' principle but also recognized that there are exceptions, such as when it would be dangerous or futile, which should be evaluated on a case-by-case basis.",
+                reference: "Handout Page 11: 'Yes. The fourth amendment ordinarily requires officers to knock and announce... However, that rule is not meant to be inflexible...'"
+            },
+            {
+                question: "What is the primary purpose of a 'no-knock' warrant?",
+                options: ["To make the search go faster.", "To protect officers from being shot or to prevent the disposal of contraband.", "To be used in all felony drug cases.", "To avoid waking up the neighbors."],
+                answer: "To protect officers from being shot or to prevent the disposal of contraband.",
+                explanation: "A no-knock entry is justified when there is reasonable suspicion that knocking and announcing would create a threat of violence or lead to the immediate destruction of evidence.",
+                reference: "Handout Page 12: 'Purpose of \"no knock\" warrant allows officers to enter the premises without warning...to protect officers from being shot... or to prevent disposal of contraband.'"
+            },
+            {
+                question: "If a search warrant also establishes probable cause that a person has committed an offense, what may the warrant additionally order?",
+                options: ["The person's immediate release.", "The seizure of the person's vehicle.", "The arrest of such person.", "A fine to be paid by the person."],
+                answer: "The arrest of such person.",
+                explanation: "CCP 18.03 allows a search warrant to double as an arrest warrant if the affidavit establishes probable cause for both the search and the arrest of a specific individual.",
+                reference: "Handout Page 4: CCP 18.03 - 'the search warrant may, in addition, order the arrest of such person.'"
+            },
+            {
+                question: "What is the time limit for executing a search warrant for electronic customer data held by a service provider?",
+                options: ["3 whole days", "10 whole days", "15 whole days", "30 whole days"],
+                answer: "10 whole days",
+                explanation: "CCP 18.07(a)(2) provides a 10-day window to execute warrants for electronic data, which is longer than a typical warrant but shorter than a DNA warrant.",
+                reference: "Handout Page 9: CCP 18.07(a)(2) - '10 whole days if the warrant is issued under Article 18B.354...'"
+            },
+            {
+                question: "During the execution of a search warrant, what is an officer empowered to do according to CCP 18.08?",
+                options: ["Commandeer any vehicle needed for the search.", "Call to his aid any number of citizens in the county.", "Enter any adjacent property without a warrant.", "Use any amount of force deemed necessary."],
+                answer: "Call to his aid any number of citizens in the county.",
+                explanation: "This statute allows officers to enlist the help of citizens to execute a warrant, and those citizens are legally bound to assist.",
+                reference: "Handout Page 10: CCP 18.08 - 'the officer may call to his aid any number of citizens in this county, who shall be bound to aid in the execution of the same.'"
+            },
+            {
+                question: "When an officer seizes property, what must they prepare and present to the owner or person in possession?",
+                options: ["A receipt for the property.", "A verbal list of items taken.", "A written inventory of the property to be taken.", "A notice of seizure form."],
+                answer: "A written inventory of the property to be taken.",
+                explanation: "CCP 18.06(b) requires the officer to create a written inventory of seized items and provide a copy to the person present at the location to ensure transparency.",
+                reference: "Handout Page 9: CCP 18.06(b) - 'Before the officer takes property from the place, he shall prepare a written inventory of the property to be taken.'"
+            },
+            {
+                question: "What is a major disadvantage of a 'no-knock' warrant entry?",
+                options: ["It takes longer to prepare the warrant.", "It requires more officers.", "The occupant may believe they are being attacked by home invaders and try to defend themselves.", "It is more likely to be challenged in court."],
+                answer: "The occupant may believe they are being attacked by home invaders and try to defend themselves.",
+                explanation: "The surprise entry can lead to a violent confrontation if the occupant mistakes the police for criminals, increasing the risk for both officers and citizens.",
+                reference: "Handout Page 12: 'Disadvantage of \"no knock\" warrant: Occupant may believe being attacked by home invaders and try to defend self.'"
+            },
+            {
+                question: "When can a search warrant be issued for fire, health, and code inspections under CCP 18.05?",
+                options: ["Anytime an inspector wants to check a property.", "Only upon presentation of evidence of probable cause that a hazard or violation exists.", "Only for commercial properties.", "After a fire has already occurred."],
+                answer: "Only upon presentation of evidence of probable cause that a hazard or violation exists.",
+                explanation: "An administrative search warrant still requires probable cause, though the standard may consider factors like the age of the building, previous violations, and conditions of nearby premises.",
+                reference: "Handout Page 9: CCP 18.05(b) - 'A search warrant may not be issued under this article except upon the presentation of evidence of probable cause...'"
+            },
+            {
+                question: "If a device like a computer or cell phone is seized under a warrant, when is the warrant considered 'executed'?",
+                options: ["When the data analysis is complete.", "When the device is seized, even if analysis happens later.", "When a report of the findings is filed with the court.", "Within 24 hours of seizure."],
+                answer: "When the device is seized, even if analysis happens later.",
+                explanation: "CCP 18.07(c) clarifies that for electronic devices, the execution deadline applies to the physical seizure of the item, not the subsequent forensic analysis, which can take much longer.",
+                reference: "Handout Page 10: CCP 18.07(c) - 'the warrant is considered to have been executed within the time allowed... if the device was seized before the expiration of the time allowed.'"
+            },
+            {
+                question: "What is the maximum initial period for which a search warrant affidavit can be sealed under CCP 18.011?",
+                options: ["10 days", "30 days", "60 days", "Until the trial is over."],
+                answer: "30 days",
+                explanation: "The initial sealing order expires on the 31st day after the warrant is executed. The state can request one 30-day extension.",
+                reference: "Handout Page 8: CCP 18.011(b) - 'An order sealing an affidavit under this section expires on the 31st day after the date on which the search warrant... is executed.'"
+            },
+            {
+                question: "When executing a warrant for a blood specimen in an intoxication offense, where can the warrant be executed?",
+                options: ["Only in the county where it was issued.", "Anywhere in the State of Texas.", "In the county of issuance or any adjacent county.", "Only at a hospital approved by the magistrate."],
+                answer: "In the county of issuance or any adjacent county.",
+                explanation: "CCP 18.067 provides specific jurisdictional flexibility for DWI blood draw warrants, allowing officers to execute them in neighboring counties.",
+                reference: "Handout Page 10: CCP 18.067(1) - 'in any county adjacent to the county in which the warrant was issued;'"
+            },
+            {
+                question: "If an officer seizes only the circuit board of a gambling device, what must they do with it?",
+                options: ["Destroy it immediately.", "Send it directly to a forensics lab.", "Carry the circuit board before the magistrate.", "Hold it as evidence at the police department."],
+                answer: "Carry the circuit board before the magistrate.",
+                explanation: "CCP 18.095 allows for seizing just the essential component of a gambling machine, but it must still be presented to the magistrate as the seized property.",
+                reference: "Handout Page 11: CCP 18.095(2) - 'carry the circuit board before the magistrate;'"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = new Array(originalOrder.length);
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            updateScoreCounter();
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            updateScoreCounter();
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1 > quizData.length ? quizData.length : currentQuestionIndex + 1}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            resultScreen.classList.add('hidden');
+            
+            // Use the originalOrder to display questions in their initial sequence
+            originalOrder.forEach((question, index) => {
+                const answer = userAnswers[index];
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>

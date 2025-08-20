@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Study Guide: Arrest, Search & Seizure</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Gray 100 background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #e5e7eb; /* Gray 200 */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary:hover {
+            background-color: #d1d5db;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #374151; /* Gray 700 */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-block {
+            background-color: #fafafa;
+            border-left: 4px solid #6b7280;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .info-block.definitions { border-left-color: #f59e0b; }
+        .info-block.procedures { border-left-color: #0ea5e9; }
+        .info-block.example { border-left-color: #10b981; }
+        .info-block p { margin-bottom: 0.5rem; }
+        .info-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
+        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Arrest, Search & Seizure</h1>
+            <p class="text-lg text-gray-600 mt-2">A Comprehensive Study Guide on Search Warrants</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-training">Training Requirements</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-definitions">Definitions & Grounds</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-application">Warrant Application</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-execution">Execution of Warrants</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-special">Special Warrants</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Training Requirements Tab -->
+            <div id="tab-training" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">TCOLE Training Requirements</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Asset Forfeiture Training (Occupations Code 1701)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p><strong>Sec. 1701.253(g):</strong> TCOLE shall establish a statewide comprehensive education and training program on asset forfeiture under CCP Chapter 59. An officer must complete this program not later than the <strong>second anniversary</strong> of the date the officer is licensed or applies for an intermediate proficiency certificate, whichever is earlier.</p>
+                                <p class="mt-4"><strong>Sec. 1701.402(d):</strong> As a requirement for an <strong>intermediate proficiency certificate</strong>, an officer must complete the asset forfeiture training program.</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Definitions & Grounds Tab -->
+            <div id="tab-definitions" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Definitions & Grounds for Issuance</h2>
+                <div class="space-y-6">
+                    <details class="card p-0">
+                        <summary>Search Warrant Definition (CCP 18.01)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <p>A <strong>"search warrant"</strong> is a written order, issued by a magistrate and directed to a peace officer, commanding him to search for any property or thing and to seize the same and bring it before such magistrate.</p>
+                                <ul class="list-disc ml-6 mt-2 text-gray-700">
+                                    <li>Also may command search for and photograph a child and deliver any film exposed to the magistrate (CCP 18.01(a)).</li>
+                                    <li>Black’s Law: A judge’s written order authorizing a law enforcement officer to conduct a search of a specified place and to seize evidence.</li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.01" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.01</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Grounds for Issuance (CCP 18.02)</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block procedures">
+                                <p>A search warrant may be issued to search for and seize:</p>
+                                <ul>
+                                    <li>Property acquired by theft.</li>
+                                    <li>Property specially designed or adapted for an offense.</li>
+                                    <li>Prohibited weapons.</li>
+                                    <li>Gambling devices or equipment.</li>
+                                    <li>Drugs, controlled substances, and related paraphernalia.</li>
+                                    <li>Implements or instruments used in the commission of a crime.</li>
+                                    <li><strong>Evidentiary Search Warrant (18.02(a)(10)):</strong> Property or items constituting evidence of an offense or tending to show a particular person committed an offense.</li>
+                                    <li>Persons.</li>
+                                    <li>Contraband subject to forfeiture under Chapter 59.</li>
+                                    <li>Obscene materials for commercial distribution.</li>
+                                    <li>Any property the possession of which is prohibited by law.</li>
+                                    <li>Electronic customer data held in electronic storage (18.02(a)(13)).</li>
+                                    <li>Cellular phone or wireless device (18.02(a)(14), 18.0215).</li>
+                                </ul>
+                                <div class="info-block mt-4">
+                                    <p><strong>Note:</strong> Only certain judges may issue evidentiary and asset forfeiture warrants (see CCP 18.02(10)&(12)).</p>
+                                </div>
+                            </div>
+                             <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.02" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.02</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Warrant May Order Arrest (CCP 18.03)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <p>If the facts presented to the magistrate also establish probable cause that a person has committed an offense, the search warrant may, in addition, order the arrest of such person.</p>
+                                <div class="info-block example"><p><strong>Example:</strong> An affidavit for a search warrant for stolen goods at a suspect's home also contains facts showing the suspect committed the burglary. The warrant can command officers to both search the home and arrest the suspect.</p></div>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.03" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.03</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Plain View Doctrine (Horton v. California)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <p>Officers may seize evidence in plain view from a lawful vantage point, even if not listed in the warrant, as long as they are lawfully present and its incriminating character is immediately apparent.</p>
+                                <div class="info-block example"><p><strong>Example:</strong> While searching for stolen TVs, officers see illegal narcotics in plain view and may seize them under the plain view doctrine.</p></div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Warrant Application Tab -->
+            <div id="tab-application" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Warrant Application & Issuance</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>The Sworn Affidavit (CCP 18.01(b))</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>No search warrant shall issue unless sufficient facts are first presented to satisfy the magistrate that <strong>probable cause</strong> does in fact exist. A <strong>sworn affidavit</strong> setting forth substantial facts establishing probable cause shall be filed in every instance.</p>
+                                <p class="mt-2">For an <strong>Evidentiary Search Warrant</strong> (18.02(a)(10)), the affidavit must establish PC that:</p>
+                                <ul>
+                                    <li>A specific offense has been committed;</li>
+                                    <li>The described property constitutes evidence of that offense; AND</li>
+                                    <li>The property to be seized is located at the particular place to be searched.</li>
+                                </ul>
+                                <ul class="list-disc ml-6 mt-2 text-gray-700">
+                                    <li>For blood specimen warrants (DWI), the affidavit must show the person is arrested for a qualifying offense and refused a test (18.01(j)).</li>
+                                    <li>For photographing an injured child, the affidavit must show a specific offense, a specifically described victim, and that evidence can be detected by photographic means (18.021).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Contents of a Warrant (CCP 18.04)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>A search warrant shall be sufficient if it contains the following:</p>
+                                <ul>
+                                    <li>It must run in the name of <strong>"The State of Texas"</strong>.</li>
+                                    <li>It must identify, as near as may be, that which is to be seized and the person, place, or thing to be searched.</li>
+                                    <li>It must command any peace officer of the proper county to search forthwith.</li>
+                                    <li>It must be dated and signed by the magistrate.</li>
+                                    <li>The magistrate's name must appear in clearly legible handwriting or typewritten form with signature.</li>
+                                </ul>
+                                <div class="info-block mt-4">
+                                    <p><strong>Advantages of a Search Warrant:</strong></p>
+                                    <ul class="list-disc ml-6">
+                                        <li>Evidence seized is more readily accepted by courts.</li>
+                                        <li>Officer may be protected from civil liability.</li>
+                                        <li>May shift the legal burden to the defendant to show the evidence was seized illegally.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                             <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.04" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.04</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Warrants for Fire, Health, and Code Inspections (CCP 18.05)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>May be issued to a fire marshal, health officer, or code enforcement official to inspect premises for fire/health hazards or unsafe building conditions, or violations of regulations/statutes/ordinances.</p>
+                                <ul class="list-disc ml-6">
+                                    <li>Probable cause may be based on age, condition, type, use, or prior violations of the premises or nearby premises.</li>
+                                    <li>Each city/county may designate officials for this purpose.</li>
+                                    <li>Not available to county code enforcement in counties with population &ge; 3.3 million for building code violations.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Sealing of Affidavit (CCP 18.011)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>A prosecutor may request a judge to seal a search warrant affidavit if there is a compelling state interest, such as:</p>
+                                <ul>
+                                    <li>Public disclosure would jeopardize the safety of a victim, witness, or informant.</li>
+                                    <li>Public disclosure would cause the destruction of evidence.</li>
+                                </ul>
+                                <p>A sealing order expires on the 31st day after the warrant is executed, but can be granted one 30-day extension.</p>
+                            </div>
+                             <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.011" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.011</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Execution of Warrants Tab -->
+            <div id="tab-execution" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Execution of Warrants</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Timeline and Manner of Execution (CCP 18.06, 18.07)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>An officer must execute the warrant <strong>without delay</strong> and return it to the proper magistrate.</p>
+                                <p><strong>Days Allowed for Warrant to Run</strong> (excluding day of issuance and execution):</p>
+                                <ul>
+                                    <li><strong>3 whole days</strong> for a typical search warrant.</li>
+                                    <li><strong>10 whole days</strong> for a warrant for electronic customer data.</li>
+                                    <li><strong>15 whole days</strong> for a warrant to seize DNA specimens.</li>
+                                </ul>
+                                <p class="mt-2">Upon searching, the officer must present a copy of the warrant to the owner (if present) and prepare a written inventory of property to be taken.</p>
+                                <ul class="list-disc ml-6 mt-2 text-gray-700">
+                                    <li>Officer must legibly endorse their name on the inventory and present or leave a copy with the owner/possessor.</li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.06" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.06 & 18.07</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Warrants for Electronic Data (CCP 18B.354)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>District judges may issue warrants for electronic customer data held in electronic storage (e.g., cloud, social media, email). Application must show probable cause and be supported by oath. Only data described in the affidavit may be seized.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Knock-and-Announce vs. No-Knock</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <p><strong>Wilson v. Arkansas:</strong> The Fourth Amendment ordinarily requires officers to knock and announce their presence and authority before entering a home to execute a warrant.</p>
+                                <p class="mt-2"><strong>No-Knock Entry:</strong> An exception is allowed if police have a <strong>reasonable suspicion</strong> that knocking and announcing would be dangerous (threat of violence) or futile, or that it would inhibit the investigation (e.g., allow for the destruction of evidence).</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Detention of Persons During Search</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <p><strong>Muehler v. Mena:</strong> Officers executing a search warrant for contraband have the authority to detain the occupants of the premises while a proper search is conducted.</p>
+                                <div class="info-block example"><p><strong>Example:</strong> While executing a search warrant for narcotics at a house, officers can lawfully handcuff and detain all occupants in the living room for the duration of the search to ensure officer safety and prevent the destruction of evidence.</p></div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Return of Warrant (CCP 18.10)</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block procedures">
+                                <p>Not later than <strong>three whole days after executing</strong> a search warrant, the officer shall return the warrant to the magistrate. The officer must state on the back of the warrant how it was executed and deliver a copy of the inventory of seized property.</p>
+                            </div>
+                             <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.10" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.10</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- Special Warrants Tab -->
+            <div id="tab-special" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Special Warrants</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Warrant to Photograph Injured Child (CCP 18.021)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>A warrant may be issued to search for and photograph a child alleged to be a victim of Injury to a Child, Sexual Assault, or related offenses. The warrant must identify the child and the place to be searched. The child may not be removed from the premises.</p>
+                                <ul class="list-disc ml-6 mt-2 text-gray-700">
+                                    <li>Officer executing the warrant may be accompanied by a law enforcement agency photographer.</li>
+                                    <li>Officer or assistant must be of the same sex as the victim, or be assisted by someone of the same sex.</li>
+                                    <li>After execution, officer must deliver the film/photos to the magistrate.</li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.021" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.021</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Warrant for Electronic Devices (CCP 18.0215)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Peace officers may not search a cell phone or wireless device incident to a lawful arrest without a warrant, unless:</p>
+                                <ul class="list-disc ml-6">
+                                    <li>The owner/possessor consents.</li>
+                                    <li>The device is reported stolen.</li>
+                                    <li>The device is in possession of a fugitive or there is an immediate life-threatening situation.</li>
+                                </ul>
+                                <p>Applications must be written, signed, and sworn, and must state the applicant’s agency, device, owner, judicial district, and facts for probable cause.</p>
+                                <p>If a device is searched in an emergency, a warrant must be applied for as soon as practicable. If the judge finds no emergency, evidence is inadmissible.</p>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.0215" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.0215</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Warrants for Fire, Health, and Code Inspections (CCP 18.05)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>May be issued to inspect premises for fire/health hazards or unsafe building conditions, or violations of regulations/statutes/ordinances. Probable cause may be based on age, condition, type, use, or prior violations of the premises or nearby premises.</p>
+                                <ul class="list-disc ml-6">
+                                    <li>Each city/county may designate officials for this purpose.</li>
+                                    <li>Not available to county code enforcement in counties with population &ge; 3.3 million for building code violations.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Sealing of Affidavit (CCP 18.011)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>A felony prosecutor may request a judge to seal a search warrant affidavit if public disclosure would jeopardize safety or destroy evidence, or if the affidavit contains info from an unexpired wiretap order.</p>
+                                <ul class="list-disc ml-6">
+                                    <li>Sealing order expires on the 31st day after execution, with one possible 30-day extension.</li>
+                                    <li>Does not prohibit disclosure of warrant contents, return, or inventory, or affect a defendant’s right to discover the affidavit.</li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.011" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.011</a>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Warrant for Blood Specimen (CCP 18.01(j))</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Any magistrate who is a licensed attorney may issue a search warrant to collect a blood specimen from a person who:</p>
+                                <ol>
+                                    <li>Is arrested for an intoxication offense (e.g., DWI); and</li>
+                                    <li>Refuses to submit to a breath or blood alcohol test.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Warrant for Cell Phone or Wireless Device (CCP 18.0215)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Peace officers <strong>may not search a cell phone incident to a lawful arrest without a warrant.</strong></p>
+                                <p><strong>Exceptions (No Warrant Needed):</strong></p>
+                                <ul>
+                                    <li>The owner consents to the search.</li>
+                                    <li>The device is reported stolen by the owner.</li>
+                                    <li>The officer reasonably believes the device is in possession of a fugitive or there is an immediate life-threatening situation.</li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.0215" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.0215</a>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-gray-700 text-white font-semibold py-2 px-6 rounded-md hover:bg-gray-800">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "What is a 'search warrant' according to CCP 18.01?",
+            options: ["A verbal command from a supervisor", "A written order from a magistrate to a peace officer", "A request from the District Attorney", "A form filled out by the arresting officer"],
+            answer: "A written order from a magistrate to a peace officer",
+            explanation: "<strong>Reference: CCP 18.01.</strong> A search warrant is a written order, issued by a magistrate and directed to a peace officer, commanding a search and seizure."
+        },
+        {
+            question: "Which of the following is NOT a valid ground for issuing a search warrant under CCP 18.02?",
+            options: ["Property acquired by theft", "Prohibited weapons", "Property suspected of being involved in a future crime", "Implements used in the commission of a crime"],
+            answer: "Property suspected of being involved in a future crime",
+            explanation: "<strong>Reference: CCP 18.02.</strong> A search warrant must be based on probable cause that an offense *has been* committed, not one that might happen in the future."
+        },
+        {
+            question: "What must be filed in every instance in which a search warrant is requested?",
+            options: ["A preliminary hearing report", "A sworn affidavit establishing probable cause", "A signed confession from the suspect", "A list of potential witnesses"],
+            answer: "A sworn affidavit establishing probable cause",
+            explanation: "<strong>Reference: CCP 18.01(b).</strong> A sworn affidavit setting forth substantial facts establishing probable cause shall be filed in every instance."
+        },
+        {
+            question: "What is the standard time limit for a typical search warrant to be executed?",
+            options: ["24 hours", "3 whole days", "10 whole days", "15 whole days"],
+            answer: "3 whole days",
+            explanation: "<strong>Reference: CCP 18.07.</strong> The period allowed for execution is three whole days, exclusive of the day of issuance and day of execution."
+        },
+        {
+            question: "Under Muehler v. Mena, what are officers permitted to do during the execution of a search warrant?",
+            options: ["Search any person on the premises", "Detain the occupants of the premises", "Seize any property they find interesting", "Question occupants without Miranda warnings"],
+            answer: "Detain the occupants of the premises",
+            explanation: "<strong>Reference: Muehler v. Mena.</strong> The Supreme Court held that officers may detain occupants of a premises while a proper search is being conducted."
+        },
+        {
+            question: "An officer needs to search a suspect's cell phone following a lawful arrest. What is generally required?",
+            options: ["The suspect's verbal consent", "A search warrant", "Permission from a supervisor", "Nothing, it is a search incident to arrest"],
+            answer: "A search warrant",
+            explanation: "<strong>Reference: CCP 18.0215.</strong> Peace officers may not search a cell phone or wireless device incident to a lawful arrest without a warrant, unless an exception like consent or exigent circumstances applies."
+        },
+        {
+            question: "What is the purpose of a 'no-knock' warrant?",
+            options: ["To save time on paperwork", "To protect officers from armed occupants or prevent destruction of evidence", "To search a property when the owner is not home", "It is the standard type of warrant"],
+            answer: "To protect officers from armed occupants or prevent destruction of evidence",
+            explanation: "<strong>Reference: Wilson v. Arkansas.</strong> A no-knock entry is justified by a reasonable suspicion that knocking would be dangerous or inhibit the investigation."
+        },
+        {
+            question: "After executing a search warrant, how long does the officer have to return it to the magistrate?",
+            options: ["Immediately", "Within 24 hours", "Not later than three whole days", "Within ten business days"],
+            answer: "Not later than three whole days",
+            explanation: "<strong>Reference: CCP 18.10.</strong> Not later than three whole days after executing a search warrant, the officer shall return the search warrant."
+        },
+        {
+            question: "A search warrant to collect a blood specimen for a DWI case requires that the suspect was arrested and:",
+            options: ["Was involved in a crash", "Has a prior DWI conviction", "Refused to submit to a breath or blood test", "Appeared visibly intoxicated"],
+            answer: "Refused to submit to a breath or blood test",
+            explanation: "<strong>Reference: CCP 18.01(j).</strong> A blood search warrant may be issued for a person arrested for an intoxication offense who refuses to submit to a breath or blood test."
+        },
+        {
+            question: "If an officer executing a warrant for stolen TVs sees illegal narcotics in plain view, what should they do?",
+            options: ["Ignore the narcotics as they are not in the warrant", "Seize the narcotics under the plain view doctrine", "Leave and get a new warrant for the narcotics", "Call a supervisor for permission to seize"],
+            answer: "Seize the narcotics under the plain view doctrine",
+            explanation: "<strong>Reference: Horton v. California.</strong> The plain view doctrine allows an officer to seize contraband or evidence of a crime that is not listed in the warrant but is discovered in a place where the officer has a legal right to be."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#16a34a';
+            else if (percentage >= 50) quizScoreEl.style.color = '#f59e0b';
+            else quizScoreEl.style.color = '#dc2626';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+});
+</script>
+
+</body>
+</html>
