@@ -85,8 +85,7 @@
             <nav class="flex flex-wrap -mb-px" id="main-tabs">
                 <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-definitions">Definitions</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-categories">Drug Categories & Symptoms</button>
-                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-penalty-groups">Penalty Groups</button>
-                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-offenses-cs">Controlled Substance Offenses</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-penalty-offenses">Penalty Groups & Controlled Substance Offenses</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-offenses-mj">Marihuana & Paraphernalia</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-offenses-dd">Dangerous Drugs</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-other">Other Procedures</button>
@@ -104,16 +103,48 @@
                         <summary>Core Substance & Statutory Definitions</summary>
                         <div class="p-6 border-t">
                             <div class="info-block definitions">
-                                <ul>
-                                    <li><strong>Drug:</strong> A substance (other than a device or its component/part) that is recognized as a drug in the official United States Pharmacopoeia, Homeopathic Pharmacopoeia, or National Formulary; intended for use in diagnosis, cure, mitigation, treatment, or prevention of disease; or intended to affect the structure or function of the body (not food). <em>(HSC 481.002(16))</em></li>
-                                    <li><strong>Controlled Substance:</strong> A substance, including a drug, adulterant, or dilutant, listed in Schedules I-V or Penalty Groups 1, 1-A, 1-B, 2, 2-A, 3, or 4. Includes the aggregate weight of any mixture. <em>Does not include hemp or tetrahydrocannabinols in hemp.</em> <em>(HSC 481.002(5))</em></li>
-                                    <li><strong>Controlled Substance Analogue:</strong> A substance with a chemical structure or effect substantially similar to a controlled substance in Schedule I/II or Penalty Groups 1, 1-A, 1-B, 2, or 2-A. <em>(HSC 481.002(6))</em></li>
-                                    <li><strong>Counterfeit Substance:</strong> A controlled substance that, without authorization, bears or is in a container/label with an actual or simulated trademark, trade name, or identifying mark of a manufacturer/distributor/dispenser other than the actual manufacturer. <em>(HSC 481.002(7))</em></li>
-                                    <li><strong>Immediate Precursor:</strong> A substance designated by rule as a principal compound used or produced primarily for use in the manufacture of a controlled substance, or as an immediate chemical intermediary, or whose control is necessary to prevent/limit manufacture. <em>(HSC 481.002(22))</em></li>
-                                    <li><strong>Dangerous Drug:</strong> A device or drug unsafe for self-medication and not included in Schedules I-V or Penalty Groups 1-4. Typically, prescription drugs requiring a legend such as "Rx only." <em>(HSC 483.001(2))</em></li>
-                                    <li><strong>Marihuana:</strong> The plant Cannabis sativa L., its seeds, and every compound or preparation of the plant or its seeds. <em>Does not include resin, mature stalks, or sterilized seeds.</em> <em>(HSC 481.002(26))</em></li>
-                                    <li><strong>Drug Paraphernalia:</strong> Equipment, product, or material used or intended for use in planting, manufacturing, packaging, concealing, or introducing a controlled substance into the human body. <em>(HSC 481.002(17))</em></li>
-                                    <li><strong>Controlled Premises:</strong> A place where original or other records required under this chapter are kept, or a place (factory, warehouse, etc.) where a person registered under this chapter may lawfully hold, manufacture, distribute, dispense, administer, possess, or otherwise dispose of a controlled substance. <em>(HSC 481.002(4))</em></li>
+                                <ul class="list-disc pl-6 space-y-2">
+                                    <li><strong>Drug:</strong><br>
+                                        <span class="text-gray-700">A substance (other than a device or its component/part) that is:</span>
+                                        <ul class="list-disc pl-6">
+                                            <li>Recognized as a drug in the official United States Pharmacopoeia, Homeopathic Pharmacopoeia, or National Formulary</li>
+                                            <li>Intended for use in diagnosis, cure, mitigation, treatment, or prevention of disease</li>
+                                            <li>Intended to affect the structure or function of the body (not food)</li>
+                                        </ul>
+                                        <em>(HSC 481.002(16))</em>
+                                    </li>
+                                    <li><strong>Controlled Substance:</strong><br>
+                                        <span class="text-gray-700">A substance, including a drug, adulterant, or dilutant, listed in Schedules I-V or Penalty Groups 1, 1-A, 1-B, 2, 2-A, 3, or 4. Includes the aggregate weight of any mixture. <br><em>Does not include hemp or tetrahydrocannabinols in hemp.</em></span>
+                                        <em>(HSC 481.002(5))</em>
+                                    </li>
+                                    <li><strong>Controlled Substance Analogue:</strong><br>
+                                        <span class="text-gray-700">A substance with a chemical structure or effect substantially similar to a controlled substance in Schedule I/II or Penalty Groups 1, 1-A, 1-B, 2, or 2-A.</span>
+                                        <em>(HSC 481.002(6))</em>
+                                    </li>
+                                    <li><strong>Counterfeit Substance:</strong><br>
+                                        <span class="text-gray-700">A controlled substance that, without authorization, bears or is in a container/label with an actual or simulated trademark, trade name, or identifying mark of a manufacturer/distributor/dispenser other than the actual manufacturer.</span>
+                                        <em>(HSC 481.002(7))</em>
+                                    </li>
+                                    <li><strong>Immediate Precursor:</strong><br>
+                                        <span class="text-gray-700">A substance designated by rule as a principal compound used or produced primarily for use in the manufacture of a controlled substance, or as an immediate chemical intermediary, or whose control is necessary to prevent/limit manufacture.</span>
+                                        <em>(HSC 481.002(22))</em>
+                                    </li>
+                                    <li><strong>Dangerous Drug:</strong><br>
+                                        <span class="text-gray-700">A device or drug unsafe for self-medication and not included in Schedules I-V or Penalty Groups 1-4. Typically, prescription drugs requiring a legend such as "Rx only." </span>
+                                        <em>(HSC 483.001(2))</em>
+                                    </li>
+                                    <li><strong>Marihuana:</strong><br>
+                                        <span class="text-gray-700">The plant Cannabis sativa L., its seeds, and every compound or preparation of the plant or its seeds. <br><em>Does not include resin, mature stalks, or sterilized seeds.</em></span>
+                                        <em>(HSC 481.002(26))</em>
+                                    </li>
+                                    <li><strong>Drug Paraphernalia:</strong><br>
+                                        <span class="text-gray-700">Equipment, product, or material used or intended for use in planting, manufacturing, packaging, concealing, or introducing a controlled substance into the human body.</span>
+                                        <em>(HSC 481.002(17))</em>
+                                    </li>
+                                    <li><strong>Controlled Premises:</strong><br>
+                                        <span class="text-gray-700">A place where original or other records required under this chapter are kept, or a place (factory, warehouse, etc.) where a person registered under this chapter may lawfully hold, manufacture, distribute, dispense, administer, possess, or otherwise dispose of a controlled substance.</span>
+                                        <em>(HSC 481.002(4))</em>
+                                    </li>
                                 </ul>
                             </div>
                             <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.002</a>
@@ -123,19 +154,19 @@
                         <summary>Action, Person, and Process Definitions</summary>
                         <div class="p-6 border-t">
                             <div class="info-block definitions">
-                                <ul>
-                                    <li><strong>Possession:</strong> Actual care, custody, control, or management. <em>(HSC 481.002(38))</em></li>
-                                    <li><strong>Deliver:</strong> To transfer, actually or constructively, a controlled substance, counterfeit substance, or drug paraphernalia to another, regardless of agency relationship. <strong>Includes offering to sell.</strong> <em>(HSC 481.002(8))</em></li>
-                                    <li><strong>Delivery:</strong> The act of delivering. <em>(HSC 481.002(9))</em></li>
-                                    <li><strong>Distribute:</strong> To deliver a controlled substance other than by administering or dispensing. <em>(HSC 481.002(14))</em></li>
-                                    <li><strong>Distributor:</strong> A person who distributes. <em>(HSC 481.002(15))</em></li>
-                                    <li><strong>Manufacture:</strong> The production, preparation, propagation, compounding, conversion, or processing of a controlled substance (other than marihuana), by extraction, chemical synthesis, or both. Includes packaging/repackaging and labeling/relabeling. <em>Does not include preparation/compounding by a practitioner as an incident to administering or dispensing in professional practice or research.</em> <em>(HSC 481.002(25))</em></li>
-                                    <li><strong>Production:</strong> Includes the manufacturing, planting, cultivating, growing, or harvesting of a controlled substance. <em>(HSC 481.002(43))</em></li>
-                                    <li><strong>Dispense:</strong> The delivery of a controlled substance in the course of professional practice or research, by a practitioner or person acting under the lawful order of a practitioner, to an ultimate user or research subject. Includes prescribing, administering, packaging, labeling, or compounding necessary to prepare the substance for delivery. <em>(HSC 481.002(12))</em></li>
-                                    <li><strong>Dispenser:</strong> A practitioner, institutional practitioner, pharmacist, or pharmacy that dispenses a controlled substance. <em>(HSC 481.002(13))</em></li>
-                                    <li><strong>Administer:</strong> To directly apply a controlled substance by injection, inhalation, ingestion, or other means to the body of a patient or research subject by a practitioner (or agent in their presence), or by the patient/research subject at the direction and in the presence of a practitioner. <em>(HSC 481.002(1))</em></li>
-                                    <li><strong>Human Consumption:</strong> The injection, inhalation, ingestion, or application of a substance to or into a human body. <em>(HSC 481.002(21))</em></li>
-                                    <li><strong>Practitioner:</strong> A physician, dentist, veterinarian, podiatrist, scientific investigator, or other person licensed, registered, or otherwise permitted to distribute, dispense, analyze, conduct research with, or administer a controlled substance in the course of professional practice or research in this state; or a pharmacy, hospital, or other institution so licensed; or a person practicing in and licensed by another state as a physician, dentist, veterinarian, or podiatrist, with a current DEA registration; or an advanced practice registered nurse or physician assistant to whom a physician has delegated authority under the Occupations Code. <em>(HSC 481.002(39))</em></li>
+                                <ul class="list-disc pl-6 space-y-2">
+                                    <li><strong>Possession:</strong> <span class="text-gray-700">Actual care, custody, control, or management.</span> <em>(HSC 481.002(38))</em></li>
+                                    <li><strong>Deliver:</strong> <span class="text-gray-700">To transfer, actually or constructively, a controlled substance, counterfeit substance, or drug paraphernalia to another, regardless of agency relationship. <strong>Includes offering to sell.</strong></span> <em>(HSC 481.002(8))</em></li>
+                                    <li><strong>Delivery:</strong> <span class="text-gray-700">The act of delivering.</span> <em>(HSC 481.002(9))</em></li>
+                                    <li><strong>Distribute:</strong> <span class="text-gray-700">To deliver a controlled substance other than by administering or dispensing.</span> <em>(HSC 481.002(14))</em></li>
+                                    <li><strong>Distributor:</strong> <span class="text-gray-700">A person who distributes.</span> <em>(HSC 481.002(15))</em></li>
+                                    <li><strong>Manufacture:</strong> <span class="text-gray-700">The production, preparation, propagation, compounding, conversion, or processing of a controlled substance (other than marihuana), by extraction, chemical synthesis, or both. Includes packaging/repackaging and labeling/relabeling. <em>Does not include preparation/compounding by a practitioner as an incident to administering or dispensing in professional practice or research.</em></span> <em>(HSC 481.002(25))</em></li>
+                                    <li><strong>Production:</strong> <span class="text-gray-700">Includes the manufacturing, planting, cultivating, growing, or harvesting of a controlled substance.</span> <em>(HSC 481.002(43))</em></li>
+                                    <li><strong>Dispense:</strong> <span class="text-gray-700">The delivery of a controlled substance in the course of professional practice or research, by a practitioner or person acting under the lawful order of a practitioner, to an ultimate user or research subject. Includes prescribing, administering, packaging, labeling, or compounding necessary to prepare the substance for delivery.</span> <em>(HSC 481.002(12))</em></li>
+                                    <li><strong>Dispenser:</strong> <span class="text-gray-700">A practitioner, institutional practitioner, pharmacist, or pharmacy that dispenses a controlled substance.</span> <em>(HSC 481.002(13))</em></li>
+                                    <li><strong>Administer:</strong> <span class="text-gray-700">To directly apply a controlled substance by injection, inhalation, ingestion, or other means to the body of a patient or research subject by a practitioner (or agent in their presence), or by the patient/research subject at the direction and in the presence of a practitioner.</span> <em>(HSC 481.002(1))</em></li>
+                                    <li><strong>Human Consumption:</strong> <span class="text-gray-700">The injection, inhalation, ingestion, or application of a substance to or into a human body.</span> <em>(HSC 481.002(21))</em></li>
+                                    <li><strong>Practitioner:</strong> <span class="text-gray-700">A physician, dentist, veterinarian, podiatrist, scientific investigator, or other person licensed, registered, or otherwise permitted to distribute, dispense, analyze, conduct research with, or administer a controlled substance in the course of professional practice or research in this state; or a pharmacy, hospital, or other institution so licensed; or a person practicing in and licensed by another state as a physician, dentist, veterinarian, or podiatrist, with a current DEA registration; or an advanced practice registered nurse or physician assistant to whom a physician has delegated authority under the Occupations Code.</span> <em>(HSC 481.002(39))</em></li>
                                 </ul>
                             </div>
                             <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.002" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.002</a>
@@ -191,77 +222,178 @@
                 </div>
             </div>
 
-            <!-- Penalty Groups Tab -->
-            <div id="tab-penalty-groups" class="tab-pane hidden">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Penalty Groups</h2>
-                <div class="space-y-6">
-                    <details class="card p-0" open>
-                        <summary>Penalty Group 1 / 1-A / 1-B</summary>
-                        <div class="p-6 border-t">
-                            <div class="info-block">
-                                <p><strong>Penalty Group 1 (HSC 481.102):</strong> Includes opiates and opium derivatives like Heroin, Cocaine, Methamphetamine, GHB, Ketamine, and Oxycodone.</p>
-                                <p class="mt-2"><strong>Penalty Group 1-A (HSC 481.1021):</strong> Primarily consists of LSD (Lysergic Acid Diethylamide) and its analogues. Punishments are based on number of abuse units.</p>
-                                <p class="mt-2"><strong>Penalty Group 1-B (HSC 481.1022):</strong> Consists of Fentanyl, its derivatives, and analogues.</p>
-                            </div>
-                             <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.102" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View PG 1, 1-A, 1-B</a>
-                        </div>
-                    </details>
-                     <details class="card p-0">
-                        <summary>Penalty Group 2 / 2-A</summary>
-                        <div class="p-6 border-t">
-                            <div class="info-block">
-                                <p><strong>Penalty Group 2 (HSC 481.103):</strong> Includes hallucinogens like PCP, Mescaline (Peyote), and Psilocybin (Mushrooms). It also includes THC other than marihuana (e.g., waxes, oils, edibles where the plant is not visible).</p>
-                                <p class="mt-2"><strong>Penalty Group 2-A (HSC 481.1031):</strong> Consists of synthetic cannabinoids, such as substances commonly known as K2 or Spice.</p>
-                            </div>
-                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.103" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View PG 2, 2-A</a>
-                        </div>
-                    </details>
-                     <details class="card p-0">
-                        <summary>Penalty Group 3 / 4</summary>
-                        <div class="p-6 border-t">
-                            <div class="info-block">
-                                <p><strong>Penalty Group 3 (HSC 481.104):</strong> Includes stimulants and depressants with a potential for abuse, such as Valium (Diazepam), Xanax (Alprazolam), Ritalin, and anabolic steroids.</p>
-                                <p class="mt-2"><strong>Penalty Group 4 (HSC 481.105):</strong> Includes compounds or mixtures containing limited quantities of narcotics, such as codeine in cough syrup, that also have nonnarcotic active medicinal ingredients.</p>
-                            </div>
-                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.104" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View PG 3, 4</a>
-                        </div>
-                    </details>
-                </div>
-            </div>
 
-            <!-- Controlled Substance Offenses Tab -->
-            <div id="tab-offenses-cs" class="tab-pane hidden">
-                <h2 class="text-3xl font-bold text-gray-800 mb-6">Controlled Substance Offenses</h2>
-                <div class="space-y-6">
+            <!-- Combined Penalty Groups & Controlled Substance Offenses Tab -->
+            <div id="tab-penalty-offenses" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Penalty Groups & Offenses</h2>
+                <div class="space-y-10">
                     <details class="card p-0" open>
-                        <summary>Manufacture or Delivery (HSC 481.112 - 481.114)</summary>
+                        <summary><span class="text-xl font-semibold">Penalty Group 1 / 1-A / 1-B</span></summary>
                         <div class="p-6 border-t">
-                            <p><strong>Conduct:</strong> A person knowingly manufactures, delivers, or possesses with intent to deliver a controlled substance.</p>
-                            <div class="info-block example"><p><strong>Example:</strong> A person sells a baggie containing less than one gram of cocaine to an undercover officer. This is a State Jail Felony under PG 1.</p></div>
-                            <div class="offense-card offense-sjf"><strong>PG 1 (<1g):</strong> State Jail Felony</div>
-                            <div class="offense-card offense-f2"><strong>PG 1 (1g to <4g):</strong> 2nd Degree Felony</div>
-                            <div class="offense-card offense-f1"><strong>PG 1 (4g to <200g):</strong> 1st Degree Felony</div>
-                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.112" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View M/D Statutes</a>
+                            <div class="info-block">
+                                <ul class="list-disc pl-6 space-y-2">
+                                    <li><strong>Penalty Group 1 (HSC 481.102):</strong> <br>
+                                        <span class="text-gray-700">Opiates and opium derivatives, including:</span>
+                                        <ul class="list-disc pl-6">
+                                            <li>Heroin</li>
+                                            <li>Cocaine</li>
+                                            <li>Methamphetamine</li>
+                                            <li>GHB</li>
+                                            <li>Ketamine</li>
+                                            <li>Oxycodone</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Penalty Group 1-A (HSC 481.1021):</strong> <br>
+                                        <span class="text-gray-700">Primarily LSD (Lysergic Acid Diethylamide) and its analogues. <br>Punishments are based on number of abuse units.</span>
+                                    </li>
+                                    <li><strong>Penalty Group 1-B (HSC 481.1022):</strong> <br>
+                                        <span class="text-gray-700">Fentanyl, its derivatives, and analogues.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.102" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block mt-2">View PG 1, 1-A, 1-B Statute</a>
+                            <div class="mt-8">
+                                <h4 class="text-xl font-semibold mb-2">Offenses & Penalties (PG 1, 1-A, 1-B)</h4>
+                                <details class="mb-2">
+                                    <summary class="font-medium">Manufacture or Delivery (HSC 481.112 - 481.114)</summary>
+                                    <div class="p-4 border-t">
+                                        <p><strong>Conduct:</strong> Knowingly manufactures, delivers, or possesses with intent to deliver a controlled substance.</p>
+                                        <div class="info-block example"><p><strong>Example:</strong> Sells a baggie containing less than one gram of cocaine to an undercover officer. State Jail Felony under PG 1.</p></div>
+                                        <div class="offense-card offense-sjf"><strong>PG 1 (<1g):</strong> State Jail Felony</div>
+                                        <div class="offense-card offense-f2"><strong>PG 1 (1g to <4g):</strong> 2nd Degree Felony</div>
+                                        <div class="offense-card offense-f1"><strong>PG 1 (4g to <200g):</strong> 1st Degree Felony</div>
+                                        <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.112" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View M/D Statutes</a>
+                                    </div>
+                                </details>
+                                <details class="mb-2">
+                                    <summary class="font-medium">Possession (HSC 481.115 - 481.118)</summary>
+                                    <div class="p-4 border-t">
+                                        <p><strong>Conduct:</strong> Knowingly or intentionally possesses a controlled substance without a valid prescription.</p>
+                                        <div class="info-block example"><p><strong>Example:</strong> Officer finds two grams of methamphetamine in a person's pocket. 3rd Degree Felony under PG 1.</p></div>
+                                        <div class="offense-card offense-sjf"><strong>PG 1 (<1g):</strong> State Jail Felony</div>
+                                        <div class="offense-card offense-f3"><strong>PG 1 (1g to <4g):</strong> 3rd Degree Felony</div>
+                                        <div class="offense-card offense-f2"><strong>PG 1 (4g to <200g):</strong> 2nd Degree Felony</div>
+                                        <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.115" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Possession Statutes</a>
+                                    </div>
+                                </details>
+                                <details class="mb-2">
+                                    <summary class="font-medium">Delivery of CS or Marihuana to a Child (HSC 481.122)</summary>
+                                    <div class="p-4 border-t">
+                                        <p><strong>Conduct:</strong> Knowingly delivers a controlled substance (PG 1, 1-A, 1-B, 2, or 3) or marihuana to a child (under 18) or student in primary/secondary school.</p>
+                                        <div class="info-block example"><p><strong>Example:</strong> Sells a THC vape cartridge (PG 2) to a 16-year-old high school student.</p></div>
+                                        <div class="offense-card offense-f2"><strong>2nd Degree Felony</strong></div>
+                                        <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.122" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.122</a>
+                                    </div>
+                                </details>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
-                        <summary>Possession (HSC 481.115 - 481.118)</summary>
+                        <summary><span class="text-xl font-semibold">Penalty Group 2 / 2-A</span></summary>
                         <div class="p-6 border-t">
-                            <p><strong>Conduct:</strong> A person knowingly or intentionally possesses a controlled substance without a valid prescription.</p>
-                             <div class="info-block example"><p><strong>Example:</strong> During a traffic stop, an officer finds two grams of methamphetamine in a person's pocket. This is a 3rd Degree Felony under PG 1.</p></div>
-                            <div class="offense-card offense-sjf"><strong>PG 1 (<1g):</strong> State Jail Felony</div>
-                            <div class="offense-card offense-f3"><strong>PG 1 (1g to <4g):</strong> 3rd Degree Felony</div>
-                            <div class="offense-card offense-f2"><strong>PG 1 (4g to <200g):</strong> 2nd Degree Felony</div>
-                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.115" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Possession Statutes</a>
+                            <div class="info-block">
+                                <ul class="list-disc pl-6 space-y-2">
+                                    <li><strong>Penalty Group 2 (HSC 481.103):</strong> <br>
+                                        <span class="text-gray-700">Hallucinogens, including:</span>
+                                        <ul class="list-disc pl-6">
+                                            <li>PCP</li>
+                                            <li>Mescaline (Peyote)</li>
+                                            <li>Psilocybin (Mushrooms)</li>
+                                            <li>THC (other than marihuana, e.g., waxes, oils, edibles where the plant is not visible)</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Penalty Group 2-A (HSC 481.1031):</strong> <br>
+                                        <span class="text-gray-700">Synthetic cannabinoids (e.g., K2, Spice).</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.103" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block mt-2">View PG 2, 2-A Statute</a>
+                            <div class="mt-8">
+                                <h4 class="text-xl font-semibold mb-2">Offenses & Penalties (PG 2, 2-A)</h4>
+                                <details class="mb-2">
+                                    <summary class="font-medium">Manufacture or Delivery (HSC 481.113)</summary>
+                                    <div class="p-4 border-t">
+                                        <p><strong>Conduct:</strong> Knowingly manufactures, delivers, or possesses with intent to deliver a controlled substance in PG 2 or 2-A.</p>
+                                        <div class="info-block example"><p><strong>Example:</strong> Sells a THC wax cartridge (PG 2) to another person.</p></div>
+                                        <div class="offense-card offense-f2"><strong>PG 2 (<1g):</strong> 2nd Degree Felony</div>
+                                        <div class="offense-card offense-f1"><strong>PG 2 (1g to <4g):</strong> 1st Degree Felony</div>
+                                        <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.113" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View M/D Statutes</a>
+                                    </div>
+                                </details>
+                                <details class="mb-2">
+                                    <summary class="font-medium">Possession (HSC 481.116 - 481.118)</summary>
+                                    <div class="p-4 border-t">
+                                        <p><strong>Conduct:</strong> Knowingly or intentionally possesses a controlled substance in PG 2 or 2-A without a valid prescription.</p>
+                                        <div class="info-block example"><p><strong>Example:</strong> Officer finds synthetic cannabinoids (K2) in a person's backpack.</p></div>
+                                        <div class="offense-card offense-f3"><strong>PG 2 (<1g):</strong> 3rd Degree Felony</div>
+                                        <div class="offense-card offense-f2"><strong>PG 2 (1g to <4g):</strong> 2nd Degree Felony</div>
+                                        <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.116" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Possession Statutes</a>
+                                    </div>
+                                </details>
+                                <details class="mb-2">
+                                    <summary class="font-medium">Delivery of CS or Marihuana to a Child (HSC 481.122)</summary>
+                                    <div class="p-4 border-t">
+                                        <p><strong>Conduct:</strong> Knowingly delivers a controlled substance (PG 2, 2-A) or marihuana to a child (under 18) or student in primary/secondary school.</p>
+                                        <div class="info-block example"><p><strong>Example:</strong> Sells a THC vape cartridge (PG 2) to a 16-year-old high school student.</p></div>
+                                        <div class="offense-card offense-f2"><strong>2nd Degree Felony</strong></div>
+                                        <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.122" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.122</a>
+                                    </div>
+                                </details>
+                            </div>
                         </div>
                     </details>
                     <details class="card p-0">
-                        <summary>Delivery of CS or Marihuana to a Child (HSC 481.122)</summary>
+                        <summary><span class="text-xl font-semibold">Penalty Group 3 / 4</span></summary>
                         <div class="p-6 border-t">
-                            <p><strong>Conduct:</strong> A person knowingly delivers a controlled substance (PG 1, 1-A, 1-B, 2, or 3) or marihuana to a person who is a child (under 18) or enrolled in a primary/secondary school.</p>
-                            <div class="info-block example"><p><strong>Example:</strong> A 25-year-old sells a THC vape cartridge (PG 2) to a 16-year-old high school student.</p></div>
-                            <div class="offense-card offense-f2"><strong>2nd Degree Felony</strong></div>
-                             <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.122" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.122</a>
+                            <div class="info-block">
+                                <ul class="list-disc pl-6 space-y-2">
+                                    <li><strong>Penalty Group 3 (HSC 481.104):</strong> <br>
+                                        <span class="text-gray-700">Stimulants and depressants with abuse potential, such as:</span>
+                                        <ul class="list-disc pl-6">
+                                            <li>Valium (Diazepam)</li>
+                                            <li>Xanax (Alprazolam)</li>
+                                            <li>Ritalin</li>
+                                            <li>Anabolic steroids</li>
+                                        </ul>
+                                    </li>
+                                    <li><strong>Penalty Group 4 (HSC 481.105):</strong> <br>
+                                        <span class="text-gray-700">Compounds/mixtures with limited narcotics (e.g., codeine in cough syrup) and nonnarcotic active medicinal ingredients.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.104" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block mt-2">View PG 3, 4 Statute</a>
+                            <div class="mt-8">
+                                <h4 class="text-xl font-semibold mb-2">Offenses & Penalties (PG 3, 4)</h4>
+                                <details class="mb-2">
+                                    <summary class="font-medium">Manufacture or Delivery (HSC 481.114)</summary>
+                                    <div class="p-4 border-t">
+                                        <p><strong>Conduct:</strong> Knowingly manufactures, delivers, or possesses with intent to deliver a controlled substance in PG 3 or 4.</p>
+                                        <div class="info-block example"><p><strong>Example:</strong> Sells prescription pills (Xanax) without a prescription.</p></div>
+                                        <div class="offense-card offense-f3"><strong>PG 3 (<28g):</strong> 3rd Degree Felony</div>
+                                        <div class="offense-card offense-f2"><strong>PG 3 (28g to <200g):</strong> 2nd Degree Felony</div>
+                                        <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.114" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View M/D Statutes</a>
+                                    </div>
+                                </details>
+                                <details class="mb-2">
+                                    <summary class="font-medium">Possession (HSC 481.117 - 481.118)</summary>
+                                    <div class="p-4 border-t">
+                                        <p><strong>Conduct:</strong> Knowingly or intentionally possesses a controlled substance in PG 3 or 4 without a valid prescription.</p>
+                                        <div class="info-block example"><p><strong>Example:</strong> Officer finds anabolic steroids in a gym bag.</p></div>
+                                        <div class="offense-card offense-misd-a"><strong>PG 3 (<28g):</strong> Class A Misdemeanor</div>
+                                        <div class="offense-card offense-f3"><strong>PG 3 (28g to <200g):</strong> 3rd Degree Felony</div>
+                                        <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.117" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View Possession Statutes</a>
+                                    </div>
+                                </details>
+                                <details class="mb-2">
+                                    <summary class="font-medium">Delivery of CS or Marihuana to a Child (HSC 481.122)</summary>
+                                    <div class="p-4 border-t">
+                                        <p><strong>Conduct:</strong> Knowingly delivers a controlled substance (PG 3, 4) or marihuana to a child (under 18) or student in primary/secondary school.</p>
+                                        <div class="info-block example"><p><strong>Example:</strong> Sells prescription cough syrup (PG 4) to a 15-year-old.</p></div>
+                                        <div class="offense-card offense-f2"><strong>2nd Degree Felony</strong></div>
+                                        <a href="https://statutes.capitol.texas.gov/Docs/HS/htm/HS.481.htm#481.122" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View HSC 481.122</a>
+                                    </div>
+                                </details>
+                            </div>
                         </div>
                     </details>
                 </div>

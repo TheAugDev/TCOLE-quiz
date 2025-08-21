@@ -46,16 +46,17 @@
         .info-block {
             background-color: #fafafa;
             border-left: 4px solid #22c55e;
-            padding: 1rem;
-            margin-top: 1rem;
-            border-radius: 0.25rem;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0 2rem 0;
+            border-radius: 0.5rem;
         }
         .info-block.definitions { border-left-color: #f59e0b; }
         .info-block.procedures { border-left-color: #0ea5e9; }
         .info-block.concepts { border-left-color: #8b5cf6; }
         .info-block.example { border-left-color: #10b981; }
-        .info-block p { margin-bottom: 0.5rem; }
-        .info-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .info-block p { margin-bottom: 0.75rem; line-height: 1.7; }
+        .info-block ul { list-style-type: disc; padding-left: 2rem; margin-bottom: 1rem; }
+        .info-block li { margin-bottom: 0.5rem; }
         .quiz-option { transition: background-color 0.2s; }
         .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
         .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
@@ -88,13 +89,13 @@
 
     <div class="max-w-6xl mx-auto">
         <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Juvenile Procedures</h1>
-            <p class="text-lg text-gray-600 mt-2">A Comprehensive Study Guide</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">Juvenile Procedures</h1>
+            <p class="text-lg text-gray-600 mt-2 mb-4">A Comprehensive Study Guide</p>
         </header>
 
         <!-- Main Tab Navigation -->
         <div class="mb-8 border-b border-gray-200">
-            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+            <nav class="flex flex-wrap -mb-px gap-2" id="main-tabs">
                 <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-definitions">Definitions & Conduct</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-school-notification">School Notification</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-detention">Intake & Detention</button>
@@ -114,7 +115,7 @@
             <!-- Definitions & Conduct Tab -->
             <div id="tab-definitions" class="tab-pane active">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Key Definitions & Statutory Authority</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Comprehensive Definitions & Purpose (FC 51.01, 51.02)</summary>
                         <div class="p-6 border-t">
@@ -154,7 +155,7 @@
             <!-- School Notification & Reporting Tab -->
             <div id="tab-school-notification" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">School Notification & Reporting</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Statutory Requirement (CCP 15.27)</summary>
                         <div class="p-6 border-t">
@@ -211,7 +212,7 @@
             <!-- Intake, Detention, and Hearings Tab -->
             <div id="tab-detention" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Intake, Detention, and Hearings</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Preliminary Investigation (FC 53.01)</summary>
                         <div class="p-6 border-t">
@@ -276,7 +277,7 @@
             <!-- Disposition & Municipal/JP Court Tab -->
             <div id="tab-disposition" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Disposition, First Offender Programs, and JP/Municipal Court</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Disposition Without Referral (FC 52.03, 52.031, 52.032)</summary>
                         <div class="p-6 border-t">
@@ -309,7 +310,7 @@
             <!-- Parental Rights & Duties Tab -->
             <div id="tab-parental-rights" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Parental Rights & Duties</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Parental Rights & Duties (FC 151.001, 151.003, 153.074)</summary>
                         <div class="p-6 border-t">
@@ -339,7 +340,7 @@
             <!-- Youth Gangs & Risk Factors Tab -->
             <div id="tab-youth-gangs" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Youth Gangs: Risk Factors & Needs</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Youth Gangs: Risk Factors & Needs</summary>
                         <div class="p-6 border-t">
@@ -362,7 +363,7 @@
             <!-- Custody & Processing Tab -->
             <div id="tab-custody" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Taking into Custody & Processing</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Taking into Custody & Release (FC 52.01, 52.02)</summary>
                         <div class="p-6 border-t">
@@ -448,7 +449,7 @@
             <!-- Statements & Rights Tab -->
             <div id="tab-statements" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Statements, Waivers & Rights</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Admissibility of a Statement (FC 51.095)</summary>
                         <div class="p-6 border-t">
@@ -500,7 +501,7 @@
             <!-- Court Process & Dispositions Tab -->
             <div id="tab-court" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Court Process & Dispositions</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Detention Hearing (FC 54.01)</summary>
                         <div class="p-6 border-t">

@@ -45,15 +45,16 @@
         .info-block {
             background-color: #fafafa;
             border-left: 4px solid #64748b;
-            padding: 1rem;
-            margin-top: 1rem;
-            border-radius: 0.25rem;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0 2rem 0;
+            border-radius: 0.5rem;
         }
         .info-block.definitions { border-left-color: #f59e0b; }
         .info-block.procedures { border-left-color: #0ea5e9; }
         .info-block.example { border-left-color: #10b981; }
-        .info-block p { margin-bottom: 0.5rem; }
-        .info-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .info-block p { margin-bottom: 0.75rem; line-height: 1.7; }
+        .info-block ul { list-style-type: disc; padding-left: 2rem; margin-bottom: 1rem; }
+        .info-block li { margin-bottom: 0.5rem; }
         .quiz-option { transition: background-color 0.2s; }
         .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
         .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
@@ -63,13 +64,13 @@
 
     <div class="max-w-6xl mx-auto">
         <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Asset Forfeiture</h1>
-            <p class="text-lg text-gray-600 mt-2">A Comprehensive Study Guide</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">Asset Forfeiture</h1>
+            <p class="text-lg text-gray-600 mt-2 mb-4">A Comprehensive Study Guide</p>
         </header>
 
         <!-- Main Tab Navigation -->
         <div class="mb-8 border-b border-gray-200">
-            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+            <nav class="flex flex-wrap -mb-px gap-2" id="main-tabs">
                 <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-philosophy">Philosophy & Definitions</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-defenses">Defenses to Forfeiture</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-seizure">Seizure Procedures</button>
@@ -84,7 +85,7 @@
             <!-- Philosophy & Definitions Tab -->
             <div id="tab-philosophy" class="tab-pane active">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Philosophy & Key Definitions</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Statutory Training Requirements (Occupations Code)</summary>
                         <div class="p-6 border-t">
@@ -184,7 +185,7 @@
             <!-- Defenses Tab -->
             <div id="tab-defenses" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Defenses to Forfeiture (CCP 59.02)</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Statutory Defenses</summary>
                         <div class="p-6 border-t">
@@ -219,7 +220,7 @@
             <!-- Seizure Procedures Tab -->
             <div id="tab-seizure" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Seizure Procedures</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0">
                         <summary>Affidavit Requirements & Waivers</summary>
                         <div class="p-6 border-t">
@@ -274,7 +275,7 @@
             <!-- Forfeiture Proceedings Tab -->
             <div id="tab-proceedings" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Post-Seizure & Forfeiture Proceedings</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0">
                         <summary>Checklist for Civil Forfeiture Case Documentation</summary>
                         <div class="p-6 border-t">
@@ -326,7 +327,7 @@
             <!-- Use of Funds Tab -->
             <div id="tab-funds" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Use of Forfeited Funds (CCP 59.06)</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Approved Uses</summary>
                         <div class="p-6 border-t">

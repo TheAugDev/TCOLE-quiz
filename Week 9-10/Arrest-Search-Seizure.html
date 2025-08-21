@@ -45,15 +45,16 @@
         .info-block {
             background-color: #fafafa;
             border-left: 4px solid #6b7280;
-            padding: 1rem;
-            margin-top: 1rem;
-            border-radius: 0.25rem;
+            padding: 1.25rem 1.5rem;
+            margin: 2rem 0 2rem 0;
+            border-radius: 0.5rem;
         }
         .info-block.definitions { border-left-color: #f59e0b; }
         .info-block.procedures { border-left-color: #0ea5e9; }
         .info-block.example { border-left-color: #10b981; }
-        .info-block p { margin-bottom: 0.5rem; }
-        .info-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .info-block p { margin-bottom: 0.75rem; line-height: 1.7; }
+        .info-block ul { list-style-type: disc; padding-left: 2rem; margin-bottom: 1rem; }
+        .info-block li { margin-bottom: 0.5rem; }
         .quiz-option { transition: background-color 0.2s; }
         .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
         .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
@@ -63,13 +64,13 @@
 
     <div class="max-w-6xl mx-auto">
         <header class="text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Arrest, Search & Seizure</h1>
-            <p class="text-lg text-gray-600 mt-2">A Comprehensive Study Guide on Search Warrants</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">Arrest, Search & Seizure</h1>
+            <p class="text-lg text-gray-600 mt-2 mb-4">A Comprehensive Study Guide on Search Warrants</p>
         </header>
 
         <!-- Main Tab Navigation -->
         <div class="mb-8 border-b border-gray-200">
-            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+            <nav class="flex flex-wrap -mb-px gap-2" id="main-tabs">
                 <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-training">Training Requirements</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-definitions">Definitions & Grounds</button>
                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-application">Warrant Application</button>
@@ -84,7 +85,7 @@
             <!-- Training Requirements Tab -->
             <div id="tab-training" class="tab-pane active">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">TCOLE Training Requirements</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Asset Forfeiture Training (Occupations Code 1701)</summary>
                         <div class="p-6 border-t">
@@ -100,7 +101,7 @@
             <!-- Definitions & Grounds Tab -->
             <div id="tab-definitions" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Definitions & Grounds for Issuance</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0">
                         <summary>Search Warrant Definition (CCP 18.01)</summary>
                         <div class="p-6 border-t">
@@ -117,28 +118,34 @@
                     <details class="card p-0">
                         <summary>Grounds for Issuance (CCP 18.02)</summary>
                         <div class="p-6 border-t">
-                             <div class="info-block procedures">
-                                <p>A search warrant may be issued to search for and seize:</p>
-                                <ul>
-                                    <li>Property acquired by theft.</li>
-                                    <li>Property specially designed or adapted for an offense.</li>
-                                    <li>Prohibited weapons.</li>
-                                    <li>Gambling devices or equipment.</li>
-                                    <li>Drugs, controlled substances, and related paraphernalia.</li>
-                                    <li>Implements or instruments used in the commission of a crime.</li>
-                                    <li><strong>Evidentiary Search Warrant (18.02(a)(10)):</strong> Property or items constituting evidence of an offense or tending to show a particular person committed an offense.</li>
-                                    <li>Persons.</li>
-                                    <li>Contraband subject to forfeiture under Chapter 59.</li>
-                                    <li>Obscene materials for commercial distribution.</li>
+                            <div class="info-block procedures">
+                                <p>A search warrant may be issued to search for and seize the following, as specified in CCP 18.02:</p>
+                                <ol class="list-decimal ml-6 mt-2 text-gray-700">
+                                    <li>Property acquired by theft or in any other manner which makes its acquisition a penal offense.</li>
+                                    <li>Property specially designed, made, or adapted for or commonly used in the commission of an offense.</li>
+                                    <li>Arms and munitions kept or prepared for the purposes of insurrection or riot.</li>
+                                    <li>Weapons prohibited by the Penal Code.</li>
+                                    <li>Gambling devices or equipment, altered gambling equipment, or gambling paraphernalia.</li>
+                                    <li>Obscene materials kept or prepared for commercial distribution or exhibition, subject to the additional rules set forth by law.</li>
+                                    <li>A drug, controlled substance, immediate precursor, chemical precursor, or other controlled substance property, including an apparatus or paraphernalia kept, prepared, or manufactured in violation of the laws of this state.</li>
                                     <li>Any property the possession of which is prohibited by law.</li>
-                                    <li>Electronic customer data held in electronic storage (18.02(a)(13)).</li>
-                                    <li>Cellular phone or wireless device (18.02(a)(14), 18.0215).</li>
-                                </ul>
+                                    <li>Implements or instruments used in the commission of a crime.</li>
+                                    <li><strong>Evidentiary Search Warrant (18.02(a)(10)):</strong> Property or items, except the accused’s personal writings, constituting evidence of an offense or tending to show someone committed an offense. <br><em>Note: A search warrant may not be issued under (10) to search for and seize property or items that are not described in (1-9) and are located in an office of a newspaper, news magazine, television station, or radio station. In no event may property or items not described in (1-9) be legally seized pursuant to a search warrant of an office of a newspaper, news magazine, television station, or radio station.</em></li>
+                                    <li>Persons.</li>
+                                    <li>Contraband subject to forfeiture under Chapter 59 of this code.</li>
+                                    <li>Electronic customer data held in electronic storage, including the contents of and records and other information related to a wire communication or electronic communication held in electronic storage.</li>
+                                    <li>A cellular telephone or other wireless communications device, subject to Article 18.0215.</li>
+                                    <li><strong>Item 20 (from TXT):</strong> Any other item specifically described by law for which a search warrant may be issued.</li>
+                                </ol>
                                 <div class="info-block mt-4">
-                                    <p><strong>Note:</strong> Only certain judges may issue evidentiary and asset forfeiture warrants (see CCP 18.02(10)&(12)).</p>
+                                    <p><strong>Judicial Requirements:</strong> Search warrants under 18.02 (10 & 12) may only be issued by:<br>
+                                    - A judge of a municipal court of record or county court who is a licensed attorney, or judge of a statutory county court; or<br>
+                                    - A judge of district courts, court of criminal appeals, or supreme court.<br>
+                                    <em>When a county does not have judges listed above, any magistrate may issue a search warrant under Article 18.02 (a)(10) or (12). This does not apply to subsequent search warrants under (10), which may only be issued by a judge of a district court, a court of appeals, the court of criminal appeals, or the supreme court.</em></p>
+                                    <p><strong>Blood Specimen Warrants:</strong> Any magistrate who is an attorney licensed by this state may issue a search warrant under 18.02 (10) to collect a blood specimen from a person who is arrested for an offense under Section 49.04, 49.045, 49.05, 49.06, 49.065, 49.07, or 49.08, Penal Code, and refuses to submit to a breath or blood alcohol test.</p>
                                 </div>
                             </div>
-                             <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.02" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.02</a>
+                            <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.02" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.02</a>
                         </div>
                     </details>
                     <details class="card p-0">
@@ -157,6 +164,10 @@
                             <div class="info-block">
                                 <p>Officers may seize evidence in plain view from a lawful vantage point, even if not listed in the warrant, as long as they are lawfully present and its incriminating character is immediately apparent.</p>
                                 <div class="info-block example"><p><strong>Example:</strong> While searching for stolen TVs, officers see illegal narcotics in plain view and may seize them under the plain view doctrine.</p></div>
+                                <div class="mt-6 flex flex-col items-center justify-center">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/mP_L5fQk4S0?si=KvCu1lqNKSmWHYyf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                    <p class="text-xs text-gray-500 mt-2 text-center">Video: Horton v. California explained</p>
+                                </div>
                             </div>
                         </div>
                     </details>
@@ -166,7 +177,7 @@
             <!-- Warrant Application Tab -->
             <div id="tab-application" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Warrant Application & Issuance</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>The Sworn Affidavit (CCP 18.01(b))</summary>
                         <div class="p-6 border-t">
@@ -242,7 +253,7 @@
             <!-- Execution of Warrants Tab -->
             <div id="tab-execution" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Execution of Warrants</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Timeline and Manner of Execution (CCP 18.06, 18.07)</summary>
                         <div class="p-6 border-t">
@@ -276,6 +287,10 @@
                             <div class="info-block">
                                 <p><strong>Wilson v. Arkansas:</strong> The Fourth Amendment ordinarily requires officers to knock and announce their presence and authority before entering a home to execute a warrant.</p>
                                 <p class="mt-2"><strong>No-Knock Entry:</strong> An exception is allowed if police have a <strong>reasonable suspicion</strong> that knocking and announcing would be dangerous (threat of violence) or futile, or that it would inhibit the investigation (e.g., allow for the destruction of evidence).</p>
+                                <div class="mt-6 flex flex-col items-center justify-center">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/3GJf3uXBKkU?si=F5WI8VTVMQAUk8tz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                    <p class="text-xs text-gray-500 mt-2 text-center">Video: Wilson v. Arkansas explained</p>
+                                </div>
                             </div>
                         </div>
                     </details>
@@ -285,6 +300,10 @@
                             <div class="info-block">
                                 <p><strong>Muehler v. Mena:</strong> Officers executing a search warrant for contraband have the authority to detain the occupants of the premises while a proper search is conducted.</p>
                                 <div class="info-block example"><p><strong>Example:</strong> While executing a search warrant for narcotics at a house, officers can lawfully handcuff and detain all occupants in the living room for the duration of the search to ensure officer safety and prevent the destruction of evidence.</p></div>
+                                <div class="mt-6 flex flex-col items-center justify-center">
+                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/9H0032tRyyo?si=DQDJRAImTaMGVKWz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                    <p class="text-xs text-gray-500 mt-2 text-center">Video: Muehler v. Mena explained</p>
+                                </div>
                             </div>
                         </div>
                     </details>
@@ -303,7 +322,7 @@
             <!-- Special Warrants Tab -->
             <div id="tab-special" class="tab-pane hidden">
                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Special Warrants</h2>
-                <div class="space-y-6">
+                <div class="space-y-10">
                     <details class="card p-0" open>
                         <summary>Warrant to Photograph Injured Child (CCP 18.021)</summary>
                         <div class="p-6 border-t">
@@ -319,17 +338,27 @@
                         </div>
                     </details>
                     <details class="card p-0">
-                        <summary>Warrant for Electronic Devices (CCP 18.0215)</summary>
+                        <summary>ACCESS TO CELL PHONE OR OTHER WIRELESS DEVICE (CCP 18.0215)</summary>
                         <div class="p-6 border-t">
                             <div class="info-block procedures">
-                                <p>Peace officers may not search a cell phone or wireless device incident to a lawful arrest without a warrant, unless:</p>
+                                <p><strong>General Rule:</strong> Peace officers <strong>may not search a cell phone or wireless device incident to a lawful arrest without a warrant.</strong></p>
+                                <p><strong>Application Requirements:</strong> Applications for a device warrant must be written, signed, and sworn to or affirmed before a judge, and must include:</p>
                                 <ul class="list-disc ml-6">
-                                    <li>The owner/possessor consents.</li>
-                                    <li>The device is reported stolen.</li>
-                                    <li>The device is in possession of a fugitive or there is an immediate life-threatening situation.</li>
+                                    <li>The name, department, agency, and address of the applicant.</li>
+                                    <li>Identification of the device to be searched.</li>
+                                    <li>The name of the owner or possessor of the device to be searched.</li>
+                                    <li>The judicial district for: (1) the peace officer’s agency if in the officer's possession; or (2) the likely location of the device.</li>
+                                    <li>The facts and circumstances establishing probable cause that criminal activity has been, is, or will be committed, and that searching the device is likely to produce evidence in the investigation.</li>
                                 </ul>
-                                <p>Applications must be written, signed, and sworn, and must state the applicant’s agency, device, owner, judicial district, and facts for probable cause.</p>
-                                <p>If a device is searched in an emergency, a warrant must be applied for as soon as practicable. If the judge finds no emergency, evidence is inadmissible.</p>
+                                <p><strong>Exceptions (No Warrant Needed):</strong></p>
+                                <ul class="list-disc ml-6">
+                                    <li>The owner or possessor consents to the search.</li>
+                                    <li>The device is reported stolen by the owner or possessor.</li>
+                                    <li>The officer reasonably believes the device is in the possession of a fugitive with a felony warrant.</li>
+                                    <li>There exists an immediate life-threatening situation (hostage, barricade, or other emergency where a person unlawfully and directly threatens another with death or exposes to risk of serious bodily injury, under 18A.201).</li>
+                                </ul>
+                                <p><strong>Emergency Search:</strong> If a device is searched in a fugitive or life-threatening situation, the officer must apply for a device warrant as soon as practicable after the search. If the judge finds that the situation did not occur and declines the warrant, any evidence obtained is not admissible in a criminal action.</p>
+                                <p><strong>Judicial District:</strong> Warrants may only be issued by judges in the same judicial district for: (1) the peace officer’s agency if in the officer's possession; or (2) the likely location of the device.</p>
                             </div>
                             <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.18.htm#18.0215" target="_blank" class="text-blue-600 hover:underline mt-4 inline-block">View CCP 18.0215</a>
                         </div>
