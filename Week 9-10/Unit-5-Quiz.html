@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 5 Comprehensive Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Unit 5 Comprehensive Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 200 questions covering every detail from your Unit 5 handouts. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            // Quiz 1 Questions
+            {
+                question: "When a seriously injured victim is still conscious upon an officer's arrival, the officer should:",
+                options: ["Wait for paramedics to arrive before speaking to them.", "Obtain proper identification and information about next of kin.", "Immediately begin collecting physical evidence.", "Transport the victim to the hospital in their patrol car."],
+                answer: "Obtain proper identification and information about next of kin.",
+                explanation: "If the victim is conscious, gathering identifying information and who to contact is a priority, as their condition could worsen. This is a key part of the preliminary investigation.",
+                reference: "Crimes Against Persons Handout, Page 6"
+            },
+            {
+                question: "Maintaining the chain of custody of collected evidence means:",
+                options: ["Accounting for every person who handled the evidence.", "Keeping the evidence in your patrol car at all times.", "Allowing the victim to hold the evidence for safekeeping.", "Storing all evidence in a single, large bag."],
+                answer: "Accounting for every person who handled the evidence.",
+                explanation: "The chain of custody is a chronological paper trail showing the seizure, custody, control, transfer, analysis, and disposition of physical or electronic evidence. It's crucial for ensuring the evidence is admissible in court.",
+                reference: "Crime Scene Investigation Principles"
+            },
+            {
+                question: "For crime scene photography, the shutter speed controls what?",
+                options: ["The depth of field.", "The amount of light allowed to reach the sensor/film.", "The clarity of the image.", "The color balance."],
+                answer: "The amount of light allowed to reach the sensor/film.",
+                explanation: "Shutter speed is the length of time the camera's shutter is open, exposing the sensor to light. A faster shutter speed lets in less light and freezes motion, while a slower speed lets in more light but can cause motion blur.",
+                reference: "Basic Photography Principles"
+            },
+            {
+                question: "The content of a latent print is:",
+                options: ["Mostly oil.", "Mostly water.", "Entirely amino acids.", "A mix of dirt and grime."],
+                answer: "Mostly water.",
+                explanation: "Latent prints are primarily composed of sweat from eccrine glands, which is 99-99.5% water. This is why they are so fragile and can evaporate.",
+                reference: "Fingerprint Evidence Handout, Page 1"
+            },
+            {
+                question: "A blood drop that strikes a surface at a 90-degree angle (straight on) will be shaped.",
+                options: ["Oval", "Elongated with a tail", "Circular", "Like a teardrop"],
+                answer: "Circular",
+                explanation: "The force of gravity pulling a drop straight down onto a flat surface results in a circular stain. As the angle of impact decreases, the stain becomes more elliptical.",
+                reference: "Crimes Against Persons Handout, Page 2"
+            },
+            {
+                question: "Tattooing or smudging around a gunshot wound is typically used to:",
+                options: ["Identify the caliber of the weapon.", "Determine the muzzle to target distance.", "Determine the time of death.", "Identify the shooter."],
+                answer: "Determine the muzzle to target distance.",
+                explanation: "The presence and pattern of soot (smudging) and unburned powder (tattooing) around an entrance wound are key indicators of a close-range gunshot, helping to estimate the distance from which the gun was fired.",
+                reference: "Crimes Against Persons Handout, Page 1"
+            },
+            {
+                question: "The standard used to determine the guilt or innocence of a person criminally charged is:",
+                options: ["Reasonable suspicion", "Preponderance of the evidence", "Probable cause", "Beyond a reasonable doubt"],
+                answer: "Beyond a reasonable doubt",
+                explanation: "This is the highest legal standard of proof in the justice system and is required for a criminal conviction.",
+                reference: "Criminal Law Principles"
+            },
+            {
+                question: "When investigating an alleged suicide by hanging, first responding officers should not cut the rope that is holding the deceased person.",
+                options: ["True", "False"],
+                answer: "True",
+                explanation: "The knot and the ligature are critical pieces of evidence. Officers should wait for the Medical Examiner and cut the rope *above* the knot to preserve it for analysis.",
+                reference: "Crimes Against Persons Handout, Page 9"
+            },
+            {
+                question: "Which of the following are only a part of the follow up investigation and NOT a part of the preliminary investigation?",
+                options: ["Interviewing witnesses.", "Securing the crime scene.", "Photographing the scene.", "Analyzing the testing of evidence at a lab."],
+                answer: "Analyzing the testing of evidence at a lab.",
+                explanation: "The preliminary investigation involves the initial response and on-scene activities. Laboratory analysis is a follow-up step that occurs after evidence has been collected and submitted.",
+                reference: "Call Response Handout, Page 1"
+            },
+            {
+                question: "According to the Texas CCP, which of the following deaths would require the notification of and investigation by the Medical Examiner?",
+                options: ["A person who dies in a hospital from a known terminal illness.", "A person who dies in a hospice facility.", "A person who dies an unnatural death.", "A person who dies at home of old age, attended by a physician."],
+                answer: "A person who dies an unnatural death.",
+                explanation: "The Medical Examiner has jurisdiction over all violent, suspicious, sudden, and unnatural deaths to determine the cause and manner of death.",
+                reference: "Crimes Against Persons Handout, Page 4 (referencing CCP 49.25)"
+            },
+            {
+                question: "What is the body or substance of a crime called?",
+                options: ["Evidence", "Corpus Delicti", "Mens Rea", "Actus Reus"],
+                answer: "Corpus Delicti",
+                explanation: "Corpus delicti, Latin for 'body of the crime,' refers to the principle that it must be proven that a crime has occurred before a person can be convicted of committing that crime.",
+                reference: "Criminal Law Principles"
+            },
+            {
+                question: "Drying a blood soaked shirt in the sun before packaging would be acceptable.",
+                options: ["True", "False"],
+                answer: "False",
+                explanation: "Evidence should be air-dried in a secure, sheltered location. Direct sunlight can degrade or destroy biological evidence like DNA.",
+                reference: "Crimes Against Persons Handout, Page 8"
+            },
+            {
+                question: "When lividity first develops, if an investigator places a finger firmly against the discolored skin, the pressure will cause . After 4 or 5 hours, this will no longer occur.",
+                options: ["Bruising", "Tattooing", "Blanching", "Putrefaction"],
+                answer: "Blanching",
+                explanation: "In the early stages of lividity, the blood is still in the capillaries and can be displaced by pressure, causing the skin to turn white (blanch). Once lividity becomes fixed, this no longer happens.",
+                reference: "Crimes Against Persons Handout, Page 9"
+            },
+            {
+                question: "AFIS is the database that contains various for law enforcement purposes.",
+                options: ["Fingerprint records", "DNA profiles", "Ballistics information", "Criminal histories"],
+                answer: "Fingerprint records",
+                explanation: "AFIS stands for Automated Fingerprint Identification System. It's a national database of fingerprint records used to identify suspects and link crime scenes.",
+                reference: "Criminal Investigation Principles"
+            },
+            {
+                question: "Which of the following is true of crime scene photography?",
+                options: ["Do not delete mistake photos.", "Always use a flash.", "The lead detective should take all the photos.", "Only take close-up photos of evidence."],
+                answer: "Do not delete mistake photos.",
+                explanation: "A photo log should be maintained, and even bad photos should be kept. Deleting photos can lead to accusations of hiding or altering evidence.",
+                reference: "Crime Scene Investigation Principles"
+            },
+            {
+                question: "The legal significance of evidence rests in its influence on the:",
+                options: ["Media", "Police Chief", "Jury", "Defendant"],
+                answer: "Jury",
+                explanation: "Ultimately, the purpose of collecting evidence is to present it in court to influence the trier of fact—the jury (or judge in a bench trial)—to reach a conclusion about guilt or innocence.",
+                reference: "Criminal Investigation Principles"
+            },
+            {
+                question: "During the processing of a crime scene, what potential problem should be taken into consideration when determining how an area will be searched?",
+                options: ["The time of day.", "The weather conditions.", "The physical characteristics of the area to be searched.", "The number of officers available."],
+                answer: "The physical characteristics of the area to be searched.",
+                explanation: "The size, terrain, and contents of a crime scene dictate the most effective search pattern (e.g., grid, spiral, line) to ensure thorough coverage.",
+                reference: "Crime Scene Investigation Principles"
+            },
+            {
+                question: "The explanation of symbols used to identify objects in the sketch is called a/an:",
+                options: ["Scale", "Compass", "Index", "Legend"],
+                answer: "Legend",
+                explanation: "The legend, or key, on a crime scene sketch explains what the symbols (e.g., numbers, letters) used on the diagram represent.",
+                reference: "Crime Scene Investigation Principles"
+            },
+            {
+                question: "Which of the following is TYPICAL for the SIDS Model?",
+                options: ["The infant is apparently healthy before death.", "The death is silent.", "The infant is often found in the same position they were placed in.", "All of the above."],
+                answer: "All of the above.",
+                explanation: "The typical SIDS case involves an infant who appeared healthy, was put to bed, and was later found deceased without signs of a struggle.",
+                reference: "Crimes Against Persons Handout, Page 6"
+            },
+            {
+                question: "Suspect clothing should be collected in the following manner:",
+                options: ["Shake out the clothing to remove debris before packaging.", "Package each item of clothing separately in a paper bag.", "Place all clothing items together in one large plastic bag.", "Allow the suspect to take the clothing home to be washed first."],
+                answer: "Package each item of clothing separately in a paper bag.",
+                explanation: "Each item must be packaged separately to avoid cross-contamination. Paper bags are used to allow wet items to air dry and prevent the degradation of biological evidence.",
+                reference: "Crimes Against Persons Handout, Page 8"
+            },
+            // Quiz 2 Questions
+            {
+                question: "Which culpable mental state refers to a person's knowledge or awareness that his conduct is reasonably certain to cause the result?",
+                options: ["Intentionally", "Knowingly", "Recklessly", "Criminal Negligence"],
+                answer: "Knowingly",
+                explanation: "'Knowingly' is defined by the result being 'reasonably certain' to occur, whereas 'Intentionally' is defined by it being the person's conscious objective or desire.",
+                reference: "Texas Penal Code § 6.03"
+            },
+            {
+                question: "It would be acceptable to package paint evidence in:",
+                options: ["A plastic bag", "A paper bag", "A druggist fold or sealed container", "A wet paper towel"],
+                answer: "A druggist fold or sealed container",
+                explanation: "Paint chips are small trace evidence. A druggist fold (a specific way of folding paper to create a sealed packet) or a small, sealed container prevents the tiny evidence from being lost.",
+                reference: "Crime Scene Investigation Principles"
+            },
+            {
+                question: "A means a child who is accused, adjudicated, or convicted for conduct that would not, under state law, be a crime if committed by an adult.",
+                options: ["Delinquent Child", "Status Offender", "Juvenile Delinquent", "Minor in Possession"],
+                answer: "Status Offender",
+                explanation: "A status offender is a juvenile who has engaged in conduct that is only illegal because of their age, such as truancy, running away, or violating curfew (CINS).",
+                reference: "Juvenile Procedures Handout, Page 5"
+            },
+            {
+                question: "After taking temporary custody of a child for the purposes of fingerprints or photographs, the required destruction of fingerprints or photographs is BEST described by which of the following statements:",
+                options: ["They must be destroyed if the child is not referred to juvenile court within 10 days.", "They are kept on file permanently.", "They are given to the child's parents.", "They are destroyed only upon the child's 18th birthday."],
+                answer: "They must be destroyed if the child is not referred to juvenile court within 10 days.",
+                explanation: "Family Code 58.002 requires the destruction of prints/photos if the case does not proceed to court, protecting the child's privacy.",
+                reference: "Juvenile Procedures Handout, Page 19"
+            },
+            {
+                question: "Jim gives Juliet, a twenty-year-old female, Rohypnol without her knowledge. Juliet is so sedated that she has sexual intercourse with Jim even though she had always refused his advances before. Jim has committed the offense of:",
+                options: ["Indecent Assault", "Sexual Assault", "Aggravated Sexual Assault", "No offense, because she participated."],
+                answer: "Aggravated Sexual Assault",
+                explanation: "This is Sexual Assault because consent was negated by the administration of a substance (PC 22.011(b)(6)). It becomes Aggravated Sexual Assault because the actor, with the intent of facilitating the offense, administered a substance capable of impairing the victim's ability to resist (PC 22.021(a)(2)(A)(vi)).",
+                reference: "Sex Offenses Handout, Page 6"
+            },
+            {
+                question: "While dancing at a nightclub, a young man sees a woman with large breasts and wonders if they are real. Dared by his friends he goes up to her, squeezes both of her breasts, and asks if they are real. What is the highest offense, if any, that the young man has committed?",
+                options: ["Assault by Offensive Contact", "Indecent Assault", "Sexual Assault", "No Offense"],
+                answer: "Indecent Assault",
+                explanation: "Because the touching was to the breast and was done with the intent to arouse or gratify sexual desire (even if as a prank), it meets the elements of Indecent Assault (PC 22.012).",
+                reference: "Sex Offenses Handout, Page 2"
+            },
+            {
+                question: "'Delinquent Conduct' would include:",
+                options: ["Truancy", "Running away from home", "Burglary of a Habitation", "Violating city curfew"],
+                answer: "Burglary of a Habitation",
+                explanation: "Delinquent conduct is an act that would be a crime if committed by an adult. Burglary is a felony. The other options are status offenses (CINS).",
+                reference: "Juvenile Procedures Handout, Page 4"
+            },
+            {
+                question: "A search warrant served on the residence of a 40 year old male reveals a large amount of VCR tapes and DVDs that contain explicit visual material of children no older than 12 years of age engaging in sexual conduct. The offense for this is:",
+                options: ["Obscenity", "Sale or Distribution of Harmful Material to a Minor", "Possession or Promotion of Child Pornography", "Invasive Visual Recording"],
+                answer: "Possession or Promotion of Child Pornography",
+                explanation: "PC 43.26 criminalizes the knowing possession of visual material that depicts a child younger than 18 engaging in sexual conduct.",
+                reference: "Sex Offenses Handout, Page 22"
+            },
+            {
+                question: "A person commits if he exposes his anus or any part of his genitals with intent to arouse or gratify the sexual desire of any person, and he is reckless about whether another is present who will be offended or alarmed by his act.",
+                options: ["Public Lewdness", "Disorderly Conduct", "Indecent Exposure", "Sexual Assault"],
+                answer: "Indecent Exposure",
+                explanation: "This is the precise legal definition of Indecent Exposure under the Texas Penal Code.",
+                reference: "Texas Penal Code § 21.08"
+            },
+            {
+                question: "A child can waive Miranda or other Constitutional rights when both the child and a/an agree in writing.",
+                options: ["Parent", "Magistrate", "Attorney", "Probation Officer"],
+                answer: "Attorney",
+                explanation: "Under FC 51.09, a child's waiver of rights is only valid if the child and their attorney both waive the right.",
+                reference: "Texas Family Code § 51.09"
+            },
+            {
+                question: "According to Sec. 22.021 of the Penal Code a person commits the offense of Aggravated Sexual assault if he commits sexual assault and:",
+                options: ["The victim is under 17.", "The actor uses or exhibits a deadly weapon.", "The actor has a prior conviction for assault.", "The victim is a public servant."],
+                answer: "The actor uses or exhibits a deadly weapon.",
+                explanation: "The use or exhibition of a deadly weapon during a sexual assault is one of the key aggravating factors that elevates the offense to a first-degree felony.",
+                reference: "Sex Offenses Handout, Page 6"
+            },
+            {
+                question: "A child that is detained in a 'Juvenile Process Office' may not be left unattended and is entitled to be accompanied by;",
+                options: ["A law enforcement officer", "A probation officer", "Their parent, guardian, or attorney", "A social worker"],
+                answer: "Their parent, guardian, or attorney",
+                explanation: "Family Code 52.025 requires that a child in a processing office be accompanied by a parent, guardian, or other custodian, or by the child's attorney.",
+                reference: "Juvenile Procedures Handout, Page 12"
+            },
+            {
+                question: "Which of the following is/are one of the five domains of risk factors for youths joining gangs?",
+                options: ["Individual", "Family", "School and Community", "All of the above"],
+                answer: "All of the above",
+                explanation: "Gang involvement is a complex issue with multiple contributing factors, including individual characteristics, family dynamics, school experiences, peer groups, and community conditions.",
+                reference: "Criminology & Juvenile Justice Principles"
+            },
+            {
+                question: "Jim, a man in the front row of a crowded movie theater, as a prank, stands up and 'moons' everyone, which makes his anus visible. Several complain to management about him. What offense, if any, did Jim commit?",
+                options: ["Public Lewdness", "Indecent Exposure", "Disorderly Conduct", "No Offense"],
+                answer: "Disorderly Conduct",
+                explanation: "This act fits the definition of Disorderly Conduct by exposure of his anus in a public place, and was reckless about whether another person may be offended or alarmed. It is not Indecent Exposure because there is no element of sexual gratification.",
+                reference: "Texas Penal Code § 42.01"
+            },
+            {
+                question: "The objective of a crime scene search is to locate physical evidence and to",
+                options: ["Interview suspects", "Determine the motive", "Identify witnesses", "Establish the corpus delicti"],
+                answer: "Establish the corpus delicti",
+                explanation: "The purpose of the search is to find evidence that proves a crime was actually committed (the corpus delicti) and to link a suspect to that crime.",
+                reference: "Criminal Investigation Principles"
+            },
+            {
+                question: "When an agency arrests or refers a person for certain required offenses, who the agency knows is a student in a public primary or secondary school, the agency must submit written notification to the proper school authorities within how many days?",
+                options: ["1 working day", "5 working days", "10 calendar days", "30 calendar days"],
+                answer: "5 working days",
+                explanation: "The Code of Criminal Procedure requires law enforcement to notify schools of certain student arrests to ensure school safety.",
+                reference: "Texas Code of Criminal Procedure Art. 15.27"
+            },
+            {
+                question: "Material or a performance that, taken as a whole, appeals to the prurient interest in sex, is patently offensive, and lacks serious literary, artistic, political, and scientific value defines:",
+                options: ["Pornography", "Harmful Material", "Obscenity", "Indecency"],
+                answer: "Obscenity",
+                explanation: "This is the three-prong 'Miller Test,' which is the legal standard for determining if material is obscene and therefore not protected by the First Amendment.",
+                reference: "Sex Offenses Handout, Page 20"
+            },
+            {
+                question: "Which culpable mental state refers to a person's awareness of but conscious disregard of a substantial and unjustifiable risk that the circumstances exist or the result will occur?",
+                options: ["Intentionally", "Knowingly", "Recklessly", "Criminal Negligence"],
+                answer: "Recklessly",
+                explanation: "This is the definition of 'Recklessly.' The key is that the person is aware of the risk but proceeds anyway.",
+                reference: "Texas Penal Code § 6.03"
+            },
+            {
+                question: "A person exposes himself to a group of 9 year olds with intent to gratify himself. The offense is:",
+                options: ["Disorderly Conduct", "Public Lewdness", "Indecent Exposure", "Indecency with a Child"],
+                answer: "Indecency with a Child",
+                explanation: "Exposing genitals to a child under 17 with the intent to arouse or gratify sexual desire is Indecency with a Child, a third-degree felony.",
+                reference: "Sex Offenses Handout, Page 6"
+            },
+            {
+                question: "According to the Family Code, the taking of a child into custody is NOT considered a/an except for the purpose of determining the validity of a search.",
+                options: ["Detention", "Arrest", "Referral", "Apprehension"],
+                answer: "Arrest",
+                explanation: "The code makes a distinction to emphasize the civil and rehabilitative nature of the juvenile system. However, for Fourth Amendment purposes (searches), it is treated as an arrest.",
+                reference: "Juvenile Procedures Handout, Page 9"
+            },
+            {
+                question: "If a man intentionally grabs a woman's breast (under the shirt) in a public place with the intent to gratify himself sexually he has committed the offense of:",
+                options: ["Assault", "Aggravated Assault", "Indecent Assault", "Public Lewdness"],
+                answer: "Indecent Assault",
+                explanation: "Touching the breast of another without consent and with the intent to arouse or gratify sexual desire meets the elements of Indecent Assault (PC 22.012).",
+                reference: "Sex Offenses Handout, Page 2"
+            },
+            {
+                question: "The CCP requires that sexual assault exams be done if it occurred within the last hours.",
+                options: ["24", "48", "72", "120"],
+                answer: "120",
+                explanation: "The Code of Criminal Procedure was updated to extend the timeframe for a sexual assault forensic exam (SAE) to 120 hours (5 days) from the time of the assault.",
+                reference: "Texas Code of Criminal Procedure Art. 56.06"
+            },
+            {
+                question: "Juan is married to Linda and has a twenty (20) year old stepdaughter named Lucy. Juan is starting to have consensual sex with Lucy. What offense, if any, is Juan guilty of?",
+                options: ["Adultery", "Sexual Assault", "Prohibited Sexual Conduct", "No Offense"],
+                answer: "Prohibited Sexual Conduct",
+                explanation: "PC 25.02 specifically prohibits sexual intercourse between a person and their current or former stepchild. It is a third-degree felony.",
+                reference: "Sex Offenses Handout, Page 1"
+            },
+            {
+                question: "Improper Relationship between Educator and Student refers to illegal sexual interactions with students enrolled in which schools?",
+                options: ["Colleges and Universities", "Public or private primary or secondary schools", "Trade schools only", "Online schools only"],
+                answer: "Public or private primary or secondary schools",
+                explanation: "PC 21.12 applies specifically to employees of K-12 schools and the students enrolled in them.",
+                reference: "Sex Offenses Handout, Page 10"
+            },
+            // Quiz 3 Questions
+            {
+                question: "While on patrol, an officer stops at a local convenience store and observes a rack displaying several magazines showing full nudity of women on the covers open for view to the public. What is the offense?",
+                options: ["Obscene Display or Distribution", "Sale, Distribution, or Display of Harmful Material to Minor", "Public Lewdness", "No Offense"],
+                answer: "Obscene Display or Distribution",
+                explanation: "PC 43.22 makes it an offense to intentionally or knowingly display obscene material where a person is present who will likely be offended or alarmed. This is a Class C Misdemeanor.",
+                reference: "Sex Offenses Handout, Page 21"
+            },
+            {
+                question: "An officer is dispatched to a residence and learns that a woman was anally raped by her boyfriend against her will. What is the offense?",
+                options: ["Sexual Assault", "Aggravated Sexual Assault", "Indecent Assault", "Assault"],
+                answer: "Sexual Assault",
+                explanation: "The non-consensual penetration of the anus by any means constitutes Sexual Assault under PC 22.011, a second-degree felony.",
+                reference: "Sex Offenses Handout, Page 3"
+            },
+            {
+                question: "A woman reports that after a date, a man forced himself on her, anally raped her against her will, and held a knife to her throat during the assault. What is the highest offense?",
+                options: ["Sexual Assault", "Aggravated Sexual Assault", "Aggravated Robbery", "Kidnapping"],
+                answer: "Aggravated Sexual Assault",
+                explanation: "The act is a Sexual Assault, but it is elevated to Aggravated Sexual Assault because the actor used or exhibited a deadly weapon (the knife) during the commission of the offense. This is a first-degree felony.",
+                reference: "Sex Offenses Handout, Page 6"
+            },
+            {
+                question: "After the birth of a child, it is discovered that the father of the child is the biological brother of the mother. What offense has been committed?",
+                options: ["Sexual Assault", "Prohibited Sexual Conduct", "Adultery", "No Offense"],
+                answer: "Prohibited Sexual Conduct",
+                explanation: "PC 25.02 prohibits sexual intercourse between a person and their sibling of the whole or half blood. It is a third-degree felony.",
+                reference: "Sex Offenses Handout, Page 1"
+            },
+            {
+                question: "A 14-year-old ninth grader has been receiving inappropriate text messages and sexually explicit photos from a 17-year-old high school senior at her school. What is the highest offense?",
+                options: ["Harassment", "Online Solicitation of a Minor", "Possession of Child Pornography", "No offense because of the 'Romeo and Juliet' law"],
+                answer: "Online Solicitation of a Minor",
+                explanation: "The 17-year-old is an adult for the purpose of this statute. By sending sexually explicit communications to a minor (under 17) with the intent to commit a sex offense, he has committed Online Solicitation of a Minor (PC 33.021), a third-degree felony.",
+                reference: "Sex Offenses Handout, Page 12"
+            },
+            {
+                question: "An officer observes a 14-year-old thumbing through a pornographic magazine displayed for public view at a convenience store. What is the highest offense the store owner has committed?",
+                options: ["Obscene Display", "Sale, Distribution, or Display of Harmful Material to Minor", "Endangering a Child", "No Offense"],
+                answer: "Sale, Distribution, or Display of Harmful Material to Minor",
+                explanation: "PC 43.24 makes it an offense to display harmful material and be reckless about whether a minor is present who will be offended or alarmed. This is a Class A Misdemeanor.",
+                reference: "Sex Offenses Handout, Page 21"
+            },
+            {
+                question: "An examination of a suspect's computer reveals multiple photographs of naked children engaging in sexual conduct. What is the offense?",
+                options: ["Obscenity", "Invasive Visual Recording", "Possession or Promotion of Child Pornography", "Harmful Material to a Minor"],
+                answer: "Possession or Promotion of Child Pornography",
+                explanation: "Knowingly possessing visual material that depicts a child younger than 18 engaging in sexual conduct is a violation of PC 43.26. The penalty depends on the number of images.",
+                reference: "Sex Offenses Handout, Page 22"
+            },
+            {
+                question: "A 9-year-old discloses that for the past three months her 30-year-old uncle has sexually abused her by forcing oral contact with his genitals. What is the highest offense?",
+                options: ["Sexual Assault", "Aggravated Sexual Assault", "Indecency with a Child", "Continuous Sexual Abuse of a Young Child"],
+                answer: "Continuous Sexual Abuse of a Young Child",
+                explanation: "Because the actor committed two or more acts of sexual abuse (Sexual Assault) against a child under 14 over a period longer than 30 days, the highest offense is Continuous Sexual Abuse of a Young Child (PC 21.02), a first-degree felony with a 25-year minimum sentence.",
+                reference: "Sex Offenses Handout, Page 8"
+            },
+            {
+                question: "An officer patrolling a closed city park at night observes two individuals engaged in sexual intercourse inside a parked vehicle. What is the offense, if any?",
+                options: ["Indecent Exposure", "Public Lewdness", "Disorderly Conduct", "No Offense"],
+                answer: "Public Lewdness",
+                explanation: "Knowingly engaging in an act of sexual intercourse in a public place constitutes Public Lewdness, a Class A Misdemeanor.",
+                reference: "Texas Penal Code § 21.07"
+            },
+            {
+                question: "A teacher hugged a 13-year-old female student and during the hug fondled her breast over the top of her clothing. What is the highest offense?",
+                options: ["Indecency with a Child", "Improper Relationship Between Educator and Student", "Indecent Assault", "Assault by Offensive Contact"],
+                answer: "Indecency with a Child",
+                explanation: "Touching the breast of a child under 17 with the intent to arouse or gratify sexual desire is Indecency with a Child (PC 21.11), a second-degree felony. This is a higher charge than Improper Relationship.",
+                reference: "Sex Offenses Handout, Page 6"
+            },
+            {
+                question: "A 14-year-old student discloses that his teacher has used emotional influence to get him to participate in consensual sexual contact for the last three months. What is the offense?",
+                options: ["Sexual Assault", "Indecency with a Child", "Improper Relationship Between Educator and Student", "No Offense, it was consensual"],
+                answer: "Improper Relationship Between Educator and Student",
+                explanation: "PC 21.12 criminalizes sexual contact between a school employee and a student, regardless of consent. It is a second-degree felony.",
+                reference: "Sex Offenses Handout, Page 10"
+            },
+            {
+                question: "A 17-year-old student secretly takes pictures of girls undressing in the school locker room and sends the photos to his friends. What is the highest offense?",
+                options: ["Invasive Visual Recording", "Unlawful Disclosure of Intimate Visual Material", "Possession or Promotion of Child Pornography", "Harassment"],
+                answer: "Possession or Promotion of Child Pornography",
+                explanation: "Because the victims are under 18 and the images depict nudity, the material is child pornography. The act of sending (promoting) it is a second-degree felony under PC 43.26.",
+                reference: "Sex Offenses Handout, Page 22"
+            },
+            {
+                question: "An undercover officer is approached by a person offering to provide oral sex for 50 dollars. What offense has the person committed?",
+                options: ["Prostitution", "Solicitation of Prostitution", "Promotion of Prostitution", "Public Lewdness"],
+                answer: "Prostitution",
+                explanation: "The person knowingly offered to receive a fee to engage in sexual conduct, which is the definition of Prostitution (PC 43.02), a Class B Misdemeanor.",
+                reference: "Sex Offenses Handout, Page 26"
+            },
+            {
+                question: "The felony amount of marihuana is reached when a person intentionally possesses more than:",
+                options: ["2 ounces", "4 ounces", "1 pound", "5 pounds"],
+                answer: "4 ounces",
+                explanation: "Possession of four ounces or less of marihuana is a misdemeanor. Possession of more than four ounces up to five pounds is a State Jail Felony.",
+                reference: "Health and Safety Code Handout, Page 22"
+            },
+            {
+                question: "The overdose defense to prosecution is NOT available if:",
+                options: ["The actor has a prior conviction for a drug offense.", "A police officer was already in the process of arresting the actor.", "The actor was acquitted in a previous case using the same defense.", "All of the above."],
+                answer: "All of the above.",
+                explanation: "The 'Good Samaritan' overdose defense has several restrictions. It cannot be used if law enforcement action is already underway, or if the person has a history of drug convictions or has used the defense before.",
+                reference: "Health and Safety Code Handout, Page 25"
+            },
+            {
+                question: "Which of the following is NOT one of the three common methods of drug abuse?",
+                options: ["Injection", "Ingestion", "Inhalation", "Puncture"],
+                answer: "Puncture",
+                explanation: "The common methods of introducing drugs into the body are injection (using a needle), ingestion (swallowing), and inhalation (smoking or snorting). 'Puncture' is not a standard method.",
+                reference: "Health and Safety Code Handout, Page 39"
+            },
+            {
+                question: "A substance, including a drug, an adulterant, and a dilutant, listed in Schedules I through V or Penalty Groups 1, 1-A, or 2 through 4 is a:",
+                options: ["Dangerous Drug", "Narcotic", "Controlled substance", "Counterfeit substance"],
+                answer: "Controlled substance",
+                explanation: "This is the legal definition of a Controlled Substance under the Texas Health and Safety Code.",
+                reference: "Health and Safety Code Handout, Page 1"
+            },
+            {
+                question: "LSD is a:",
+                options: ["Depressant", "Stimulant", "Hallucinogen", "Narcotic"],
+                answer: "Hallucinogen",
+                explanation: "LSD (Lysergic acid diethylamide) is a powerful hallucinogenic drug known for distorting perception.",
+                reference: "Health and Safety Code Handout, Page 10"
+            },
+            {
+                question: "A means a controlled substance that, without authorization, bears or is in a container or has a label that bears an actual or simulated trademark of a real manufacturer.",
+                options: ["Simulated substance", "Dangerous drug", "Counterfeit substance", "Controlled substance analogue"],
+                answer: "Counterfeit substance",
+                explanation: "A counterfeit substance is a drug that is fraudulently mislabeled as a legitimate product.",
+                reference: "Health and Safety Code Handout, Page 2"
+            },
+            {
+                question: "To deliver a controlled substance other than by administering or dispensing the substance is to:",
+                options: ["Manufacture", "Possess", "Distribute", "Administer"],
+                answer: "Distribute",
+                explanation: "This is the legal definition of 'distribute' under the Health and Safety Code.",
+                reference: "Health and Safety Code Handout, Page 3"
+            },
+            {
+                question: "The delivery of a controlled substance in the course of professional practice by a practitioner to an ultimate user is to:",
+                options: ["Distribute", "Dispense", "Manufacture", "Deliver"],
+                answer: "Dispense",
+                explanation: "This is the legal definition of 'dispense,' which includes the act of prescribing and packaging a substance for a patient.",
+                reference: "Health and Safety Code Handout, Page 3"
+            },
+            {
+                question: "If a peace officer is authorized to destroy a dangerous drug, what must occur?",
+                options: ["Pictures of the drug must be taken.", "The destruction must be witnessed by another officer.", "An inventory must be prepared.", "All of the above."],
+                answer: "All of the above.",
+                explanation: "The destruction of dangerous drugs requires a strict protocol, including witnesses and detailed documentation, to ensure accountability.",
+                reference: "Health and Safety Code Handout, Page 38"
+            },
+            {
+                question: "Possessing drug paraphernalia is a:",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "No offense"],
+                answer: "Class C Misdemeanor",
+                explanation: "Possession of drug paraphernalia with intent to use is a Class C Misdemeanor, punishable by a fine up to $500.",
+                reference: "Health and Safety Code Handout, Page 27"
+            },
+            {
+                question: "Manufacturing or delivering a Penalty Group 1 substance becomes a felony at:",
+                options: ["Less than one gram", "One gram", "Four grams", "28 grams"],
+                answer: "Less than one gram",
+                explanation: "The manufacture or delivery of ANY amount of a Penalty Group 1 substance, even less than one gram, is a State Jail Felony.",
+                reference: "Health and Safety Code Handout, Page 17"
+            },
+            {
+                question: "Possessing a Penalty Group 1 substance becomes a felony at:",
+                options: ["Less than one gram", "One gram or more but less than four grams", "Four grams or more", "Any amount"],
+                answer: "Less than one gram",
+                explanation: "Similar to delivery, possession of ANY amount of a Penalty Group 1 substance is a felony, starting at the State Jail Felony level for less than one gram.",
+                reference: "Health and Safety Code Handout, Page 19"
+            },
+            // Quiz 4 Questions
+            {
+                question: "For a 'show-up' or field identification process, once there is a positive identification, other identification procedures should be used for any other witnesses.",
+                options: ["True", "False"],
+                answer: "True",
+                explanation: "To avoid suggestiveness and tainting other witnesses, a different, less suggestive procedure like a photo array should be used for subsequent identifications.",
+                reference: "Eyewitness Identification Best Practices"
+            },
+            {
+                question: "The District Attorney has 45 days from the date of seizure to file the asset forfeiture case with the courts.",
+                options: ["True", "False"],
+                answer: "False",
+                explanation: "The deadline is 30 days. The attorney representing the state must begin forfeiture proceedings within 30 days of the seizure.",
+                reference: "Asset Forfeiture Handout, Page 11"
+            },
+            {
+                question: "For a 'show-up' or field identification process, the suspect should be transported to the witness' location to reduce suggestiveness.",
+                options: ["True", "False"],
+                answer: "False",
+                explanation: "The witness should be transported to the suspect's location. Bringing a suspect to a witness is considered more suggestive and could compromise the identification.",
+                reference: "Eyewitness Identification Best Practices"
+            },
+            {
+                question: "The value of the property seized should be considered proportional to the type of offense committed.",
+                options: ["True", "False"],
+                answer: "True",
+                explanation: "This is a constitutional requirement under the 8th Amendment's Excessive Fines Clause. The forfeiture must not be grossly disproportionate to the crime.",
+                reference: "Asset Forfeiture Handout, Page 2"
+            },
+            {
+                question: "Show up or field identification should never be used because they are highly suggestive.",
+                options: ["True", "False"],
+                answer: "False",
+                explanation: "While they are inherently suggestive, show-ups are a valuable and legal tool when conducted properly and soon after the commission of a crime.",
+                reference: "Eyewitness Identification Best Practices"
+            },
+            {
+                question: "For a 'show-up' or field identification process, you should display the suspect as (s)he sits in the rear of a marked police vehicle.",
+                options: ["True", "False"],
+                answer: "False",
+                explanation: "Displaying the suspect in a police car is unnecessarily suggestive. The suspect should be removed from the car and presented in a neutral manner.",
+                reference: "Eyewitness Identification Best Practices"
+            },
+            {
+                question: "You arrest Joe Smith for delivery of a controlled substance. During the search incident to arrest you find $1,000 cash on his person. The seizure of the cash requires a search warrant.",
+                options: ["True", "False"],
+                answer: "False",
+                explanation: "The cash is considered proceeds of the criminal activity and can be seized without a warrant as part of a search incident to a lawful arrest.",
+                reference: "Asset Forfeiture Handout, Page 7"
+            },
+            {
+                question: "When conducting an eyewitness procedure, a/an administration procedure should be used.",
+                options: ["Blind", "Double-blind", "Open", "Suggestive"],
+                answer: "Blind",
+                explanation: "A 'blind' or 'double-blind' administration (where the officer conducting the lineup does not know who the suspect is) is the best practice to prevent unintentional cues or influence.",
+                reference: "Eyewitness Identification Best Practices"
+            },
+            {
+                question: "In filing asset forfeiture suits, a criminal conviction is not required.",
+                options: ["True", "False"],
+                answer: "True",
+                explanation: "Asset forfeiture is a civil proceeding against the property itself ('in rem'). The standard of proof is a preponderance of the evidence, not beyond a reasonable doubt, so a criminal conviction is not a prerequisite.",
+                reference: "Asset Forfeiture Handout, Page 2"
+            },
+            {
+                question: "Which are valid Statutory Defenses to Asset Forfeitures in Texas?",
+                options: ["Homestead Exemption", "Community Property", "Innocent Owner Defense", "All of the above"],
+                answer: "Innocent Owner Defense",
+                explanation: "The Innocent Owner defense is a specific defense outlined in CCP Chapter 59. Homestead and community property are generally not considered valid statutory defenses.",
+                reference: "Asset Forfeiture Handout, Page 4"
+            },
+            {
+                question: "Which of the following would be a recommended eyewitness identification procedure?",
+                options: ["Show-up at the police station", "Simultaneous photo array", "Sequential photo array", "Having witnesses identify the suspect together"],
+                answer: "Sequential photo array",
+                explanation: "A sequential lineup, where photos are shown one at a time, is considered best practice because it reduces the relative judgment where witnesses compare photos to each other instead of their memory.",
+                reference: "Eyewitness Identification Best Practices"
+            },
+            {
+                question: "When dealing with multiple witnesses to a crime, an officer should:",
+                options: ["Separate the witnesses to prevent them from influencing each other.", "Allow them to discuss the event to get a more complete story.", "Interview the most confident witness first.", "Only interview the witness with the best view."],
+                answer: "Separate the witnesses to prevent them from influencing each other.",
+                explanation: "Separating witnesses is a fundamental step in a preliminary investigation to preserve the integrity of their individual recollections.",
+                reference: "Call Response Handout, Page 6"
+            },
+            {
+                question: "'The Controlled Substance Act' in Texas is found in the:",
+                options: ["Penal Code", "Code of Criminal Procedure", "Health and Safety Code", "Occupations Code"],
+                answer: "Health and Safety Code",
+                explanation: "The Texas Controlled Substances Act is codified in Chapter 481 of the Health and Safety Code.",
+                reference: "Health and Safety Code Handout, Page 1"
+            },
+            {
+                question: "No warrant to search any place or seize anything shall issue without:",
+                options: ["A supervisor's signature", "The victim's consent", "Probable cause supported by oath or affirmation", "A felony charge"],
+                answer: "Probable cause supported by oath or affirmation",
+                explanation: "This is a core requirement of the Fourth Amendment. A search warrant must be based on probable cause established in a sworn affidavit.",
+                reference: "Arrest, Search & Seizure Handout, Page 1"
+            },
+            {
+                question: "According to the CCP, a peace officer to whom a search warrant is delivered shall execute it without delay. It must be executed within from the time of its issuance.",
+                options: ["24 hours", "48 hours", "3 whole days (excluding date of issuance and execution)", "5 business days"],
+                answer: "3 whole days (excluding date of issuance and execution)",
+                explanation: "CCP 18.07 establishes a three-day time limit for executing most standard search warrants.",
+                reference: "Arrest, Search & Seizure Handout, Page 9"
+            },
+            {
+                question: "An electronic storage search warrant issued on the 10th of July is valid for how long?",
+                options: ["Until July 13th", "Until July 15th", "Until July 20th", "Until July 25th"],
+                answer: "Until July 20th",
+                explanation: "Warrants for electronic data held by a provider have a 10-day execution period, excluding the day of issuance and execution.",
+                reference: "Arrest, Search & Seizure Handout, Page 9"
+            },
+            {
+                question: "Which of the following have the potential for contraband seizures pursuant to CCP Chapter 59?",
+                options: ["Any traffic offense", "Narcotic offenses", "Class C misdemeanors", "City ordinance violations"],
+                answer: "Narcotic offenses",
+                explanation: "Felony offenses under the Health and Safety Code (narcotics) are specifically listed as predicate offenses for asset forfeiture under CCP 59.01.",
+                reference: "Asset Forfeiture Handout, Page 2"
+            },
+            {
+                question: "Which of the following is NOT a search warrant exception?",
+                options: ["Consent", "Plain View", "Hearsay", "Search Incident to Lawful Arrest"],
+                answer: "Hearsay",
+                explanation: "Hearsay is a rule of evidence, not an exception to the Fourth Amendment's warrant requirement. The other options are all recognized exceptions.",
+                reference: "Arrest, Search & Seizure Handout, Page 7"
+            },
+            {
+                question: "A search warrant CANNOT be issued to:",
+                options: ["Seize stolen property.", "Seize illegal gambling devices.", "Seize the personal writings of the accused as evidence.", "Seize illegal narcotics."],
+                answer: "Seize the personal writings of the accused as evidence.",
+                explanation: "CCP 18.02(a)(10) specifically exempts the personal writings of the accused (like a diary) from being seized under an evidentiary search warrant.",
+                reference: "Arrest, Search & Seizure Handout, Page 4"
+            },
+            {
+                question: "Relative Judgement ID errors may occur when:",
+                options: ["Police use a sequential photo array.", "Police use a blind administrator.", "Police use a simultaneous photo array.", "The witness is shown only one suspect."],
+                answer: "Police use a simultaneous photo array.",
+                explanation: "When all photos are shown at once (simultaneous), witnesses tend to compare the photos to each other and pick the one that looks most like the perpetrator, rather than comparing each photo to their memory. This is relative judgment.",
+                reference: "Eyewitness Identification Best Practices"
+            },
+            {
+                question: "A law enforcement agency must begin asset forfeiture proceedings within of the seizure.",
+                options: ["24 hours", "48 hours", "30 days", "60 days"],
+                answer: "30 days",
+                explanation: "The attorney representing the state has a 30-day deadline from the date of seizure to file the forfeiture lawsuit.",
+                reference: "Asset Forfeiture Handout, Page 11"
+            },
+            {
+                question: "Which of the following would be an exception to the knock and announcement requirement for executing search warrants?",
+                options: ["The officers are in a hurry.", "It is nighttime.", "It would likely result in the destruction of evidence.", "The suspect is not home."],
+                answer: "It would likely result in the destruction of evidence.",
+                explanation: "Exigent circumstances, such as the reasonable belief that announcing their presence would allow suspects to destroy evidence (like flushing drugs), can justify a no-knock entry.",
+                reference: "Arrest, Search & Seizure Handout, Page 12"
+            },
+            {
+                question: "Contraband as defined by CCP 59.01 means property of any nature that is used or intended to be used in the commission of certain crimes.",
+                options: ["True", "False"],
+                answer: "True",
+                explanation: "This is the core definition of an 'instrumentality' of a crime, which is considered contraband subject to forfeiture.",
+                reference: "Asset Forfeiture Handout, Page 2"
+            },
+            {
+                question: "Money or property gained from the commission of a felony or misdemeanor or from a crime of violence listed in Texas CCP 59.01 is defined as",
+                options: ["Proceeds", "Contraband", "Evidence", "Instrumentalities"],
+                answer: "Proceeds",
+                explanation: "This is the legal definition of 'proceeds'—the profits derived from criminal activity.",
+                reference: "Asset Forfeiture Handout, Page 3"
+            },
+            {
+                question: " means to transfer or sell, actually or constructively, to another a controlled substance, counterfeit substance, or drug paraphernalia.",
+                options: ["Deliver", "Distribute", "Manufacture", "Possess"],
+                answer: "Deliver",
+                explanation: "This is the broad legal definition of 'deliver' under the Health and Safety Code, which also includes an 'offer to sell'.",
+                reference: "Health and Safety Code Handout, Page 3"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
