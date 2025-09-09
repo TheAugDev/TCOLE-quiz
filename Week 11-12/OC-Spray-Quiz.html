@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OC Spray Final Boss Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">OC Spray Final Boss Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This quiz contains 20 advanced questions focused on OC Spray, based on your training materials. After each answer, you'll see a detailed explanation. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "What is the active ingredient in OC spray?",
+                options: ["Chloroacetophenone (CN)", "Orthochlorobenzalmalononitrile (CS)", "Capsaicin", "Mustard Gas"],
+                answer: "Capsaicin",
+                explanation: "Capsaicin is the most prevalent of the capsaicinoids and is the active ingredient in Oleoresin Capsicum (OC) spray.",
+                reference: "OC PowerPoint Handouts, Page 3"
+            },
+            {
+                question: "What is the recommended follow-up training frequency to stay current with OC spray certification?",
+                options: ["Every 6 months", "Every 1 to 2 years", "Every 5 years", "Only once upon initial certification"],
+                answer: "Every 1 to 2 years",
+                explanation: "It is recommended that follow-up training occur every 1 to 2 years to stay current with OC spray. This can be as simple as a 15-minute role-call training exercise.",
+                reference: "OC PowerPoint Handouts, Page 1"
+            },
+            {
+                question: "According to the IACP/NIJ study, OC spray was effective on humans in confrontational encounters up to what percentage of the time?",
+                options: ["50%", "75%", "90%", "100%"],
+                answer: "90%",
+                explanation: "The IACP/NIJ study indicated that OC spray was effective upon humans in confrontational encounters up to 90 percent of the time.",
+                reference: "OC PowerPoint Handouts, Page 2"
+            },
+            {
+                question: "Which of the following is a primary physiological effect of OC spray?",
+                options: ["Muscle relaxation", "Inflammation and burning sensation", "Euphoria", "Numbness"],
+                answer: "Inflammation and burning sensation",
+                explanation: "OC sprays cause a burning sensation and inflammation. Capsaicin is a vasodilator, increasing blood flow to affected areas and causing swelling.",
+                reference: "OC PowerPoint Handouts, Page 4"
+            },
+            {
+                question: "What is the first step in post-exposure treatment for someone sprayed with OC?",
+                options: ["Flush eyes with water", "Apply a soothing lotion", "Remove the subject from the contaminated area", "Have the subject lie down"],
+                answer: "Remove the subject from the contaminated area",
+                explanation: "The first step in decontamination is to remove the subject from the contaminated area to prevent further exposure and begin the recovery process.",
+                reference: "OC PowerPoint Handouts, Page 6"
+            },
+            {
+                question: "Normal recovery from OC exposure typically occurs within what time frame?",
+                options: ["5 to 10 minutes", "15 to 45 minutes", "1 to 2 hours", "Over 4 hours"],
+                answer: "15 to 45 minutes",
+                explanation: "Normal recovery from the physiological and psychological effects of OC spray usually occurs within 15 to 45 minutes.",
+                reference: "OC PowerPoint Handouts, Page 6"
+            },
+            {
+                question: "Which of the following conditions should be treated as a medical emergency after OC exposure?",
+                options: ["Crying and coughing", "Redness of the skin", "Signs of an allergic reaction like swelling of the lips or hives", "Blinking rapidly"],
+                answer: "Signs of an allergic reaction like swelling of the lips or hives",
+                explanation: "Any person exhibiting signs of an allergic reaction, such as swelling of the lips, hives, or difficulty breathing, should receive immediate medical treatment.",
+                reference: "OC PowerPoint Handouts, Page 6-7"
+            },
+            {
+                question: "What is 'Positional Asphyxia'?",
+                options: ["A psychological reaction to OC spray", "A condition where the body's position interferes with breathing", "An allergic reaction to the OC carrier", "A long-term side effect of OC exposure"],
+                answer: "A condition where the body's position interferes with breathing",
+                explanation: "Positional Asphyxia is a dangerous condition where the subject's body position prevents them from breathing properly, which can lead to suffocation.",
+                reference: "OC PowerPoint Handouts, Page 7"
+            },
+            {
+                question: "What is the recommended spray pattern to maximize the effectiveness of OC spray?",
+                options: ["A single, one-second burst to the chest.", "A continuous spray until the canister is empty.", "The 'Multi-Tap Spray Pattern' of 2-3 second passes over the target area.", "Spraying the ground in front of the subject."],
+                answer: "The 'Multi-Tap Spray Pattern' of 2-3 second passes over the target area.",
+                explanation: "The Multi-Tap Spray Pattern, which involves 2 to 3 second passes over the target area (eyes, nose, mouth), is recommended to increase the likelihood of hitting the subject under stress.",
+                reference: "OC PowerPoint Handouts, Page 14"
+            },
+            {
+                question: "What is the primary target area for OC spray deployment?",
+                options: ["Chest and stomach", "Arms and legs", "The subject's back", "Eyes, nose, and mouth"],
+                answer: "Eyes, nose, and mouth",
+                explanation: "The primary target area for OC spray is the face, specifically across the brow to affect the eyes, nose, and mouth for maximum effectiveness.",
+                reference: "OC PowerPoint Handouts, Page 14"
+            },
+            {
+                question: "What does the term 'Level 2 Exposure' to OC refer to?",
+                options: ["Direct physical contact with the spray.", "Indirect or secondary contact, like touching a contaminated person.", "Being in an area where OC was sprayed.", "A mild allergic reaction."],
+                answer: "Indirect or secondary contact, like touching a contaminated person.",
+                explanation: "Level 2 exposure is defined as indirect or secondary contact, such as what an officer might experience when moving in to control a subject who has just been sprayed.",
+                reference: "OC PowerPoint Handouts, Page 5"
+            },
+            {
+                question: "What is the 'hydraulic needle effect'?",
+                options: ["The feeling of being pricked by needles after OC exposure.", "A risk of injury from spraying OC too close to the eyes.", "The way OC penetrates clothing.", "A specific type of OC spray nozzle."],
+                answer: "A risk of injury from spraying OC too close to the eyes.",
+                explanation: "The 'hydraulic needle effect' is a potential injury that can occur if the OC stream is deployed too close (less than 2-3 feet) to the eyes, causing damage from the pressure of the liquid.",
+                reference: "OC PowerPoint Handouts, Page 14"
+            },
+            {
+                question: "What is the classification of OC spray?",
+                options: ["Irritant", "Inflammatory", "Lachrymatory (tearing agent)", "Nerve agent"],
+                answer: "Inflammatory",
+                explanation: "OC spray is classified as an inflammatory agent because it causes the capillaries of the eyes, throat, and lungs to swell, leading to temporary blindness, coughing, and difficulty breathing.",
+                reference: "OC PowerPoint Handouts, Page 4"
+            },
+            {
+                question: "What is the purpose of the '3 S's of Deployment' (Shout, Short Burst, Shuffle)?",
+                options: ["A decontamination procedure.", "A tactical deployment sequence.", "A method for cleaning the canister.", "A first aid protocol."],
+                answer: "A tactical deployment sequence.",
+                explanation: "Shout (verbal commands), Short Burst (spray the target), and Shuffle (move to a new position) is a tactical formula for effectively deploying OC spray while maintaining officer safety.",
+                reference: "OC PowerPoint Handouts, Page 13"
+            },
+            {
+                question: "Which of the following is NOT a recommended decontamination step?",
+                options: ["Flush eyes with cool water.", "Expose the subject to fresh air.", "Allow the subject to rub their eyes to clear the OC.", "Use a wet paper towel followed by a dry one to blot the face."],
+                answer: "Allow the subject to rub their eyes to clear the OC.",
+                explanation: "You should NOT allow a person to rub their eyes, as this can grind the OC particles into the eyes and skin, increasing irritation and delaying recovery.",
+                reference: "OC PowerPoint Handouts, Page 6"
+            },
+            {
+                question: "What is 'Excited Delirium'?",
+                options: ["A common reaction to OC spray.", "A medical emergency characterized by paranoia, aggression, and superhuman strength.", "A legal term for resisting arrest.", "The feeling of excitement after a successful OC deployment."],
+                answer: "A medical emergency characterized by paranoia, aggression, and superhuman strength.",
+                explanation: "Excited Delirium is a serious medical condition often associated with drug abuse. Subjects exhibit bizarre, violent behavior and should be treated as a medical emergency.",
+                reference: "OC PowerPoint Handouts, Page 7"
+            },
+            {
+                question: "What is the color code for OC spray?",
+                options: ["Blue", "Red", "Orange", "Black"],
+                answer: "Orange",
+                explanation: "The color code for OC (Oleoresin Capsicum) is Orange.",
+                reference: "OC PowerPoint Handouts, Page 4"
+            },
+            {
+                question: "Which grip is recommended for deploying a duty-sized OC canister?",
+                options: ["Index finger on the actuator.", "Two hands on the canister.", "Thumb on the actuator.", "Holding it like a microphone."],
+                answer: "Thumb on the actuator.",
+                explanation: "Using the thumb to discharge the spray is recommended as it is the strongest, fastest grip and allows for the use of strikes against a charging suspect.",
+                reference: "OC PowerPoint Handouts, Page 10"
+            },
+            {
+                question: "Why is it important for officers to experience a 'dynamic hit' of OC in training?",
+                options: ["To build immunity to the effects.", "To build confidence that they can function if accidentally exposed.", "It is a requirement for legal certification.", "To see who can withstand it the longest."],
+                answer: "To build confidence that they can function if accidentally exposed.",
+                explanation: "One of the key rationales for taking a 'live hit' is to allow officers to discover through experience that they can still function if they inadvertently get contaminated with backsplash.",
+                reference: "OC PowerPoint Handouts, Page 16"
+            },
+            {
+                question: "If a suspect is sprayed with a flammable OC product, what other force option should be used with extreme caution?",
+                options: ["Empty hand control techniques", "A baton", "A TASER or other electronic control weapon", "A police dog"],
+                answer: "A TASER or other electronic control weapon",
+                explanation: "If a flammable OC spray has been recently discharged, using a TASER can be dangerous as the electrical arc could ignite the flammable carrier, causing serious burns.",
+                reference: "OC PowerPoint Handouts, Page 10"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>

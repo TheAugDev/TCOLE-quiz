@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TASER 10 & 7 Final Boss Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">TASER 10 & 7 Final Boss Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This quiz now contains 25 advanced questions focused on the TASER 10 and TASER 7, based on your training materials. After each answer, you'll see a detailed explanation. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "Which statement is true regarding the TASER 10's drive-stun capability?",
+                options: ["It is the primary method of use.", "It is more effective than probe deployment.", "The TASER 10 does not have drive-stun capabilities.", "It can only be used after all probes are deployed."],
+                answer: "The TASER 10 does not have drive-stun capabilities.",
+                explanation: "The TASER 10 has a low voltage output that is not capable of delivering drive-stun applications. Probes must make contact with the skin to create a connection.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "On a TASER 7, what is the function of depressing the ARC switch without a cartridge loaded?",
+                options: ["It deploys a backup cartridge.", "It performs a function test.", "It activates the flashlight.", "It allows for a drive-stun application."],
+                answer: "It allows for a drive-stun application.",
+                explanation: "On the TASER 7 and X2 models, depressing the ARC switch without a live cartridge allows the operator to use the device for a drive-stun.",
+                reference: "TASER 10 Operator Manual, V24 (drive-stun slide referencing TASER 7)"
+            },
+            {
+                question: "How are probes deployed from a TASER 10?",
+                options: ["Both probes deploy with a single trigger pull.", "The first trigger pull deploys one probe, and the second trigger pull deploys a second probe.", "Probes are deployed automatically when the device is armed.", "The operator must manually load and fire each probe."],
+                answer: "The first trigger pull deploys one probe, and the second trigger pull deploys a second probe.",
+                explanation: "The TASER 10 requires two separate trigger pulls to deploy two probes and begin an electrical cycle, allowing the operator to create their own probe spread.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "What feature on the TASER 10 replaces the traditional warning arc as a de-escalation tool?",
+                options: ["A loud siren.", "The 'Warning Alert' feature with light and sound.", "A verbal warning message from the device.", "A bright, continuous flashlight beam."],
+                answer: "The 'Warning Alert' feature with light and sound.",
+                explanation: "The TASER 10 features a 'Warning Alert' which produces a targeted pulsing light and an audible tone for de-escalation, replacing the warning arc of previous models.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "What is the maximum effective range of the TASER 10?",
+                options: ["15 feet", "25 feet", "40 feet", "55 feet"],
+                answer: "40 feet",
+                explanation: "The TASER 10 has a maximum range of 45 feet, but its maximum *effective* range is 40 feet (12.192 meters).",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "How many cartridges can a standard TASER 10 magazine hold?",
+                options: ["2", "4", "8", "10"],
+                answer: "10",
+                explanation: "All TASER 10 magazines are designed to be loaded with ten cartridges, and it is recommended to use the weapon with a fully loaded magazine.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "What is the purpose of 'Polarity Swapping' on the TASER 10?",
+                options: ["It allows the device to be used by left-handed operators.", "It automatically switches the electrical charge between any two connected probes for a better connection.", "It reverses the battery polarity to extend its life.", "It changes the color of the LASER sight."],
+                answer: "It automatically switches the electrical charge between any two connected probes for a better connection.",
+                explanation: "Polarity Swapping allows the TASER 10 to automatically create a connection between any two connected probes, improving targeting and the chances of establishing an effective circuit.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "A key difference between the TASER 7 and the TASER 10 is:",
+                options: ["TASER 7 has a longer range.", "TASER 10 uses a single-probe cartridge system.", "TASER 7 has a warning arc, while TASER 10 has a Warning Alert.", "TASER 10 is a single-shot device."],
+                answer: "TASER 7 has a warning arc, while TASER 10 has a Warning Alert.",
+                explanation: "The TASER 10 replaces the traditional electrical warning arc (found on the TASER 7) with the new Warning Alert feature, which uses light and sound for de-escalation.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "What event is automatically logged by the TASER 10 when used with a specifically designed holster?",
+                options: ["The ambient temperature.", "The time the weapon is cleaned.", "When the weapon is drawn from and returned to the holster.", "The number of times the flashlight is used."],
+                answer: "When the weapon is drawn from and returned to the holster.",
+                explanation: "The TASER 10 has a built-in sensor that detects when it is withdrawn from or put back into a compatible holster, and this status is tracked and uploaded to Axon Evidence.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "According to the training materials, what is a primary difficulty when using the TASER 10 on multiple subjects?",
+                options: ["The battery drains too quickly.", "The operator cannot choose which subject receives the electrical energy.", "The probes do not have sufficient range to reach multiple targets.", "The device is limited to incapacitating only one subject at a time."],
+                answer: "The operator cannot choose which subject receives the electrical energy.",
+                explanation: "While the TASER 10 can output energy to a maximum of 3 subjects, a key limitation is that the operator cannot control which subject will receive the energy, which has legal and tactical implications.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "After two or more TASER 10 cartridges are deployed, what does a momentary press-up of the selector switch do?",
+                options: ["Turns the weapon off.", "Places the weapon into stealth mode.", "Re-energizes deployed connected probes for 5-seconds.", "Initiates a function test."],
+                answer: "Re-energizes deployed connected probes for 5-seconds.",
+                explanation: "After a successful deployment with a connection, a momentary press-up on the selector switch will re-energize the connected probes for a standard 5-second cycle.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "The TASER 10 is rated to what IP (Ingress Protection) standard for water resistance?",
+                options: ["IPX4 (Splash resistant)", "IPX7 (Submersible up to 1 meter for 30 mins)", "IP67 (Dust-tight and submersible up to 1 meter for 30 mins)", "It is not water-resistant."],
+                answer: "IP67 (Dust-tight and submersible up to 1 meter for 30 mins)",
+                explanation: "The TASER 10 is rated to IP67, meaning it is protected from dust ingress and can withstand submersion in water up to 1 meter for 30 minutes, provided all ten cartridges are in the magazine.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "If a TASER 10 trigger is pulled but a cartridge does not deploy, what is the recommended IMMEDIATE action if time and distance are NOT available?",
+                options: ["Immediately transition to another force option.", "Shake the weapon vigorously.", "Move the selector switch to SAFE, pull back on the magazine sides to re-seat it, then re-ARM and try again.", "Remove the magazine and all cartridges."],
+                answer: "Move the selector switch to SAFE, pull back on the magazine sides to re-seat it, then re-ARM and try again.",
+                explanation: "The immediate action drill for a failure to deploy is to safe the weapon, attempt to re-seat the magazine by pulling back on its sides, and then re-arm to attempt another deployment.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "The 'Any Probe Connection' feature of the TASER 10 allows for a maximum of how many connected paths in a single subject?",
+                options: ["One", "Two", "Three", "Four"],
+                answer: "Four",
+                explanation: "The TASER 10's 'Any Probe Connect' feature allows for up to four connected paths, delivering a maximum of 44 pulses per second (PPS) in a single subject.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "How does the TASER 10 log the distance of a probe deployment?",
+                options: ["Using a built-in laser rangefinder.", "It is manually entered by the operator after the event.", "It calculates distance based on the probe's time of flight after a connection is established.", "It does not log deployment distance."],
+                answer: "It calculates distance based on the probe's time of flight after a connection is established.",
+                explanation: "The TASER 10 can approximate the deployment distance by calculating the time of flight between when a probe is deployed and when an electrical connection is established. This data is then recorded in the weapon log.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "When practicable, what is the preferred target zone for a frontal TASER deployment?",
+                options: ["Head and neck", "Chest and heart region", "Lower torso and legs", "Arms and hands"],
+                answer: "Lower torso and legs",
+                explanation: "To reduce cardiac risks, the preferred frontal target zone is the lower torso (below the chest) and legs, aiming to 'split the beltline'.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "What is the optimal probe spread to achieve Neuromuscular Incapacitation (NMI)?",
+                options: ["Less than 6 inches", "6 to 11 inches", "12 inches or more", "It does not matter"],
+                answer: "12 inches or more",
+                explanation: "A probe spread of 12 inches (30 cm) or more is considered optimal for achieving NMI.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "How does Axon recommend carrying a TASER energy weapon in relation to a service handgun?",
+                options: ["On the same side for a faster draw.", "In a cross-draw holster on the handgun side.", "On the side of the body opposite the service handgun.", "In a leg holster below the handgun."],
+                answer: "On the side of the body opposite the service handgun.",
+                explanation: "Axon recommends carrying the TASER on the side opposite the service handgun to lower the risk of drawing the wrong weapon under stress.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "How is Stealth Mode activated on a TASER 10?",
+                options: ["Press and hold the trigger for 3 seconds.", "Press down on the selector switch three times in rapid succession.", "It is automatically activated in low light.", "It is a setting configured in Axon Evidence only."],
+                answer: "Press down on the selector switch three times in rapid succession.",
+                explanation: "From the SAFE position, moving the selector switch to the press down position three times rapidly will put the weapon into stealth mode for the next time it is armed.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "What color is the TASER 10 HALT (Hook and Loop) training magazine?",
+                options: ["Black", "Red", "Purple", "Blue"],
+                answer: "Blue",
+                explanation: "The HALT magazine and its corresponding cartridges are blue to distinguish them as training equipment.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "During a function test, what does the red TASER Weapons Dock icon on the CID indicate?",
+                options: ["The battery is critically low.", "The weapon has a critical error.", "The weapon has not been docked and updated in 30 days.", "The weapon is in training mode."],
+                answer: "The weapon has not been docked and updated in 30 days.",
+                explanation: "The red dock icon is a notification that the weapon's battery pack needs to be placed in a dock to receive firmware or settings updates.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "What should an operator NOT do when removing a TASER probe from a subject?",
+                options: ["Pull it straight out quickly.", "Wear gloves.", "Twist the probe.", "Inspect the probe to ensure the barb is intact."],
+                answer: "Twist the probe.",
+                explanation: "Twisting the probe should be avoided as the barbed tip may cause additional injury to the subject.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "In the UK, what percentage of TASER incidents are resolved without deploying probes?",
+                options: ["About 50%", "About 65%", "More than 80%", "Less than 20%"],
+                answer: "More than 80%",
+                explanation: "Training materials indicate that in the UK, over 80% of incidents involving a TASER are resolved through de-escalation without the need to deploy probes.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "What does a flashing 'X' icon on the TASER 10 CID during a function test signify?",
+                options: ["The magazine is empty.", "A successful test.", "A low battery.", "A weapon error or fault."],
+                answer: "A weapon error or fault.",
+                explanation: "A flashing 'X' icon indicates a weapon error. If this occurs, the weapon should be taken out of service and returned for maintenance.",
+                reference: "TASER 10 Operator Manual, V24"
+            },
+            {
+                question: "What is the first step in the recommended 'Before Each Shift' check for the TASER 10?",
+                options: ["Conduct a function test.", "Inspect the cartridges.", "Insert a fully charged and synced battery pack.", "Confirm the magazine is seated fully."],
+                answer: "Insert a fully charged and synced battery pack.",
+                explanation: "The first step is the Battery/Firmware Check, which involves inserting a fully charged (solid green) battery from the docking station and allowing it to sync with the weapon.",
+                reference: "TASER 10 Operator Manual, V24"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>

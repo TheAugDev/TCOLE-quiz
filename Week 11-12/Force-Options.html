@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Study Guide: Force Options</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* Slate 100 background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #e2e8f0; /* Slate 200 */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary:hover {
+            background-color: #cbd5e1;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #334155; /* Slate 700 */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-block {
+            background-color: #fafafa;
+            border-left: 4px solid #64748b; /* Slate 500 */
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .info-block.definitions { border-left-color: #f59e0b; }
+        .info-block.procedures { border-left-color: #0ea5e9; }
+        .info-block.concepts { border-left-color: #8b5cf6; }
+        .info-block.example { border-left-color: #10b981; }
+        .info-block p { margin-bottom: 0.5rem; }
+        .info-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
+        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+        .force-continuum {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 1rem;
+            aspect-ratio: 1;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+        .continuum-center {
+            grid-column: 2;
+            grid-row: 2;
+            background-color: #334155;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            text-align: center;
+        }
+        .continuum-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 500;
+        }
+    </style>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .tab-button.active {
+            border-color: #6366f1;
+            color: #fff;
+            background: linear-gradient(90deg, #6366f1 60%, #818cf8 100%);
+            box-shadow: 0 2px 8px 0 rgba(99,102,241,0.08);
+        }
+        .tab-button {
+            transition: all 0.2s;
+            color: #6366f1;
+            background: #f1f5f9;
+            margin-right: 0.5rem;
+        }
+        .tab-pane {
+            display: none;
+        }
+        .tab-pane.active {
+            display: block;
+        }
+        .card {
+            background: #fff;
+            border-radius: 1.25rem;
+            box-shadow: 0 4px 16px 0 rgba(99,102,241,0.07);
+            border: 1px solid #e0e7ff;
+            margin-bottom: 1.5rem;
+        }
+        .info-block {
+            background: #f1f5f9;
+            border-left: 4px solid #6366f1;
+            padding: 1.25rem 1.75rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .info-block.example {
+            border-left-color: #f59e42;
+            background: #fff7ed;
+        }
+        .info-block.definitions {
+            border-left-color: #0ea5e9;
+        }
+        .info-block.concepts {
+            border-left-color: #22c55e;
+        }
+        .info-block.procedures {
+            border-left-color: #f59e42;
+        }
+        .force-continuum {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            gap: 1rem;
+            aspect-ratio: 1;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+        .continuum-center {
+            grid-column: 2;
+            grid-row: 2;
+            background: linear-gradient(135deg, #6366f1 60%, #818cf8 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 2px 8px 0 rgba(99,102,241,0.10);
+        }
+        .continuum-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            font-weight: 500;
+            box-shadow: 0 1px 4px 0 rgba(99,102,241,0.06);
+        }
+        /* Accent background for main content */
+        .main-bg {
+            background: linear-gradient(120deg, #f1f5f9 60%, #e0e7ff 100%);
+            border-radius: 1.5rem;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+    </style>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+    <div class="max-w-6xl mx-auto main-bg">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Force Options</h1>
+            <p class="text-lg text-gray-600 mt-2">A Comprehensive Study Guide</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-definitions">Definitions & Concepts</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-justifications">Legal Justifications</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-cases">Key Court Cases</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-continuum">Force Continuum</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-conduct">Officer Conduct</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Definitions & Concepts Tab -->
+            <div id="tab-definitions" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Definitions & Core Concepts</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Key Definitions</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <p><strong>Force:</strong> Strength or energy brought to bear; compulsion or constraint exerted upon a person or thing. An aggressive act necessary to accomplish an objective.</p>
+                                <p class="mt-2"><strong>Reasonable Force:</strong> The amount of lawful physical coercion sufficient to achieve a legitimate law enforcement objective and is <strong>objectively reasonable</strong> under the facts, circumstances, and alternatives confronting an officer at the time.</p>
+                                <p class="mt-2"><strong>Deadly Force (<a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.01" target="_blank" class="text-blue-600 hover:underline">PC 9.01</a>):</strong> Force that is intended or known by the actor to cause, or in the manner of its use or intended use is capable of causing, death or serious bodily injury.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>The Concept of Control</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block concepts">
+                                <p>Control is the degree of influence an officer must exert over a violator to take them safely into custody. It is a "two-way street": an officer must be in complete <strong>self-control</strong> to be able to control a violator. The objective is to elicit cooperation.</p>
+                                <p class="mt-2">Emotional responses often result from uncertainty, which can lead to compensating behaviors like hesitation, verbal abuse, or unnecessary force.</p>
+                             </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Legal Justifications Tab -->
+            <div id="tab-justifications" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Legal Justifications for Force (Penal Code Chapter 9)</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>General Justifications</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li><strong>Justification as a Defense (<a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.02" target="_blank" class="text-blue-600 hover:underline">PC 9.02</a>):</strong> It is a defense to prosecution that the conduct in question is justified under this chapter.</li>
+                                    <li><strong>Confinement as Justifiable Force (<a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.03" target="_blank" class="text-blue-600 hover:underline">PC 9.03</a>):</strong> Confinement is justified when force is justified, if the actor takes reasonable measures to terminate the confinement as soon as he knows he safely can.</li>
+                                    <li><strong>Threats as Justifiable Force (<a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.04" target="_blank" class="text-blue-600 hover:underline">PC 9.04</a>):</strong> The threat of force is justified when the use of force is justified. A threat to cause death or SBI by producing a weapon is justified when the use of deadly force would be justified.</li>
+                                    <li><strong>Public Duty (<a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.21" target="_blank" class="text-blue-600 hover:underline">PC 9.21</a>):</strong> Conduct is justified if the actor reasonably believes it is required or authorized by law, by the judgment or order of a competent court, or in the execution of legal process.</li>
+                                    <li><strong>Necessity (<a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.22" target="_blank" class="text-blue-600 hover:underline">PC 9.22</a>):</strong> Conduct is justified if the actor reasonably believes it is immediately necessary to avoid imminent harm.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Protection of Persons</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li><strong>Self-Defense (<a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.31" target="_blank" class="text-blue-600 hover:underline">PC 9.31</a>):</strong> A person is justified in using force when they reasonably believe it is immediately necessary to protect against another's use of unlawful force.</li>
+                                    <li><strong>Deadly Force in Defense of Person (<a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.32" target="_blank" class="text-blue-600 hover:underline">PC 9.32</a>):</strong> Justified to protect against another's use of deadly force or to prevent imminent commission of aggravated kidnapping, murder, sexual assault, or robbery.</li>
+                                    <li><strong>Defense of Third Person (<a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.33" target="_blank" class="text-blue-600 hover:underline">PC 9.33</a>):</strong> Justified in using force to protect a third person if the actor reasonably believes their intervention is immediately necessary.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Law Enforcement Specific Justifications</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p><strong>Arrest and Search (<a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.51" target="_blank" class="text-blue-600 hover:underline">PC 9.51</a>):</strong></p>
+                                <ul>
+                                    <li>A peace officer is justified in using force when they reasonably believe it is immediately necessary to make an arrest or search, or to prevent escape after arrest.</li>
+                                    <li><strong>Deadly force</strong> is justified only when the officer reasonably believes it is immediately necessary to make an arrest or prevent escape AND there is a substantial risk that the person to be arrested will cause death or SBI to another if the arrest is delayed, OR the person is committing or attempting to commit certain violent felonies.</li>
+                                </ul>
+                                <p class="mt-4"><strong>Preventing Escape from Custody (<a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.52" target="_blank" class="text-blue-600 hover:underline">PC 9.52</a>):</strong> The use of force to prevent the escape of an arrested person is justified when the force could have been used to effect the arrest.</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Key Court Cases Tab -->
+            <div id="tab-cases" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Landmark Use of Force Cases</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Graham v. Connor, 490 U.S. 386 (1989)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p>This case established the <strong>"objective reasonableness"</strong> standard for all claims of excessive force under the Fourth Amendment.</p>
+                                <p>The reasonableness of a particular use of force must be judged from the perspective of a <strong>reasonable officer on the scene</strong>, rather than with the 20/20 vision of hindsight. The calculus must allow for the fact that officers are often forced to make split-second judgments in circumstances that are <strong>tense, uncertain, and rapidly evolving.</strong></p>
+                                <p><strong>The Graham Factors:</strong></p>
+                                <ul>
+                                    <li>The severity of the crime at issue.</li>
+                                    <li>Whether the suspect poses an immediate threat to the safety of the officers or others.</li>
+                                    <li>Whether the suspect is actively resisting arrest or attempting to evade arrest by flight.</li>
+                                </ul>
+                            </div>
+                            <div class="flex justify-center mt-4">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/7pmW6lwi-m0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Tennessee v. Garner, 471 U.S. 1 (1985)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p>This case addressed the use of deadly force to prevent the escape of a fleeing felon. The Supreme Court held that it is unconstitutional to use deadly force to stop a fleeing felon unless the suspect poses a significant threat of death or serious physical injury to the officer or others.</p>
+                                <div class="info-block example"><p><strong>Example:</strong> An officer cannot shoot an unarmed burglary suspect who is climbing a fence to escape if the suspect poses no immediate threat.</p></div>
+                            </div>
+                            <div class="flex justify-center mt-4">
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/4bCPKjIpTUY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Qualified Immunity Cases</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p><strong>Qualified Immunity</strong> shields government officials from liability for civil damages if their conduct does not violate <strong>clearly established</strong> statutory or constitutional rights of which a reasonable officer would have known.</p>
+                                <ul>
+                                    <li><strong>Milstead v. Kibler:</strong> Police officers performing a discretionary function enjoy an immunity that shields them from liability unless their conduct violates a federal right, and the right was clearly established at the time.</li>
+                                    <li><strong>Okonkwo v. Fernandez:</strong> A defendant official must affirmatively plead the defense of qualified immunity.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Force Continuum Tab -->
+            <div id="tab-continuum" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Force Options & Continuum</h2>
+                <div class="card p-6">
+                    <h3 class="text-xl font-bold text-center mb-4">Force Options Model</h3>
+                    <div class="force-continuum">
+                        <div class="continuum-item bg-purple-200" style="grid-column: 1; grid-row: 1;">Verbal Commands</div>
+                        <div class="continuum-item bg-green-200" style="grid-column: 2; grid-row: 1;">OC / CEW</div>
+                        <div class="continuum-item bg-blue-200" style="grid-column: 3; grid-row: 1;">Impact Devices / K9 / Hard Hands</div>
+                        <div class="continuum-item bg-orange-200" style="grid-column: 1; grid-row: 2;">Physical Control / Restraint / Cuffs</div>
+                        <div class="continuum-center">Officer Presence</div>
+                        <div class="continuum-item bg-yellow-200" style="grid-column: 3; grid-row: 2;">Chemical Agents / Munitions</div>
+                        <div class="continuum-item bg-purple-200" style="grid-column: 1; grid-row: 3;"></div>
+                        <div class="continuum-item bg-red-200" style="grid-column: 2; grid-row: 3;">Lethal Force</div>
+                        <div class="continuum-item bg-yellow-200" style="grid-column: 3; grid-row: 3;"></div>
+                    </div>
+                    <div class="info-block procedures">
+                        <p>This model illustrates the range of force options available to an officer. The appropriate level of force depends on the totality of the circumstances, particularly the subject's actions.</p>
+                        <ul>
+                            <li><strong>Professional Presence:</strong> A visible display of authority.</li>
+                            <li><strong>Verbal Commands:</strong> Clear, concise directions.</li>
+                            <li><strong>Weaponless Strategies:</strong> Takedowns, come-alongs, pressure points.</li>
+                            <li><strong>Weapon Strategies:</strong> Chemical agents (OC spray), electronic devices (TASER), impact weapons (baton).</li>
+                            <li><strong>Deadly Force:</strong> Force likely to cause death or serious bodily injury.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Officer Conduct Tab -->
+            <div id="tab-conduct" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Officer Conduct & Consequences</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Consequences of Excessive Force</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <p>Improper or excessive use of force can lead to:</p>
+                                <ul>
+                                    <li><strong>Federal Criminal Prosecution:</strong> Under federal civil rights laws like Title 18, U.S.C. Sections 241 (Conspiracy Against Rights) and 242 (Deprivation of Rights Under Color of Law).</li>
+                                    <li><strong>Civil Lawsuits:</strong> Officers can be sued in federal court under 42 U.S.C. § 1983 for civil rights violations, and in state court for torts.</li>
+                                    <li><strong>Departmental Discipline:</strong> Including suspension, demotion, or termination.</li>
+                                    <li><strong>Loss of Public Trust:</strong> Damaging the relationship between the police and the community.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Officer Created & State Created Danger</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <p><strong>Officer Created Danger:</strong> Occurs when an officer's reckless or negligent actions create a dangerous situation where one did not previously exist, leading to a justifiable but avoidable use of force.</p>
+                                <p class="mt-2"><strong>State Created Danger:</strong> A basis for a lawsuit where the state's conduct puts a person at a substantial risk of harm, and the state consciously disregards that risk.</p>
+                                <div class="info-block example"><p><strong>Example (State Created Danger):</strong> An officer arrests a driver and leaves the passenger stranded in a high-crime area at 2:30 AM, where she is later assaulted. The officer's actions created the danger. (<em>Wood v. Ostrander</em>)</p></div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Duty to Intervene & Render Aid</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Recent Texas law (HB 3712) and case law establish clear duties for officers:</p>
+                                <ul>
+                                    <li><strong>Duty to Intervene:</strong> An officer has a duty to intervene to stop another officer from using excessive force.</li>
+                                    <li><strong>Duty to Report Excessive Force:</strong> Officers are required to report any instances of excessive force by another officer.</li>
+                                    <li><strong>Duty to Render Aid:</strong> Officers have a duty to provide or summon medical aid for an injured person, including a suspect injured during an arrest.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-slate-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-slate-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.remove('active');
+                pane.classList.add('hidden');
+            });
+            const selectedPane = document.getElementById(tab.dataset.tab);
+            if (selectedPane) {
+                selectedPane.classList.add('active');
+                selectedPane.classList.remove('hidden');
+            }
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "What is the legal definition of 'Deadly Force' under PC 9.01?",
+            options: ["Any force that results in death.", "Force intended to cause serious bodily injury.", "Force capable of causing death or serious bodily injury.", "Any use of a firearm by an officer."],
+            answer: "Force capable of causing death or serious bodily injury.",
+            explanation: "<strong>Reference: <a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.01' target='_blank' class='text-blue-600 hover:underline'>PC 9.01(3)</a>.</strong> Deadly force is force that is intended or known by the actor to cause, or in the manner of its use or intended use is capable of causing, death or serious bodily injury."
+        },
+        {
+            question: "The landmark Supreme Court case that established the 'objective reasonableness' standard for use of force is:",
+            options: ["Tennessee v. Garner", "Graham v. Connor", "Miranda v. Arizona", "Scott v. Harris"],
+            answer: "Graham v. Connor",
+            explanation: "<strong>Reference: Graham v. Connor.</strong> This case established that all claims of excessive force are analyzed under the Fourth Amendment's 'objective reasonableness' standard, considering the totality of the circumstances."
+        },
+        {
+            question: "Which of the following is NOT one of the 'Graham Factors' used to assess reasonableness?",
+            options: ["The severity of the crime at issue.", "The officer's personal feelings about the suspect.", "Whether the suspect poses an immediate threat.", "Whether the suspect is actively resisting or fleeing."],
+            answer: "The officer's personal feelings about the suspect.",
+            explanation: "<strong>Reference: Graham v. Connor.</strong> The standard is objective, meaning it does not consider the officer's underlying intent or motivation."
+        },
+        {
+            question: "Under PC 9.51, an officer is justified in using deadly force to make an arrest only if it's necessary and the officer reasonably believes:",
+            options: ["The person committed any felony.", "The person is likely to escape.", "There is a substantial risk the person will cause death or SBI to another if arrest is delayed.", "The person refuses to comply with verbal commands."],
+            answer: "There is a substantial risk the person will cause death or SBI to another if arrest is delayed.",
+            explanation: "<strong>Reference: <a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.51' target='_blank' class='text-blue-600 hover:underline'>PC 9.51</a>.</strong> Deadly force in an arrest is only justified if there is a substantial risk of death or SBI to others, or to prevent the commission of certain violent felonies."
+        },
+        {
+            question: "The legal principle from Tennessee v. Garner states that an officer cannot use deadly force on a fleeing felon unless:",
+            options: ["The felon is running very fast.", "The officer has given a verbal warning.", "The suspect poses a significant threat of death or SBI to the officer or others.", "The felony was a property crime."],
+            answer: "The suspect poses a significant threat of death or SBI to the officer or others.",
+            explanation: "<strong>Reference: Tennessee v. Garner.</strong> This case specifically prohibits the use of deadly force to apprehend a non-dangerous, fleeing suspect."
+        },
+        {
+            question: "An officer's duty to stop another officer from using excessive force is known as:",
+            options: ["The Graham Factor", "Qualified Immunity", "Duty to Intervene", "Command Presence"],
+            answer: "Duty to Intervene",
+            explanation: "<strong>Reference: Officer Conduct.</strong> Case law and Texas statute (HB 3712) establish that officers have an affirmative duty to intervene to prevent the use of unreasonable force by another officer."
+        },
+        {
+            question: "Which level of force on the continuum involves tools like OC spray and TASERs?",
+            options: ["Verbal Commands", "Weaponless Strategies", "Weapon Strategies (Chemical/Electrical)", "Deadly Force"],
+            answer: "Weapon Strategies (Chemical/Electrical)",
+            explanation: "<strong>Reference: Force Continuum.</strong> These tools are considered less-lethal weapon strategies, a step above physical hands-on techniques but below deadly force."
+        },
+        {
+            question: "The legal shield that protects officers from civil liability unless their conduct violates a 'clearly established' right is called:",
+            options: ["Sovereign Immunity", "Absolute Immunity", "Reasonable Immunity", "Qualified Immunity"],
+            answer: "Qualified Immunity",
+            explanation: "<strong>Reference: Key Court Cases.</strong> Qualified immunity protects government officials performing discretionary functions from liability unless their conduct violates a clearly established constitutional or statutory right."
+        },
+        {
+            question: "According to PC 9.32, a person is justified in using deadly force in self-defense if they reasonably believe it's immediately necessary to protect against:",
+            options: ["Any physical assault", "Theft of property", "Another's use or attempted use of unlawful deadly force", "A verbal threat"],
+            answer: "Another's use or attempted use of unlawful deadly force",
+            explanation: "<strong>Reference: <a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.32' target='_blank' class='text-blue-600 hover:underline'>PC 9.32</a>.</strong> The use of deadly force is justified only to protect against an imminent threat of deadly force or certain violent felonies."
+        },
+        {
+            question: "The concept that an officer's actions should be judged without the benefit of 20/20 hindsight comes from which case?",
+            options: ["Scott v. Harris", "Tennessee v. Garner", "Graham v. Connor", "Terry v. Ohio"],
+            answer: "Graham v. Connor",
+            explanation: "<strong>Reference: Graham v. Connor.</strong> The Court emphasized that the reasonableness of force must be judged from the perspective of an officer on the scene, not with hindsight."
+        },
+        {
+            question: "What is the primary purpose of 'Command Presence' as a force option?",
+            options: ["To physically restrain a suspect.", "To de-escalate a situation through a professional and authoritative demeanor.", "To use a TASER effectively.", "To justify the use of deadly force."],
+            answer: "To de-escalate a situation through a professional and authoritative demeanor.",
+            explanation: "<strong>Reference: Force Continuum.</strong> Professional or Command Presence is the first level of force, using demeanor and appearance to gain compliance without physical force."
+        },
+        {
+            question: "An officer who leaves a passenger stranded in a dangerous neighborhood after arresting the driver could potentially be liable under which legal theory?",
+            options: ["Officer Created Danger", "State Created Danger", "Qualified Immunity", "Negligent Entrustment"],
+            answer: "State Created Danger",
+            explanation: "<strong>Reference: Wood v. Ostrander.</strong> When an officer's actions create or increase a danger to a citizen, it can lead to liability under the 'State Created Danger' doctrine."
+        },
+        {
+            question: "Under PC 9.51, an officer is justified in using force to:",
+            options: ["Punish a suspect for resisting.", "Make or assist in making an arrest or search.", "Obtain a confession.", "Enforce a civil debt."],
+            answer: "Make or assist in making an arrest or search.",
+            explanation: "<strong>Reference: <a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.51' target='_blank' class='text-blue-600 hover:underline'>PC 9.51</a>.</strong> This statute specifically justifies the use of force when it is reasonably believed to be immediately necessary to make an arrest/search or prevent escape."
+        },
+        {
+            question: "The use of a police canine to bite and hold a suspect is considered:",
+            options: ["Deadly force in all situations.", "A use of force that must be objectively reasonable.", "Only a show of force, not a use of force.", "Not a police action covered by the 4th Amendment."],
+            answer: "A use of force that must be objectively reasonable.",
+            explanation: "<strong>Reference: Kuha v. City of Minnetonka.</strong> The use of a police K9 is a seizure and a significant use of force that is analyzed under the Graham v. Connor reasonableness standard."
+        },
+        {
+            question: "An officer's justification for using force to protect a third person under PC 9.33 depends on whether the officer reasonably believes:",
+            options: ["The third person asked for help.", "The third person was about to lose the fight.", "Their intervention is immediately necessary.", "The suspect has a criminal record."],
+            answer: "Their intervention is immediately necessary.",
+            explanation: "<strong>Reference: <a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.33' target='_blank' class='text-blue-600 hover:underline'>PC 9.33</a>.</strong> An actor is justified in using force to protect a third person if the actor reasonably believes that his intervention is immediately necessary to protect the third person."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#16a34a';
+            else if (percentage >= 50) quizScoreEl.style.color = '#f59e0b';
+            else quizScoreEl.style.color = '#dc2626';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+});
+</script>
+
+</body>
+</html>

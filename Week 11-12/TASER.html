@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Study Guide: TASER 10 & 7</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* Slate 100 background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #e2e8f0; /* Slate 200 */
+            border-radius: 0.5rem;
+            transition: background-color: 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary:hover {
+            background-color: #cbd5e1;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #334155; /* Slate 700 */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-block {
+            background-color: #fafafa;
+            border-left: 4px solid #64748b; /* Slate 500 */
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .info-block.definitions { border-left-color: #f59e0b; }
+        .info-block.procedures { border-left-color: #0ea5e9; }
+        .info-block.concepts { border-left-color: #8b5cf6; }
+        .info-block.example { border-left-color: #10b981; }
+        .info-block p { margin-bottom: 0.5rem; }
+        .info-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .quiz-option { transition: background-color: 0.2s; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
+        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">TASER 10 & 7</h1>
+            <p class="text-lg text-gray-600 mt-2">A Comprehensive Study Guide</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-taser10">TASER 10</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-taser7">TASER 7 Comparison</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-deployment">Deployment Considerations</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-post-incident">Post-Incident Procedures</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- TASER 10 Tab -->
+            <div id="tab-taser10" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">TASER 10: Nomenclature & Core Concepts</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Key Features</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <p><strong>Capacity:</strong> Capable of deploying up to 10 probes from a single magazine.</p>
+                                <p class="mt-2"><strong>Range:</strong> Maximum range of 45 ft (13.71m), with an effective range of 40 ft (12.19m).</p>
+                                <p class="mt-2"><strong>Targeting:</strong> Individually targeted probes. Each trigger pull deploys one probe, allowing the operator to create a custom probe spread.</p>
+                                <p class="mt-2"><strong>De-escalation:</strong> Features a "Warning Alert" with a 1000-lumen pulsing light and audible tone. It does NOT have a warning arc.</p>
+                                <p class="mt-2"><strong>Drive-Stun:</strong> The TASER 10 has NO drive-stun capability due to its low-voltage output design.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Components & Operation</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block concepts">
+                                <p><strong>Selector Switch:</strong> Ambidextrous switch. UP for ARMED, DOWN for SAFE. Press-and-hold down for Function Test. Press down three times for Stealth Mode.</p>
+                                <p class="mt-2"><strong>Trigger Operation:</strong> First pull deploys one probe (no electricity). Second pull deploys a second probe and begins a 5-second cycle if a connection is made. Subsequent pulls deploy one probe each and add 5 seconds to the cycle.</p>
+                                 <p class="mt-2"><strong>Magazine:</strong> Holds 10 cartridges. Different magazines for Duty (black), Live Training (purple), HALT (blue), and Inert (red).</p>
+                                 <p class="mt-2"><strong>Battery Pack:</strong> Rechargeable. Tactical and compact options available. Haptic feedback option provides vibration alerts.</p>
+                             </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- TASER 7 Tab -->
+            <div id="tab-taser7" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">TASER 7: Key Differences</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Core Feature Comparison</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <p><strong>Capacity:</strong> The TASER 7 holds two cartridges, which can be fired in sequence.</p>
+                                <p class="mt-2"><strong>Warning Arc:</strong> The TASER 7 features a visible electrical arc at the front of the device when the ARC switch is depressed. This is a de-escalation tool that the TASER 10 replaces with its light-and-sound "Warning Alert."</p>
+                                <p class="mt-2"><strong>Drive-Stun Capability:</strong> The TASER 7 CAN be used for drive-stun applications for pain compliance. This is a major difference from the TASER 10, which cannot perform a drive-stun.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Operation</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block concepts">
+                                <p><strong>ARC Switch:</strong> The TASER 7 has a separate ARC switch. Depressing this switch will activate the warning arc (if no cartridges are deployed) or can be used to apply a drive-stun directly to a subject.</p>
+                                <p class="mt-2"><strong>Trigger Operation:</strong> Pulling the trigger on a TASER 7 deploys a cartridge with two probes simultaneously and immediately begins the 5-second cycle.</p>
+                             </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Deployment Considerations Tab -->
+            <div id="tab-deployment" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">General Deployment Considerations</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Targeting</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li><strong>Preferred Target (Rear):</strong> Below the neck, targeting large muscle groups. This is the most preferred target area.</li>
+                                    <li><strong>Preferred Target (Front):</strong> Lower torso (below the chest) and legs. Aim to "split the beltline" to maximize probe spread.</li>
+                                    <li><strong>Avoid:</strong> Intentionally targeting the head, eyes, throat, chest, or genitals unless legally justified by a higher level of force.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Increased Risk Situations</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ul>
+                                    <li><strong>Falls:</strong> Be aware of the subject's position. A fall from an elevated position, onto a hard surface, or near sharp objects can cause serious injury or death.</li>
+                                    <li><strong>Flammables:</strong> TASER devices can ignite flammable liquids, fumes, gases, or other substances (e.g., gasoline, meth labs, some defense sprays).</li>
+                                    <li><strong>Higher Risk Populations:</strong> Use with caution on pregnant women, the elderly, small children, and individuals with low body mass.</li>
+                                    <li><strong>Running Subjects:</strong> Deploying on a running subject increases the risk of an uncontrolled fall and reduces probe accuracy.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Causes of Limited Effectiveness</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Effectiveness can be limited by:</p>
+                                <ul>
+                                    <li>A missed shot or only a single probe hitting the subject.</li>
+                                    <li>Close probe spread (less than 12 inches is less effective).</li>
+                                    <li>Incomplete or broken circuit (e.g., wires break).</li>
+                                    <li>Loose or thick clothing preventing probes from making contact.</li>
+                                    <li>Subject has low nerve or muscle mass in the impact area.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Post-Incident Procedures Tab -->
+            <div id="tab-post-incident" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Post-Incident Procedures</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Immediate Actions</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p><strong>Control Under Power:</strong> Use the 5-second cycle as a "window of opportunity" to control and cuff the subject. This can reduce the need for additional cycles.</p>
+                                <p><strong>Monitor Subject:</strong> Continuously monitor the subject's medical condition. If they are unresponsive or show signs of medical distress, initiate EMS/CPR protocols immediately.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Probe Removal & Evidence</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p><strong>Probe Removal:</strong> Follow agency policy. Treat probes that have penetrated skin as contaminated biohazards. Pull probes straight out; do not twist. Inspect the probe to ensure the barb is intact.</p>
+                                <p><strong>Evidence Collection:</strong> Consistent with agency policy, consider photographing probe impact sites and any injuries. Collect spent cartridges, probes, and wires as evidence.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Reporting</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p><strong>Documentation is critical.</strong> Fully document all relevant circumstances, including:</p>
+                                <ul>
+                                    <li>The subject's threats, behaviors, and actions.</li>
+                                    <li>De-escalation efforts used.</li>
+                                    <li>Justification for each trigger pull and 5-second cycle.</li>
+                                    <li>The location of all probe impacts on the subject.</li>
+                                    <li>Any injuries sustained by the subject or officers.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-slate-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-slate-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "What is the maximum effective range of the TASER 10?",
+            options: ["15 feet", "25 feet", "40 feet", "45 feet"],
+            answer: "40 feet",
+            explanation: "<strong>Reference: TASER 10 Features.</strong> The TASER 10 has a maximum range of 45 feet, but its maximum *effective* range is 40 feet (12.19 meters)."
+        },
+        {
+            question: "What de-escalation feature does the TASER 7 have that the TASER 10 replaces with a 'Warning Alert'?",
+            options: ["A loud siren", "A visible warning arc", "A verbal warning system", "A strobe light"],
+            answer: "A visible warning arc",
+            explanation: "<strong>Reference: TASER 7 Comparison.</strong> The TASER 7 can generate a visible electrical arc at the front as a warning, while the TASER 10 uses a combination of a bright pulsing light and an audible tone."
+        },
+        {
+            question: "What happens on the first two trigger pulls of a TASER 10?",
+            options: ["The first pull deploys two probes and starts a cycle", "The first pull deploys one probe with electricity, the second adds another probe", "The first pull deploys one probe with no electricity; the second deploys another and starts the cycle if connected", "Both pulls are required to deploy a single probe"],
+            answer: "The first pull deploys one probe with no electricity; the second deploys another and starts the cycle if connected",
+            explanation: "<strong>Reference: Trigger Operation.</strong> This allows the operator to place two probes individually to create a wider, more effective spread before the electrical cycle begins."
+        },
+        {
+            question: "Which of the following is a key capability of the TASER 7 that the TASER 10 does NOT have?",
+            options: ["Individually targeted probes", "A 10-probe capacity", "Drive-stun capability", "A rechargeable battery"],
+            answer: "Drive-stun capability",
+            explanation: "<strong>Reference: TASER 7 Comparison.</strong> The TASER 7 can be used for drive-stun applications for pain compliance. The TASER 10's low-voltage design does not allow for this."
+        },
+        {
+            question: "Which of the following is the MOST preferred target area for a TASER deployment?",
+            options: ["The subject's chest", "The subject's legs", "The subject's front lower torso", "The subject's back"],
+            answer: "The subject's back",
+            explanation: "<strong>Reference: Deployment Considerations.</strong> The back is the most preferred target area because it contains large muscle groups and reduces the risk of hitting sensitive areas on the front of the body."
+        },
+        {
+            question: "What is the primary purpose of 'Controlling Under Power'?",
+            options: ["To cause additional pain compliance", "To extend the electrical cycle", "To use the 5-second cycle as a window to safely handcuff the subject", "To ensure all probes are making good contact"],
+            answer: "To use the 5-second cycle as a window to safely handcuff the subject",
+            explanation: "<strong>Reference: Post-Incident Procedures.</strong> Controlling the subject while they are incapacitated by the TASER cycle can reduce the need for repeated or extended exposures."
+        },
+        {
+            question: "If a TASER device is exposed to significant moisture or submerged, what is the first and most immediate step an officer should take?",
+            options: ["Perform a function test", "Remove the magazine/cartridges", "Shake it dry", "Immediately remove the battery pack"],
+            answer: "Immediately remove the battery pack",
+            explanation: "<strong>Reference: Exposure to Water.</strong> To prevent unintentional discharge or damage to the electronics, the power source (battery pack) must be removed immediately."
+        },
+        {
+            question: "What does it mean to 'split the beltline' when targeting the front of a subject?",
+            options: ["Aiming for the belt buckle", "Aiming one probe above the waist and one probe below the waist", "Targeting the area directly on the hips", "Avoiding the waist area entirely"],
+            answer: "Aiming one probe above the waist and one probe below the waist",
+            explanation: "<strong>Reference: Deployment Considerations.</strong> This tactic is used to achieve a greater probe spread across the large muscles of the lower torso and upper legs, increasing the likelihood of effective neuromuscular incapacitation (NMI)."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#16a34a';
+            else if (percentage >= 50) quizScoreEl.style.color = '#f59e0b';
+            else quizScoreEl.style.color = '#dc2626';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+});
+</script>
+
+</body>
+</html>

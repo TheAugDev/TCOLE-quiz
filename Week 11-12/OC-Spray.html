@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Study Guide: OC Spray</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fffbeb; /* Light Amber background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #fef3c7; /* Lighter Amber */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary:hover {
+            background-color: #fde68a;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #d97706; /* Amber 600 */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-block {
+            background-color: #fafafa;
+            border-left: 4px solid #f59e0b; /* Amber 500 */
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .info-block.definitions { border-left-color: #f59e0b; }
+        .info-block.procedures { border-left-color: #0ea5e9; }
+        .info-block.concepts { border-left-color: #8b5cf6; }
+        .info-block p { margin-bottom: 0.5rem; }
+        .info-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
+        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">OC Spray</h1>
+            <p class="text-lg text-gray-600 mt-2">A Comprehensive Study Guide for Law Enforcement</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-intro">Introduction & History</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-science">The Science of OC</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-effects">Effects & Decontamination</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-deployment">Deployment & Tactics</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-force-context">Use of Force Context</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Introduction & History Tab -->
+            <div id="tab-intro" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Introduction & History</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Training & Effectiveness</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p>User certification is typically a 4 to 8-hour course, with follow-up training recommended every 1-2 years.</p>
+                                <p class="mt-4">An IACP/NIJ study found OC spray to be effective up to <strong>90% of the time</strong> in human encounters. The study also showed a significant decrease in assaults on officers and officer injuries when OC was available as a force option.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>History of Chemical Agents</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <ul>
+                                    <li><strong>~2000 B.C.:</strong> Ground peppers in rice paper used in wars between India and China.</li>
+                                    <li><strong>~428 B.C.:</strong> Spanish forces used fumes from burning pitch and sulfur.</li>
+                                    <li><strong>WWI:</strong> CN (Tear Gas) and Chlorine gas used as chemical weapons. CN was later adopted by law enforcement.</li>
+                                    <li><strong>1960s:</strong> CS (Riot Gas) becomes the standard riot control agent for the U.S. Military and police.</li>
+                                    <li><strong>1990s:</strong> A dramatic increase in demand for OC sprays in law enforcement due to a need for alternative force options and to reduce officer injuries.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- The Science of OC Tab -->
+            <div id="tab-science" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">The Science of OC Spray</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Key Definitions</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <ul>
+                                    <li><strong>Oleoresin Capsicum (OC):</strong> An oil and a resin extracted from the capsicum pepper. It is an <strong>inflammatory</strong> agent.</li>
+                                    <li><strong>Capsaicin:</strong> The most prevalent of the capsaicinoids; the active ingredient in OC.</li>
+                                    <li><strong>Pungency:</strong> The heat or intensity of the pepper.</li>
+                                    <li><strong>Scoville Heat Units (SHU):</strong> A measure of the heat of capsicum. Pure capsaicin is 15,000,000 SHU.</li>
+                                    <li><strong>Carrier:</strong> Transports the agent (OC).</li>
+                                    <li><strong>Propellant:</strong> Propels the carrier from the canister.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Dispenser Nomenclature & Dispersal</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <p><strong>Parts of a Dispenser:</strong> Actuator (button), Release Valve, Nozzle, Cap, Valve Stem, Canister.</p>
+                                <p class="mt-4"><strong>Modes of Dispersal:</strong></p>
+                                <ul>
+                                    <li><strong>Cone/Mist:</strong> Wide dispersal, effective up to 6-8 feet. Can be affected by wind.</li>
+                                    <li><strong>Coherent Stream:</strong> A targeted stream effective from 4 to 15 feet. Less subject to cross-contamination.</li>
+                                    <li><strong>Foam:</strong> Sticks to the target, effective up to 8 feet.</li>
+                                    <li><strong>Burst:</strong> High-volume discharge for multiple subjects.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Effects & Decontamination Tab -->
+            <div id="tab-effects" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Effects & Decontamination</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Physiological & Psychological Effects</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p><strong>Physiological Effects:</strong></p>
+                                <ul>
+                                    <li>Involuntary closing of the eyes.</li>
+                                    <li>Burning sensation on the skin.</li>
+                                    <li>Inflammation of mucous membranes, causing coughing and difficulty breathing.</li>
+                                    <li>Increased blood flow to affected areas (vasodilation).</li>
+                                </ul>
+                                <p class="mt-4"><strong>Psychological Effects:</strong></p>
+                                <ul>
+                                    <li><strong>Anxiety:</strong> Fear of the unknown, especially for first-time exposure.</li>
+                                    <li><strong>Fear:</strong> Unpleasant emotion caused by the expectation of pain.</li>
+                                    <li><strong>Panic:</strong> The reality of one's fears. Can lead to fleeing without thought or auditory exclusion (not hearing commands).</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Decontamination Procedures</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Normal recovery occurs within <strong>15 to 45 minutes</strong>.</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Remove the subject from the contaminated area.</li>
+                                    <li>Establish verbal rapport and begin calming the subject.</li>
+                                    <li>Provide physical relief: Flush eyes with copious amounts of cool water and expose to fresh air (face into the wind).</li>
+                                    <li>Use a wet paper towel followed by a dry one to <strong>blot</strong> the face. <strong>Do not rub.</strong></li>
+                                    <li>Monitor the subject until the effects are no longer persistent. Avoid placing them in a prone position that could restrict breathing.</li>
+                                </ol>
+                            </div>
+                            <div class="info-block procedures">
+                                <p><strong>Call for Medical Aid If:</strong></p>
+                                <ul>
+                                    <li>The subject loses consciousness.</li>
+                                    <li>Symptoms persist after 1 hour of decontamination.</li>
+                                    <li>There are signs of an allergic reaction (swelling lips, hives).</li>
+                                    <li>The subject makes a credible request for medical help.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Deployment & Tactics Tab -->
+            <div id="tab-deployment" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Deployment & Tactics</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Carrying & Drawing</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block procedures">
+                                <p><strong>Recommended Carry Positions:</strong> Reaction Side Front or Weapon Side Front. The canister should not interfere with the draw of the firearm.</p>
+                                <p class="mt-2"><strong>Gripping:</strong> Use the thumb to discharge. This provides a stronger grip and allows for strikes if a suspect charges.</p>
+                             </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>The 3 S's of Deployment</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <ol class="list-decimal list-inside space-y-2 font-bold text-lg">
+                                    <li>SHOUT</li>
+                                    <li>SHORT BURST</li>
+                                    <li>SHUFFLE</li>
+                                </ol>
+                                <ul class="mt-4 list-disc list-inside">
+                                    <li><strong>Shout:</strong> Use loud, short, clear verbal commands ("Police! Get back!"). Use a code word like "Spray!" to alert other officers.</li>
+                                    <li><strong>Short Burst:</strong> Spray the target area (eyes, nose, mouth) in a 1-2 second burst. The recommended distance is at least 1 meter (approx. 3 feet).</li>
+                                    <li><strong>Shuffle:</strong> Move offline after spraying. This makes you a more difficult target. Once the OC takes effect, shuffle in to gain control.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- Use of Force Context Tab -->
+            <div id="tab-force-context" class="tab-pane hidden">
+                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Use of Force Context</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Justification & Force Continuum</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p>To use force, lawful authority must exist, and that force must be <strong>OBJECTIVELY REASONABLE</strong>.</p>
+                                <p class="mt-4">OC is an alternative use of force option, not intended to replace empty hand control, impact weapons, or firearms. When justified, early use of OC with verbal commands can reduce the possibility of having to use a higher level of force and decrease injuries to both officers and suspects.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Comparison of Chemical Agents</summary>
+                        <div class="p-6 border-t">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left text-gray-500">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                                        <tr>
+                                            <th scope="col" class="py-3 px-6">Agent</th>
+                                            <th scope="col" class="py-3 px-6">Type</th>
+                                            <th scope="col" class="py-3 px-6">Effects</th>
+                                            <th scope="col" class="py-3 px-6">Onset</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="bg-white border-b">
+                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">CN (Tear Gas)</th>
+                                            <td class="py-4 px-6">Irritant / Lachrymatory</td>
+                                            <td class="py-4 px-6">Mild tearing, tightness of chest, mild nausea.</td>
+                                            <td class="py-4 px-6">1.5 - 20 seconds</td>
+                                        </tr>
+                                        <tr class="bg-white border-b">
+                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">CS (Riot Gas)</th>
+                                            <td class="py-4 px-6">Irritant</td>
+                                            <td class="py-4 px-6">Involuntary eye closing, severe pain, uncontrollable coughing, intense panic.</td>
+                                            <td class="py-4 px-6">1 - 60 seconds</td>
+                                        </tr>
+                                        <tr class="bg-white">
+                                            <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">OC (Pepper Spray)</th>
+                                            <td class="py-4 px-6">Inflammatory</td>
+                                            <td class="py-4 px-6">Involuntary eye closing, severe pain, inflammation of mucous membranes, difficulty breathing.</td>
+                                            <td class="py-4 px-6">Immediate - 5 seconds</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </details>
+                 </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-amber-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-amber-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "What is the active ingredient in OC spray?",
+            options: ["Oleoresin", "Capsaicin", "Pungency", "CN Gas"],
+            answer: "Capsaicin",
+            explanation: "<strong>Reference: The Science of OC.</strong> Capsaicin is the most prevalent of the capsaicinoids and is the active ingredient that causes the inflammatory effects."
+        },
+        {
+            question: "According to the IACP/NIJ study, what is the approximate effectiveness rate of OC spray on humans?",
+            options: ["50%", "75%", "90%", "100%"],
+            answer: "90%",
+            explanation: "<strong>Reference: Introduction & History.</strong> The study indicated that OC spray was effective in confrontational encounters up to 90 percent of the time."
+        },
+        {
+            question: "What is the recommended method for decontaminating a person's face after OC exposure?",
+            options: ["Rubbing vigorously with a dry towel", "Applying creams or lotions", "Blotting with a wet towel, then a dry towel", "Using commercial eyewash immediately"],
+            answer: "Blotting with a wet towel, then a dry towel",
+            explanation: "<strong>Reference: Decontamination Procedures.</strong> You should use a wet paper towel followed by a dry one, and only blot the face, not rub."
+        },
+        {
+            question: "What are the '3 S's' of OC deployment?",
+            options: ["Spray, Stun, Secure", "Stop, Spray, Separate", "Shout, Short Burst, Shuffle", "See, Spray, Subdue"],
+            answer: "Shout, Short Burst, Shuffle",
+            explanation: "<strong>Reference: Deployment & Tactics.</strong> The three steps are to Shout verbal commands, use a Short Burst of spray, and Shuffle to move offline."
+        },
+        {
+            question: "What is the primary classification of OC spray as a chemical agent?",
+            options: ["Irritant", "Inflammatory", "Lachrymatory (Tearing)", "Asphyxiant"],
+            answer: "Inflammatory",
+            explanation: "<strong>Reference: The Science of OC.</strong> OC is classified as an inflammatory agent because it causes inflammation of the mucous membranes."
+        },
+        {
+            question: "What is the recommended minimum distance to deploy an OC aerosol projector to avoid the 'hydraulic needle effect'?",
+            options: ["1 foot", "3 feet (1 meter)", "10 feet", "15 feet"],
+            answer: "3 feet (1 meter)",
+            explanation: "<strong>Reference: Deployment & Tactics.</strong> The recommended distance is 1 meter (about 3 feet) to prevent potential injury from the pressure of the stream."
+        },
+        {
+            question: "A subject who has been sprayed with OC is not responding to verbal commands. This could be due to a psychological effect known as:",
+            options: ["Positional Asphyxia", "Auditory Exclusion", "Excited Delirium", "Vasodilation"],
+            answer: "Auditory Exclusion",
+            explanation: "<strong>Reference: Effects & Decontamination.</strong> Auditory exclusion can occur in any stress or panic situation, causing the subject to not hear or process commands."
+        },
+        {
+            question: "Which part of the OC dispenser is the button used to discharge the spray?",
+            options: ["Nozzle", "Valve Stem", "Canister", "Actuator"],
+            answer: "Actuator",
+            explanation: "<strong>Reference: The Science of OC.</strong> The actuator is the button or trigger mechanism used to release the spray."
+        },
+        {
+            question: "Normal recovery time from OC exposure, with proper decontamination, is typically:",
+            options: ["5-10 minutes", "15-45 minutes", "1-2 hours", "Over 4 hours"],
+            answer: "15-45 minutes",
+            explanation: "<strong>Reference: Decontamination Procedures.</strong> Normal recovery usually occurs within 15 to 45 minutes."
+        },
+        {
+            question: "Which of the following is a key reason for officers to take a 'live hit' of OC during training?",
+            options: ["To build immunity to the spray", "To prove their physical toughness", "To understand they can still function if accidentally exposed", "To learn how to decontaminate others"],
+            answer: "To understand they can still function if accidentally exposed",
+            explanation: "<strong>Reference: Deployment & Tactics.</strong> A primary rationale is to allow officers to discover, based on their own experience, that they can function if they inadvertently receive some backsplash."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#16a34a';
+            else if (percentage >= 50) quizScoreEl.style.color = '#f59e0b';
+            else quizScoreEl.style.color = '#dc2626';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+});
+</script>
+
+</body>
+</html>

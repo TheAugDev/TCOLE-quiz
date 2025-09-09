@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Force Options Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f1f5f9;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+        .quiz-card {
+            background: #fff;
+            border-radius: 1.25rem;
+            box-shadow: 0 4px 16px 0 rgba(99,102,241,0.07);
+            border: 1px solid #e0e7ff;
+            margin-bottom: 1.5rem;
+        }
+        .main-bg {
+            background: linear-gradient(120deg, #f1f5f9 60%, #e0e7ff 100%);
+            border-radius: 1.5rem;
+            padding: 2rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .quiz-btn {
+            background: linear-gradient(90deg, #6366f1 60%, #818cf8 100%);
+            color: #fff;
+            font-weight: bold;
+            border-radius: 0.75rem;
+            transition: background 0.2s;
+        }
+        .quiz-btn:hover:not(:disabled) {
+            background: linear-gradient(90deg, #4f46e5 60%, #6366f1 100%);
+        }
+        .review-card {
+            background: #fff;
+            border-radius: 1.25rem;
+            box-shadow: 0 2px 8px 0 rgba(99,102,241,0.06);
+            border: 1px solid #e0e7ff;
+            margin-bottom: 1.25rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 main-bg">
+        <div class="quiz-card p-8">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Force Options Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This final, exhaustive practice quiz now contains 75 questions covering every detail from your handouts. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full quiz-btn py-3 px-6 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full quiz-btn py-3 px-6 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto quiz-btn py-3 px-6">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+       <div id="review-section" class="hidden mt-8">
+           <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+           <div id="review-container" class="space-y-6"></div>
+       </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            // Definitions & Basic Concepts
+            { question: "What is the definition of 'Deadly Force' under PC 9.01(3)?", options: ["Any force that causes an injury.", "Force that is intended or known by the actor to cause, or in the manner of its use is capable of causing, death or serious bodily injury.", "Only the use of a firearm.", "Force used to make an arrest."], answer: "Force that is intended or known by the actor to cause, or in the manner of its use is capable of causing, death or serious bodily injury.", explanation: "This is the precise legal definition. It includes not only the actor's intent but also the capability of the force used.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.01(3)</a>" },
+            { question: "'Reasonable or Necessary Force' is the amount of lawful physical coercion sufficient to achieve a legitimate law enforcement objective and is...", options: ["Subjectively reasonable based on the officer's feelings.", "Objectively reasonable under the facts and circumstances confronting an officer at the time.", "The minimum amount of force possible in any situation.", "Determined by the severity of the suspect's injuries."], answer: "Objectively reasonable under the facts and circumstances confronting an officer at the time.", explanation: "This is the core of the *Graham v. Connor* standard. Reasonableness is judged from the perspective of a reasonable officer on the scene, not with 20/20 hindsight.", reference: "BPOC Force Options Handout, Page 1" },
+            { question: "According to the handout, the police role in a physical arrest is essentially:", options: ["Offensive", "Defensive", "Punitive", "Aggressive"], answer: "Defensive", explanation: "The officer's actions are defined as 'serving to protect' and 'resisting or preventing aggression or attack.' The goal is to defend and protect the community.", reference: "BPOC Force Options Handout, Page 6" },
+            { question: "What is the concept of 'control' in a law enforcement context?", options: ["The ability to make anyone do what you want.", "The degree of influence an officer must exert over a violator to take them safely into custody.", "A one-way street where the officer is always in charge.", "Using the maximum amount of force available."], answer: "The degree of influence an officer must exert over a violator to take them safely into custody.", explanation: "Control is a key concept that involves using the appropriate level of influence. It also requires the officer to be in self-control.", reference: "BPOC Force Options Handout, Page 7" },
+            { question: "Which force option is at the base of the force continuum, representing the starting point for all interactions?", options: ["Verbal Commands", "Weaponless Strategies", "Professional Presence", "Deadly Force"], answer: "Professional Presence", explanation: "An officer's professional presence—their appearance, demeanor, and command presence—is a constant force option that can de-escalate situations.", reference: "BPOC Force Options Handout, Page 9" },
+            
+            // Landmark Court Cases
+            { question: "The landmark Supreme Court case that established the 'objectively reasonable' standard for use of force is:", options: ["Tennessee v. Garner", "Miranda v. Arizona", "Graham v. Connor", "Terry v. Ohio"], answer: "Graham v. Connor", explanation: "*Graham v. Connor* dictates that all claims of excessive force are analyzed under the Fourth Amendment's 'objective reasonableness' standard.", reference: "BPOC Force Options Handout, Page 4" },
+            { question: "Which of the following is NOT one of the 'Graham Factors' used to determine the reasonableness of force?", options: ["The severity of the crime at issue.", "Whether the suspect poses an immediate threat to the safety of the officers or others.", "The suspect's prior criminal history.", "Whether the suspect is actively resisting arrest or attempting to evade arrest by flight."], answer: "The suspect's prior criminal history.", explanation: "The Graham analysis focuses on the facts at the moment force is used, not the suspect's past, unless it's known to the officer at the time and relevant to the threat assessment.", reference: "BPOC Force Options Handout, Page 4 & force pp.pdf, Slide 8" },
+            { question: "According to the 5th Circuit in *Estate of Ceballos v. Bridgewater*, an officer cannot use deadly force without what?", options: ["A supervisor's approval.", "A verbal warning.", "An immediate threat to himself or others.", "The suspect being armed with a firearm."], answer: "An immediate threat to himself or others.", explanation: "This case reinforces the constitutional standard that deadly force is only justified when there is an immediate threat of death or serious bodily injury.", reference: "BPOC Force Options Handout, Page 3" },
+            { question: "In *Tennessee v. Garner*, the Supreme Court ruled that the 4th Amendment prohibits the use of deadly force to seize a fleeing felon unless:", options: ["The suspect is running towards a state line.", "The officer has given a verbal warning to stop.", "The officer has probable cause to believe the suspect poses a significant threat of death or serious physical injury to the officer or others.", "The felony was a property crime."], answer: "The officer has probable cause to believe the suspect poses a significant threat of death or serious physical injury to the officer or others.", explanation: "This case limited the use of deadly force against fleeing felons to situations where the suspect is dangerous.", reference: "BPOC Force Options Handout, Page 5" },
+            { question: "What legal principle was established in *Brower v. Inyo County*, which involved a fatal roadblock?", options: ["Roadblocks are always considered deadly force.", "A seizure occurs when there is a governmental termination of freedom of movement through means intentionally applied.", "Officers are not responsible for suspects who crash during a pursuit.", "Intent does not matter in a use of force case."], answer: "A seizure occurs when there is a governmental termination of freedom of movement through means intentionally applied.", explanation: "The court held that setting up a roadblock was a 'seizure' under the 4th Amendment because the police intentionally applied the means to stop the suspect.", reference: "BPOC 18 Cases.pdf, Page 7" },
+            { question: "What did the Supreme Court rule in *Garrity v. New Jersey*?", options: ["Officers must answer all questions in an internal investigation.", "Evidence gathered from an employee under threat of dismissal was not admissible in a criminal trial.", "Officers have no Fifth Amendment rights in administrative investigations.", "Polygraph examinations are always admissible in court."], answer: "Evidence gathered from an employee under threat of dismissal was not admissible in a criminal trial.", explanation: "This case established 'Garrity Rights,' protecting public employees from being forced to incriminate themselves in criminal cases through compelled administrative statements.", reference: "BPOC Force Options Handout, Page 12" },
+            { question: "In *Scott v. Harris*, involving a vehicle pursuit, what was a key factor in the Supreme Court's decision?", options: ["The suspect was a minor.", "The court reviewed a video of the pursuit.", "The officer did not have a valid driver's license.", "The pursuit occurred in a school zone."], answer: "The court reviewed a video of the pursuit.", explanation: "This was a landmark case in part because the Supreme Court relied heavily on the dash-cam video to determine the officer's action was objectively reasonable.", reference: "BPOC 18 Cases.pdf, Page 6" },
+            { question: "The case of *Torres v. Madrid* clarified the concept of a 'seizure' to include:", options: ["Only when a suspect is taken into custody.", "Any verbal command given by an officer.", "The application of physical force with intent to restrain, even if the subject gets away.", "Only the use of handcuffs."], answer: "The application of physical force with intent to restrain, even if the subject gets away.", explanation: "This case established that a seizure occurs at the moment an officer uses force with intent to restrain, such as shooting a suspect, even if they are not immediately controlled or captured.", reference: "BPOC 18 Cases.pdf, Page 11" },
+            { question: "Which case dealt with the use of a police canine biting a suspect in the neck during a burglary, which was ultimately not deemed deadly force?", options: ["Kuha v. City of Minnetonka", "Robinette v. Barnes", "Cruz v. Laramie", "Baskin v. Smith"], answer: "Robinette v. Barnes", explanation: "In this case, the court found the use of a properly trained police dog to apprehend a hiding burglary suspect was not deadly force, even though the bite was to the neck and proved fatal.", reference: "BPOC 18 Cases.pdf, Page 21" },
+            { question: "*Cruz v. Laramie* established a rule in the 10th Circuit against using hog-tie or hobble-tie restraints on suspects with what condition?", options: ["A history of violence", "Known gang affiliation", "Diminished capacity", "A desire to flee"], answer: "Diminished capacity", explanation: "This case specifically cautioned against using hog-tie restraints on individuals who have a diminished capacity due to factors like drug use, which can make them more susceptible to positional asphyxia.", reference: "BPOC 18 Cases.pdf, Page 22" },
+
+            // Legal & Immunity Concepts
+            { question: "What is 'Qualified Immunity'?", options: ["A legal doctrine that grants police officers complete immunity from all lawsuits.", "A defense that shields government officials from liability for civil damages if their conduct does not violate clearly established statutory or constitutional rights.", "A type of insurance for police officers.", "A rule that prevents officers from being fired after a use of force incident."], answer: "A defense that shields government officials from liability for civil damages if their conduct does not violate clearly established statutory or constitutional rights.", explanation: "Qualified immunity protects officers from frivolous lawsuits, but it is not absolute. An officer can be sued if they violate a right that was 'clearly established'.", reference: "BPOC Force Options Handout, Page 4 (citing *Milstead v. Kibler*)" },
+            { question: "Under PC 9.04, is the threat to use deadly force considered the same as the use of deadly force?", options: ["Yes, it is always considered the use of deadly force.", "No, as long as the actor's purpose is limited to creating an apprehension that deadly force will be used if necessary.", "Only if the weapon is loaded.", "Yes, unless the person is a police officer."], answer: "No, as long as the actor's purpose is limited to creating an apprehension that deadly force will be used if necessary.", explanation: "The law distinguishes between threatening deadly force to deter an attack and actually using it. Displaying a weapon to create fear is justified as a threat.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.04' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.04</a>" },
+            { question: "If an officer is justified in using force but recklessly injures an innocent third person, is the justification available for the injury to the third person under PC 9.05?", options: ["Yes, the justification covers all outcomes.", "No, the justification is unavailable in a prosecution for the reckless injury or killing of the innocent third person.", "Only if the officer's life was in immediate danger.", "Only if the third person was partially at fault."], answer: "No, the justification is unavailable in a prosecution for the reckless injury or killing of the innocent third person.", explanation: "PC 9.05 makes it clear that an actor is still responsible for reckless harm caused to innocent bystanders, even if the initial use of force was justified.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.05' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.05</a>" },
+            { question: "Which of the following is NOT a justification for the use of force under Chapter 9 of the Penal Code?", options: ["Self-Defense (PC 9.31)", "Protection of Property (PC 9.41)", "Punishment", "Special Relationships (PC 9.61)"], answer: "Punishment", explanation: "The use of force is legally justified for protection, control, and preventing escape. It is never legally justified for the purpose of punishment.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code Ch. 9</a>; force pp.pdf, Slides 14-18" },
+            { question: "The legal concept of 'State Created Danger' holds that the state can be liable if its conduct puts a person at a substantial risk of harm, and the state does what?", options: ["Apologizes for the risk.", "Consciously disregards that risk.", "Warns the person of the risk.", "Takes a report about the risk."], answer: "Consciously disregards that risk.", explanation: "This doctrine applies when the state's affirmative actions create or increase a danger to a citizen, and then the state acts with deliberate indifference to that danger.", reference: "BPOC Force Options Handout, Page 14" },
+            { question: "Federal civil rights complaints against law enforcement under Title 18, Sections 241 & 242 are investigated by which agency?", options: ["The DEA", "The ATF", "The local District Attorney's Office", "The FBI"], answer: "The FBI", explanation: "The Federal Bureau of Investigation is the primary federal agency responsible for investigating allegations of criminal civil rights violations by law enforcement officers.", reference: "BPOC Force Options Handout, Page 13" },
+            { question: "Under PC 9.51 (Arrest and Search), a peace officer is justified in using deadly force to make an arrest only when the officer reasonably believes the deadly force is immediately necessary AND:", options: ["The suspect has committed any felony.", "The officer has given a verbal warning.", "The conduct for which arrest is authorized included the use or attempted use of deadly force, OR there is a substantial risk the suspect will cause death or SBI if arrest is delayed.", "The suspect is attempting to flee in a vehicle."], answer: "The conduct for which arrest is authorized included the use or attempted use of deadly force, OR there is a substantial risk the suspect will cause death or SBI if arrest is delayed.", explanation: "This clause from PC 9.51 mirrors the standard set by *Tennessee v. Garner*, focusing on the dangerousness of the suspect.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.51' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.51</a>" },
+            { question: "What does PC 9.02, 'Justification as a Defense,' establish?", options: ["It is an affirmative defense to prosecution.", "It is a defense to prosecution.", "It guarantees civil immunity.", "It only applies to deadly force situations."], answer: "It is a defense to prosecution.", explanation: "PC 9.02 states that justification under Chapter 9 is a defense to prosecution, meaning the prosecution must disprove the defense beyond a reasonable doubt once it's raised by the defendant.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.02' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.02</a>" },
+            { question: "Under PC 9.22, conduct is justified by 'Necessity' if:", options: ["It is required by a supervisor.", "The actor reasonably believes the conduct is immediately necessary to avoid imminent harm.", "It is for the greater good of the community.", "The actor feels it is the right thing to do."], answer: "The actor reasonably believes the conduct is immediately necessary to avoid imminent harm.", explanation: "The necessity defense requires that the harm the actor seeks to avoid is clearly greater than the harm caused by their conduct, and that a legislative purpose to exclude the justification does not plainly appear.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.22' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.22</a>" },
+
+            // Psychological & Decision-Making Aspects
+            { question: "Uncertainty in a tense situation is likely to result in what kind of behavior from an officer?", options: ["Perfect decision-making", "Compensating behavior, such as hesitation, verbal abuse, or unnecessary force.", "A request for a supervisor.", "De-escalation."], answer: "Compensating behavior, such as hesitation, verbal abuse, or unnecessary force.", explanation: "Uncertainty can lead to poor decision-making. Training and confidence are designed to reduce uncertainty and prevent negative compensating behaviors.", reference: "BPOC Force Options Handout, Page 7" },
+            { question: "Which of the following is a key factor an officer should consider when assessing the level of force that is reasonable?", options: ["The time of day.", "The suspect's political beliefs.", "Whether the suspect is submitting peacefully or resisting.", "The media presence at the scene."], answer: "Whether the suspect is submitting peacefully or resisting.", explanation: "The suspect's level of resistance is a primary factor in determining the necessary and reasonable level of force required to gain control.", reference: "BPOC Force Options Handout, Page 7" },
+            { question: "What are the four forces that affect an officer's decision to use deadly force?", options: ["Time, Distance, Cover, and Concealment", "Statutory/Case Law, Departmental Policy, Informal Organizational Norms, and Individual Choice.", "Suspect, Victim, Officer, and Bystanders.", "Weapon, Training, Experience, and Fitness."], answer: "Statutory/Case Law, Departmental Policy, Informal Organizational Norms, and Individual Choice.", explanation: "These four forces represent the legal, administrative, cultural, and personal factors that influence an officer's most critical decisions.", reference: "BPOC Force Options Handout, Page 8" },
+            { question: "Ineffective control results when the level of force is ______ than the subject's level of resistance.", options: ["Equal to", "Greater than", "Less than", "Slightly more than"], answer: "Less than", explanation: "If an officer uses a level of force that is insufficient to overcome the suspect's resistance, they will fail to gain control of the situation.", reference: "BPOC Force Options Handout, Page 11" },
+            { question: "What is the correct 'Priority of Life' order that officers should consider in deadly force situations?", options: ["Officer, Suspect, Victims, Third Parties", "Suspect, Officer, Victims, Third Parties", "Victims, Third Parties, Officer, Suspect", "Officer, Victims, Third Parties, Suspect"], answer: "Victims, Third Parties, Officer, Suspect", explanation: "The established priority is to protect the innocent public first, then officers, and lastly the suspect who is creating the deadly threat.", reference: "BPOC Force Options Handout, Page 10" },
+            { question: "An officer who knows *why* they did what they did in any given situation is said to be:", options: ["Unconsciously incompetent", "Consciously incompetent", "Unconsciously competent", "Consciously competent"], answer: "Consciously competent", explanation: "This is a key trait of a professional officer: the ability to not only perform correctly but also to articulate the reasoning and justification for their actions.", reference: "BPOC Force Options Handout, Page 12" },
+            { question: "What is the primary purpose of 'Active Listening' in a law enforcement context?", options: ["To win arguments with suspects.", "To build rapport and gather intelligence that can save your life.", "To show that you are in control.", "To stall for time until backup arrives."], answer: "To build rapport and gather intelligence that can save your life.", explanation: "Active listening is a critical safety skill. Listening to what a person says—and what they don't say—can reveal their intentions and pre-attack indicators.", reference: "BPOC Force Options Handout, Page 15" },
+            { question: "The concept that 'fear causes hesitation, and hesitation will cause your worst fears to come true' emphasizes the need for:", options: ["Avoiding all dangerous situations.", "Waiting for backup before acting.", "Decisive action based on training and threat assessment.", "Using the maximum level of force immediately."], answer: "Decisive action based on training and threat assessment.", explanation: "This quote highlights that in a critical incident, indecisiveness can be more dangerous than acting. Proper training builds the confidence to act decisively and correctly.", reference: "force pp.pdf, Slide 90" },
+            
+            // Tactical & Statistical Information
+            { question: "According to a 2016 study, what was the most common type of call (22%) that resulted in a line-of-duty death?", options: ["Robbery", "Burglary", "Disturbance", "Domestic Dispute"], answer: "Domestic Dispute", explanation: "Domestic disputes are notoriously dangerous and unpredictable calls for officers, leading to a high number of line-of-duty deaths.", reference: "BPOC Force Options Handout, Page 11" },
+            { question: "According to the handout, what is a common pre-attack indicator when dealing with a suspect in a vehicle?", options: ["The suspect keeps their hands on the steering wheel.", "The suspect makes eye contact with the officer.", "The suspect leaves their car door open after exiting.", "The suspect immediately provides their driver's license."], answer: "The suspect leaves their car door open after exiting.", explanation: "Leaving the door open can signal an intent to quickly flee back to the car or to use the door as a weapon or shield, and should be seen as a potential threat cue.", reference: "BPOC Force Options Handout, Page 15" },
+            { question: "A 'Target Glance' is a pre-attack indicator where a suspect:", options: ["Stares intently into the officer's eyes.", "Looks at the officer's weapon.", "Looks away to create a distraction.", "Looks at a specific part of the officer's body they intend to attack."], answer: "Looks at a specific part of the officer's body they intend to attack.", explanation: "This is a subconscious 'measuring' of a target area, such as the officer's gun, face, or throat, immediately before an assault.", reference: "force pp.pdf, Slide 102" },
+            { question: "What is a 'Felony Stretch'?", options: ["A warm-up exercise for officers.", "A suspect stretching to show they are relaxed.", "A suspect stretching or yawning to feign compliance while preparing for an attack.", "A legal term for extending a detention."], answer: "A suspect stretching or yawning to feign compliance while preparing for an attack.", explanation: "This is a deceptive move intended to lower the officer's guard and often precedes a sudden assault or attempt to flee.", reference: "force pp.pdf, Slide 112" },
+            { question: "The concept of Crew Resource Management (CRM) in law enforcement emphasizes that:", options: ["The senior officer's decisions are final and should not be questioned.", "Every officer on a scene has an active voice and a duty to intervene.", "Resources should be managed primarily by the dispatch center.", "Officers should not communicate directly with Fire or EMS on scene."], answer: "Every officer on a scene has an active voice and a duty to intervene.", explanation: "CRM is a safety model that encourages open communication and empowers all team members, regardless of rank, to voice concerns to prevent errors, including preventing excessive force.", reference: "force pp.pdf, Slides 138-139" },
+            { question: "According to statistics presented, over 60% of resisting incidents occur when?", options: ["During the initial verbal commands.", "After the initial touch of an offender by an officer.", "While the suspect is in the patrol car.", "During booking at the jail."], answer: "After the initial touch of an offender by an officer.", explanation: "The physical act of touching a suspect to initiate arrest is a common trigger point for physical resistance, highlighting a critical moment for officer awareness.", reference: "force pp.pdf, Slide 98" },
+            { question: "Which of the following is NOT one of the justifications for use of force under the 'Special Relationships' section of the Penal Code?", options: ["Parent-Child (PC 9.61)", "Educator-Student (PC 9.62)", "Officer-Suspect", "Guardian-Incompetent (PC 9.63)"], answer: "Officer-Suspect", explanation: "The officer-suspect relationship is covered under PC 9.51 (Arrest and Search) and PC 9.52 (Prevention of Escape), not under the 'Special Relationships' section.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code Ch. 9</a>; force pp.pdf, Slide 17" },
+            { question: "The use of a 'drive stun' with a TASER is primarily for what purpose?", options: ["Neuromuscular incapacitation", "Causing third-degree burns", "Pain compliance at close range", "Marking a suspect with confetti"], answer: "Pain compliance at close range", explanation: "A drive stun, where the TASER is pressed directly against the subject, does not cause the muscle lock-up of a probe deployment and is intended only as a pain compliance technique.", reference: "force pp.pdf, Slide 71" },
+            { question: "What does PC 9.52, 'Prevention of Escape from Custody,' justify?", options: ["Using any force necessary, including deadly force, to prevent any escape.", "Using force, but not deadly force, to prevent escape.", "Using force or deadly force if the actor reasonably believes it is immediately necessary to prevent escape from a correctional facility.", "Only allows guards inside a facility to use force."], answer: "Using force or deadly force if the actor reasonably believes it is immediately necessary to prevent escape from a correctional facility.", explanation: "This statute specifically applies to preventing escape from custody, with the use of deadly force being justified to prevent escape from a correctional facility.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.52' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.52</a>" },
+            { question: "The case of *Hathaway v. Bazany* involved an officer shooting at a moving vehicle. What was the critical factor in that case?", options: ["The officer was attempting to disable the vehicle's tires.", "The officer was standing to the side of the vehicle.", "The officer had been struck by the vehicle and was on the hood when he fired.", "The suspect had fired a weapon from the vehicle first."], answer: "The officer had been struck by the vehicle and was on the hood when he fired.", explanation: "The court found the officer's actions reasonable because he was in immediate, life-threatening danger from the vehicle being used as a weapon against him.", reference: "BPOC 18 Cases.pdf, Page 15" },
+            { question: "What is 'Officer Created Danger'?", options: ["A situation where an officer intentionally provokes a suspect.", "A legal doctrine where an officer's reckless actions prior to the use of force create the danger that then requires force.", "Any situation that is dangerous for an officer.", "A training scenario for recruits."], answer: "A legal doctrine where an officer's reckless actions prior to the use of force create the danger that then requires force.", explanation: "This concept holds that the reasonableness of a use of force can be impacted by the officer's own negligent or reckless conduct that escalated the situation unnecessarily.", reference: "BPOC Force Options Handout, Page 13" },
+            { question: "What is a 'Stall Utterance'?", options: ["A suspect admitting guilt.", "A suspect asking a question to buy time to plan or react.", "A clear verbal command from an officer.", "A radio transmission that is unclear."], answer: "A suspect asking a question to buy time to plan or react.", explanation: "Questions like 'Why?' or 'Who, me?' can be a verbal pre-attack indicator, used by a suspect to stall and disrupt the officer's thought process before launching an attack.", reference: "force pp.pdf, Slide 116" },
+            { question: "In the context of justifiable force, what does PC 38.01 define?", options: ["Deadly Force and Serious Bodily Injury", "Custody and Escape", "Reasonable Belief and Necessity", "Public Duty and Special Relationships"], answer: "Custody and Escape", explanation: "PC 38.01 provides the legal definitions for 'Custody' and 'Escape,' which are foundational for understanding the justifications for force under PC 9.52 and 9.53.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.38.htm#38.01' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 38.01</a>" },
+            { question: "The use of pepper spray (OC) on a verbally non-compliant but handcuffed subject was a key issue in which case?", options: ["Baskin v. Smith", "Jennings v. Jones", "Martinez v. New Mexico Dept. of Public Safety", "Robinson v. Solano County"], answer: "Martinez v. New Mexico Dept. of Public Safety", explanation: "This case examined the reasonableness of using pepper spray on a subject who was already secured in handcuffs and posed a limited threat, highlighting the need to adjust force levels as the threat changes.", reference: "BPOC 18 Cases.pdf, Page 17" },
+            { question: "What is the key takeaway from *Robinson v. Solano County* regarding seizure at gunpoint?", options: ["Pointing a gun at a suspect is always justified.", "Pointing a gun at a suspect is never justified.", "The use of a firearm to effect a seizure may be unreasonable force, even if the seizure itself is lawful.", "Officers must have their firearm holstered during all misdemeanor investigations."], answer: "The use of a firearm to effect a seizure may be unreasonable force, even if the seizure itself is lawful.", explanation: "This case illustrates that the *level* of force must be reasonable for the circumstances. Pointing a gun at a person suspected of a minor offense who poses no apparent threat may be deemed excessive.", reference: "BPOC 18 Cases.pdf, Page 19" },
+            { question: "What does the term 'thoughtless performance' refer to in officer training?", options: ["Acting without thinking, which is always dangerous.", "Subconscious, well-trained actions like a fast, consistent draw.", "Ignoring a suspect's furtive movements.", "Forgetting to activate a body camera."], answer: "Subconscious, well-trained actions like a fast, consistent draw.", explanation: "Through repetition and practice, critical skills like drawing a weapon become subconscious, freeing the officer's conscious mind to focus on threat assessment and decision-making.", reference: "BPOC Force Options Handout, Page 2" },
+            { question: "What is an officer's 'foveal vision'?", options: ["A wide 180-degree field of view.", "The ability to see in the dark.", "A narrow 3-degree cone of sharp, focused vision.", "Peripheral vision used to detect motion."], answer: "A narrow 3-degree cone of sharp, focused vision.", explanation: "Understanding the limitations of human vision, like the narrow cone of foveal vision, is critical for weapon presentation and threat scanning techniques.", reference: "BPOC Force Options Handout, Page 2" },
+            { question: "What does 'pre-loading' or 'selective attention' mean for an officer?", options: ["Loading a weapon before a shift.", "Paying attention only to the suspect's hands.", "Mentally rehearsing 'what if' scenarios to prepare for a suspect's actions.", "Ignoring dispatch information to avoid bias."], answer: "Mentally rehearsing 'what if' scenarios to prepare for a suspect's actions.", explanation: "This is a mental preparation technique where an officer thinks through potential actions and responses (e.g., 'If he reaches for his waistband, I will...') to reduce reaction time.", reference: "BPOC Force Options Handout, Page 2" },
+            { question: "Under PC 9.32, 'Deadly Force in Defense of Person' is justified to protect against another's use of unlawful deadly force or to prevent what crimes?", options: ["Any theft or burglary.", "Resisting arrest or evading detention.", "Aggravated kidnapping, murder, sexual assault, or robbery.", "Public intoxication or disorderly conduct."], answer: "Aggravated kidnapping, murder, sexual assault, or robbery.", explanation: "PC 9.32 specifically lists these violent felonies as crimes that justify the use of deadly force to prevent their imminent commission.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.32' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.32</a>" },
+            { question: "What does PC 9.42, 'Deadly Force to Protect Property,' require before deadly force is justified to prevent arson, burglary, or robbery at nighttime?", options: ["The property owner must give permission.", "The actor must reasonably believe the land or property cannot be protected by any other means.", "The suspect must be armed with a firearm.", "The police must have been called first."], answer: "The actor must reasonably believe the land or property cannot be protected by any other means.", explanation: "This is a critical element of PC 9.42. The actor must believe deadly force is the only way to protect the property AND that using lesser force would expose them to substantial risk of death or SBI.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.42' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.42</a>" },
+            { question: "What is a key principle of 'Verbal Judo' as cited in the handout?", options: ["Using a loud, commanding voice at all times.", "The ability to move from words to force and, just as importantly, back to words.", "Never speaking to a suspect once force has been used.", "Using complex language to confuse a suspect."], answer: "The ability to move from words to force and, just as importantly, back to words.", explanation: "This concept emphasizes de-escalation. A professional officer can transition back to verbal strategies once a threat is controlled, demonstrating true command of the situation.", reference: "BPOC Force Options Handout, Page 12" },
+            { question: "What is 'excessive control'?", options: ["When the level of force is equal to the subject's resistance.", "When the level of force is less than the subject's resistance.", "When the level of force is unreasonably greater than the subject's level of resistance.", "Gaining control of a situation too quickly."], answer: "When the level of force is unreasonably greater than the subject's level of resistance.", explanation: "Excessive control, or excessive force, is force that is not objectively reasonable for the level of resistance offered by the subject, potentially causing preventable injury.", reference: "BPOC Force Options Handout, Page 11" },
+            { question: "In the Denton PD Resistance Response Matrix, what is the first response level for a 'Compliant Subject'?", options: ["Defensive Tactics", "Verbal Commands", "Officer Presence", "Restraint Tactics"], answer: "Officer Presence", explanation: "The matrix, like most force continuums, begins with the officer's mere presence as the foundational level of control and authority.", reference: "force pp.pdf, Slide 39" },
+            { question: "According to the Dynamic Resistance Model, 'Control Holds' and 'Pressure Points' are appropriate for what level of resistance?", options: ["Deadly Resistance", "Threatening Resistance", "No Resistance (Compliance)", "Non-Threatening Resistance"], answer: "Non-Threatening Resistance", explanation: "This model categorizes resistance and shows that weaponless strategies like control holds are designed to overcome resistance that is not actively threatening the officer with harm.", reference: "force pp.pdf, Slide 38" },
+            { question: "What does PC 9.06, 'Civil Remedies Unaffected,' clarify?", options: ["Justified force prevents all civil lawsuits.", "The state will pay for any civil damages if an officer's use of force was justified.", "The fact that conduct is justified under the Penal Code does not abolish or impair any civil remedy.", "Officers are immune from civil lawsuits but can still be prosecuted criminally."], answer: "The fact that conduct is justified under the Penal Code does not abolish or impair any civil remedy.", explanation: "This section makes it clear that a criminal justification is separate from civil liability. However, CPRC 83.001 does provide civil immunity for force justified under Chapter 9.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.06' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.06</a>" },
+            { question: "What is a significant risk associated with the 'hog-tie' or 'hobble-tie' restraint, especially with subjects of diminished capacity?", options: ["Increased risk of escape", "Damage to the handcuffs", "Positional asphyxia", "Torn ligaments in the shoulder"], answer: "Positional asphyxia", explanation: "Restraining a person in a prone position, especially when their breathing is compromised by weight, drugs, or exertion, can lead to death from positional asphyxia. This was a key issue in *Cruz v. Laramie*.", reference: "BPOC 18 Cases.pdf, Page 22" },
+            { question: "Which of the following is a physical pre-attack indicator?", options: ["Maintaining steady eye contact", "Answering questions directly", "Conspicuously ignoring the officer", "Clenching of fists and jaw"], answer: "Clenching of fists and jaw", explanation: "This is an involuntary physiological response to stress and anger, often signaling an imminent physical assault.", reference: "General knowledge from pre-attack indicator slides" },
+            { question: "The phrase 'tense, uncertain, and rapidly evolving' from *Graham v. Connor* is used to describe:", options: ["The mindset of the suspect.", "The standard for writing a police report.", "The circumstances under which an officer's use of force must be judged.", "The criteria for a high-speed pursuit."], answer: "The circumstances under which an officer's use of force must be judged.", explanation: "The Supreme Court used this phrase to emphasize that an officer's actions should be judged based on the difficult reality of the moment, not with the clarity of hindsight.", reference: "force pp.pdf, Slide 8" },
+            { question: "According to the handout, what is a primary reason suspects may resist arrest?", options: ["They believe they are stronger than the officer.", "They don't understand the process or nature of the arrest.", "They want to have a story to tell their friends.", "They are always trying to assault the officer."], answer: "They don't understand the process or nature of the arrest.", explanation: "Clear communication is key. Explaining the process can sometimes de-escalate a situation and prevent resistance that stems from confusion or fear.", reference: "BPOC Force Options Handout, Page 3" },
+            { question: "What does the 'Duty to Intervene' policy require of officers?", options: ["To intervene only when a senior officer uses excessive force.", "To intervene and report when they witness another officer using excessive force.", "To let Internal Affairs handle all complaints of excessive force.", "To intervene only if they feel physically capable of stopping the other officer."], answer: "To intervene and report when they witness another officer using excessive force.", explanation: "This modern policing standard, also part of HB 3712, legally and ethically obligates officers to prevent fellow officers from violating the law or a person's rights.", reference: "force pp.pdf, Slide 140" },
+            { question: "What is a key element of the justification for using force for 'Public Duty' under PC 9.21?", options: ["The actor must be a peace officer.", "The force must be directed by a court order.", "The actor must reasonably believe the conduct is required or authorized by law.", "The force can only be used during daytime hours."], answer: "The actor must reasonably believe the conduct is required or authorized by law.", explanation: "This justification covers actions taken by public servants (not just police) who are acting in the lawful performance of their duties.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.21' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.21</a>" },
+            { question: "If an officer's conduct 'shocks the conscience,' it is a factor considered in which legal doctrine?", options: ["Qualified Immunity", "State Created Danger", "Reasonable Suspicion", "Probable Cause"], answer: "State Created Danger", explanation: "For the State Created Danger doctrine to apply, the state's conduct must not only put the person at risk but also be so egregious that it 'shocks the conscience.'", reference: "BPOC Force Options Handout, Page 14" },
+            { question: "What is 'auditory exclusion'?", options: ["A suspect refusing to listen to commands.", "A physiological effect of stress where an officer's hearing is diminished or blocked out.", "A tactic to distract a suspect with loud noise.", "A legal term for inadmissible testimony."], answer: "A physiological effect of stress where an officer's hearing is diminished or blocked out.", explanation: "High stress and adrenaline can cause perceptual distortions, including not hearing sounds like gunshots or voices, which is an important factor in post-incident investigations.", reference: "BPOC Force Options Handout, Page 9" },
+            { question: "What does PC 9.34, 'Protection of Life or Health,' justify?", options: ["Force against a person to preserve their own life during a suicide attempt.", "Force against another person to protect a third person's health.", "Any medical procedure without consent.", "Only applies to medical professionals."], answer: "Force against a person to preserve their own life during a suicide attempt.", explanation: "This statute provides a justification for using force, but not deadly force, against a person when reasonably necessary to preserve their life in an emergency, such as preventing a suicide.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.34' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.34</a>" },
+            { question: "The case of *Young v. City of Killeen* is an example of:", options: ["State Created Danger", "Qualified Immunity being granted", "Officer Created Danger", "A justified use of deadly force"], answer: "Officer Created Danger", explanation: "In this case, the officer's poor tactical decisions (dangerous car position, abandoning cover, etc.) were found to have negligently created the situation that led to the use of force.", reference: "BPOC Force Options Handout, Page 13" },
+            { question: "What is a common reason a novice shooter might lose focus on a threat?", options: ["They are distracted by background noise.", "They look away from the threat and down to their sights.", "They close their eyes when they shoot.", "They are focused on their breathing."], answer: "They look away from the threat and down to their sights.", explanation: "Proper training emphasizes bringing the weapon into the line of sight, allowing the shooter to maintain visual focus on the threat's actions.", reference: "BPOC Force Options Handout, Page 2" },
+            { question: "According to the handout, what is the best way for an officer to achieve self-control?", options: ["By always having a backup officer present.", "Through training and practice, which builds confidence.", "By avoiding emotional situations.", "By using force quickly to end a confrontation."], answer: "Through training and practice, which builds confidence.", explanation: "Confidence in one's skills (firearms, defensive tactics, communication) reduces uncertainty and allows an officer to remain in control of their emotions and actions.", reference: "BPOC Force Options Handout, Page 7" },
+            { question: "Which of the following is NOT a force option listed in the 'Weapon Strategies' category?", options: ["Chemical/electrical means", "Verbal commands", "Baton or impact weapon", "Deadly force"], answer: "Verbal commands", explanation: "Verbal commands are a separate and distinct category on the force continuum, used before resorting to weapon strategies.", reference: "BPOC Force Options Handout, Page 10" },
+            { question: "What does the prohibition against '20/20 hindsight' in *Graham v. Connor* mean?", options: ["Officers should not use their vision to aim.", "The reasonableness of force must be judged from the perspective of the officer on the scene at that moment.", "Video evidence cannot be used in court.", "An officer's actions can only be judged by people who were present at the scene."], answer: "The reasonableness of force must be judged from the perspective of the officer on the scene at that moment.", explanation: "This principle prevents judging an officer's split-second decision with the calm, detached analysis available long after the incident is over.", reference: "force pp.pdf, Slide 8" },
+            { question: "Under what circumstances can an educator use force against a student according to PC 9.62?", options: ["For any rule violation.", "Only with parental consent.", "When the educator reasonably believes the force is necessary to maintain discipline.", "Never, educators cannot use force."], answer: "When the educator reasonably believes the force is necessary to maintain discipline.", explanation: "PC 9.62 provides a justification for educators to use force (but not deadly force) when it is necessary for maintaining order and control in a school setting.", reference: "<a href='https://statutes.capitol.texas.gov/Docs/PE/htm/PE.9.htm#9.62' target='_blank' class='text-indigo-600 hover:underline'>Texas Penal Code § 9.62</a>" },
+            { question: "What is the primary difference between a frisk and a search?", options: ["A frisk is more intrusive than a search.", "A frisk is a pat-down of the outer clothing for weapons, while a search is more intrusive.", "A frisk requires a warrant, but a search does not.", "There is no difference; the terms are interchangeable."], answer: "A frisk is a pat-down of the outer clothing for weapons, while a search is more intrusive.", explanation: "A frisk is strictly a limited protective measure to check for weapons for officer safety and is not a full search for evidence.", reference: "BPOC Force Options Handout, Page 3" },
+            { question: "What does the term 'perceptual narrowing' or 'tunnel vision' refer to?", options: ["An officer focusing only on the suspect's hands.", "A physiological response to stress where an officer's field of vision narrows, blocking out peripheral information.", "A tactic where officers approach a suspect from a narrow alley.", "A medical condition requiring corrective lenses."], answer: "A physiological response to stress where an officer's field of vision narrows, blocking out peripheral information.", explanation: "Like auditory exclusion, this is a common effect of high stress that can cause an officer to miss important cues or threats in their peripheral vision.", reference: "BPOC Force Options Handout, Page 9" }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            const shuffledData = [...quizData].sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = new Array(quizData.length); // Ensure userAnswers has correct length
+            
+            showQuestion(shuffledData);
+            updateScoreCounter();
+        }
+
+        function showQuestion(data) {
+            resetState();
+            const currentQuestion = data[currentQuestionIndex];
+            if (!currentQuestion) {
+                 showResults();
+                 return;
+            }
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${data.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'border-gray-300', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option, data));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption, data) {
+            const currentQuestion = data[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            updateScoreCounter();
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+                 child.classList.remove('hover:bg-indigo-100', 'hover:border-indigo-400');
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold text-xs text-gray-600">Reference:</p>
+                    <p class="text-xs text-gray-600 italic">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === data.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            const shuffledData = [...quizData].sort(() => Math.random() - 0.5); // This is inefficient, should shuffle once. Let's fix this.
+            // The quiz data is already shuffled at the start. We just need to increment the index.
+            const data = quizData.sort(() => Math.random() - 0.5); // Re-shuffling every time is not ideal. Let's correct the logic.
+            // Correct approach: Shuffle once at the start, then just iterate.
+            
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                // The data passed to showQuestion needs to be the shuffled array.
+                // Let's refactor to handle the shuffled array correctly.
+                showQuestion(window.shuffledQuizData);
+            } else {
+                showResults();
+            }
+        }
+        
+        // Refactored start function
+        function startQuizRefactored() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            window.originalOrder = [...quizData]; // Store original for review
+            window.shuffledQuizData = [...quizData].sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = new Array(quizData.length);
+            
+            showQuestion(window.shuffledQuizData);
+            updateScoreCounter(true); // Initial score update
+        }
+
+        // Refactored next button handler
+        function handleNextButtonRefactored() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < window.shuffledQuizData.length) {
+                showQuestion(window.shuffledQuizData);
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 90) {
+                scoreMessage.innerText = "Excellent work! You have a superior grasp of the material.";
+            } else if (percentage >= 75) {
+                scoreMessage.innerText = "Good job! You have a solid understanding of the key concepts.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handouts again. Use the review feature below to study your answers.";
+            }
+        }
+        
+        function updateScoreCounter(initial = false) {
+             if (initial) {
+                 scoreCounter.innerText = `Score: 0 / 0`;
+             } else {
+                 scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+             }
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            window.originalOrder.forEach((question, index) => {
+                const answer = userAnswers[index];
+                if (!answer) return; 
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="font-semibold ${!isCorrect ? 'text-red-700' : 'text-gray-800'}">${answer.selected}</span></p>
+                        ${!isCorrect ? `<p><strong>Correct Answer:</strong> <span class="font-semibold text-green-700">${answer.correctAnswer}</span></p>` : ''}
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold text-xs text-gray-600">Reference:</p>
+                                <p class="text-xs text-gray-600 italic">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            resultScreen.classList.add('hidden'); // Hide results when showing review
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuizRefactored);
+        nextBtn.addEventListener('click', handleNextButtonRefactored);
+        restartBtn.addEventListener('click', startQuizRefactored);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
