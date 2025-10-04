@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Study Guide: ALERRT Active Shooter Response</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* Light Slate background */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #e2e8f0; /* Lighter Slate */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+        details[open] > summary::after {
+            transform: rotate(45deg);
+        }
+        details > summary:hover {
+            background-color: #cbd5e1;
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        .tab-button.active {
+            background-color: #2563eb; /* Blue 600 */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .info-block {
+            background-color: #fafafa;
+            border-left: 4px solid #64748b; /* Slate 500 */
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .info-block.definitions { border-left-color: #64748b; } /* Slate */
+        .info-block.procedures { border-left-color: #0ea5e9; } /* Sky */
+        .info-block.concepts { border-left-color: #8b5cf6; } /* Violet */
+        .info-block.safety { border-left-color: #f59e0b; } /* Amber */
+        .info-block p { margin-bottom: 0.5rem; }
+        .info-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
+        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">ALERRT Active Shooter Response</h1>
+            <p class="text-lg text-gray-600 mt-2">A Comprehensive Study Guide for Law Enforcement</p>
+        </header>
+
+        <!-- Main Tab Navigation -->
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-concepts">Core Concepts</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-movement">Approach & Movement</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-room-entry">Room Entry Tactics</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-medical">Medical & Casualty Care</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-checklist">Response Checklist (S.I.M.)</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-threats-ic">Special Threats & IC</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-preparedness">Mental Preparedness</button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">Knowledge Check</button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <main id="tab-content">
+            <!-- Core Concepts Tab -->
+            <div id="tab-concepts" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Core Concepts & Guiding Principles</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Priority of Life Scale & Operational Goals</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p><strong>Revised Priority of Life Scale (Post-Columbine):</strong></p>
+                                <ol class="list-decimal list-inside">
+                                    <li>Innocent Civilians</li>
+                                    <li>Law Enforcement / Responders</li>
+                                    <li>Attackers</li>
+                                </ol>
+                            </div>
+                            <div class="info-block concepts mt-4">
+                                <p><strong>Operational Goals:</strong></p>
+                                <ol class="list-decimal list-inside">
+                                    <li><strong>Stop the Killing:</strong> Isolate, Distract, Neutralize the threat. This is the first priority.</li>
+                                    <li><strong>Stop the Dying:</strong> Stabilize and Transport the wounded. This is the second priority, addressed after the threat is stopped.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Lessons Learned from Major Incidents</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block">
+                                <ul>
+                                    <li><strong>Columbine High School (1999):</strong> Revealed the need for ALL responders to immediately enter and neutralize a threat, leading to the revised Priority of Life scale.</li>
+                                    <li><strong>Virginia Tech (2007):</strong> Highlighted the importance of educating civilians on response strategies (Avoid/Run, Deny/Hide, Defend/Fight).</li>
+                                    <li><strong>Robb Elementary (2022):</strong> Showed that a lack of incident command leads to confusion and inaction. Reinforced the principle: Active killing OR dying (critically injured victims) = PUSH until the threat is neutralized.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Hostage/Barricade vs. Active Shooter</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <p>This is a critical first determination. Ask: <strong>Is there reliable evidence of active killing or dying?</strong></p>
+                                <ul>
+                                    <li><strong>YES:</strong> It is an **Active Shooter** situation. Take immediate action to stop the killing.</li>
+                                    <li><strong>NO:</strong> Treat as a **Hostage/Barricade** situation. Issue an updated LCAN, request SWAT/Negotiators, and make an immediate action plan while waiting.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>5 Team Concepts and Principles</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <ul>
+                                    <li><strong>1. Stay together as much as possible:</strong> Maximizes communication, threat coverage, and firepower. Avoid the urge to divide and conquer.</li>
+                                    <li><strong>2. Maintain 540-degree security:</strong> Continuously scan 360 degrees around, plus high and low angles.</li>
+                                    <li><strong>3. Communicate effectively:</strong> Use plain, short, concise speech. Confirm messages are understood.</li>
+                                    <li><strong>4. Threshold evaluation:</strong> Visually clear areas before entering them to gain information and tactical advantage.</li>
+                                    <li><strong>5. Speed of movement:</strong> Move at the appropriate speed for the circumstances (Exigent vs. Deliberate). Time equals life, but reckless speed leads to casualties.</li>
+                                </ul>
+                            </div>
+                             <div class="info-block procedures mt-4">
+                                <p><strong>ABCs of Cover:</strong> Your protection comes primarily from effective return fire, not hiding.</p>
+                                <ol class="list-decimal list-inside">
+                                    <li><strong>A</strong>ccurate return fire is your best protection.</li>
+                                    <li><strong>B</strong>ody armor is your next level of protection.</li>
+                                    <li><strong>C</strong>over is your final option.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Team Movement & Approach Tab -->
+            <div id="tab-movement" class="tab-pane hidden">
+                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Team Movement & Approach</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Approaching the Attack Site & Cover</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block procedures">
+                                <p><strong>Approach Principles:</strong> Balance speed with security. Plan your route, consider unexpected approaches, and don't block access routes with your vehicle.</p>
+                                <p class="mt-4"><strong>Effective Cover vs. Concealment:</strong></p>
+                                <ul>
+                                    <li><strong>Cover:</strong> Stops bullets (e.g., concrete walls, engine blocks, large trees).</li>
+                                    <li><strong>Concealment:</strong> Hides you but does not stop bullets (e.g., bushes, standard car doors, drywall).</li>
+                                </ul>
+                             </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Movement Under Fire: Bounding Overwatch</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block procedures">
+                                <p>A combat-proven technique for safely moving through an ambush zone.</p>
+                                <ol class="list-decimal list-inside">
+                                    <li>Divide into two teams: an **Overwatch Team** and a **Bounding Team**.</li>
+                                    <li>The **Overwatch Team** provides cover fire and scans for threats.</li>
+                                    <li>The **Bounding Team** sprints from one piece of cover to the next (a "bound").</li>
+                                    <li>Bounds should be short (2-3 seconds).</li>
+                                    <li>Once the Bounding Team is set, they become the Overwatch Team, and the process repeats.</li>
+                                </ol>
+                             </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Hallway Movement Formations</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block definitions">
+                                <p>Formations allow for 540-degree security while moving.</p>
+                                <ul>
+                                    <li><strong>Two-Person Tether:</strong> Point officer moves forward, rear guard covers the back while maintaining light physical contact.</li>
+                                    <li><strong>Three-Person Tether:</strong> Point and a wingman cover front/sides, rear guard covers back.</li>
+                                    <li><strong>Four-Person Diamond:</strong> Point, left cover, right cover, and rear guard. Efficient and flexible for various environments.</li>
+                                </ul>
+                             </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Navigating Stairways</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block procedures">
+                                 <p>Stairways are extremely dangerous 540° threat environments. The key is to move through them quickly and quietly without stopping.</p>
+                                <ul>
+                                    <li>Maintain your hallway formation (Tether or Diamond) while ascending.</li>
+                                    <li>Adjust positions slightly to better cover high and low angles.</li>
+                                    <li>Do not stop on the stairway to plan or discuss. Get off the stairs before the adversary knows you are there.</li>
+                                    <li>If a threat is encountered, engage with overwhelming fire and get off the stairway as quickly as possible.</li>
+                                </ul>
+                             </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Breaching & Entering Locked Buildings</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block procedures">
+                                 <p>Gain access quickly and safely, using only items you carry. Getting inside is what matters, not the specific technique.</p>
+                                 <ul>
+                                     <li><strong>Check Doors First:</strong> Is it actually locked? Check nearby doors.</li>
+                                     <li><strong>Use Keys / KnoxBox:</strong> The quickest and quietest method if a key is immediately available.</li>
+                                     <li><strong>Breaking Windows:</strong> A good option. Use a tool, then clear all glass shards from the frame with a baton or rifle muzzle before entering.</li>
+                                     <li><strong>Kicking/Ramming:</strong> Only effective on inward-opening wooden doors. Steel commercial doors will not break and may cause injury.</li>
+                                     <li><strong>Firearm Breaching:</strong> A last resort for trained personnel only. Can create more hazards than it solves if done improperly.</li>
+                                 </ul>
+                             </div>
+                        </div>
+                    </details>
+                 </div>
+            </div>
+
+            <!-- Room Entry Tactics Tab -->
+            <div id="tab-room-entry" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Room Entry Tactics</h2>
+                <div class="space-y-6">
+                     <details class="card p-0" open>
+                        <summary>Universal Firearm Safety Rules</summary>
+                         <div class="p-6 border-t">
+                            <div class="info-block safety">
+                                <p>These rules are non-negotiable and paramount to preventing accidents.</p>
+                                <ol class="list-decimal list-inside">
+                                    <li>Treat all firearms as if they are loaded.</li>
+                                    <li>Keep your finger off the trigger unless you intend to press it.</li>
+                                    <li>Never point a firearm at anyone unless you are justified.</li>
+                                    <li>Be sure of your target's foreground, backstop, and beyond.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Firearm Positions</summary>
+                         <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <p>Maintaining muzzle discipline and readiness is key.</p>
+                                <ul>
+                                    <li><strong>High Combat-Ready:</strong> Arms extended, pistol pointed at a potential threat, sights just low enough to see hands/waist. Used when assessing a threat.</li>
+                                    <li><strong>Low Combat-Ready:</strong> Arms relaxed, pistol 6-8 inches from sternum with muzzle level. Used when searching or moving with no friendlies in front.</li>
+                                    <li><strong>SUL Position:</strong> Muzzle-down position used whenever other responders are in front of you to prevent flagging.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Triangle of Success & Core Principles</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p>A successful room entry is built on three elements:</p>
+                                <ul>
+                                    <li><strong>Surprise:</strong> The base of the triangle. Enter without broadcasting your intent.</li>
+                                    <li><strong>Speed:</strong> Move quickly through the threshold to your point of domination.</li>
+                                    <li><strong>Decisive Action:</strong> Controlled aggression and clear communication to achieve the objective.</li>
+                                </ul>
+                            </div>
+                             <div class="info-block procedures mt-4">
+                                 <p><strong>Core Principles on Entry:</strong></p>
+                                <ul>
+                                    <li>Go in the opposite direction of the person in front of you.</li>
+                                    <li>Move to your point of domination (POD) and STOP to avoid crossfire.</li>
+                                    <li>Scan your sector of fire and address threats/unknowns with commands.</li>
+                                    <li>Call out danger areas you cannot clear (e.g., open closets, other doors).</li>
+                                    <li>Clearly coordinate with the team before moving from your POD.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Corner-Fed vs. Center-Fed Rooms</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <p><strong>Corner-Fed Room:</strong> A room where there is not enough space for a person to fit between the doorway and the nearest side wall. Most common type.</p>
+                                <p><strong>Center-Fed Room:</strong> A room with enough space for a person to stand on both sides of the doorway. Presents a greater challenge as there are "unknown" walls in two directions.</p>
+                            </div>
+                            <div class="info-block procedures mt-4">
+                                <p><strong>General Entry Flow (Strong Wall Technique):</strong></p>
+                                <ol class="list-decimal list-inside">
+                                    <li>**#1 Officer:** Enters and moves toward a deep corner to clear the hard corner.</li>
+                                    <li>**#2 Officer:** Enters in the opposite direction of #1.</li>
+                                    <li>**#3 & #4 Officers:** Follow the pattern (opposite of the person before) and fill in the gaps, establishing a line and covering their sectors.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Post-Entry & Exiting</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p><strong>Post-Entry Priorities ("Closing Down the Room"):</strong></p>
+                                <ol>
+                                    <li>Address live bodies with commands.</li>
+                                    <li>Identify and communicate danger areas.</li>
+                                    <li>Form a plan to clear danger areas before moving from POD.</li>
+                                    <li>Keep weapons on downed bodies until they are secured.</li>
+                                </ol>
+                                <p class="mt-4"><strong>Exiting a Room:</strong> After clearing a room, you must tactically reclaim the hallway. Use the **"Israeli Lean"** (a coordinated, simultaneous lean out from both sides of the doorway) to regain visual control of the hallway with minimal exposure.</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- Medical & Casualty Care Tab -->
+            <div id="tab-medical" class="tab-pane hidden">
+                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Medical & Casualty Care</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Priorities & Guidelines</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p><strong>Good medicine can be poor tactics.</strong> Threat mitigation (Stop the Killing) ALWAYS takes priority over medical care. Do not stop to provide aid if the active threat is not neutralized.</p>
+                                <p class="mt-2">Initial care is limited to rapid interventions to stabilize for evacuation. Get yourself and the casualty "off the X."</p>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Hemorrhage Control</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Massive extremity bleeding is a leading cause of preventable death. A tourniquet is the primary tool.</p>
+                                <ul>
+                                    <li><strong>"Go High or Die":</strong> Apply the tourniquet as high up on the injured limb as possible, over clothing.</li>
+                                    <li>Tighten the windlass until the bleeding stops completely.</li>
+                                    <li>A properly applied tourniquet should be applied in under 20 seconds.</li>
+                                    <li>Do not remove or loosen a tourniquet once applied.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Airway Management & Assessment</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block procedures">
+                                 <p><strong>Recovery Position:</strong> Used for unconscious or semi-conscious casualties to keep their airway open and allow fluids to drain. Roll them onto their side with their head supported.</p>
+                                 <p class="mt-4"><strong>Rapid Casualty Assessment (Post-Threat):</strong></p>
+                                 <ol class="list-decimal list-inside">
+                                     <li>Visually scan for massive bleeding and apply tourniquets.</li>
+                                     <li>Perform a "Blood Sweep" (raking motion over the body) to find hidden wounds.</li>
+                                     <li>Address airway by placing unconscious casualties in the recovery position.</li>
+                                     <li>Triage to determine evacuation priority (most severe injuries first).</li>
+                                 </ol>
+                             </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Casualty Evacuation</summary>
+                        <div class="p-6 border-t">
+                             <div class="info-block procedures">
+                                 <p><strong>LE Rescue Model:</strong> The focus of ALERRT Level 1. Law enforcement officers provide initial care and transport casualties out of the warm zone to a CCP or cold zone for EMS.</p>
+                                 <p class="mt-4"><strong>Carry Techniques:</strong> Use the simplest method to move a casualty.</p>
+                                 <ul>
+                                     <li><strong>One-Person Drag:</strong> Grab wrist/clothing and pull to cover.</li>
+                                     <li><strong>One-Person Carry:</strong> Lift from behind, under armpits, grabbing opposite wrists.</li>
+                                     <li><strong>Two-Person Assist:</strong> For conscious casualties. Drape arms over responders' shoulders.</li>
+                                     <li><strong>Two-Person Carry:</strong> For unconscious casualties. One lifts upper body, one lifts legs.</li>
+                                 </ul>
+                             </div>
+                        </div>
+                    </details>
+                 </div>
+            </div>
+
+            <!-- Response Checklist (S.I.M.) Tab -->
+            <div id="tab-checklist" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Response Checklist (S.I.M. Acronym)</h2>
+                <p class="text-gray-600 mb-6">Use this checklist of priorities immediately after all known threats have been neutralized to transition from "Stop the Killing" to "Stop the Dying."</p>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>S - Security</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Establish a secure area for treating the wounded.</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li><strong>Cover the Attacker(s):</strong> Assign an officer to focus on each downed attacker.</li>
+                                    <li><strong>Consolidate & Vet Unknowns:</strong> Move all uninjured individuals to one area, hands visible, to free up responders.</li>
+                                    <li><strong>Handcuff the Attacker:</strong> Use a contact/cover officer approach.</li>
+                                    <li><strong>Cover the Entrance:</strong> Assign an officer to the doorway to mark the room, communicate externally, and ensure a safe linkup with follow-on teams.</li>
+                                    <li><strong>Establish CCP:</strong> Designate a Casualty Collection Point and plan a secure corridor for evacuation.</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>I - Incident Command</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Address critical command tasks while others perform medical aid. The doorway officer is often best positioned for this.</p>
+                                 <ol class="list-decimal list-inside space-y-2">
+                                     <li><strong>Update LCAN:</strong> Provide dispatch with the new situation status.
+                                        <ul>
+                                            <li>"Command, Unit 107. Threat is down. We are in the library with multiple victims. Suspect is in custody."</li>
+                                        </ul>
+                                     </li>
+                                     <li><strong>Request Resources:</strong> Clearly state needs (e.g., "Need EMS to a staging area at the north parking lot," "Need additional teams for evacuation").</li>
+                                     <li><strong>Manage Incoming Responders:</strong> Direct follow-on teams to assist with security, medical, or creating the secure evacuation corridor. Prevent self-deployment.</li>
+                                 </ol>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>M - Medical</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p>Begin medical interventions simultaneously with IC tasks once initial security is set.</p>
+                                 <ol class="list-decimal list-inside space-y-2">
+                                     <li><strong>Triage:</strong> Quickly identify casualties with the most severe, life-threatening injuries (e.g., massive bleeding, airway issues). They are the priority for evacuation.</li>
+                                     <li><strong>Treat:</strong> Perform rapid interventions.
+                                        <ul>
+                                            <li>Apply tourniquets for massive extremity bleeding.</li>
+                                            <li>Perform blood sweeps to find other major wounds.</li>
+                                            <li>Place unconscious casualties in the recovery position to protect their airway.</li>
+                                        </ul>
+                                     </li>
+                                     <li><strong>Transport:</strong> Begin moving the most critical casualties through the secure corridor to the extraction point/CCP for handoff to EMS.</li>
+                                 </ol>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <!-- Special Threats & IC Tab -->
+            <div id="tab-threats-ic" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Special Threats & Incident Command</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Responding to IEDs</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p><strong>Four Rules for Stationary IEDs:</strong></p>
+                                <ol class="list-decimal list-inside">
+                                    <li><strong>Don't touch the bomb or bomber.</strong> Assume they are live and can be triggered remotely or by movement.</li>
+                                    <li><strong>Create distance and angles.</strong> Blast waves and shrapnel are deadliest in a straight line. Get behind a corner.</li>
+                                    <li><strong>Mark and communicate</strong> the IED's location to Command and other teams.</li>
+                                    <li><strong>Find an alternate route.</strong> Do not attempt to bypass an IED unless there is absolutely no other option and active killing is occurring.</li>
+                                </ol>
+                                <p class="mt-4">For hand-deployed devices, yell <strong>"BOMB COVER"</strong> (move back) or <strong>"BOMB GO"</strong> (move forward past it) and get into a secure room before detonation.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Incident Command System (ICS)</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p><strong>The "Blue Tsunami":</strong> The uncontrolled wave of responding officers that can swamp a scene and hinder response if not managed.</p>
+                                <p class="mt-2">ICS is the tool to manage this chaos. It must be established early.</p>
+                            </div>
+                             <div class="info-block procedures mt-4">
+                                <p><strong>First Officer on Scene Responsibilities:</strong></p>
+                                <ol class="list-decimal list-inside">
+                                    <li>Assume command via radio ("Unit 107 will have COMMAND").</li>
+                                    <li>Give an **LCAN** report:
+                                        <ul>
+                                            <li><strong>L</strong>ocation: "Van Buren Elementary School."</li>
+                                            <li><strong>C</strong>onditions: "Children running out, teacher reports shooter in library."</li>
+                                            <li><strong>A</strong>ctions: "I am making entry through the front door."</li>
+                                            <li><strong>N</strong>eeds: "I need follow-on officers to link up with me."</li>
+                                        </ul>
+                                    </li>
+                                     <li>Move to stop the killing.</li>
+                                </ol>
+                                <p class="mt-2">Command should be transferred to an exterior, less-involved officer as soon as feasible to manage the overall scene.</p>
+                             </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Mental Preparedness Tab -->
+            <div id="tab-preparedness" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Mental Preparedness & Stress Effects</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>The Brain Under Stress: X-System vs. C-System</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block concepts">
+                                <p>Understanding your brain's reaction to stress is key to performance.</p>
+                                <ul>
+                                    <li><strong>C-System (RefleCtive):</strong> Your rational, human brain. It's flexible, allows for planning and learning, but is SLOW and takes effort. It shuts down under high stress.</li>
+                                    <li><strong>X-System (RefleXive):</strong> Your primitive, reptile brain. It's FAST and effortless, responding automatically with pre-programmed actions (Fight, Flight, Freeze). It takes over in a crisis.</li>
+                                </ul>
+                                <p class="mt-2"><strong>Goal of Training:</strong> To program the correct tactical skills into the X-System so they can be performed automatically and correctly under stress when the C-System is offline.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Common Sensory Side Effects of Stress</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block definitions">
+                                <p>These are normal X-System responses designed to focus you on a threat.</p>
+                                <ul>
+                                    <li><strong>Tunnel Vision:</strong> Your field of focus narrows to only the immediate threat. You must consciously force yourself to scan.</li>
+                                    <li><strong>Auditory Exclusion:</strong> You may stop hearing what is happening around you, including commands from teammates.</li>
+                                    <li><strong>Time Dilation:</strong> Events may seem to happen in slow motion or speed up.</li>
+                                    <li><strong>Reduced Motor Skills:</strong> Fine motor skills (like intricate reloading) degrade. Gross motor skills (like running and pointing) are enhanced.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Managing Stress & The OODA Loop</summary>
+                        <div class="p-6 border-t">
+                            <div class="info-block procedures">
+                                <p><strong>Keeping the C-System Online:</strong></p>
+                                <ul>
+                                   <li><strong>Combat Breathing:</strong> A controlled breathing pattern (e.g., in for 3, hold for 2, out for 3) can lower heart rate and help regain composure.</li>
+                                   <li><strong>Habituation:</strong> Realistic training makes real events less stressful because your brain has been exposed to similar stimuli.</li>
+                                   <li><strong>Take Action:</strong> Acting, even in a small way, prevents the feeling of helplessness and reduces stress. Freezing is always the wrong response.</li>
+                                </ul>
+                                <p class="mt-4"><strong>The OODA Loop (Observe, Orient, Decide, Act):</strong> In a gunfight, you must cycle through this decision-making process faster than your opponent. Training skills into your X-System makes your loop faster because you don't have to "decide" anymore—you just act.</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Quiz Tab -->
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check Quiz</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-blue-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-blue-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "What are the two primary, sequential operational goals in an active shooter response?",
+            options: ["Secure the Perimeter, Wait for SWAT", "Stop the Killing, Stop the Dying", "Evacuate Civilians, Arrest the Suspect", "Gather Intel, Establish Command"],
+            answer: "Stop the Killing, Stop the Dying",
+            explanation: "<strong>Reference: Core Concepts.</strong> The first priority is always to neutralize the threat (Stop the Killing). Only after the threat is contained should focus shift to medical aid (Stop the Dying)."
+        },
+        {
+            question: "What does the 'S' in the S.I.M. acronym stand for?",
+            options: ["Staging", "Security", "Suspect", "SWAT"],
+            answer: "Security",
+            explanation: "<strong>Reference: Response Checklist (S.I.M.).</strong> S.I.M. stands for Security, Incident Command, Medical, and it is the priority checklist after a threat is neutralized."
+        },
+        {
+            question: "Under high stress, your brain defaults to the fast, automatic ________, which overrides the slower, rational ________.",
+            options: ["C-System, X-System", "Frontal Lobe, Brain Stem", "X-System, C-System", "OODA Loop, S.I.M. System"],
+            answer: "X-System, C-System",
+            explanation: "<strong>Reference: Mental Preparedness.</strong> The reflexive X-System takes over from the reflective C-System during a crisis. The goal of training is to program the X-System with correct responses."
+        },
+        {
+            question: "When moving through an ambush zone, what is the recommended team tactic?",
+            options: ["Bounding Overwatch", "Single-File Sprint", "Dynamic Entry", "Wedge Formation"],
+            answer: "Bounding Overwatch",
+            explanation: "<strong>Reference: Approach & Movement.</strong> Bounding Overwatch, where one team provides cover fire while the other team moves between points of cover, is the safest and most effective technique."
+        },
+        {
+            question: "What does the 'A' in the LCAN acronym stand for?",
+            options: ["Arrival", "Actions", "Area", "Assets"],
+            answer: "Actions",
+            explanation: "<strong>Reference: Special Threats & IC.</strong> LCAN stands for Location, Conditions, Actions, and Needs. It is the standard format for an initial on-scene report."
+        },
+        {
+            question: "What is the correct procedure when applying a tourniquet for massive extremity hemorrhage?",
+            options: ["Place it 2 inches below the wound", "Apply it loosely over a joint", "Place it as high on the limb as possible", "Remove it after 10 minutes to restore blood flow"],
+            answer: "Place it as high on the limb as possible",
+            explanation: "<strong>Reference: Medical & Casualty Care.</strong> The principle is 'Go High or Die.' The tourniquet should be placed high on the limb to ensure the artery is compressed against a single bone, and it should never be removed in the field."
+        },
+        {
+            question: "What is the SUL position primarily used for?",
+            options: ["Engaging targets at long range", "Searching a room by yourself", "Moving quickly down a hallway", "Preventing flagging teammates when they are in front of you"],
+            answer: "Preventing flagging teammates when they are in front of you",
+            explanation: "<strong>Reference: Room Entry Tactics.</strong> The SUL is a muzzle-down safety position used to avoid pointing your weapon at a fellow officer."
+        },
+        {
+            question: "The phenomenon where you might not hear your partner's commands during a gunfight is called:",
+            options: ["Tunnel Vision", "Time Dilation", "Auditory Exclusion", "The X-System"],
+            answer: "Auditory Exclusion",
+            explanation: "<strong>Reference: Mental Preparedness.</strong> Auditory Exclusion is a common sensory side effect of extreme stress where your hearing becomes impaired."
+        },
+        {
+            question: "What is the first step in the S.I.M. checklist under 'Security'?",
+            options: ["Handcuff the attacker", "Cover the entrance", "Cover the Attacker(s)", "Establish a CCP"],
+            answer: "Cover the Attacker(s)",
+            explanation: "<strong>Reference: Response Checklist (S.I.M.).</strong> The very first security task is to assign an officer to watch each downed attacker in case they are not fully neutralized."
+        },
+        {
+            question: "A room where a person cannot fit between the doorway and the nearest side wall is called a:",
+            options: ["Center-Fed Room", "Fatal Funnel", "Corner-Fed Room", "Dynamic Room"],
+            answer: "Corner-Fed Room",
+            explanation: "<strong>Reference: Room Entry Tactics.</strong> This is the definition of a corner-fed room, which is the most common type encountered."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#16a34a';
+            else if (percentage >= 50) quizScoreEl.style.color = '#f59e0b';
+            else quizScoreEl.style.color = '#dc2626';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+});
+</script>
+
+</body>
+</html>
+

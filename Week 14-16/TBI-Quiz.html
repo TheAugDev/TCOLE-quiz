@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traumatic Brain Injury Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Traumatic Brain Injury Quiz (Final Boss Version)</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 68 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "An Acquired Brain Injury (ABI) is an injury that occurs after birth and is NOT related to what?",
+                options: ["A car accident", "A congenital or a degenerative disease", "A fall", "A sports injury"],
+                answer: "A congenital or a degenerative disease",
+                explanation: "This is a key part of the definition of an ABI. It distinguishes brain injuries acquired during life from those present at birth or caused by progressive diseases.",
+                reference: "Handout Page 1: 30.2. Describe an Acquired Brain Injury (ABI)."
+            },
+            {
+                question: "A Traumatic Brain Injury (TBI) is a type of ABI caused by an external force. Which of the following is an example of a TBI?",
+                options: ["Stroke", "A blow to the head", "Brain tumor", "Meningitis"],
+                answer: "A blow to the head",
+                explanation: "TBI is specifically defined as being caused by an external event like a blow to the head or a penetrating injury. The other options are causes of non-traumatic brain injuries.",
+                reference: "Handout Page 1: 30.3. Describe a Traumatic Brain Injury (TBI)."
+            },
+            {
+                question: "A brain injury caused by an internal event, such as a stroke or an infection, is known as a:",
+                options: ["Traumatic Brain Injury (TBI)", "Concussion", "Non-Traumatic Brain Injury", "Open-head injury"],
+                answer: "Non-Traumatic Brain Injury",
+                explanation: "Non-traumatic brain injuries disrupt brain function due to internal causes, as opposed to the external forces that cause TBIs.",
+                reference: "Handout Page 1: 30.4. Describe a Non-Traumatic Brain Injury."
+            },
+            {
+                question: "Which of the following is a cause of a Non-Traumatic Brain Injury?",
+                options: ["Falls", "Motor vehicle crash", "Stroke", "Violence"],
+                answer: "Stroke",
+                explanation: "A stroke is an internal event (a blockage or bleed in the brain) that disrupts normal function, fitting the definition of a non-traumatic brain injury. The others are causes of TBI.",
+                reference: "Handout Page 1: 30.5. Compare traumatic and non-traumatic brain injuries."
+            },
+            {
+                question: "How many people sustain a traumatic brain injury in the United States each year?",
+                options: ["About 500,000", "Over 1 million", "Over 2.2 million", "Over 5 million"],
+                answer: "Over 2.2 million",
+                explanation: "This statistic highlights the prevalence of TBI as a major public health issue in the U.S.",
+                reference: "Handout Page 2: 30.6. Appraise the prevalence of brain injuries."
+            },
+            {
+                question: "What is the leading cause of TBI in the U.S., accounting for 40% of injuries?",
+                options: ["Motor vehicle crashes", "Assaults", "Struck by/against something", "Falls"],
+                answer: "Falls",
+                explanation: "Falls are the single most common cause of traumatic brain injuries across all age groups.",
+                reference: "Handout Page 2-3: 30.8. Leading Causes of TBI in the U.S."
+            },
+            {
+                question: "Which cause of brain injury results from a lack of oxygen to the brain, such as in a near-drowning or strangulation incident?",
+                options: ["Aneurysm", "Infection", "Anoxia/Hypoxia", "Exposure to Toxins"],
+                answer: "Anoxia/Hypoxia",
+                explanation: "Anoxia (no oxygen) and hypoxia (too little oxygen) cause brain cells to die, resulting in a non-traumatic brain injury.",
+                reference: "Handout Page 3: 30.9. Examine the assorted causes of non-traumatic brain injury."
+            },
+            {
+                question: "Which two age groups are most likely to have a TBI-related ED visit or hospitalization?",
+                options: ["Children 5-9 and Adults 30-35", "Children 0-4 and Adolescents 16-19", "Adults 20-25 and Elderly 65-70", "Adolescents 12-15 and Adults 40-50"],
+                answer: "Children 0-4 and Adolescents 16-19",
+                explanation: "These two groups are at the highest risk due to factors like falls in young children and risk-taking behaviors (like in driving and sports) in older teens.",
+                reference: "Handout Page 3: 30.10. Differentiate populations with brain injury risk."
+            },
+            {
+                question: "What is the estimated prevalence of TBI in the imprisoned population?",
+                options: ["10.5%", "25.1%", "40.2%", "60.3%"],
+                answer: "60.3%",
+                explanation: "This extremely high prevalence suggests a significant link between brain injury and involvement in the criminal justice system.",
+                reference: "Handout Page 3: 30.10. Differentiate populations with brain injury risk."
+            },
+            {
+                question: "Advocates estimate that what percentage of Iraq veterans and service members have some level of brain injury?",
+                options: ["1-5%", "5-10%", "10-20%", "Over 30%"],
+                answer: "10-20%",
+                explanation: "Due to exposure to blast injuries and other combat-related trauma, veterans are a high-risk population for TBI.",
+                reference: "Handout Page 3: 30.10. Differentiate populations with brain injury risk."
+            },
+            {
+                question: "Which historical figure is noted for sustaining a TBI when an iron rod penetrated his skull, making him the first recorded neurological patient?",
+                options: ["Abraham Lincoln", "Harriet Tubman", "Phineas Gage", "Charles Dickens"],
+                answer: "Phineas Gage",
+                explanation: "Phineas Gage's case is famous in neuroscience for demonstrating the link between specific parts of the brain (the frontal lobe) and personality/behavior.",
+                reference: "Handout Page 4: 30.12. Discuss examples of historical persons who suffered with brain injury."
+            },
+            {
+                question: "Which factor is used to determine the severity of a brain injury?",
+                options: ["Duration of loss of consciousness", "Duration of memory loss", "Duration of confusion/disorientation", "All of the above"],
+                answer: "All of the above",
+                explanation: "Doctors assess severity based on these four key factors: confusion/disorientation, loss of consciousness, memory loss, and imaging results.",
+                reference: "Handout Page 5: 30.13. Classify brain injury types with the accompanied severity factor."
+            },
+            {
+                question: "A person who experiences a loss of consciousness for 0-30 minutes and memory loss for less than 24 hours would be classified as having what severity of TBI?",
+                options: ["Mild", "Moderate", "Severe", "Not a TBI"],
+                answer: "Mild",
+                explanation: "These timeframes for loss of consciousness and memory loss are the clinical criteria for a mild TBI.",
+                reference: "Handout Page 5: Chart on TBI Severity"
+            },
+            {
+                question: "Why can a 'mild' brain injury be deceptive?",
+                options: ["The person may look 'normal' and feel 'fine'.", "It is often unrecognized and undiagnosed.", "Multiple 'mild' injuries can have severe consequences.", "All of the above."],
+                answer: "All of the above.",
+                explanation: "The term 'mild' refers to the initial presentation, not the long-term consequences. A person can have significant and lasting problems even from an injury classified as mild.",
+                reference: "Handout Page 6: 30.14. Recognize the significance of a 'mild' brain injury."
+            },
+            {
+                question: "Which lobe of the brain is primarily responsible for functions like attention, decision making, social behavior, and impulse control?",
+                options: ["Parietal lobe", "Occipital lobe", "Temporal lobe", "Frontal lobe"],
+                answer: "Frontal lobe",
+                explanation: "The frontal lobe is the brain's executive control center, governing our personality, judgment, and higher-level thinking.",
+                reference: "Handout Page 6: The lobes and functions of the brain chart."
+            },
+            {
+                question: "Which part of the brain is responsible for balance and coordination?",
+                options: ["Cerebellum", "Brain stem", "Temporal lobe", "Parietal lobe"],
+                answer: "Cerebellum",
+                explanation: "The cerebellum, located at the back of the brain, is crucial for coordinating voluntary movements, posture, balance, and speech.",
+                reference: "Handout Page 6: The lobes and functions of the brain chart."
+            },
+            {
+                question: "Which part of the brain controls basic life functions like breathing, heart rate, and temperature?",
+                options: ["Frontal lobe", "Occipital lobe", "Brain stem", "Cerebellum"],
+                answer: "Brain stem",
+                explanation: "The brain stem connects the brain to the spinal cord and manages essential autonomic functions necessary for survival.",
+                reference: "Handout Page 6: The lobes and functions of the brain chart."
+            },
+            {
+                question: "Difficulty with memory, lack of concentration, and reckless decision-making are what category of change after a brain injury?",
+                options: ["Physical Changes", "Emotional/Behavioral Changes", "Cognitive Changes", "Social Changes"],
+                answer: "Cognitive Changes",
+                explanation: "Cognition refers to the mental processes of thinking, learning, remembering, and judging. These are all examples of cognitive deficits.",
+                reference: "Handout Page 7: Cognitive Changes"
+            },
+            {
+                question: "Irritability, aggression, mood swings, and inappropriate social behavior are what category of change after a brain injury?",
+                options: ["Physical Changes", "Emotional/Behavioral Changes", "Cognitive Changes", "Sensory Changes"],
+                answer: "Emotional/Behavioral Changes",
+                explanation: "Brain injuries, especially to the frontal lobe, can disrupt a person's ability to regulate emotions and control behavior.",
+                reference: "Handout Page 7: Emotional/Behavioral Changes"
+            },
+            {
+                question: "Poor balance, impaired fine motor skills, and slurred speech are what category of change after a brain injury?",
+                options: ["Physical Changes", "Emotional/Behavioral Changes", "Cognitive Changes", "Psychological Changes"],
+                answer: "Physical Changes",
+                explanation: "These symptoms result from damage to the parts of the brain that control movement and coordination, such as the cerebellum and motor cortex.",
+                reference: "Handout Page 8: Physical Changes"
+            },
+            {
+                question: "The term for having two or more simultaneously present chronic diseases or conditions is:",
+                options: ["Multitasking", "Comorbidities", "Synergies", "Co-factors"],
+                answer: "Comorbidities",
+                explanation: "This medical term is used to describe the co-occurrence of multiple conditions. After a brain injury, common comorbidities include depression and substance use.",
+                reference: "Handout Page 9: Comorbidities"
+            },
+            {
+                question: "The recovery process for a brain injury is best described as:",
+                options: ["A quick process that ends with a full return to normal.", "An ongoing, lifelong process of coping with a chronic condition.", "A process that only lasts for a few months.", "A process that is the same for everyone."],
+                answer: "An ongoing, lifelong process of coping with a chronic condition.",
+                explanation: "Unlike a broken bone that heals, a brain injury is more like a chronic condition that must be managed for the rest of the person's life.",
+                reference: "Handout Page 9: 30.17. Discuss the differences in the brain injury recovery process."
+            },
+            {
+                question: "The evidence-based approach to preventing abusive head trauma by educating caregivers about infant crying patterns is called:",
+                options: ["The Period of PURPLE Crying", "Heads Up", "Natasha's Law", "A Matter of Balance"],
+                answer: "The Period of PURPLE Crying",
+                explanation: "PURPLE is an acronym (Peak of crying, Unexpected, Resists soothing, Pain-like face, Long lasting, Evening) that helps parents understand that this period of intense crying is normal and will pass.",
+                reference: "Handout Page 11: Preventing Abusive Head Trauma"
+            },
+            {
+                question: "What does the 'P' in the PURPLE crying acronym stand for?",
+                options: ["Persistent", "Painful", "Peak of Crying", "Protracted"],
+                answer: "Peak of Crying",
+                explanation: "This refers to the fact that a baby's crying may increase each week, peaking in the second month, and then lessening by months 3-5.",
+                reference: "Handout Page 11: The Letters in PURPLE Stand for"
+            },
+            {
+                question: "In Texas, what law mandates that coaches and trainers for UIL athletic activities be trained on how to manage a concussion?",
+                options: ["The ADA", "Natasha's Law", "The SAFE Act", "The Brain Injury Act"],
+                answer: "Natasha's Law",
+                explanation: "This law, found in the Texas Education Code, was enacted to protect student athletes by ensuring proper recognition and management of concussions, including removal from play and a return-to-play protocol.",
+                reference: "Handout Page 11: Natasha's Law"
+            },
+            {
+                question: "What is a recommended strategy for preventing brain injuries in older adults?",
+                options: ["Avoiding all physical activity", "Removing tripping hazards like throw rugs and clutter", "Keeping the home dimly lit", "Moving to a single-story home"],
+                answer: "Removing tripping hazards like throw rugs and clutter",
+                explanation: "Since falls are the leading cause of TBI in older adults, simple environmental modifications like removing hazards can significantly reduce the risk.",
+                reference: "Handout Page 11: 30.20. Inventory brain injury prevention strategies in older adults."
+            },
+            {
+                question: "If someone is experiencing confusion, loss of consciousness, severe headache, or nausea after their head has been hit, what should you do?",
+                options: ["Tell them to walk it off.", "Give them some aspirin.", "Encourage them to go to the emergency room immediately.", "Let them go to sleep."],
+                answer: "Encourage them to go to the emergency room immediately.",
+                explanation: "These are all signs of a potentially serious brain injury that requires immediate medical evaluation.",
+                reference: "Handout Page 13: 30.23. Identify the signs and symptoms of a brain injury."
+            },
+            {
+                question: "What does the 'F' in the FAST acronym for stroke stand for?",
+                options: ["Fatigue", "Face drooping", "Fast breathing", "Feeling dizzy"],
+                answer: "Face drooping",
+                explanation: "FAST stands for Face drooping, Arm weakness, Speech difficulty, Time to call 911. Facial drooping is a key sign of a stroke.",
+                reference: "Handout Page 14: Signs and symptoms of a stroke"
+            },
+            {
+                question: "What does the 'T' in the FAST acronym for stroke stand for?",
+                options: ["Tingling", "Trouble seeing", "Time to call 9-1-1", "Take them to the hospital"],
+                answer: "Time to call 9-1-1",
+                explanation: "The 'T' emphasizes the urgency of a stroke. Time is critical for treatment, so calling 911 immediately is the most important step.",
+                reference: "Handout Page 14: Signs and symptoms of a stroke"
+            },
+            {
+                question: "When communicating with a person who may have a brain injury, what should you AVOID doing?",
+                options: ["Being patient and respectful", "Speaking slowly and simply", "Arguing, challenging, or shaming them", "Showing empathy"],
+                answer: "Arguing, challenging, or shaming them",
+                explanation: "These negative actions can increase stress and anxiety, which can worsen the person's symptoms and escalate the situation.",
+                reference: "Handout Page 16: Do not:"
+            },
+            {
+                question: "Which of the following is an effective communication technique to use with a brain injury survivor?",
+                options: ["Speak loudly and quickly.", "Give multiple instructions at once.", "Reduce distractions and speak slowly.", "Finish their sentences for them."],
+                answer: "Reduce distractions and speak slowly.",
+                explanation: "Creating a calm environment and simplifying communication helps the person process information more effectively.",
+                reference: "Handout Page 16: Accommodating and Collaborating"
+            },
+            {
+                question: "The emergency contact card for brain injury survivors lists common symptoms and asks the reader to do what?",
+                options: ["Communicate in a calm, non-confrontational manner.", "Immediately restrain the person.", "Administer medication.", "Take them to the nearest police station."],
+                answer: "Communicate in a calm, non-confrontational manner.",
+                explanation: "The card is designed to de-escalate potential encounters by informing first responders of the person's condition and suggesting the most effective communication strategy.",
+                reference: "Handout Page 17: Emergency Contact Card"
+            },
+            {
+                question: "A brain injury that occurs when the skull stays intact is known as a:",
+                options: ["Penetrating injury", "Open-head injury", "Closed-head injury", "Laceration"],
+                answer: "Closed-head injury",
+                explanation: "A closed-head injury involves trauma where the skull is not broken, such as from a fall or a car crash where the head strikes an object.",
+                reference: "Handout Page 1: 30.3. Describe a Traumatic Brain Injury (TBI)."
+            },
+            {
+                question: "In Texas, approximately how many traumatic brain injuries occur each year?",
+                options: ["50,000", "100,000", "Over 144,000", "Over 250,000"],
+                answer: "Over 144,000",
+                explanation: "This statistic demonstrates the significant impact of TBI specifically within the state of Texas.",
+                reference: "Handout Page 2: 30.6. Appraise the prevalence of brain injuries."
+            },
+            {
+                question: "Which is the second leading cause of TBI in the U.S. at 16%?",
+                options: ["Falls", "Motor vehicle crashes", "Assaults", "Struck by/against something"],
+                answer: "Struck by/against something",
+                explanation: "This category includes a wide range of injuries, from being hit by a falling object to colliding with something during an activity.",
+                reference: "Handout Page 2: 30.8. Leading Causes of TBI"
+            },
+            {
+                question: "An aneurysm is a cause of what type of brain injury?",
+                options: ["Traumatic Brain Injury", "Non-Traumatic Brain Injury", "Concussion", "Abusive Head Trauma"],
+                answer: "Non-Traumatic Brain Injury",
+                explanation: "An aneurysm is a weakening of a blood vessel wall inside the brain. Its rupture is an internal event, classifying it as a non-traumatic brain injury.",
+                reference: "Handout Page 1 & 3: Compare traumatic and non-traumatic brain injuries."
+            },
+            {
+                question: "The prevalence of TBI in domestic violence survivors is estimated to be over:",
+                options: ["15%", "25%", "35%", "50%"],
+                answer: "35%",
+                explanation: "This high percentage highlights domestic violence survivors as a significant high-risk population for traumatic brain injuries, often from repeated blows to the head.",
+                reference: "Handout Page 3: 30.10. Differentiate populations with brain injury risk."
+            },
+            {
+                question: "Which US President is mentioned in the handout as having sustained a TBI as a child when a mule kicked him in the head?",
+                options: ["George Washington", "Theodore Roosevelt", "Abraham Lincoln", "Dwight D. Eisenhower"],
+                answer: "Abraham Lincoln",
+                explanation: "The handout notes this historical event and the subsequent depression Lincoln suffered throughout his life, which may have been linked to the injury.",
+                reference: "Handout Page 4: 30.12. Discuss examples of historical persons who suffered with brain injury."
+            },
+            {
+                question: "A person with a 'Moderate TBI' experiences memory loss (post-traumatic amnesia) for how long?",
+                options: ["Less than 24 hours", "More than 24 hours but less than 7 days", "More than 7 days", "Less than 1 hour"],
+                answer: "More than 24 hours but less than 7 days",
+                explanation: "This specific duration of memory loss is a key criterion used to classify the severity of a TBI as moderate.",
+                reference: "Handout Page 5: Chart on TBI Severity"
+            },
+            {
+                question: "A person with a 'Severe TBI' experiences a loss of consciousness for how long?",
+                options: ["0-30 minutes", "More than 30 minutes but less than 24 hours", "More than 24 hours", "It does not involve loss of consciousness"],
+                answer: "More than 24 hours",
+                explanation: "A loss of consciousness lasting longer than a full day is a clinical indicator of a severe traumatic brain injury.",
+                reference: "Handout Page 5: Chart on TBI Severity"
+            },
+            {
+                question: "Which lobe of the brain is primarily responsible for visual processing?",
+                options: ["Frontal lobe", "Parietal lobe", "Temporal lobe", "Occipital lobe"],
+                answer: "Occipital lobe",
+                explanation: "Located at the back of the head, the occipital lobe is the brain's main center for processing information from the eyes.",
+                reference: "Handout Page 6: The lobes and functions of the brain chart."
+            },
+            {
+                question: "Which lobe of the brain processes information about language and touch?",
+                options: ["Frontal lobe", "Parietal lobe", "Temporal lobe", "Occipital lobe"],
+                answer: "Parietal lobe",
+                explanation: "The parietal lobe integrates sensory information, including touch, temperature, pressure, and pain, and is also involved in language comprehension.",
+                reference: "Handout Page 6: The lobes and functions of the brain chart."
+            },
+            {
+                question: "Hearing, learning, and emotions are primarily associated with which lobe of the brain?",
+                options: ["Frontal lobe", "Parietal lobe", "Temporal lobe", "Occipital lobe"],
+                answer: "Temporal lobe",
+                explanation: "The temporal lobes, located on the sides of the head, are responsible for processing auditory information and are also heavily involved in memory, learning, and emotional responses.",
+                reference: "Handout Page 6: The lobes and functions of the brain chart."
+            },
+            {
+                question: "A person with a brain injury who struggles to find the right word to say is experiencing what type of change?",
+                options: ["Physical", "Emotional", "Cognitive", "Behavioral"],
+                answer: "Cognitive",
+                explanation: "This difficulty, known as aphasia, is a cognitive change related to the brain's language centers.",
+                reference: "Handout Page 7: Cognitive Changes"
+            },
+            {
+                question: "Inappropriate sexual behavior or laughing/crying can be what type of change after a brain injury?",
+                options: ["Physical", "Emotional/Behavioral", "Cognitive", "Sensory"],
+                answer: "Emotional/Behavioral",
+                explanation: "These behaviors are often due to disinhibition and difficulty with emotional regulation, which are common emotional/behavioral changes following a TBI, especially to the frontal lobe.",
+                reference: "Handout Page 7-8: Emotional/Behavioral Changes"
+            },
+            {
+                question: "Auditory agnosia, the inability to recognize the meaning of sounds, is what type of change after a brain injury?",
+                options: ["Physical", "Emotional/Behavioral", "Cognitive", "Social"],
+                answer: "Physical",
+                explanation: "While it affects comprehension, it is listed under Physical Changes in the handout as it relates to an impairment of the hearing sense itself.",
+                reference: "Handout Page 8: Physical Changes"
+            },
+            {
+                question: "Which of the following is listed as a common comorbidity with brain injury?",
+                options: ["Cancer", "Diabetes", "Substance use/abuse", "Asthma"],
+                answer: "Substance use/abuse",
+                explanation: "Individuals may turn to substances to cope with the physical or emotional pain of their injury, or the injury itself may impair judgment, leading to increased substance use.",
+                reference: "Handout Page 9: Comorbidities"
+            },
+            {
+                question: "Recovery from a brain injury is more accurately thought of as:",
+                options: ["The healing of a broken bone", "A quick process", "A chronic condition", "A predictable process"],
+                answer: "A chronic condition",
+                explanation: "Unlike an injury that heals completely, a brain injury often results in permanent changes that require lifelong management and adaptation.",
+                reference: "Handout Page 9: 30.17. Discuss the differences in the brain injury recovery process."
+            },
+            {
+                question: "When interacting with the public on calls like domestic violence, falls, or DWIs, an officer has an impact on the person's:",
+                options: ["Physical health", "Mental health", "Social well-being", "All of the above"],
+                answer: "All of the above",
+                explanation: "A first responder's actions can directly affect a person's physical safety, influence their mental and emotional state, and impact their connection to social support systems.",
+                reference: "Handout Page 10: 30.18. List the various health issues..."
+            },
+            {
+                question: "What is a key strategy for preventing brain injuries in children in the home?",
+                options: ["Keeping the floors cluttered", "Using safety gates at the top and bottom of stairs", "Removing non-slip mats from the tub", "Leaving children unattended near water"],
+                answer: "Using safety gates at the top and bottom of stairs",
+                explanation: "Since falls are a leading cause of TBI in young children, physical barriers like safety gates are a critical prevention measure.",
+                reference: "Handout Page 11: Preventing brain injury in children"
+            },
+            {
+                question: "What does the 'U' in the PURPLE crying acronym stand for?",
+                options: ["Unusual", "Unceasing", "Unexpected", "Unbearable"],
+                answer: "Unexpected",
+                explanation: "This refers to the fact that the crying can come and go for no apparent reason, which can be frustrating for caregivers.",
+                reference: "Handout Page 11: The Letters in PURPLE Stand for"
+            },
+            {
+                question: "What does the 'R' in the PURPLE crying acronym stand for?",
+                options: ["Resists Soothing", "Repetitive", "Regular", "Rapid"],
+                answer: "Resists Soothing",
+                explanation: "This highlights that during this period, normal soothing methods may not work, no matter what the caregiver tries.",
+                reference: "Handout Page 11: The Letters in PURPLE Stand for"
+            },
+            {
+                question: "What does the 'L' in the PURPLE crying acronym stand for?",
+                options: ["Loud", "Long Lasting", "Light", "Late"],
+                answer: "Long Lasting",
+                explanation: "Crying can last for as much as 5 hours a day or more during this phase, which can be very stressful for parents.",
+                reference: "Handout Page 11: The Letters in PURPLE Stand for"
+            },
+            {
+                question: "What does the 'E' in the PURPLE crying acronym stand for?",
+                options: ["Early", "Erratic", "Endless", "Evening"],
+                answer: "Evening",
+                explanation: "Babies may cry more in the late afternoon and evening during this developmental period.",
+                reference: "Handout Page 11: The Letters in PURPLE Stand for"
+            },
+            {
+                question: "To reduce the risk of brain injury in a car crash, children ages 12 and under should be seated where?",
+                options: ["In the front passenger seat", "In the back seat", "In the cargo area of an SUV", "On a parent's lap"],
+                answer: "In the back seat",
+                explanation: "The back seat is the safest place for children, away from the force of a deploying front airbag.",
+                reference: "Handout Page 12: Car Seat Chart"
+            },
+            {
+                question: "A child should remain in a rear-facing car seat until at least what age?",
+                options: ["Age 1", "Age 2", "Age 3", "Age 4"],
+                answer: "Age 2",
+                explanation: "Current safety recommendations advise keeping children rear-facing as long as possible, up to the limits of the car seat, but at least until age 2.",
+                reference: "Handout Page 12: Car Seat Chart"
+            },
+            {
+                question: "A child should use a booster seat until:",
+                options: ["They turn 8 years old", "They are 4'9\" tall", "The seat belt fits them properly without it", "They start middle school"],
+                answer: "The seat belt fits them properly without it",
+                explanation: "The purpose of a booster seat is to position the adult seat belt correctly over the child's strong bones. They should use it until the lap belt lies across the upper thighs (not the stomach) and the shoulder belt lies across the chest (not the neck).",
+                reference: "Handout Page 12: Car Seat Chart"
+            },
+            {
+                question: "A properly fitted helmet is recommended for which activity?",
+                options: ["Riding a bike or scooter", "Playing contact sports like football", "Skateboarding", "All of the above"],
+                answer: "All of the above",
+                explanation: "Helmets are a critical piece of protective equipment for any activity that carries a risk of head impact.",
+                reference: "Handout Page 12: 30.22. Discuss the importance of wearing a helmet"
+            },
+            {
+                question: "Blood or clear fluid draining from the nose or ears after a head injury is a sign of what?",
+                options: ["A minor concussion", "A potentially severe brain injury requiring immediate medical attention", "A common cold", "An allergic reaction"],
+                answer: "A potentially severe brain injury requiring immediate medical attention",
+                explanation: "This can be a sign of a basilar skull fracture, which is a medical emergency.",
+                reference: "Handout Page 13: 30.23. Identify the signs and symptoms of a brain injury."
+            },
+            {
+                question: "What does the 'A' in the FAST acronym for stroke stand for?",
+                options: ["Anxiety", "Arm weakness", "Abnormal pulse", "Agitation"],
+                answer: "Arm weakness",
+                explanation: "FAST stands for Face drooping, Arm weakness, Speech difficulty, Time to call 911. Asking the person to raise both arms can reveal weakness on one side.",
+                reference: "Handout Page 14: Signs and symptoms of a stroke"
+            },
+            {
+                question: "What does the 'S' in the FAST acronym for stroke stand for?",
+                options: ["Seizure", "Sudden headache", "Speech difficulty", "Sweating"],
+                answer: "Speech difficulty",
+                explanation: "FAST stands for Face drooping, Arm weakness, Speech difficulty, Time to call 911. Slurred speech or being unable to speak is a common sign of a stroke.",
+                reference: "Handout Page 14: Signs and symptoms of a stroke"
+            },
+            {
+                question: "When creating a safe environment for communication with a person in crisis, an officer should:",
+                options: ["Use a condescending tone to show authority.", "Explain the limits and rules, and be respectful and patient.", "Interrupt them to correct their story.", "View the situation as a competition to be won."],
+                answer: "Explain the limits and rules, and be respectful and patient.",
+                explanation: "Establishing clear boundaries in a respectful manner creates a safe and predictable environment, which can help de-escalate a person in crisis.",
+                reference: "Handout Page 15-16: Create a safe environment..."
+            },
+            {
+                question: "When using active listening skills, what should an officer do?",
+                options: ["Constantly think about what to say next.", "Show they are listening through body language like nodding.", "Defer judgment.", "Both B and C."],
+                answer: "Both B and C.",
+                explanation: "Active listening involves both non-verbal cues to show you are paying attention and the mental discipline to listen without judgment in order to understand.",
+                reference: "Handout Page 16: Use active listening skills."
+            },
+            {
+                question: "The brain injury emergency contact card lists 'Delayed thought processing' and 'Impaired judgment' as symptoms. These are examples of what type of changes?",
+                options: ["Physical", "Cognitive", "Emotional", "Social"],
+                answer: "Cognitive",
+                explanation: "Both of these symptoms relate to the brain's thinking and reasoning abilities, which are cognitive functions.",
+                reference: "Handout Page 17: Emergency Contact Card"
+            },
+            {
+                question: "Brain injury is often called the 'invisible epidemic' because:",
+                options: ["It is not a real medical condition.", "The individual may not know they have an injury, and the signs may be subtle.", "It only affects a small number of people.", "It is easy to diagnose."],
+                answer: "The individual may not know they have an injury, and the signs may be subtle.",
+                explanation: "Unlike a visible injury like a broken arm, the effects of a brain injury are often cognitive and behavioral, making them 'invisible' to an outside observer.",
+                reference: "Handout Page 18: 'Brain injury is often called the invisible epidemic.'"
+            },
+            {
+                question: "Maslow's Hierarchy of Needs is relevant to first responders because individuals with brain injuries often have unmet needs in which areas?",
+                options: ["Physiological needs (health care, shelter)", "Safety needs (personal, financial)", "Esteem needs (confidence, independence)", "All of the above"],
+                answer: "All of the above",
+                explanation: "A brain injury can disrupt every level of a person's life, from basic health and safety to their sense of self-worth and purpose. Recognizing these unmet needs is part of a holistic response.",
+                reference: "Handout Page 19: 30.27. Distinguish 'unmet needs'..."
+            },
+            {
+                question: "What is the primary resource in Texas for providing education, awareness, prevention, and service referral for brain injury?",
+                options: ["The Department of Public Safety (DPS)", "The Office of Acquired Brain Injury (OABI)", "The Texas Medical Board", "2-1-1 Texas"],
+                answer: "The Office of Acquired Brain Injury (OABI)",
+                explanation: "The OABI, part of HHSC, is the state's designated lead agency for brain injury resources and information.",
+                reference: "Handout Page 20: 30.28. Arrange a listing of resources..."
+            },
+            {
+                question: "An officer can have a profoundly positive impact regarding brain injury through which four actions?",
+                options: ["Arrest, Prosecution, Incarceration, and Parole", "Prevention, Intervention, Communication, and Resource facilitation", "Observation, Documentation, Reporting, and Testifying", "Command, Control, Force, and Restraint"],
+                answer: "Prevention, Intervention, Communication, and Resource facilitation",
+                explanation: "This summarizes the key roles an officer can play: educating the public to prevent injuries, intervening effectively and safely during an incident, using proper communication skills, and connecting people with the help they need.",
+                reference: "Handout Page 20: 30.29. Examine the impact..."
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guide: Sexual Offenses</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* Slate 100 */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #e2e8f0; /* Slate 200 */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+        details[open] > summary::after {
+            transform: rotate(45deg);
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tab-button.active {
+            background-color: #6d28d9; /* Violet 700 */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .offense-block {
+            background-color: #f8fafc;
+            border-left: 4px solid #a78bfa; /* Violet 400 */
+            padding: 1.25rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .offense-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .punishment-level {
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            display: inline-block;
+        }
+        .felony-1 { background-color: #fee2e2; color: #b91c1c; }
+        .felony-2 { background-color: #ffedd5; color: #c2410c; }
+        .felony-3 { background-color: #fef3c7; color: #a16207; }
+        .sjf { background-color: #e0e7ff; color: #4338ca; }
+        .class-a { background-color: #dcfce7; color: #15803d; }
+        .class-b { background-color: #cffafe; color: #0891b2; }
+        .class-c { background-color: #e5e7eb; color: #4b5563; }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
+        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+        .example-block {
+            background-color: #f0f9ff;
+            border-left: 4px solid #38bdf8;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .elements-checklist {
+            background-color: #fefce8; /* yellow-50 */
+            border-left: 4px solid #eab308; /* yellow-500 */
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .elements-checklist ul {
+            list-style-type: none;
+            padding-left: 0.5rem;
+        }
+        .elements-checklist li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .elements-checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            color: #eab308;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Sexual Offenses</h1>
+            <p class="text-lg text-gray-600 mt-2">A Comprehensive Penal Code Study Guide</p>
+        </header>
+
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-trauma">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    Victimology & Trauma
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-adult">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
+                    Adult Offenses
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-child">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                    Child Offenses
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-prostitution">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+                    Prostitution & Coercion
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-recording">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                    Recording Offenses
+                </button>
+                 <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-investigation">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    Investigation
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-resources">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                    Resources
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    Knowledge Check
+                </button>
+            </nav>
+        </div>
+
+        <main id="tab-content">
+            <div id="tab-trauma" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Victimology & Trauma-Informed Response</h2>
+                <div class="space-y-6">
+                     <details class="card p-0" open>
+                        <summary>Dynamics of Sexual Assault, Consent & Reporting Barriers</summary>
+                        <div class="p-6 border-t">
+                           <div class="offense-block bg-slate-50 border-slate-400">
+                                <h3 class="font-bold text-xl">Core Dynamics & Consent</h3>
+                                <ul>
+                                   <li>Sexual assault is a hostile act of control, domination, and humiliation, not sexual desire.</li>
+                                   <li>**Consent** means "assent in fact, whether expressed or apparent." It must be knowing and voluntary.</li>
+                                   <li>**It is NOT consent if:** A sexual act is accomplished through coercion, force, or threats; the victim is silent; the victim is unconscious, physically unable to resist, or lacks mental capacity; or the victim is intoxicated and unaware. Any sexual act with a victim under 17 is nonconsensual by law (subject to affirmative defenses).</li>
+                                </ul>
+                           </div>
+                           <div class="offense-block bg-slate-50 border-slate-400">
+                                <h3 class="font-bold text-xl">Barriers to Reporting</h3>
+                                <p>Victims/survivors may not report due to:</p>
+                                <ul>
+                                   <li>Shame, guilt, or self-blame.</li>
+                                   <li>Fear of not being believed, societal "rape myths" (e.g., blaming attire or alcohol use).</li>
+                                   <li>Betrayal of trust, especially in non-stranger assaults.</li>
+                                   <li>Fear of facing the offender again (at school, work, etc.).</li>
+                                   <li>Concerns about how law enforcement will react ("secondary victimization").</li>
+                                </ul>
+                           </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Trauma & Neurobiological Response</summary>
+                        <div class="p-6 border-t">
+                             <div class="offense-block bg-slate-50 border-slate-400">
+                                <h3 class="font-bold text-xl">How Trauma Affects the Brain & Body</h3>
+                                <ul>
+                                   <li>During a traumatic event, a flood of hormones (like cortisol and adrenaline) is released to help the person survive.</li>
+                                   <li>These hormones impact demeanor, causing a wide range of reactions: apathy, crying, laughter, anger, or appearing frozen/dazed. **There is no "correct" reaction.**</li>
+                                   <li>These same hormones disrupt how memories are stored, causing them to be fragmented and non-linear. A survivor may recall sensory details (a smell, the ceiling) vividly but not the sequence of events.</li>
+                                   <li>A sexual response (arousal, orgasm) can be an involuntary physiological reaction and **does not indicate consent**.</li>
+                                </ul>
+                           </div>
+                            <div class="offense-block bg-slate-50 border-slate-400">
+                                <h3 class="font-bold text-xl">Trauma-Informed Approach: The 4 R's</h3>
+                                <ul>
+                                   <li><strong>Realize:</strong> Understand the widespread impact of trauma.</li>
+                                   <li><strong>Recognize:</strong> Know the signs and symptoms of trauma.</li>
+                                   <li><strong>Respond:</strong> Integrate knowledge about trauma into policies and procedures.</li>
+                                   <li><strong>Resist Re-traumatization:</strong> Proactively prevent further harm during the investigation.</li>
+                                </ul>
+                           </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Strangulation & High-Risk Populations</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block bg-red-50 border-red-400">
+                                <h3 class="font-bold text-xl">Strangulation: Lethality Predictor</h3>
+                                <p class="font-semibold">Strangulation is one of the most accurate predictors of homicide.</p>
+                                <p>"If a man applies pressure to a woman's neck one time in an intimate relationship, she is <strong>750% more likely</strong> to later be killed by him."</p>
+                                <p class="mt-4">**Important:** Strangulation is intentional; choking is accidental. A victim indicating they were "choked" must be medically evaluated, as serious internal injury or death can occur even without visible external signs.</p>
+                           </div>
+                            <div class="offense-block bg-slate-50 border-slate-400">
+                                <h3 class="font-bold text-xl">Considerations for High-Risk Populations</h3>
+                                <p>Be mindful of unique barriers for populations such as children, the elderly, immigrants, LGBTQ+ individuals, males, people with disabilities, and sex workers. This includes being aware of personal biases, using appropriate terminology, understanding cultural contexts, and connecting victims with specialized resources.</p>
+                           </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-adult" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Adult Offenses</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Assaultive Offenses</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.011" target="_blank" class="text-blue-600 hover:underline">22.011. Sexual Assault</a></h3>
+                                <p>A person intentionally or knowingly causes the penetration of the anus or sexual organ of another by any means, or the mouth by the actor's sexual organ, without the other person's consent.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-2">2nd Degree Felony</span></p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the actor act `intentionally or knowingly`?</li>
+                                        <li>Was there `penetration` of the anus, sexual organ, or mouth?</li>
+                                        <li>Was it `without consent`? (Consent is absent due to force, threats, incapacitation, or exploitation by a person in a position of trust like a doctor, clergyman, coach, or caregiver).</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A psychiatrist (Dr. Phil) convinces his patient (Dee) that having sex with him is part of her therapy to overcome trauma. Because he is exploiting her emotional dependency as a mental health provider, her submission does not constitute legal consent. This is Sexual Assault.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.021" target="_blank" class="text-blue-600 hover:underline">22.021. Aggravated Sexual Assault</a></h3>
+                                <p>A person commits Sexual Assault and causes serious bodily injury; places the victim in fear of death, SBI, or kidnapping; uses or exhibits a deadly weapon; or the victim is elderly or disabled.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-1">1st Degree Felony</span></p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the actor commit the elements of `Sexual Assault`? AND</li>
+                                        <li>Did one of the aggravating factors exist? (e.g., caused `Serious Bodily Injury`, used a `deadly weapon`, etc.)</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Dr. Phil gives Dee water with a Xanax tablet in it without her knowledge, causing her to become groggy. He then has intercourse with her. Because he administered a substance to impair her ability to resist, this elevates the crime to Aggravated Sexual Assault.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.012" target="_blank" class="text-blue-600 hover:underline">22.012. Indecent Assault</a></h3>
+                                <p>Without consent and with intent to arouse or gratify sexual desire, a person touches the anus, breast, or genitals of another; exposes their genitals; or causes contact with bodily fluids.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span></p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the actor act `without consent`?</li>
+                                        <li>Did they have the `intent to arouse or gratify` sexual desire?</li>
+                                        <li>Did they touch an intimate part, expose themselves, or cause contact with fluids?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Seymour, 17, approaches Ann, 16, at her locker. He runs his hands under her shirt and squeezes her breasts. Ann pushes him away. This is Indecent Assault because the touching was nonconsensual and done with sexual intent.</div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+             <div id="tab-child" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Child Offenses</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Offenses Against Children</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.11" target="_blank" class="text-blue-600 hover:underline">21.11. Indecency with a Child</a></h3>
+                                <p>With a child younger than 17, a person engages in sexual contact with the child OR, with intent to arouse, exposes their genitals to the child.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-2">2nd Degree Felony</span> (for contact) / <span class="punishment-level felony-3">3rd Degree Felony</span> (for exposure)</p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Is the victim a `child` (under 17)?</li>
+                                        <li>Did the actor engage in `sexual contact` with the child? OR</li>
+                                        <li>With `intent to arouse`, did the actor `expose` their genitals to the child?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Forrest, 18, babysits his 13-year-old sister, Jenny. For two weeks, they engage in mutual genital touching. Forrest has committed Indecency with a Child.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.011" target="_blank" class="text-blue-600 hover:underline">22.011(a)(2). Sexual Assault of a Child</a></h3>
+                                <p>A person intentionally or knowingly causes the penetration of the anus, sexual organ, or mouth of a child (under 17).</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-2">2nd Degree Felony</span></p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Is the victim a `child` (under 17)?</li>
+                                        <li>Did the actor `intentionally or knowingly` cause `penetration` of the child's anus, sexual organ, or mouth?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> After two weeks of touching, Forrest and Jenny engage in sexual intercourse. Forrest has now committed Sexual Assault of a Child. Note: The "Romeo and Juliet" affirmative defense may apply if the actor is not more than 3 years older than the victim (who must be 14+), was not a registered sex offender, and the relationship was not otherwise prohibited.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm#22.021" target="_blank" class="text-blue-600 hover:underline">22.021(a)(2)(B). Aggravated Sexual Assault of a Child</a></h3>
+                                <p>A person commits Sexual Assault and the victim is younger than 14.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-1">1st Degree Felony</span> (with a minimum 25-year sentence if the victim is under 6, or under 14 with SBI/threats).</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the actor commit `Sexual Assault`?</li>
+                                        <li>Was the victim `younger than 14`?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Forrest and Jenny engage in intercourse with Candy, who is 12. Because Candy is under 14, Forrest has committed Aggravated Sexual Assault.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.02" target="_blank" class="text-blue-600 hover:underline">21.02. Continuous Sexual Abuse of Young Child or Children</a></h3>
+                                <p>During a period of 30 days or more, a person (17 or older) commits two or more acts of sexual abuse against a child younger than 14.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-1">1st Degree Felony</span> (Life or 25-99 years)</p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the acts occur over a period of `30 days or more`?</li>
+                                        <li>Were there `two or more` acts of sexual abuse (e.g., Sexual Assault, Indecency)?</li>
+                                        <li>Was the actor `17 or older`?</li>
+                                        <li>Was the victim `younger than 14`?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Forrest (18) has intercourse with Jenny (13) twice a week for three weeks. Because this involves two or more acts of sexual abuse against a child under 14 over a 30+ day period (or close to it), he has committed this offense.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.02" target="_blank" class="text-blue-600 hover:underline">25.02. Prohibited Sexual Conduct</a></h3>
+                                <p>A person engages in sexual intercourse or deviate sexual intercourse with another person the actor knows to be within a prohibited degree of relationship (e.g., ancestor, descendant, sibling, aunt/uncle, niece/nephew, first cousin).</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span> (enhanced to <span class="punishment-level felony-2">2nd Degree</span> for ancestor/descendant).</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person engage in `sexual intercourse` or `deviate sexual intercourse`?</li>
+                                        <li>Did they `know` the other person was within a prohibited degree of `consanguinity` (blood relationship)?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Chase (16) and Candy (14) are first cousins. When they have sex, they are committing Prohibited Sexual Conduct.</div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Educator & Online Offenses</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.12" target="_blank" class="text-blue-600 hover:underline">21.12. Improper Relationship Between Educator and Student</a></h3>
+                                <p>An employee of a school engages in sexual contact or intercourse with a student enrolled at that school or a student they know is enrolled in any school.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-2">2nd Degree Felony</span></p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Is the actor an `employee` of a primary or secondary school?</li>
+                                        <li>Did they engage in `sexual contact` or `intercourse`?</li>
+                                        <li>Was the other person a `student` enrolled at the school where the employee works OR a student the employee otherwise knew was enrolled in a school?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Apera, a 20-year-old teaching intern, has a sexual relationship with Pam, a 17-year-old student at the same high school. Apera has committed this offense. (An affirmative defense exists if the relationship began before employment and they are close in age).</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.33.htm#33.021" target="_blank" class="text-blue-600 hover:underline">33.021. Online Solicitation of a Minor</a></h3>
+                                <p>A person (17 or older), with intent to commit a listed sexual offense, communicates in a sexually explicit manner with a minor (under 17) online.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span> (enhanced to <span class="punishment-level felony-2">2nd Degree</span> if minor is under 14).</p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Is the actor `17 or older`?</li>
+                                        <li>Did they use the internet or electronic communication?</li>
+                                        <li>Did they have the `intent` to commit a sexual offense?</li>
+                                        <li>Did they communicate in a `sexually explicit` manner with a `minor` (under 17)?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Forrest (18) chats online with Candy (12). The chats become sexual, and he intends to meet her for a sexual encounter. He has committed Online Solicitation of a Minor.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.38.htm#38.17" target="_blank" class="text-blue-600 hover:underline">38.17. Failure to Stop or Report Aggravated Sexual Assault of a Child</a></h3>
+                                <p>A person observes the commission of an Aggravated Sexual Assault of a Child (under 14) and fails to assist the child or immediately report it to law enforcement, when they could do so without danger to themselves.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span></p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the actor `observe` the commission (or attempt) of Continuous Sexual Abuse or Aggravated SA of a Child (victim < 14)?</li>
+                                        <li>Did they `fail to assist` the child or `immediately report` it to LE?</li>
+                                        <li>Could they have done so `without placing themselves in danger` of SBI or death?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A person witnesses an adult sexually assaulting a young child in a public park. Instead of calling 911 or yelling for help from a safe distance, they walk away and do nothing.</div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-prostitution" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Prostitution & Coercion</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Prostitution & Solicitation</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.02" target="_blank" class="text-blue-600 hover:underline">43.02. Prostitution</a></h3>
+                                <p>A person knowingly offers or agrees to receive a fee from another to engage in sexual conduct.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-b">Class B Misdemeanor</span> (enhances with prior convictions).</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person act `knowingly`?</li>
+                                        <li>Did they `offer or agree to receive a fee`?</li>
+                                        <li>Was the fee in exchange for engaging in `sexual conduct`?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Guy advertises himself online and agrees to meet clients for sex in exchange for money. Guy is committing Prostitution.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.021" target="_blank" class="text-blue-600 hover:underline">43.021. Solicitation of Prostitution</a></h3>
+                                <p>A person knowingly offers or agrees to pay a fee to another person for the purpose of engaging in sexual conduct.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level sjf">State Jail Felony</span></p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person act `knowingly`?</li>
+                                        <li>Did they `offer or agree to pay a fee`?</li>
+                                        <li>Was the purpose to engage in `sexual conduct`?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A client messages Guy online and agrees to pay him a fee for a "sex date." The client is committing Solicitation of Prostitution.</div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Promotion of Prostitution</summary>
+                        <div class="p-6 border-t">
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.03" target="_blank" class="text-blue-600 hover:underline">43.03. Promotion of Prostitution</a></h3>
+                                <p>Acting other than as a prostitute, a person knowingly receives money from prostitution or solicits another to engage in prostitution.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span></p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Was the actor `not` the prostitute receiving compensation for their own services?</li>
+                                        <li>Did they `knowingly` receive money from an agreement to participate in prostitution proceeds OR solicit someone for prostitution?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Guy convinces his boyfriend, Ciro, to join him on a date. Guy collects the full payment and gives Ciro half. Guy is now Promoting Prostitution because he is receiving money from Ciro's prostitution.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.04" target="_blank" class="text-blue-600 hover:underline">43.04. Aggravated Promotion of Prostitution</a></h3>
+                                <p>A person knowingly owns, manages, or supervises a prostitution enterprise that uses two or more prostitutes.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-1">1st Degree Felony</span></p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `knowingly` own, invest in, finance, control, supervise, or manage a prostitution enterprise?</li>
+                                        <li>Did that enterprise use `two or more` prostitutes?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Guy is now managing dates for Ciro and a new 17-year-old, Max. Because he is supervising a prostitution enterprise with two or more prostitutes, he is committing Aggravated Promotion.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.031" target="_blank" class="text-blue-600 hover:underline">43.031. Online Promotion of Prostitution</a></h3>
+                                <p>A person owns or manages an interactive computer service (website, app) with the intent to promote the prostitution of another person.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span></p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person own, manage, or operate a website/app?</li>
+                                        <li>Did they do so with `intent to promote` another person's prostitution?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Abel sets up a website specifically for Guy and his associates to advertise and schedule their dates in exchange for 20% of the income. Abel is committing Online Promotion of Prostitution.</div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Coercion</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.05" target="_blank" class="text-blue-600 hover:underline">43.05. Compelling Prostitution</a></h3>
+                                <p>A person knowingly causes another by force, threat, coercion, or fraud to commit prostitution; OR causes a child (under 18) by any means to commit prostitution.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-1">1st Degree Felony</span></p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `knowingly` cause another to commit prostitution?</li>
+                                        <li>Was it done by `force, threat, coercion, or fraud`? OR</li>
+                                        <li>Was the victim a `child under 18`? (If so, any means are sufficient).</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> When Ciro tries to quit, Guy threatens to kick him out and cut off his drug supply, causing Ciro to continue committing prostitution. Guy is now Compelling Prostitution through coercion.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.18" target="_blank" class="text-blue-600 hover:underline">21.18. Sexual Coercion</a></h3>
+                                <p>A person intentionally threatens to commit a listed offense (e.g., Unlawful Disclosure of Intimate Material, Assault) to obtain a benefit in return (e.g., intimate visual material, a sexual act, or money).</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level sjf">State Jail Felony</span></p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `intentionally threaten` to commit a listed offense?</li>
+                                        <li>Was the purpose of the threat to `obtain a benefit` in return for not committing the offense?</li>
+                                        <li>Was the benefit `intimate material`, a `sexual act`, or `money`?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> A person tells their ex-partner, "If you don't send me naked pictures, I will post the old ones I still have." This is Sexual Coercion, because they are threatening Unlawful Disclosure to obtain new intimate material.</div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-recording" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Visual & Recording Offenses</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Recording & Disclosure</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.15" target="_blank" class="text-blue-600 hover:underline">21.15. Invasive Visual Recording</a></h3>
+                                <p>Without consent and with intent to invade privacy, a person photographs or records a visual image of another's intimate area in a place with a reasonable expectation of privacy, or in any bathroom or changing room.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level sjf">State Jail Felony</span></p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Was it `without consent` and with `intent to invade privacy`?</li>
+                                        <li>Did the person `photograph or record` a visual image?</li>
+                                        <li>Was it of an `intimate area` where the person had a reasonable expectation of privacy OR was it in a `bathroom or changing room`?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Jack Ash drills a hole in the ceiling of his son's bedroom and uses a hidden camera to record his son and niece having sex. This is Invasive Visual Recording.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.16" target="_blank" class="text-blue-600 hover:underline">21.16. Unlawful Disclosure of Intimate Visual Material</a></h3>
+                                <p>Without consent and with intent to harm, a person discloses visual material of another's intimate parts or sexual conduct, knowing the material was created with an expectation of privacy.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level sjf">State Jail Felony</span></p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `disclose` visual material?</li>
+                                        <li>Was it `without consent` and with `intent to harm`?</li>
+                                        <li>Did the material show intimate parts or sexual conduct?</li>
+                                        <li>Did the actor know the material was created under an expectation of privacy?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> After an ugly breakup, Art Teest emails naked pictures he took of his ex-girlfriend, Rosey Cheeks, to her coworkers, causing her great embarrassment.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm#21.19" target="_blank" class="text-blue-600 hover:underline">21.19. Unlawful Electronic Transmission of Sexually Explicit Visual Material</a></h3>
+                                <p>A person knowingly transmits by electronic means sexually explicit visual material that was not requested by or consented to by the recipient.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-c">Class C Misdemeanor</span></p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `knowingly transmit` visual material electronically?</li>
+                                        <li>Was the material `sexually explicit`?</li>
+                                        <li>Was it `unsolicited` (not requested or consented to by the recipient)?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A person sends an unsolicited explicit photo to someone via a dating app or text message.</div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Child Pornography & Harmful Material</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.25" target="_blank" class="text-blue-600 hover:underline">43.25. Sexual Performance by a Child</a></h3>
+                                <p>A person employs, authorizes, or induces a child (under 18) to engage in sexual conduct for a performance. Also applies to a parent who consents to it.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-2">2nd Degree Felony</span> (enhanced to <span class="punishment-level felony-1">1st Degree</span> if victim is under 14).</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person employ, authorize, or induce a `child` (under 18) to engage in `sexual conduct`?</li>
+                                        <li>Was the conduct for a `performance` (play, photo, video, etc.)?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Jack Ash knows his son and niece are having sex and allows it to happen in his home, partly because he is recording it. He has consented to and authorized their participation in a sexual performance.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.26" target="_blank" class="text-blue-600 hover:underline">43.26. Possession or Promotion of Child Pornography</a></h3>
+                                <p>A person knowingly possesses, or accesses with intent to view, visual material that depicts a child (under 18) engaging in sexual conduct.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span> (and up, based on quantity and priors).</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `knowingly or intentionally` possess (or access with intent to view) visual material?</li>
+                                        <li>Did the material visually depict a `child` (under 18) engaging in `sexual conduct`?</li>
+                                        <li>Did the person `know` the material depicted a child in this way?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> On Jack Ash's computer, investigators find videos of his son and niece having sex, plus other videos of children in sexual acts that he received from others. He is in possession of child pornography.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm#43.24" target="_blank" class="text-blue-600 hover:underline">43.24. Sale, Distribution, or Display of Harmful Material to Minor</a></h3>
+                                <p>Knowing material is "harmful" to minors, a person knowingly sells, distributes, or exhibits it to a minor (under 18).</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span></p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `know` the material was harmful for minors?</li>
+                                        <li>Did they `know` the recipient was a minor?</li>
+                                        <li>Did they `sell, distribute, or exhibit` the material to the minor?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Forrest (18) shows adult pornography magazines and videos to his 13-year-old sister, Jenny.</div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-investigation" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Investigation & Reporting</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Initial Response & Victim Rights</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block bg-slate-50 border-slate-400">
+                                <h3 class="font-bold text-xl">Best Practices for Initial Response</h3>
+                                <ul>
+                                    <li>**Prioritize Safety & Medical:** Ensure the victim is safe and address any immediate medical needs.</li>
+                                    <li>**Offer a SAFE Exam:** Explain the benefits of a Sexual Assault Forensic Exam for health and evidence collection. It is free to the victim. They have up to 120 hours.</li>
+                                    <li>**Preserve Evidence:** Advise the victim not to eat, drink, shower, or change clothes if possible.</li>
+                                    <li>**Limited Initial Statement:** Conduct a brief interview in a safe place to get essential facts (crime elements, suspect ID, scene location). A full, detailed interview should happen later, preferably after at least two full sleep cycles.</li>
+                                    <li>**Provide Resources & Rights:** Give the victim your contact info, a case number, and the written notice of victim's rights required by <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56A.htm#56A.403" target="_blank" class="text-blue-600 hover:underline">CCP 56A.403</a>.</li>
+                                </ul>
+                           </div>
+                           <div class="offense-block bg-slate-50 border-slate-400">
+                                <h3 class="font-bold text-xl">Key Victim Rights</h3>
+                                <ul>
+                                    <li>**Right to a Forensic Medical Exam:** Free of charge, within 120 hours, even without a police report.</li>
+                                    <li>**Right to an Advocate:** A sexual assault program advocate can be present during the exam and interviews.</li>
+                                    <li>**Right to a Pseudonym:** Under <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.58.htm" target="_blank" class="text-blue-600 hover:underline">CCP Chapter 58</a>, a victim can use a pseudonym in all public records.</li>
+                                    <li>**Right to Track Evidence:** Victims can anonymously track their evidence kit using the statewide "Track-Kit" system.</li>
+                                    <li>**Right to Protective Orders:** Victims may be eligible for an Emergency Protective Order (EPO) or a Sexual Assault Protective Order (SAPO).</li>
+                                </ul>
+                           </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Crime Scene & Report Writing</summary>
+                         <div class="p-6 border-t">
+                             <div class="offense-block bg-slate-50 border-slate-400">
+                                <h3 class="font-bold text-xl">Crime Scene Checklist</h3>
+                                <ul>
+                                    <li>Aid the victim and preserve evidence on their person first.</li>
+                                    <li>Secure and document the scene (photos/video).</li>
+                                    <li>Identify, collect, and preserve evidence (clothing, bedding, condoms, weapons, trace evidence).</li>
+                                    <li>Interview witnesses separately.</li>
+                                    <li>If a suspect is arrested, record spontaneous statements and keep them separate from the victim and scene. Preserve evidence on the suspect.</li>
+                                </ul>
+                           </div>
+                            <div class="offense-block bg-slate-50 border-slate-400">
+                                <h3 class="font-bold text-xl">Key Principles for Reports</h3>
+                                <ul>
+                                    <li>**Use Verbatim Quotes:** Use the victim's and suspect's exact words in quotation marks. Do not "clean up" or sanitize the language.</li>
+                                    <li>**Use Non-Consensual Language:** Describe the act with objective, forceful language (e.g., "he forced his penis into her vagina") rather than consensual terms ("they had sex").</li>
+                                    <li>**Document Lack of Consent:** "No" is communicated in many ways. Document actions like looking away, closing eyes, or physical resistance. If they couldn't resist, document what prevented them.</li>
+                                    <li>**Be Specific About Force:** Instead of "he threatened me," document the specific threats, tone of voice, and gestures.</li>
+                                    <li>**Do Not Fill Gaps:** If a victim's memory is fragmented, document it as such. Do not guess or fill in missing details.</li>
+                                </ul>
+                           </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-resources" class="tab-pane hidden">
+                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Resources</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Texas Statute Links</summary>
+                        <div class="p-6 border-t">
+                             <ul class="list-disc list-inside space-y-2">
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.21.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 21 - Sexual Offenses</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.22.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 22 - Assaultive Offenses</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 25 - Offenses Against the Family</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.33.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 33 - Computer Crimes</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.43.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 43 - Public Indecency</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.56A.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Code of Criminal Procedure Chapter 56A - Rights of Crime Victims</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.58.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Code of Criminal Procedure Chapter 58 - Confidentiality of Identifying Information</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.62.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Code of Criminal Procedure Chapter 62 - Sex Offender Registration</a></li>
+                                 <li><a href="https://statutes.capitol.texas.gov/Docs/GV/htm/GV.420.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Government Code Chapter 420 - Sexual Assault Prevention and Crisis Services</a></li>
+                            </ul>
+                        </div>
+                    </details>
+                 </div>
+            </div>
+
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-violet-700 text-white font-semibold py-2 px-6 rounded-md hover:bg-violet-800">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "A person commits Sexual Assault and uses a knife (a deadly weapon) during the offense. What is the highest offense committed?",
+            options: ["Sexual Assault", "Aggravated Sexual Assault", "Assault with a Deadly Weapon", "Indecent Assault"],
+            answer: "Aggravated Sexual Assault",
+            explanation: "Committing Sexual Assault while using or exhibiting a deadly weapon elevates the offense to Aggravated Sexual Assault (22.021), a 1st Degree Felony."
+        },
+        {
+            question: "A 20-year-old high school teacher has a consensual sexual relationship with a 17-year-old student at the same school. What offense has the teacher committed?",
+            options: ["No Offense", "Sexual Assault", "Indecency with a Child", "Improper Relationship Between Educator and Student"],
+            answer: "Improper Relationship Between Educator and Student",
+            explanation: "Even if consensual, a school employee who engages in sexual intercourse with a student at their school commits Improper Relationship Between Educator and Student (21.12), a 2nd Degree Felony."
+        },
+         {
+            question: "An 18-year-old engages in sexual intercourse with his 13-year-old sister twice a week over a three-week period. What is the highest offense he has committed?",
+            options: ["Sexual Assault of a Child", "Prohibited Sexual Conduct", "Continuous Sexual Abuse of a Young Child", "Aggravated Sexual Assault"],
+            answer: "Continuous Sexual Abuse of a Young Child",
+            explanation: "Because the actor is 17+ and committed two or more acts of sexual abuse (Sexual Assault) against a child under 14 over a period of 30+ days (or close to), the highest offense is Continuous Sexual Abuse (21.02), a 1st Degree Felony with a 25-year minimum."
+        },
+        {
+            question: "A person uses a hidden camera to film people in a public restroom. What is the highest offense committed?",
+            options: ["Disorderly Conduct", "Public Lewdness", "Invasive Visual Recording", "Possession of Child Pornography"],
+            answer: "Invasive Visual Recording",
+            explanation: "Photographing or recording a visual image of another in a bathroom or changing room without their consent is Invasive Visual Recording (21.15), a State Jail Felony."
+        },
+        {
+            question: "A person threatens to release intimate photos of their ex-partner unless the ex-partner agrees to have sex with them one last time. What offense has been committed?",
+            options: ["Compelling Prostitution", "Sexual Coercion", "Unlawful Disclosure", "Aggravated Sexual Assault"],
+            answer: "Sexual Coercion",
+            explanation: "The person is threatening to commit an offense (Unlawful Disclosure) to obtain a benefit (a sexual act). This is Sexual Coercion (21.18), a State Jail Felony."
+        },
+        {
+            question: "A person knowingly agrees to pay another person a fee to engage in sexual conduct. What is the offense and punishment level?",
+            options: ["Prostitution, Class B Misdemeanor", "Solicitation of Prostitution, Class A Misdemeanor", "Solicitation of Prostitution, State Jail Felony", "No offense until money changes hands"],
+            answer: "Solicitation of Prostitution, State Jail Felony",
+            explanation: "Knowingly offering to pay a fee for sexual conduct is Solicitation of Prostitution (43.021), a State Jail Felony."
+        },
+        {
+            question: "An 18-year-old shows R-rated movies containing nudity to his 13-year-old sibling. What is the most appropriate offense?",
+            options: ["Indecency with a Child", "Sale, Distribution, or Display of Harmful Material to Minor", "Possession of Child Pornography", "No Offense"],
+            answer: "Sale, Distribution, or Display of Harmful Material to Minor",
+            explanation: "Knowingly exhibiting material that is 'harmful to minors' (appeals to prurient interest, patently offensive for minors) to a person known to be a minor is a violation of PC 43.24, a Class A Misdemeanor."
+        },
+        {
+            question: "A person manages a prostitution enterprise that uses three prostitutes. What is the highest offense committed?",
+            options: ["Prostitution", "Promotion of Prostitution", "Compelling Prostitution", "Aggravated Promotion of Prostitution"],
+            answer: "Aggravated Promotion of Prostitution",
+            explanation: "Knowingly managing a prostitution enterprise that uses two or more prostitutes is Aggravated Promotion of Prostitution (43.04), a 1st Degree Felony."
+        },
+        {
+            question: "When a victim of sexual assault reports the crime, their memory of the event is fragmented and non-chronological. This is most likely due to:",
+            options: ["The victim is likely being deceptive.", "The victim was intoxicated.", "The neurobiological effects of trauma hormones on memory storage.", "The victim is minimizing the event."],
+            answer: "The neurobiological effects of trauma hormones on memory storage.",
+            explanation: "The flood of hormones during a traumatic event causes memories to be stored in a disorganized way. This is a normal and expected response to trauma."
+        },
+        {
+            question: "A 17-year-old runs his hand under a 16-year-old classmate's shirt and squeezes her breast without her consent. What offense has occurred?",
+            options: ["Sexual Assault", "Indecent Assault", "Class C Assault", "No offense, they are close in age"],
+            answer: "Indecent Assault",
+            explanation: "Without consent and with sexual intent, he touched her breast. This is Indecent Assault (22.012). The age defense for Sexual Assault does not apply to Indecent Assault."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#15803d';
+            else if (percentage >= 50) quizScoreEl.style.color = '#a16207';
+            else quizScoreEl.style.color = '#b91c1c';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+
+    if(document.querySelector('.tab-button.active')?.dataset.tab === 'tab-quiz') {
+        buildQuiz();
+    }
+});
+</script>
+
+</body>
+</html>
+

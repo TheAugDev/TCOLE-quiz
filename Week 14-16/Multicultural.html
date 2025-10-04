@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guide: Multiculturalism & Human Relations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-500: #64748b;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --yellow-50: #fefce8;
+            --yellow-500: #eab308;
+            --sky-50: #f0f9ff;
+            --sky-400: #38bdf8;
+            --green-100: #dcfce7;
+            --green-600: #16a34a;
+            --red-100: #fee2e2;
+            --red-600: #dc2626;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--slate-100);
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: var(--slate-200);
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary .summary-icon {
+            transition: transform 0.3s ease;
+        }
+        details[open] > summary .summary-icon {
+            transform: rotate(135deg);
+        }
+        details[open] > summary {
+            background-color: var(--slate-700);
+            color: white;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            padding: 0.75rem 1.25rem;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button:hover {
+            background-color: var(--slate-200);
+        }
+        .tab-button.active {
+            color: var(--slate-700);
+            border-bottom-color: var(--slate-600);
+            font-weight: 700;
+        }
+        .concept-block {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--slate-500);
+            padding: 1.25rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .concept-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: var(--green-100) !important; border-color: var(--green-600) !important; color: var(--green-600); font-weight: bold; }
+        .quiz-option.incorrect { background-color: var(--red-100) !important; border-color: var(--red-600) !important; color: var(--red-600); }
+        .example-block {
+            background-color: var(--sky-50);
+            border-left: 4px solid var(--sky-400);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+         .example-block strong::before {
+            content: '💡';
+            margin-right: 0.5rem;
+        }
+        .key-points-checklist {
+            background-color: var(--yellow-50);
+            border-left: 4px solid var(--yellow-500);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .key-points-checklist ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .key-points-checklist li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .key-points-checklist li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23eab308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>');
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-800">Multiculturalism & Human Relations</h1>
+            <p class="text-lg text-slate-600 mt-2">A Guide for Law Enforcement Professionals</p>
+        </header>
+
+        <div class="card p-2 mb-8">
+            <nav class="flex flex-wrap" id="main-tabs">
+                <button class="tab-button active" data-tab="tab-prejudice">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" x2="22" y1="12" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    Prejudice & Discrimination
+                </button>
+                <button class="tab-button" data-tab="tab-impartial">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="18" x2="18" y1="8" y2="14"></line><line x1="21" x2="15" y1="11" y2="11"></line></svg>
+                    Impartial Policing
+                </button>
+                <button class="tab-button" data-tab="tab-communication">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                    Communication
+                </button>
+                 <button class="tab-button" data-tab="tab-resources">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 16 5-5-5-5"/><path d="m8 16 5-5-5-5"/></svg>
+                    Resources
+                </button>
+                <button class="tab-button" data-tab="tab-quiz">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    Knowledge Check
+                </button>
+            </nav>
+        </div>
+
+        <main id="tab-content">
+            <div id="tab-prejudice" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Understanding Prejudice & Discrimination</h2>
+                <div class="space-y-6">
+                     <details class="card p-0" open>
+                        <summary>Core Definitions <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="concept-block grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-semibold text-lg">Attitude</h4>
+                                    <p>A cognitive position based on knowledge, feelings, and experiences that influences behavior.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-lg">Race</h4>
+                                    <p>Refers to groups with common ancestry and physical characteristics.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-lg">Ethnicity</h4>
+                                    <p>Refers to shared culture and background, including common ancestry, language, and religion.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-lg">Culture</h4>
+                                    <p>A way of thinking and acting based on tradition; learned behavior passed between generations.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-lg">Ethnocentrism</h4>
+                                    <p>Regarding one's own culture as the "center of the universe" and the basis for all comparisons.</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-lg">Prejudice</h4>
+                                    <p>An adverse judgment or opinion formed beforehand or without knowledge of the facts; i.e., bias.</p>
+                                </div>
+                                 <div>
+                                    <h4 class="font-semibold text-lg text-red-600">Discrimination</h4>
+                                    <p class="text-red-600">Acting on the basis of prejudice.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>The Functions & Feelings of Prejudice <span class="summary-icon text-2xl font-light">+</span></summary>
+                         <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Functions of Prejudice</h3>
+                                <p>Prejudice serves several psychological and social functions for the person holding the prejudice.</p>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li><strong>Ethnocentrism:</strong> Provides egotistic satisfaction through comparing others with oneself.</li>
+                                        <li><strong>Stereotype/Categorical Treatment:</strong> Creates convenient mental groupings for people one is not knowledgeable about.</li>
+                                        <li><strong>Scapegoat:</strong> Provides a person or group to blame when things go wrong.</li>
+                                        <li><strong>Projection:</strong> Provides an outlet for one's own tensions and frustrations.</li>
+                                        <li><strong>Authoritarian Personality:</strong> Symbolizes affiliation with a more dominant group.</li>
+                                        <li><strong>Societal Strain:</strong> Justifies discrimination that is seen as an advantage to the dominant group.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">Four Basic Feelings of Prejudiced Persons</h3>
+                                <p>Most prejudiced individuals harbor a combination of these four attitudes.</p>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li><strong>Feeling of Superiority:</strong> A self-assured belief that they are better than others.</li>
+                                        <li><strong>Others are Strange and Different:</strong> A feeling that the other group is alien, which promotes social exclusion.</li>
+                                        <li><strong>Proprietary Claims:</strong> A belief that as a member of their group, they are entitled to exclusive rights or privileges.</li>
+                                        <li><strong>Fear:</strong> A belief that an outside group is trying to intrude and threaten the things that belong to them.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Functions of Discrimination <span class="summary-icon text-2xl font-light">+</span></summary>
+                         <div class="p-6 border-t">
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">How Discrimination Operates</h3>
+                                <p>The act of discrimination has tangible effects on both the perpetrator and the victim.</p>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li>Tends to reinforce prejudice concerning the group's alleged inferiority.</li>
+                                        <li>Limits the other group's effectiveness in business, education, and political office.</li>
+                                        <li>Affords an avenue to economic exploitation of the group being discriminated against.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-impartial" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">The Role of Impartial Policing</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Principles of Impartial Enforcement <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">What is Impartial Enforcement?</h3>
+                                <p>The peace officer's role includes enforcing laws impartially and supporting the concept that all persons are equally subject to the law and will be treated equally by it.</p>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li>Requires that no person be treated unfairly, unjustly, or with bias or prejudice.</li>
+                                        <li>Requires that no person be given more favorable treatment than another in the same situation.</li>
+                                        <li>Applies to both the interaction of the law with a citizen and the interaction between citizens when law enforcement is involved.</li>
+                                        <li>It is an ideal condition we must constantly strive to achieve.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">Why is a Peace Officer's Role so Sensitive?</h3>
+                                <div class="key-points-checklist">
+                                    <ul>
+                                        <li>Officers often work alone and make decisions demanding impartiality with no other witnesses.</li>
+                                        <li>Temptations from citizens to be partial can be overwhelming and go undetected.</li>
+                                        <li>Deviations from fair treatment are often easily excused as necessary for "order maintenance."</li>
+                                        <li>The public's impression of the entire justice system often comes from their contact with a single peace officer.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Key Concepts in Human Relations<span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">Foundational Beliefs from Social Science</h3>
+                                <p>These concepts underpin the principles of democratic and impartial policing.</p>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li>Every individual is entitled to equal rights and dignities by virtue of being human.</li>
+                                        <li>The right to be free implies the right to be different.</li>
+                                        <li>We should try to understand people different from us.</li>
+                                        <li>All people share common needs: social needs, health, employment, shelter, food, and a positive self-image.</li>
+                                        <li>We tend to categorize people and make judgments about them, which can lead to stereotyping.</li>
+                                        <li>Democracy cannot work for some unless it works for all.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Benefits and Application of Impartiality <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">How to Apply Impartiality</h3>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li>Base enforcement action on the nature of the situation and severity of the offense, not personal factors.</li>
+                                        <li>Participate in the justice process (charging, testifying) in a way that does not favor one group over another.</li>
+                                        <li>Communicate by word and action that all people, including justice personnel, are subject to the law.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Benefits of Impartial Policing</h3>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li>Preserves the balance between those who govern and those who are governed, which is essential for democracy.</li>
+                                        <li>Builds respect and cooperation with the community, which can help reduce crime.</li>
+                                        <li>Upholds a fundamental moral and professional requirement for all peace officers.</li>
+                                        <li>Boosts self-respect and professional respect.</li>
+                                     </ul>
+                                </div>
+                                <div class="example-block">
+                                    <strong>Practical Example:</strong> An officer stops two cars for speeding at the same rate in the same zone. One driver is cooperative and from the local community; the other is argumentative and from out of town. Impartial enforcement means both drivers receive the same citation based on the severity of the offense, not their attitude or origin.
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <div id="tab-communication" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Cross-Cultural Communication & Sensitivity</h2>
+                <div class="space-y-6">
+                     <details class="card p-0" open>
+                        <summary>Skills for Effective Communication <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">What is Cross-Cultural Communication?</h3>
+                                <p>A field of study that focuses on how people of differing cultures communicate with each other. Understanding these principles is imperative to facilitate dialogue and reduce conflict in a multicultural society.</p>
+                            </div>
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">Essential Skills for Human Relations</h3>
+                                <p>Developing these skills can improve interactions and build community trust.</p>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li>Gather knowledge and information about the person(s) you are interacting with.</li>
+                                        <li>Be non-judgmental.</li>
+                                        <li>Tolerate ambiguity and approaches different from your own.</li>
+                                        <li>Show warmth, genuine interest, and empathy.</li>
+                                        <li>Be willing to communicate.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Consequences of Insensitivity vs. Sensitivity <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="concept-block grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-semibold text-lg text-red-600">Adverse Consequences of Insensitivity</h4>
+                                    <ul class="list-disc list-inside mt-2">
+                                        <li>Hurt feelings</li>
+                                        <li>Anger</li>
+                                        <li>Loss of personal and professional respect</li>
+                                        <li>Ineffective performance</li>
+                                        <li>Negative behavior</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-lg text-green-600">Positive Consequences of Sensitivity</h4>
+                                    <ul class="list-disc list-inside mt-2">
+                                        <li>Respect of the community</li>
+                                        <li>Respect from fellow professionals</li>
+                                        <li>Support for democratic principles</li>
+                                        <li>Self-respect</li>
+                                    </ul>
+                                </div>
+                            </div>
+                             <div class="example-block">
+                                <strong>Practical Example:</strong> An officer responds to a noise complaint at a celebration for a cultural holiday they are unfamiliar with. An insensitive approach would be to immediately order the music off and threaten citations. A sensitive approach would be to first try to understand the nature of the gathering, show respect for their traditions, and then explain the complaint and work toward a mutually agreeable solution, like lowering the volume after a certain time.
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <div id="tab-resources" class="tab-pane hidden">
+                 <h2 class="text-3xl font-bold text-slate-800 mb-6">Resources & References</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Cited References <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                             <ul class="list-disc list-inside space-y-1 text-sm text-slate-600">
+                                <li>Barlow, David E., and Barlow, Melissa Hickman., Police in a Multicultural Society: An American Story, 2000</li>
+                                <li>Burris, John L., Blue versus Black: Let's End the conflict between cops and minorities.</li>
+                                <li>Dunn, Dana, Workplace/Women's Place: An Anthology, 1997</li>
+                                <li>Kimmel, Michael S., and Messner, Michael A., Men's Lives, 1992</li>
+                                <li>Kochman, Thomas, Black and White Styles in Conflict, 1989</li>
+                                <li>Ponterotto, Joseph G., Preventing Prejudice: A Guide for Counselors and Educators, 1993</li>
+                                <li>Pusch, Margaret D., Multicultural Education: A Cross Cultural Training Approach, 1998</li>
+                                <li>Steinberg, Stephen, Race and Ethnicity in the United States: Issues and Debates, 2000</li>
+                                <li>Thomas, Roosevelt, Jr., Beyond Race and Gender, 1991</li>
+                                <li>West, Cornell, Race Matters, 2001</li>
+                             </ul>
+                        </div>
+                    </details>
+                 </div>
+            </div>
+
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Knowledge Check</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-slate-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-slate-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "What is the key difference between prejudice and discrimination?",
+            options: ["Prejudice is a feeling, while discrimination is a thought.", "Prejudice is an act, while discrimination is a belief.", "Prejudice is an adverse judgment or opinion; discrimination is acting on that prejudice.", "There is no difference; the terms are interchangeable."],
+            answer: "Prejudice is an adverse judgment or opinion; discrimination is acting on that prejudice.",
+            explanation: "Prejudice is the internal attitude or bias. Discrimination is the external action taken based on that prejudice."
+        },
+        {
+            question: "An officer blaming a specific ethnic group for a recent spike in crime in their personal life is demonstrating which function of prejudice?",
+            options: ["Ethnocentrism", "Projection", "Scapegoating", "Authoritarian personality"],
+            answer: "Scapegoating",
+            explanation: "Scapegoating provides a convenient group or person to blame when things go wrong, whether in one's personal life or in the community."
+        },
+        {
+            question: "Which of the following is a core principle of impartial policing?",
+            options: ["Treating people differently based on their level of respect for authority.", "Giving more lenient treatment to local residents.", "Basing enforcement action on the nature of the situation and severity of the offense.", "Allowing personal feelings to guide discretion in minor offenses."],
+            answer: "Basing enforcement action on the nature of the situation and severity of the offense.",
+            explanation: "Impartial enforcement requires that no person be treated unfairly or more favorably. Actions must be based on objective facts of the situation, not personal characteristics or attitudes of the individuals involved."
+        },
+        {
+            question: "Why is a peace officer's role considered particularly sensitive regarding impartiality?",
+            options: ["Because they have the highest authority in the justice system.", "Because they often work alone, making unwitnessed decisions that demand fairness.", "Because they are always recorded on body cameras.", "Because they are immune from temptations to be partial."],
+            answer: "Because they often work alone, making unwitnessed decisions that demand fairness.",
+            explanation: "Officers frequently make discretionary decisions without direct supervision, and the public's perception of the entire justice system can be shaped by these individual encounters."
+        },
+        {
+            question: "Which of the following is NOT listed as an essential skill for effective human relations and cross-cultural communication?",
+            options: ["Being non-judgmental", "Showing warmth, genuine interest, and empathy", "Asserting your own cultural norms to establish common ground", "Tolerating ambiguity and differences"],
+            answer: "Asserting your own cultural norms to establish common ground",
+            explanation: "Effective communication requires understanding and tolerating differences, not imposing one's own cultural norms on others. The goal is to understand, not to convert."
+        },
+        {
+            question: "The feeling that an outside group is trying to intrude and threaten things that belong to you is an example of which basic feeling of prejudice?",
+            options: ["Feeling of Superiority", "Fear", "Proprietary Claims", "Others are Strange and Different"],
+            answer: "Fear",
+            explanation: "Fear is a powerful emotion in prejudice, creating the belief that an outside group poses a threat to one's security, property, or way of life."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-slate-300 rounded-lg p-4 hover:bg-slate-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-slate-100 border border-slate-300 rounded-lg text-sm text-slate-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#15803d';
+            else if (percentage >= 50) quizScoreEl.style.color = '#a16207';
+            else quizScoreEl.style.color = '#b91c1c';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+
+    if(document.querySelector('.tab-button.active')?.dataset.tab === 'tab-quiz') {
+        buildQuiz();
+    }
+});
+</script>
+
+</body>
+</html>
+

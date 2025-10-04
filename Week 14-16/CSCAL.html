@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guide: Child Safety Check Alert List (CSCAL)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-500: #64748b;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --yellow-50: #fefce8;
+            --yellow-500: #eab308;
+            --sky-50: #f0f9ff;
+            --sky-400: #38bdf8;
+            --green-100: #dcfce7;
+            --green-600: #16a34a;
+            --red-100: #fee2e2;
+            --red-600: #dc2626;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--slate-100);
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: var(--slate-200);
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary .summary-icon {
+            transition: transform 0.3s ease;
+        }
+        details[open] > summary .summary-icon {
+            transform: rotate(135deg);
+        }
+        details[open] > summary {
+            background-color: var(--slate-700);
+            color: white;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            padding: 0.75rem 1.25rem;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button:hover {
+            background-color: var(--slate-200);
+        }
+        .tab-button.active {
+            color: var(--slate-700);
+            border-bottom-color: var(--slate-600);
+            font-weight: 700;
+        }
+        .offense-block {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--slate-500);
+            padding: 1.25rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .offense-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: var(--green-100) !important; border-color: var(--green-600) !important; color: var(--green-600); font-weight: bold; }
+        .quiz-option.incorrect { background-color: var(--red-100) !important; border-color: var(--red-600) !important; color: var(--red-600); }
+        .example-block {
+            background-color: var(--sky-50);
+            border-left: 4px solid var(--sky-400);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+         .example-block strong::before {
+            content: '💡';
+            margin-right: 0.5rem;
+        }
+        .elements-checklist {
+            background-color: var(--yellow-50);
+            border-left: 4px solid var(--yellow-500);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .elements-checklist ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .elements-checklist li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .elements-checklist li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23eab308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>');
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-800">Child Safety Check Alert List (CSCAL)</h1>
+            <p class="text-lg text-slate-600 mt-2">A Law Enforcement Guide</p>
+        </header>
+
+        <div class="card p-2 mb-8">
+            <nav class="flex flex-wrap" id="main-tabs">
+                <button class="tab-button active" data-tab="tab-basics">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                    CSCAL Basics
+                </button>
+                <button class="tab-button" data-tab="tab-encounter">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 12l-2-2.5 2-2.5 2 2.5-2 2.5zM12 12l-2.5 2 2.5 2 2.5-2-2.5-2z"/></svg>
+                    Officer Encounter
+                </button>
+                <button class="tab-button" data-tab="tab-possession">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4l2 2"/></svg>
+                    Taking Possession
+                </button>
+                <button class="tab-button" data-tab="tab-release">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Release & Reporting
+                </button>
+                <button class="tab-button" data-tab="tab-resources">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 16 5-5-5-5"/><path d="m8 16 5-5-5-5"/></svg>
+                    Resources
+                </button>
+                <button class="tab-button" data-tab="tab-quiz">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    Knowledge Check
+                </button>
+            </nav>
+        </div>
+
+        <main id="tab-content">
+            <div id="tab-basics" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">CSCAL Basics</h2>
+                <div class="space-y-6">
+                     <details class="card p-0" open>
+                        <summary>Purpose and Definition <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.261.htm#261.3022" target="_blank" class="text-blue-600 hover:underline">Family Code 261.3022. Child Safety Check Alert List</a></h3>
+                                <p>The Child Safety Check Alert List (CSCAL) is a method for Child Protective Services (CPS) to report the names of children and their legal guardians whom they are attempting to locate. It is submitted to the Texas Crime Information Center (TCIC).</p>
+                                <div class="elements-checklist mt-4">
+                                    <h4 class="font-semibold">The Purpose of CSCAL is to locate a child and guardian to:</h4>
+                                     <ul>
+                                        <li>Investigate a report of child abuse or neglect.</li>
+                                        <li>Provide protective services to a family receiving family-based safety services.</li>
+                                        <li>Provide services to the family of a child in the managing conservatorship of DFPS.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl">CSCAL vs. Missing Person Report</h3>
+                                <div class="grid md:grid-cols-2 gap-4 mt-2">
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Child Safety Check Alert List (CSCAL)</h4>
+                                        <ul class="list-disc list-inside">
+                                            <li>The child is believed to be **with** a legal guardian.</li>
+                                            <li>Entered into **TCIC only** (Texas statewide system).</li>
+                                            <li>Remains in TCIC for **12 months**.</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Missing Person Report</h4>
+                                        <ul class="list-disc list-inside">
+                                            <li>The legal guardian **does not know** the location of the child.</li>
+                                            <li>Entered into **NCIC** (national system).</li>
+                                            <li>Remains in the system **indefinitely** until located.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>DFPS Duty to Notify Law Enforcement<span class="summary-icon text-2xl font-light">+</span></summary>
+                         <div class="p-6 border-t">
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.261.htm#261.301" target="_blank" class="text-blue-600 hover:underline">Family Code 261.301. Investigation of Report</a></h3>
+                                <p>This statute provides guidelines for joint investigations between DFPS and law enforcement. A recent update added a key requirement for high-priority cases.</p>
+                                <p class="mt-2">If, during a highest-priority investigation, DFPS is unable to locate the child or family, DFPS **shall notify the Department of Public Safety (DPS)** that their location is unknown. If DPS later locates the family, they must notify DFPS.</p>
+                                <div class="example-block">
+                                    <strong>Practical Implication:</strong> This creates a formal communication loop. DFPS can't find a child in a critical case, so they alert DPS. This may lead to the creation of a CSCAL entry, allowing any officer in the state who contacts the family to close that loop and inform DFPS of their location.
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-encounter" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Officer Encounter Protocol</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Initial Steps & Authority to Detain <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.2A.htm#2A.056" target="_blank" class="text-blue-600 hover:underline">CCP Art. 2A.056. Response to Child Safety Check Alert</a></h3>
+                                <p>When an officer encounters a person listed on the CSCAL, they must perform several actions to assess the child's well-being and report the contact.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Immediate Officer Actions Checklist:</h4>
+                                     <ul>
+                                        <li>**Immediately contact DFPS** on their dedicated law enforcement telephone number for statewide intake.</li>
+                                        <li>**Request information from DFPS** regarding the circumstances of the case.</li>
+                                        <li>**Request information from the child and adult** regarding the child's safety, well-being, and current residence.</li>
+                                     </ul>
+                                </div>
+                                <div class="example-block">
+                                    <strong>Practical Example:</strong> An officer makes a traffic stop. The driver is a positive TCIC hit for a CSCAL entry with her child. The officer's first step is to call the DFPS LE hotline. While on the phone, the officer can ask the driver for her current address and observe the child for any immediate signs of distress or injury, relaying this information to the DFPS intake specialist.
+                                </div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl">Authority to Temporarily Detain</h3>
+                                <p>Under <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.2A.htm#2A.056" target="_blank" class="text-blue-600 hover:underline">CCP Art. 2A.056(d)</a>, a peace officer **may temporarily detain the child or other person** to ensure the safety and well-being of the child.</p>
+                                <p class="mt-2">This detention is for the purpose of the on-scene investigation and communication with DFPS. The CPS caseworker will decide whether to respond to the location. Regardless of the CPS response, the officer should assess the immediate safety of the child.</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-possession" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Taking Temporary Possession of a Child</h2>
+                <div class="space-y-6">
+                     <details class="card p-0" open>
+                        <summary>Emergency Possession Without a Court Order <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.262.htm#262.104" target="_blank" class="text-blue-600 hover:underline">Family Code 262.104. Taking Possession in Emergency</a></h3>
+                                <p>An **authorized representative of DFPS, a law enforcement officer, or a juvenile probation officer** may take temporary possession of a child without a court order **only if** there is no time to obtain one and certain conditions are met. The basis for this belief can be from personal knowledge or from information furnished by another person that has been corroborated by the officer's personal knowledge.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Conditions for Warrantless Possession:</h4>
+                                     <ul>
+                                        <li>There is an **immediate danger** to the physical health or safety of the child.</li>
+                                        <li>The child has been a victim of **sexual abuse** or **human trafficking** (PC 20A.02 or 20A.03).</li>
+                                        <li>The parent/guardian is currently using a controlled substance that constitutes an immediate danger to the child.</li>
+                                        <li>The parent/guardian has allowed the child to remain on premises used for the **manufacture of methamphetamine**.</li>
+                                     </ul>
+                                </div>
+                                 <div class="example-block">
+                                    <strong>Practical Example:</strong> During a CSCAL encounter, an officer observes that the child appears malnourished and has visible, unexplained bruising. The parent seems heavily intoxicated. Based on these facts, the officer believes there is an immediate danger to the child's physical health and can take temporary possession under this statute without first obtaining a warrant.
+                                </div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.262.htm#262.105" target="_blank" class="text-blue-600 hover:underline">Family Code 262.105. Filing Petition After Possession</a></h3>
+                                <p>If an officer takes possession of a child under the emergency circumstances of FC 262.104, a formal petition must be filed with the court, initiating legal proceedings.</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-release" class="tab-pane hidden">
+                 <h2 class="text-3xl font-bold text-slate-800 mb-6">Release & Reporting Procedures</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Release of a Child <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.2A.htm#2A.058" target="_blank" class="text-blue-600 hover:underline">CCP Art. 2A.058. Release of Child by Law Enforcement</a></h3>
+                                <p>An officer who takes possession of a child may release that child to one of several authorized entities.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Authorized Release Options:</h4>
+                                     <ul>
+                                        <li>A licensed residential child-care facility.</li>
+                                        <li>A juvenile probation department.</li>
+                                        <li>The Department of Family and Protective Services (DFPS).</li>
+                                        <li>Any other person authorized by law to take possession of the child (e.g., a non-offending parent or relative).</li>
+                                     </ul>
+                                </div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl">Checklist Before Releasing to a Person</h3>
+                                <p>Before releasing a child to a person (other than a government entity like DFPS), an officer **must** complete the following checks:</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Required Verification Steps:</h4>
+                                     <ul>
+                                        <li>Verify with **NCIC** that the child is not a missing child.</li>
+                                        <li>Search NCIC databases for protection orders, warrants, and sex offender registries for the person taking custody.</li>
+                                        <li>Call the **DFPS Texas Abuse Hotline** to check if the person is in the child abuse/neglect registry.</li>
+                                        <li>Verify the person is at least **18 years of age**.</li>
+                                        <li>Maintain a record of the placement.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Reporting Requirements After Encounter<span class="summary-icon text-2xl font-light">+</span></summary>
+                         <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.2A.htm#2A.056" target="_blank" class="text-blue-600 hover:underline">CCP Art. 2A.056(d) & (e). Reporting</a></h3>
+                                <p>After an encounter, specific reporting is required to both DFPS and TCIC to clear the alert.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Post-Encounter Reporting Checklist:</h4>
+                                     <ul>
+                                        <li>**If you DO NOT take possession of the child:** You must obtain the child's current address and any other relevant information and **report it to DFPS**.</li>
+                                        <li>**After ANY encounter:** You must report to the **Texas Crime Information Center (TCIC)** that the person has been located and to whom the child was released (if applicable).</li>
+                                     </ul>
+                                </div>
+                                <div class="example-block">
+                                    <strong>Practical Example:</strong> After the encounter from the previous tab, the officer determines there is no immediate danger and leaves the child with the parent. The officer must first report the child's current address and status to DFPS. Then, the officer must make a report/notification to their dispatch or records division to have the CSCAL entry cleared from TCIC, noting the child was located and left with the parent.
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-resources" class="tab-pane hidden">
+                 <h2 class="text-3xl font-bold text-slate-800 mb-6">Resources & Statute Links</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Texas Statute Links <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                             <h3 class="text-xl font-semibold mb-2">Code of Criminal Procedure</h3>
+                             <ul class="list-disc list-inside space-y-2">
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.2A.htm#2A.056" target="_blank" class="text-blue-600 hover:underline font-medium">Art. 2A.056 - Response to Child Safety Check Alert</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.2A.htm#2A.058" target="_blank" class="text-blue-600 hover:underline font-medium">Art. 2A.058 - Release of Child by Law Enforcement Officer</a></li>
+                             </ul>
+                             <h3 class="text-xl font-semibold mb-2 mt-4">Family Code</h3>
+                              <ul class="list-disc list-inside space-y-2">
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.261.htm#261.301" target="_blank" class="text-blue-600 hover:underline font-medium">Sec. 261.301 - Investigation of Report</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.261.htm#261.3022" target="_blank" class="text-blue-600 hover:underline font-medium">Sec. 261.3022 - Child Safety Check Alert List</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.262.htm#262.104" target="_blank" class="text-blue-600 hover:underline font-medium">Sec. 262.104 - Taking Possession of a Child in Emergency</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/FA/htm/FA.262.htm#262.105" target="_blank" class="text-blue-600 hover:underline font-medium">Sec. 262.105 - Filing Petition After Taking Possession</a></li>
+                             </ul>
+                        </div>
+                    </details>
+                 </div>
+            </div>
+
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Knowledge Check</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-slate-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-slate-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "What is the primary difference between a CSCAL entry and a Missing Person report?",
+            options: ["CSCAL is for adults, Missing Person is for children.", "CSCAL is national (NCIC), Missing Person is statewide (TCIC).", "In a CSCAL, the child is with a guardian; in a Missing Person case, the child's location is unknown to the guardian.", "A CSCAL entry lasts indefinitely, while a Missing Person report expires after 12 months."],
+            answer: "In a CSCAL, the child is with a guardian; in a Missing Person case, the child's location is unknown to the guardian.",
+            explanation: "The key distinction is that CSCAL is used to find a child and guardian together for a welfare check, while a Missing Person report is for a child whose whereabouts are unknown."
+        },
+        {
+            question: "An officer makes a traffic stop and gets a TCIC hit for a CSCAL. What is the officer's first and most immediate responsibility?",
+            options: ["Arrest the driver.", "Take the child into protective custody.", "Immediately contact DFPS on their dedicated law enforcement hotline.", "Clear the TCIC alert."],
+            answer: "Immediately contact DFPS on their dedicated law enforcement hotline.",
+            explanation: "According to CCP Art. 2A.056, the first step is to immediately contact DFPS to get information about the case and report the encounter."
+        },
+        {
+            question: "Under Family Code 262.104, an officer can take temporary possession of a child without a court order if they have reason to believe the child is...",
+            options: ["Not attending school regularly.", "In immediate danger of physical harm or has been sexually abused.", "Being disciplined too harshly by their parents.", "Living in a home that is messy."],
+            answer: "In immediate danger of physical harm or has been sexually abused.",
+            explanation: "FC 262.104 sets a high bar for warrantless possession, requiring an immediate danger to physical health or safety, or specific circumstances like sexual abuse or human trafficking."
+        },
+        {
+            question: "After a CSCAL encounter where the officer does NOT take possession of the child, what must the officer report?",
+            options: ["Only report to TCIC that the person was found.", "Report the child's current address and other relevant info to DFPS, and report to TCIC that the person was located.", "Only report the new address to DFPS.", "No reporting is necessary if the child is safe."],
+            answer: "Report the child's current address and other relevant info to DFPS, and report to TCIC that the person was located.",
+            explanation: "CCP Art. 2A.056 requires two reports in this scenario: one to DFPS with location details and one to TCIC to clear the alert."
+        },
+        {
+            question: "How long does a Child Safety Check Alert List entry remain active in TCIC?",
+            options: ["24 hours", "30 days", "12 months", "Indefinitely"],
+            answer: "12 months",
+            explanation: "A CSCAL entry remains in the TCIC system for 12 months, whereas a missing person report remains indefinitely until the person is located."
+        },
+        {
+            question: "Before releasing a child to a relative (a non-governmental person), which of the following is NOT a required check for the officer?",
+            options: ["Verify the relative is over 18.", "Check the relative's credit score.", "Call the Texas Abuse Hotline to check the child abuse registry.", "Search NCIC for warrants or protective orders against the relative."],
+            answer: "Check the relative's credit score.",
+            explanation: "CCP Art. 2A.058 lists several required checks to ensure child safety, including age verification and criminal/CPS history checks, but financial status is not one of them."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-slate-300 rounded-lg p-4 hover:bg-slate-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-slate-100 border border-slate-300 rounded-lg text-sm text-slate-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#15803d';
+            else if (percentage >= 50) quizScoreEl.style.color = '#a16207';
+            else quizScoreEl.style.color = '#b91c1c';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+
+    if(document.querySelector('.tab-button.active')?.dataset.tab === 'tab-quiz') {
+        buildQuiz();
+    }
+});
+</script>
+
+</body>
+</html>
+

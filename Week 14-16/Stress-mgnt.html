@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guide: Stress Management for Peace Officers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --slate-100: #f1f5f9;
+            --slate-200: #e2e8f0;
+            --slate-500: #64748b;
+            --slate-600: #475569;
+            --slate-700: #334155;
+            --yellow-50: #fefce8;
+            --yellow-500: #eab308;
+            --sky-50: #f0f9ff;
+            --sky-400: #38bdf8;
+            --green-100: #dcfce7;
+            --green-600: #16a34a;
+            --red-100: #fee2e2;
+            --red-600: #dc2626;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--slate-100);
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: var(--slate-200);
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary .summary-icon {
+            transition: transform 0.3s ease;
+        }
+        details[open] > summary .summary-icon {
+            transform: rotate(135deg);
+        }
+        details[open] > summary {
+            background-color: var(--slate-700);
+            color: white;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            padding: 0.75rem 1.25rem;
+            border-bottom: 3px solid transparent;
+        }
+        .tab-button:hover {
+            background-color: var(--slate-200);
+        }
+        .tab-button.active {
+            color: var(--slate-700);
+            border-bottom-color: var(--slate-600);
+            font-weight: 700;
+        }
+        .concept-block {
+            background-color: #f8fafc;
+            border-left: 4px solid var(--slate-500);
+            padding: 1.25rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .concept-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: var(--green-100) !important; border-color: var(--green-600) !important; color: var(--green-600); font-weight: bold; }
+        .quiz-option.incorrect { background-color: var(--red-100) !important; border-color: var(--red-600) !important; color: var(--red-600); }
+        .example-block {
+            background-color: var(--sky-50);
+            border-left: 4px solid var(--sky-400);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+         .example-block strong::before {
+            content: '💡';
+            margin-right: 0.5rem;
+        }
+        .key-points-checklist {
+            background-color: var(--yellow-50);
+            border-left: 4px solid var(--yellow-500);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .key-points-checklist ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .key-points-checklist li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .key-points-checklist li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23eab308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></svg>');
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-800">Stress Management for Peace Officers</h1>
+            <p class="text-lg text-slate-600 mt-2">An Interactive Survival Guide</p>
+        </header>
+
+        <div class="card p-2 mb-8">
+            <nav class="flex flex-wrap" id="main-tabs">
+                <button class="tab-button active" data-tab="tab-types">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" x2="12" y1="9" y2="13"></line><line x1="12" x2="12.01" y1="17" y2="17"></line></svg>
+                    Types of Stress
+                </button>
+                <button class="tab-button" data-tab="tab-response">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    The Stress Response
+                </button>
+                <button class="tab-button" data-tab="tab-stressors">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Officer Stressors
+                </button>
+                <button class="tab-button" data-tab="tab-management">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.8 11.3a.2.2 0 0 0-.3 0l-1.3 2.4a.2.2 0 0 0 0 .3l2.4 1.3a.2.2 0 0 0 .3 0l1.3-2.4a.2.2 0 0 0 0-.3Z"></path><path d="m14 6-1-1-3 4-1 4 4-1 4-3-1-1Z"></path><path d="m18 12 1-1 1 1-1 1-1-1Z"></path><path d="M12 22s-4-8-10-8"></path><path d="M22 12s-8 4-8 10"></path></svg>
+                    Management Strategies
+                </button>
+                 <button class="tab-button" data-tab="tab-critical">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9v4"></path><path d="M12.9 18.88a1.5 1.5 0 0 0-2.6 0"></path><path d="M19.4 15a1.5 1.5 0 0 0 .6-3"></path><path d="m21.5 10.4-1-1.7c-.4-.7-1-1.2-1.8-1.5"></path><path d="M4 12a1.5 1.5 0 0 0 .6 3"></path><path d="m2.5 10.4 1-1.7c.4-.7 1-1.2 1.8-1.5"></path><path d="M12 2a1.5 1.5 0 0 0-3 0"></path><path d="M6.5 20.4l1 1.7c.4.7 1 1.2 1.8 1.5"></path><path d="M17.5 20.4-1-1.7c-.4-.7-1-1.2-1.8-1.5"></path></svg>
+                    Critical Incidents & Suicide
+                </button>
+                <button class="tab-button" data-tab="tab-substance">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"></path><path d="m12 2-1.5 2.5L8 6l2.5 1.5L12 10l1.5-2.5L16 6l-2.5-1.5Z"></path></svg>
+                    Substance Abuse
+                </button>
+                <button class="tab-button" data-tab="tab-resources">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 16 5-5-5-5"/><path d="m8 16 5-5-5-5"/></svg>
+                    Resources
+                </button>
+                <button class="tab-button" data-tab="tab-quiz">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    Knowledge Check
+                </button>
+            </nav>
+        </div>
+
+        <main id="tab-content">
+            <div id="tab-types" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Types of Stress</h2>
+                <div class="space-y-6">
+                     <details class="card p-0" open>
+                        <summary>Fundamental Stress Concepts <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Stress Definition</h3>
+                                <p>Stress is the natural reaction of the mind and body to a demand placed on it, pleasant or unpleasant. Biochemical and hormonal processes occur which affect physical and psychological functioning. You NEED stress; it adds flavor, challenge, and opportunity, but unmanaged stress can seriously affect your physical and mental well-being.</p>
+                            </div>
+                            <div class="concept-block grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-semibold text-lg">Eustress (Positive)</h4>
+                                    <p>A stressor that is perceived as positive.</p>
+                                    <ul class="list-disc list-inside mt-2">
+                                        <li>Getting a promotion</li>
+                                        <li>Getting married</li>
+                                        <li>Achieving an accomplishment</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-lg">Distress (Negative)</h4>
+                                    <p>A stressor that is perceived as negative.</p>
+                                    <ul class="list-disc list-inside mt-2">
+                                        <li>An injury or illness</li>
+                                        <li>Divorce</li>
+                                        <li>Being fired</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-block grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="font-semibold text-lg">Acute Stress</h4>
+                                    <p>Short-term stress with a quick resolution. This is the type of stress our body handles the best, gearing up with the 'fight or flight' response and then settling down.</p>
+                                    <div class="example-block">
+                                        <strong>Example:</strong> An officer is confronted by a threatening dog. Their mind and body gear up to handle the threat, and once the dog is controlled, the stress response quickly subsides.
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-lg">Chronic Stress</h4>
+                                    <p>Prolonged, unrelieved stress, also called cumulative stress. It's like driving with your foot on the brake, leading to wear and tear on the body and mind. An extreme example is **burnout**, where a person loses energy and interest because of unrelieved stress.</p>
+                                    <div class="example-block">
+                                        <strong>Example:</strong> The daily hassle of driving in heavy traffic to and from work, compounded by excessive paperwork and rotating shifts, leads to a constant feeling of being worn down.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Critical Incident & Post-Traumatic Stress <span class="summary-icon text-2xl font-light">+</span></summary>
+                         <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Critical Incident Stress (CIS)</h3>
+                                <p>This is heavy-duty, incident-specific stress that causes significant psychological and physical discomfort for **2 days to 1 month**. CIS is considered a normal response to an abnormal, extreme event.</p>
+                                <div class="key-points-checklist">
+                                    <h4 class="font-semibold">CIS Triggers Checklist:</h4>
+                                     <ul>
+                                        <li>Working a gruesome traffic accident</li>
+                                        <li>Involvement in a use-of-force incident or shooting</li>
+                                        <li>Body recovery of a child</li>
+                                        <li>Facing a life-threatening situation</li>
+                                     </ul>
+                                </div>
+                            </div>
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Post-Traumatic Stress Disorder (PTSD)</h3>
+                                <p>PTSD creates major distress and long-lasting disruptive changes in a person's life. It is not "normal" stress and may require professional help. Symptoms are similar to CIS but are **prolonged past 1 month**.</p>
+                                <div class="key-points-checklist">
+                                    <h4 class="font-semibold">Key Differentiator of PTSD:</h4>
+                                     <ul>
+                                        <li>The person is unable to make the event part of their past, keeping it vividly in their present.</li>
+                                        <li>Triggers can cause a person to react with the same intensity, fear, and anxiety as when they were in the original event. It's as if they are **re-living it**, not just remembering it.</li>
+                                        <li>Symptoms persist for more than one month and disrupt daily life.</li>
+                                     </ul>
+                                </div>
+                                <div class="example-block">
+                                    <strong>Practical Example:</strong> An officer involved in a shooting experiences nightmares and anxiety for a few weeks (CIS). If, months later, a car backfiring causes them to drop to the ground in panic, reliving the shooting with the same intensity, it may indicate PTSD.
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-response" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">The "Fight or Flight" Response</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Physiology of the Stress Response <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">The Nervous System's Role</h3>
+                                <p>When your brain perceives a threat, it activates a complex interaction between the nervous and endocrine systems. This is the "Fight or Flight" response, designed to prepare you for physical action.</p>
+                                <div class="grid md:grid-cols-2 gap-4 mt-2">
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Sympathetic Nervous System</h4>
+                                        <p>The "accelerator." It creates biochemical changes to prepare you to respond to a threat.</p>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Parasympathetic Nervous System</h4>
+                                        <p>The "brake." It's responsible for rest, digestion, and recovery. During a threat, this system is reduced or turned off.</p>
+                                    </div>
+                                </div>
+                            </div>
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">What Happens to Your Body and Mind?</h3>
+                                <p>Activation of the Sympathetic Nervous System releases a "stress cocktail" of hormones, causing immediate and widespread changes.</p>
+                                <div class="key-points-checklist">
+                                    <h4 class="font-semibold">Physical & Perceptual Changes Checklist:</h4>
+                                    <ul>
+                                        <li>**Increases:** Heart rate, blood pressure, breathing, sweating, muscle tension, alertness.</li>
+                                        <li>**Blood Flow:** Shunted to arms, legs, and brain; shunted away from non-critical organs (stomach, intestines, etc.).</li>
+                                        <li>**Senses:** Pupils dilate, hearing and vision become more acute for threats, but depth perception is reduced. Time perception can change.</li>
+                                        <li>**Non-critical functions stop:** Digestion, immune response, and tissue repair are compromised.</li>
+                                     </ul>
+                                </div>
+                                 <div class="example-block">
+                                    <strong>Practical Implication:</strong> These changes are life-saving in an acute physical confrontation but are damaging during chronic, long-term stress (like an extended investigation or marital problems). The body can't stay in high alert, leading to wear and tear.
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Long-Term Effects of Chronic Stress <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Symptoms of Prolonged Wear and Tear</h3>
+                                <p>When the body is in a constant state of pseudo-readiness from chronic stress, it impairs the smooth transition between the sympathetic and parasympathetic systems, leading to a host of issues.</p>
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Cognitive / Emotional</h4>
+                                        <ul class="list-disc list-inside">
+                                            <li>Cognitive impairment (memory, focus)</li>
+                                            <li>Alcoholism / Substance Abuse</li>
+                                            <li>Suicide</li>
+                                            <li>Rapid mood changes</li>
+                                            <li>Overly suspicious or hostile</li>
+                                            <li>Argumentative / Blaming others</li>
+                                            <li>Depression</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Physical / Social</h4>
+                                        <ul class="list-disc list-inside">
+                                            <li>Digestive disorders</li>
+                                            <li>Headaches</li>
+                                            <li>Excessive Illnesses</li>
+                                            <li>High Blood Pressure / Heart Disease</li>
+                                            <li>Sleep Disorders</li>
+                                            <li>Emotionally distancing / Relationship problems</li>
+                                            <li>Divorce</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <div id="tab-stressors" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Common Stressors for Peace Officers</h2>
+                <div class="space-y-6">
+                     <details class="card p-0" open>
+                        <summary>Sources of Officer Stress<span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Four Main Categories of Stressors</h3>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li><strong>Stressors External to the Agency:</strong> Frustration with the judicial system, negative media coverage, perceived lack of public support.</li>
+                                        <li><strong>Stressors Internal to the Agency:</strong> Offensive policies, poor training, lack of recognition, excessive paperwork, perceived favoritism.</li>
+                                        <li><strong>Stressors in the Work Itself:</strong> Shift work, frequent exposure to hardship, boredom interrupted by sudden action, fear and danger, work overload.</li>
+                                        <li><strong>Stressors Confronting the Individual Officer:</strong> Fears about job competence, "fishbowl living" under public scrutiny, family (marital, children, parents), and financial pressures.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Law Enforcement Personalities & Characteristics <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">Traits that Help on the Job but Hurt at Home</h3>
+                                <p>Certain personality traits make for a good, safe officer, but can often wreak havoc on the home front when not managed.</p>
+                                <div class="key-points-checklist">
+                                    <ul>
+                                        <li><strong>Cynicism and Distrust:</strong> Always looking for what is wrong in people; the "us vs. them" mentality.</li>
+                                        <li><strong>Emotional Control:</strong> Can result in the inability to emotionally engage with family and friends at home.</li>
+                                        <li><strong>The Need for Control:</strong> Necessary on the job, but the inability to relinquish or share control can be difficult in personal relationships.</li>
+                                        <li><strong>Sensation Seeker / Adrenalin Junkie:</strong> Remaining hypervigilant off duty; a need for excitement that makes normal life seem mundane.</li>
+                                        <li><strong>Over-protectiveness:</strong> Can smother family members and create friction.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Hypervigilance Rollercoaster <span class="summary-icon text-2xl font-light">+</span></summary>
+                         <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Hypervigilance: The On-Duty State</h3>
+                                <p>Hypervigilance is the elevated alertness of surroundings required for officer survival. It's a threat-based perspective, constantly considering the "what-ifs." This heightened arousal state is necessary and can feel pleasant on the job.</p>
+                            </div>
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">The Off-Duty Crash</h3>
+                                <p>When an officer goes off duty, the biological rollercoaster crashes. The Sympathetic NS throttles back, and the Parasympathetic NS activates, leading to a desire to "veg out."</p>
+                                 <div class="key-points-checklist">
+                                    <h4 class="font-semibold">Symptoms of the Off-Duty Crash:</h4>
+                                     <ul>
+                                        <li>Extreme fatigue</li>
+                                        <li>Detachment and isolation</li>
+                                        <li>Emotional withdrawal from family</li>
+                                        <li>Reduced interaction and engagement in hobbies</li>
+                                     </ul>
+                                </div>
+                                 <div class="example-block">
+                                    <strong>The Family Perspective:</strong> Co-workers see the officer as alert, energetic, and engaged on duty. The family sees that same officer as tired, withdrawn, and non-communicative at home. This disconnect is a major source of relationship stress.
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <div id="tab-management" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Stress Management & Relaxation</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Three Approaches to Management <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <p>You may not be able to control the event, but you can control your reaction to it. The goal is to make stress work for you, not against you.</p>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li><strong>Avoid:</strong> Reduce or eliminate exposure to a stressor. (e.g., Leave early to avoid traffic, learn to say "no," set boundaries).</li>
+                                        <li><strong>Alter:</strong> Minimize the physiological response to a stressor. (e.g., Use problem-solving, planning, and direct communication to change the situation).</li>
+                                        <li><strong>Adapt/Accept:</strong> Build resistance to stress or change your perspective. This is key for unavoidable stressors.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">Building Resistance and a Balanced Life</h3>
+                                <p>Nurturing a balance across different areas of your life gives you a broad base of support.</p>
+                                 <div class="key-points-checklist">
+                                    <ul>
+                                        <li><strong>Psychological:</strong> Take time away from work, focus on hobbies, gain knowledge in areas outside the job.</li>
+                                        <li><strong>Physical:</strong> Get proper rest and relaxation, exercise to play out the "fight or flight" response, and focus on good nutrition.</li>
+                                        <li><strong>Social:</strong> Engage in community activities and nurture relationships both inside and outside of law enforcement.</li>
+                                        <li><strong>Spiritual/Faith:</strong> Nurturing this area can give meaning to all other areas of life.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                              <div class="concept-block">
+                                <h3 class="font-bold text-xl">Changing Perspective</h3>
+                                <p>The impact of a positive attitude is key to managing unavoidable stress. This involves being aware of and correcting unrealistic expectations and negative self-talk.</p>
+                                 <div class="example-block">
+                                    <strong>Practical Example:</strong> Instead of thinking "I should succeed at everything I do," reframe it to "When I fail, I'll get up and try again or try something different." Use humor when appropriate to dampen stress and change moods.
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Relaxation Techniques <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Engaging the Parasympathetic Nervous System</h3>
+                                <p>These techniques are designed to actively engage your body's "braking" system to calm your mind and body.</p>
+                                 <div class="key-points-checklist">
+                                    <h4 class="font-semibold">Relaxation Methods:</h4>
+                                     <ul>
+                                        <li><strong>Visualization / Guided Imagery:</strong> Mentally picture yourself succeeding or imagine being in a calm, peaceful place, engaging all your senses.</li>
+                                        <li><strong>Thought Stopping / Blocking:</strong> Force your mind off of stressors by refusing to dwell on them and actively focusing on a different, specific topic.</li>
+                                        <li><strong>Tactical Breathing:</strong> Breathe in for a count of 4, hold for 4, and exhale for 4. This slow, deep breathing directly activates the Parasympathetic NS, lowering heart rate and blood pressure.</li>
+                                        <li><strong>Progressive Muscular Relaxation:</strong> Tense and then relax different muscle groups to learn to recognize and release physical tension.</li>
+                                     </ul>
+                                </div>
+                                <div class="example-block">
+                                    <strong>Tactical Application:</strong> An officer approaching a high-risk traffic stop can use tactical breathing to lower their heart rate from an irrational level (175+ bpm) to an optimal performance level (115-145 bpm), improving fine motor skills and cognitive processing.
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+             <div id="tab-critical" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Critical Incidents & Suicide Awareness</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Stress & Performance <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">The Inverted-U Principle</h3>
+                                <p>As your heart rate increases, your ability to perform physically and process information improves up to a point, then it begins to drop significantly.</p>
+                                <div class="key-points-checklist">
+                                    <h4 class="font-semibold">Performance vs. Heart Rate:</h4>
+                                     <ul>
+                                        <li><strong>~115 BPM:</strong> Fine motor skills begin to deteriorate (e.g., double-locking handcuffs, writing).</li>
+                                        <li><strong>~145 BPM:</strong> Complex motor skills deteriorate (e.g., complex ground fighting). Vision changes begin (tunnel vision).</li>
+                                        <li><strong>> 175 BPM:</strong> Auditory changes, loss of peripheral vision, increased reaction time. May lead to irrational behavior like repetitive, non-productive actions.</li>
+                                        <li><strong>> 200 BPM:</strong> Irrational behavior, repetitive non-productive activities.</li>
+                                     </ul>
+                                </div>
+                                <p class="mt-4">During a critical incident, you may experience time slowing down, sounds being muffled, and memory lapses. Most memory returns in 24-48 hours, so initial reports should be considered preliminary.</p>
+                            </div>
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">Five Phases of Traumatic Event Transition</h3>
+                                <p>Persons who experience traumatic events typically go through five phases:</p>
+                                <ul class="list-decimal list-inside mt-2">
+                                    <li><strong>Denial Phase:</strong> Refusal to believe the event occurred.</li>
+                                    <li><strong>Anger Phase:</strong> Feeling resentment ("why me?").</li>
+                                    <li><strong>Bargaining Phase:</strong> Wishing the event never took place.</li>
+                                    <li><strong>Depression Phase:</strong> Often the longest phase.</li>
+                                    <li><strong>Acceptance Phase:</strong> Resuming a normal life. This can be reached sooner with professional counseling.</li>
+                                </ul>
+                                <p class="mt-2"><strong>After a shooting:</strong> The aftermath can cause secondary trauma due to media, investigations, and public opinion. It's common for an officer to feel like "the bad guy," so keeping the officer informed and allowing them as much control as possible is crucial.</p>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>How to Assist a Coworker After a Critical Incident <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Immediate Support Checklist</h3>
+                                <p>Your presence and practical help can be invaluable to a coworker who has experienced a traumatic event.</p>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li><strong>Assist with basic needs first:</strong> Ensure they are safe and help notify their family.</li>
+                                        <li><strong>Handle small duties:</strong> With consent, help with things like feeding their dog, handling phone calls, or bringing meals.</li>
+                                        <li><strong>Provide physical presence:</strong> Sit quietly, listen if they want to talk, but allow for silence if they don't.</li>
+                                        <li><strong>Listen, Listen, Listen:</strong> Don't offer answers; offer presence and comfort.</li>
+                                        <li><strong>Give reassurance:</strong> Remind them that what they are experiencing is a normal reaction to an abnormal situation.</li>
+                                        <li><strong>Ensure someone stays with them.</strong></li>
+                                        <li><strong>Assist with resources:</strong> Connect them with the CISM team, EAP, or chaplains.</li>
+                                        <li><strong>Follow Department guidelines.</strong></li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Suicide Awareness & Intervention <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Common Signs of Suicidal Thoughts</h3>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li>Experiencing significant losses (relationship, health, job).</li>
+                                        <li>Expressing hopelessness, depression, or guilt.</li>
+                                        <li>Changes in sleep and/or appetite.</li>
+                                        <li>Alcohol/Substance abuse.</li>
+                                        <li>Talking about death or wanting to die.</li>
+                                        <li>Minimal social support; isolation.</li>
+                                     </ul>
+                                </div>
+                            </div>
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Intervention Strategy: A.I.D. L.I.F.E.</h3>
+                                <p>A step-by-step model for assisting a coworker who may be contemplating suicide.</p>
+                                <div class="key-points-checklist">
+                                     <ul>
+                                        <li><strong>Ask:</strong> Don't be afraid to ask directly, "Are you thinking of killing yourself?"</li>
+                                        <li><strong>Intervene Immediately:</strong> Take action. Tell them they are not alone.</li>
+                                        <li><strong>Don't Keep it a Secret.</strong></li>
+                                        <li><strong>Locate Help:</strong> Seek a mental health professional, peer support, chaplain, or family.</li>
+                                        <li><strong>Inform a Supervisor</strong> of the situation.</li>
+                                        <li><strong>Find Someone to Stay With the Person.</strong></li>
+                                        <li><strong>Expedite:</strong> Get help immediately. **Do not leave the person alone.**</li>
+                                     </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-substance" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Substance Abuse Awareness</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Alcohol & Drug Abuse in Law Enforcement <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">Myths vs. Realities of Alcoholism</h3>
+                                <ul class="list-disc list-inside">
+                                    <li><strong>Myth:</strong> Once an alcoholic, always an alcoholic. <br><strong>Reality:</strong> Alcoholism is a disease for which recovery is possible with a dedicated program.</li>
+                                    <li><strong>Myth:</strong> Alcohol helps you sleep. <br><strong>Reality:</strong> It interferes with necessary REM sleep, impairing overall sleep quality.</li>
+                                    <li><strong>Myth:</strong> Alcoholism is caused by a lack of willpower or weak character. <br><strong>Reality:</strong> The causes are complex, implicating physical, genetic, psychological, and social factors.</li>
+                                    <li><strong>Myth:</strong> All alcoholics are skid-row drunks. <br><strong>Reality:</strong> Many hold high-level jobs and function well for years.</li>
+                                    <li><strong>Myth:</strong> Alcoholics drink every day. <br><strong>Reality:</strong> Abuse patterns vary widely, from daily drinking to periodic binges.</li>
+                                </ul>
+                            </div>
+                             <div class="concept-block">
+                                <h3 class="font-bold text-xl">Signs of Drug / Alcohol Abuse</h3>
+                                <div class="key-points-checklist">
+                                    <ul>
+                                        <li>Failed attempts to cut back on use.</li>
+                                        <li>Difficulty enjoying life without alcohol/drugs.</li>
+                                        <li>Declining work performance.</li>
+                                        <li>Feeling guilty, or angry if confronted.</li>
+                                        <li>Hiding alcohol or drugs.</li>
+                                        <li>Blackouts or memory lapses.</li>
+                                        <li>Blaming others for problems related to use.</li>
+                                        <li>Financial or relationship problems.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="concept-block">
+                                <h3 class="font-bold text-xl">Assisting a Co-Worker</h3>
+                                <p>Co-workers are often the first to see a problem but the last to intervene. Avoiding the problem contributes to the denial of the abuser.</p>
+                                <div class="key-points-checklist">
+                                    <h4 class="font-semibold">How to Help Checklist:</h4>
+                                     <ul>
+                                        <li>**Be aware** and recognize the problem.</li>
+                                        <li>**Urge** the person to seek help.</li>
+                                        <li>**Encourage** the person after they seek help.</li>
+                                        <li>**Focus on performance and safety**, not a personal diagnosis. Tell the officer you are concerned about their safety and the safety of others.</li>
+                                        <li>If they refuse help, **discuss your concerns with a supervisor.**</li>
+                                     </ul>
+                                </div>
+                                 <div class="example-block">
+                                    <strong>Practical Example:</strong> An officer notices their partner frequently smells of alcohol and has been making errors on reports. Instead of accusing them, the officer says, "I'm concerned about you and about our safety on calls. I think it would be a good idea to talk to someone from EAP or peer support."
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+            
+            <div id="tab-resources" class="tab-pane hidden">
+                 <h2 class="text-3xl font-bold text-slate-800 mb-6">Resources & References</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Cited References <span class="summary-icon text-2xl font-light">+</span></summary>
+                        <div class="p-6 border-t">
+                             <ul class="list-decimal list-inside space-y-1 text-sm text-slate-600">
+                                <li>Kirschman: I Love a Cop. 1997.</li>
+                                <li>Gilmartin, Emotional Survival for Law Enforcement (2002)</li>
+                                <li>NIDA: Strategic Planning for Work Place Drug Abuse Programs, (1987).</li>
+                                <li>Alcohol and Drug Prevention Strategies for Law Enforcement. (1991). Criminal Justice Center, Sam Houston State University.</li>
+                                <li>U. S. Department of Health and Human Services, Trainer's Manual: Employee Counseling Services Program - Supervisory Training.</li>
+                                <li>NIDA. Strategic Planning for Work Place Drug Abuse Programs. (1987).</li>
+                                <li>Lanphier, et.al., 1983.</li>
+                                <li>Van Raalte, 1979.</li>
+                                <li>Jones, 1980.</li>
+                                <li>NIDA publication, Strategic Planning for Work Place Drug Abuse Programs. (1987).</li>
+                                <li>Hoffman & Collingwood, Fit for Duty.2005.</li>
+                                <li>The Cooper Institute, Fit for Duty Health and Fitness Training System</li>
+                                <li>T. Baker and J. Baker, Preventing Police Suicide, FBI Law Enforcement Bulletin, October 1996</li>
+                                <li>G. Fields, Suicide on the Force, USA Today, June 1, 1999</li>
+                                <li>Suicide: Prevention, Intervention & Post-intervention. International Critical Incident Stress Foundation. 2007</li>
+                                <li>PPCT Defensive Tactics Instructor Book, 2005</li>
+                                <li>Wikipedia, the free encyclopedia</li>
+                                <li>Apres, Richard M. Preventing Law Enforcement Stress: The Organizations Role, The National Sheriffs Association.</li>
+                                <li>2012 Police Suicides: the NSOPS Study Posted on March 28, 2012 by The Badge of Life Canada by Ron Clark, RN, MS, Connecticut State Police (ret.)Andy OHara, California Highway Patrol (ret.) A Badge of Life Police Mental Health Foundation article</li>
+                                <li>"Suicide in the U.S.: Statistics and Prevention". NIMH.</li>
+                                <li>Aamodt MG, Stalnaker NA. Police Officer Suicide: Frequency and Officer profiles. In Sheehan D, Warren eds. Suicide and Law Enforcement. Washington, D.C.: U.S. Government Printing Office;2002:383-98</li>
+                             </ul>
+                        </div>
+                    </details>
+                 </div>
+            </div>
+
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-slate-800 mb-6">Knowledge Check</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-slate-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-slate-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "An officer who is feeling worn down from rotating shifts and excessive paperwork is likely experiencing what type of stress?",
+            options: ["Eustress", "Acute Stress", "Chronic Stress", "Critical Incident Stress"],
+            answer: "Chronic Stress",
+            explanation: "Chronic (or cumulative) stress is prolonged and unrelieved, resulting from too many demands over time, like rotating shifts and heavy paperwork."
+        },
+        {
+            question: "Which part of the nervous system is responsible for the 'Fight or Flight' response, acting like the body's accelerator?",
+            options: ["Central Nervous System", "Parasympathetic Nervous System", "Sympathetic Nervous System", "Somatic Nervous System"],
+            answer: "Sympathetic Nervous System",
+            explanation: "The Sympathetic Nervous System activates the biochemical and hormonal changes that prepare the body to respond to a perceived threat."
+        },
+        {
+            question: "The 'Hypervigilance Rollercoaster' describes the state of high alertness on-duty followed by what common off-duty experience?",
+            options: ["A desire for excitement and risk-taking", "Extreme fatigue, detachment, and emotional withdrawal", "Increased engagement in hobbies and social activities", "A feeling of euphoria and high energy"],
+            answer: "Extreme fatigue, detachment, and emotional withdrawal",
+            explanation: "When off-duty, the officer's body 'crashes' as the Parasympathetic Nervous System takes over, leading to withdrawal and fatigue, which can cause stress in family relationships."
+        },
+        {
+            question: "According to the Inverted-U Principle, at what heart rate do complex motor skills begin to deteriorate and visual changes like tunnel vision occur?",
+            options: ["Around 115 BPM", "Around 145 BPM", "Over 175 BPM", "Over 200 BPM"],
+            answer: "Around 145 BPM",
+            explanation: "While fine motor skills deteriorate around 115 BPM, more complex skills and vision are impacted starting around 145 BPM, moving an officer out of their optimal performance zone."
+        },
+        {
+            question: "What does the 'A' in the suicide intervention strategy A.I.D. L.I.F.E. stand for?",
+            options: ["Acknowledge their pain", "Ask directly if they are considering suicide", "Avoid the topic to prevent upsetting them", "Alert the media"],
+            answer: "Ask directly if they are considering suicide",
+            explanation: "The first step in the A.I.D. L.I.F.E. model is to 'Ask.' It is critical to be direct and ask, 'Are you thinking of hurting or killing yourself?'"
+        },
+        {
+            question: "An officer wants to use a relaxation technique to quickly lower their heart rate during a tense situation. Which method directly engages the Parasympathetic Nervous System for this purpose?",
+            options: ["Thought Stopping", "Progressive Muscular Relaxation", "Tactical Breathing", "Guided Imagery"],
+            answer: "Tactical Breathing",
+            explanation: "Tactical Breathing (slow, deep diaphragmatic breaths) is a powerful tool that directly activates the 'braking' Parasympathetic NS to lower heart rate and blood pressure."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-slate-300 rounded-lg p-4 hover:bg-slate-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-slate-100 border border-slate-300 rounded-lg text-sm text-slate-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#15803d';
+            else if (percentage >= 50) quizScoreEl.style.color = '#a16207';
+            else quizScoreEl.style.color = '#b91c1c';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+
+    if(document.querySelector('.tab-button.active')?.dataset.tab === 'tab-quiz') {
+        buildQuiz();
+    }
+});
+</script>
+
+</body>
+</html>
+

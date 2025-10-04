@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Guide: Public Order & Corruption</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9; /* Slate 100 */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        details > summary {
+            cursor: pointer;
+            font-weight: 600;
+            padding: 1rem;
+            background-color: #e2e8f0; /* Slate 200 */
+            border-radius: 0.5rem;
+            transition: background-color 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details > summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+        details[open] > summary::after {
+            transform: rotate(45deg);
+        }
+        details[open] > summary {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .tab-button.active {
+            background-color: #475569; /* Slate 600 */
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .offense-block {
+            background-color: #f8fafc;
+            border-left: 4px solid #64748b; /* Slate 500 */
+            padding: 1.25rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .offense-block ul { list-style-type: disc; padding-left: 1.5rem; }
+        .punishment-level {
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            display: inline-block;
+        }
+        .felony-1 { background-color: #fee2e2; color: #b91c1c; }
+        .felony-2 { background-color: #ffedd5; color: #c2410c; }
+        .felony-3 { background-color: #fef3c7; color: #a16207; }
+        .sjf { background-color: #e0e7ff; color: #4338ca; }
+        .class-a { background-color: #dcfce7; color: #15803d; }
+        .class-b { background-color: #cffafe; color: #0891b2; }
+        .class-c { background-color: #e5e7eb; color: #4b5563; }
+        .quiz-option { transition: background-color 0.2s; }
+        .quiz-option.correct { background-color: #dcfce7 !important; border-color: #22c55e !important; }
+        .quiz-option.incorrect { background-color: #fee2e2 !important; border-color: #ef4444 !important; }
+        .example-block {
+            background-color: #f0f9ff;
+            border-left: 4px solid #38bdf8;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .elements-checklist {
+            background-color: #fefce8; /* yellow-50 */
+            border-left: 4px solid #eab308; /* yellow-500 */
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.25rem;
+        }
+        .elements-checklist ul {
+            list-style-type: none;
+            padding-left: 0.5rem;
+        }
+        .elements-checklist li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .elements-checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            color: #eab308;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-800">Public Order & Corruption</h1>
+            <p class="text-lg text-gray-600 mt-2">A Comprehensive Penal Code Study Guide</p>
+        </header>
+
+        <div class="mb-8 border-b border-gray-200">
+            <nav class="flex flex-wrap -mb-px" id="main-tabs">
+                <button class="tab-button active text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-corruption">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22a7 7 0 0 0 7-7h-2a5 5 0 0 1-5 5v2Z"/><path d="M19 15a7 7 0 0 1-7 7v-2a5 5 0 0 0 5-5h2Z"/><path d="M5 9a7 7 0 0 1 7-7v2a5 5 0 0 0-5 5H5Z"/><path d="M12 5a7 7 0 0 0-7 7h2a5 5 0 0 1 5-5V5Z"/><path d="m16 10-4 4-4-4"/><path d="m12 14-4 4h8l-4-4Z"/></svg>
+                    Corruption
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-family">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7"/><path d="M2 7h20"/><path d="M12 19V7"/><path d="M7.5 7a4.5 4.5 0 0 1 9 0"/></svg>
+                    Family
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-public-order">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="M8 17h8"/></svg>
+                    Public Order
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-organized-crime">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a7 7 0 1 0-7-7c0 1.48.56 2.82 1.46 3.82L12 21Z"/><path d="M16 8A5 5 0 1 0 6 8a5 5 0 0 0 10 0Z"/><path d="M12 2v2"/><path d="M12 7v2"/></svg>
+                    Organized Crime
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-federal">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/><line x1="2" y1="9.27" x2="22" y2="9.27"/></svg>
+                    Federal & Civil
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-resources">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+                    Resources
+                </button>
+                <button class="tab-button text-lg font-medium py-4 px-6 border-b-2 border-transparent rounded-t-lg" data-tab="tab-quiz">
+                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    Knowledge Check
+                </button>
+            </nav>
+        </div>
+
+        <main id="tab-content">
+            <div id="tab-corruption" class="tab-pane active">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Bribery, Corruption & Abuse of Office</h2>
+                <div class="space-y-6">
+                     <details class="card p-0" open>
+                        <summary>Bribery, Coercion, & Improper Influence</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.36.htm#36.02" target="_blank" class="text-blue-600 hover:underline">36.02. Bribery</a></h3>
+                                <p>A person intentionally or knowingly offers, confers, solicits, or accepts a benefit in exchange for a public servant's decision, opinion, vote, or other exercise of discretion.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-2">2nd Degree Felony</span></p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person act intentionally or knowingly?</li>
+                                        <li>Was a `benefit` offered, given, solicited, or accepted?</li>
+                                        <li>Was this benefit for a `public servant`, party official, or voter?</li>
+                                        <li>Was the benefit in exchange for the recipient's vote, decision, opinion, or exercise of official discretion?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A driver pulled over for speeding offers the officer a $100 bill and says, "Can we just make this go away?" Both the driver (for offering) and the officer (if they accepted) have committed Bribery.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.36.htm#36.03" target="_blank" class="text-blue-600 hover:underline">36.03. Coercion of Public Servant or Voter</a></h3>
+                                <p>A person uses coercion (a threat) to influence a public servant's official action or a voter's vote.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span>, but a <span class="punishment-level felony-3">3rd Degree Felony</span> if the coercion is a threat to commit a felony.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person use `coercion` (a threat)?</li>
+                                        <li>Was the target a `public servant` or `voter`?</li>
+                                        <li>Was the purpose to influence an official duty, make them violate a duty, or influence a vote?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A business owner tells a city inspector, "If you don't approve my building permit, I'll make sure that damaging personal information about you gets leaked to the press."</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.36.htm#36.09" target="_blank" class="text-blue-600 hover:underline">36.09. Offering Gift to Public Servant</a></h3>
+                                <p>A person offers or gives any benefit to a public servant that they know the public servant is prohibited by law from accepting.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span></p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did a person offer, confer, or agree to confer a `benefit`?</li>
+                                        <li>Was the recipient a `public servant`?</li>
+                                        <li>Did the actor `know` the public servant was prohibited by law from accepting the benefit?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> A citizen knows a judge is overseeing their case and sends a $500 gift basket to the judge's office. This is Offering a Gift to a Public Servant.</div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Abuse of Office</summary>
+                         <div class="p-6 border-t">
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.39.htm#39.02" target="_blank" class="text-blue-600 hover:underline">39.02. Abuse of Official Capacity</a></h3>
+                                <p>A public servant, with intent to obtain a benefit or to harm/defraud another, intentionally or knowingly: 1) violates a law relating to their office, or 2) misuses government property, services, or personnel.</p>
+                                <p><strong>Punishment:</strong> Follows the theft value ladder, from <span class="punishment-level class-c">Class C Misdemeanor</span> to <span class="punishment-level felony-1">1st Degree Felony</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Is the person a `public servant`?</li>
+                                        <li>Did they act with intent to get a `benefit` OR intent to `harm or defraud` another?</li>
+                                        <li>Did they `intentionally or knowingly` violate a law related to their job OR misuse government property/personnel?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A city employee uses a city-owned truck and tools over the weekend to run their personal landscaping business. The value of the use determines the punishment level.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.39.htm#39.03" target="_blank" class="text-blue-600 hover:underline">39.03. Official Oppression</a></h3>
+                                <p>A public servant acting under color of office intentionally: 1) subjects another to unlawful mistreatment, arrest, search, seizure, etc., 2) denies or impedes another's rights, or 3) subjects another to sexual harassment.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Is the person a `public servant` acting `under color of office`?</li>
+                                        <li>Did they `intentionally` do one of the following:</li>
+                                        <li>A) Subject another to `unlawful` mistreatment, arrest, search, or seizure?</li>
+                                        <li>B) Deny or impede another's rights, `knowing` it was unlawful?</li>
+                                        <li>C) Subject another to `sexual harassment`?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> During a traffic stop, an officer tells the driver, "You're too sexy for a ticket. How about you give me your number instead?" This is sexual harassment under Official Oppression.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.39.htm#39.04" target="_blank" class="text-blue-600 hover:underline">39.04. Improper Sexual Activity with Person in Custody</a></h3>
+                                <p>An official, employee, or volunteer of a correctional/juvenile facility, or a peace officer, intentionally engages in sexual contact, intercourse, or deviate sexual intercourse with an individual in custody or under supervision.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level sjf">State Jail Felony</span> to <span class="punishment-level felony-1">1st Degree Felony</span> depending on the circumstances.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Is the actor an official, employee, volunteer of a facility, or a peace officer?</li>
+                                        <li>Did they `intentionally` engage in `sexual contact, sexual intercourse, or deviate sexual intercourse`?</li>
+                                        <li>Was the other individual `in custody` or under official supervision?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A peace officer transports a detainee to jail and, during the transport, engages in sexual contact with them. This is a violation regardless of consent.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.39.htm#39.05" target="_blank" class="text-blue-600 hover:underline">39.05. Failure to Report Death of Prisoner</a></h3>
+                                <p>A person required to investigate and file a report on an in-custody death (under <a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.49.htm#49.18" target="_blank" class="text-blue-600 hover:underline">CCP Art. 49.18</a>) fails to do so, or files a report omitting known facts.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-b">Class B Misdemeanor</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Was the person `required` by law to investigate and report an in-custody death?</li>
+                                        <li>Did they fail to investigate, fail to file the report, OR fail to include known facts in the report?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> The chief of a law enforcement agency knows specific details about an inmate's death but intentionally leaves those facts out of the official report filed with the attorney general.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.39.htm#39.06" target="_blank" class="text-blue-600 hover:underline">39.06. Misuse of Official Information</a></h3>
+                                <p>A public servant uses non-public information for personal gain, to speculate, or to coerce another into not reporting information to law enforcement.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span> (or <span class="punishment-level class-c">Class C Misdemeanor</span> for coercing someone not to report).</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Is the person a `public servant`?</li>
+                                        <li>Did they rely on `information not made public` that they had access to because of their job?</li>
+                                        <li>Did they use that information to acquire a financial interest, speculate, OR coerce someone from reporting a crime?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> A city planning official learns that a new highway exit will be built in a specific location. Before this information is public, they tell a family member to buy the adjacent land to profit from the future development.</div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Witnesses, Informants & Impersonation</summary>
+                         <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.36.htm#36.05" target="_blank" class="text-blue-600 hover:underline">36.05. Tampering with Witness</a></h3>
+                                <p>With intent to influence, a person offers a benefit to or coerces a witness/prospective witness to testify falsely, withhold testimony, elude process, or absent themselves from a proceeding.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span>, but it's enhanced to the same level as the underlying criminal case.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person act with `intent to influence` a witness or prospective witness?</li>
+                                        <li>Did they `offer a benefit` or `coerce` the witness?</li>
+                                        <li>Was the purpose to make the witness testify falsely, withhold testimony, elude a summons, or not show up?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> The defendant in a theft case (Class A Misd.) offers a witness $500 to change their testimony. The defendant has committed Tampering with Witness, a 3rd Degree Felony.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.36.htm#36.06" target="_blank" class="text-blue-600 hover:underline">36.06. Obstruction or Retaliation</a></h3>
+                                <p>A person intentionally or knowingly harms or threatens to harm another by an unlawful act in retaliation for or to prevent their service as a public servant, witness, informant, or person reporting a crime.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span>, enhanced to a <span class="punishment-level felony-2">2nd Degree Felony</span> if the victim is a juror.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `intentionally or knowingly` harm or threaten to harm another?</li>
+                                        <li>Was the harm or threat an `unlawful act`?</li>
+                                        <li>Was it `in retaliation for` (or to prevent) the victim's service as a public servant, witness, informant, or crime reporter?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> After being arrested for a parole violation, an individual tells the arresting officer, "Wait 'til I get out, you're going to pay for this in blood." This is a threat of harm in retaliation for the officer's service.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.37.htm#37.11" target="_blank" class="text-blue-600 hover:underline">37.11. Impersonating Public Servant</a></h3>
+                                <p>A person impersonates a public servant with intent to induce another to submit to their pretended authority OR knowingly purports to exercise any function of a public office without legal authority.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span>.</p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `impersonate` a public servant?</li>
+                                        <li>Did they do so with `intent to make someone submit` to their fake authority? OR</li>
+                                        <li>Did they `knowingly` try to `exercise a function of a public office` without legal authority?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A man puts a flashing red light on his car, pulls someone over, and demands to see their license and registration, pretending to be a police officer.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.37.htm#37.12" target="_blank" class="text-blue-600 hover:underline">37.12. False Identification as Peace Officer</a></h3>
+                                <p>A person makes, provides, or possesses a fake badge, ID, or other item bearing a law enforcement insignia, knowing the person identified is not a peace officer.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-b">Class B Misdemeanor</span>.</p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person make, provide, or possess an item (badge, ID, etc.) with a law enforcement insignia?</li>
+                                        <li>Did the item identify someone as a peace officer?</li>
+                                        <li>Did the actor `know` the person identified was not actually a peace officer?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A person buys a realistic-looking "Sheriff" badge online and keeps it in their wallet, knowing they are not a law enforcement officer.</div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-family" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Offenses Against the Family & Children</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Marriage, Support & Custody</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.01" target="_blank" class="text-blue-600 hover:underline">25.01. Bigamy</a></h3>
+                                <p>A person who is legally married purports to marry or lives with another person under the appearance of being married.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span>. Enhanced based on the age of the other person.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Is the person legally `married`?</li>
+                                        <li>Did they then purport to marry someone else OR live with someone else `under the appearance of being married`?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A man who is legally married in Texas travels to another state and marries a second woman without divorcing his first wife.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.05" target="_blank" class="text-blue-600 hover:underline">25.05. Criminal Nonsupport</a></h3>
+                                <p>A person intentionally or knowingly fails to provide support for their child younger than 18.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level sjf">State Jail Felony</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Is the person a parent required to provide child support?</li>
+                                        <li>Is the child younger than 18?</li>
+                                        <li>Did the person `intentionally or knowingly` fail to provide that support?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A parent who is under a court order to pay child support stops making payments for several months, despite having the financial ability to do so.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.03" target="_blank" class="text-blue-600 hover:underline">25.03. Interference with Child Custody</a></h3>
+                                <p>A person takes or retains a child younger than 18, knowing it violates a court order.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level sjf">State Jail Felony</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person take or keep a child under 18?</li>
+                                        <li>Did the person `know` their action violated a court order related to custody?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A non-custodial parent picks up their child for a weekend visit but refuses to return the child on Sunday evening as required by the custody agreement.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.031" target="_blank" class="text-blue-600 hover:underline">25.031. Agreement to Abduct from Custody</a></h3>
+                                <p>A person agrees, for remuneration (payment), to abduct a child younger than 18 by force, threat, or stealth, knowing it's in violation of a custody order.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level sjf">State Jail Felony</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person make an `agreement`?</li>
+                                        <li>Was the agreement for `payment` (remuneration)?</li>
+                                        <li>Was the purpose to `abduct` a child under 18?</li>
+                                        <li>Did the actor `know` the child was under the control of a court order?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A parent pays someone to forcibly take their child from the other parent, who has legal custody.</div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Enticing, Harboring, and Grooming</summary>
+                         <div class="p-6 border-t">
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.04" target="_blank" class="text-blue-600 hover:underline">25.04. Enticing a Child</a></h3>
+                                <p>With intent to interfere with lawful custody, a person knowingly entices, persuades, or takes a child younger than 18 from their parent or guardian.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-b">Class B Misdemeanor</span>. Enhanced to a <span class="punishment-level felony-3">3rd Degree Felony</span> if the actor intended to commit a felony against the child.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person act with `intent to interfere with lawful custody`?</li>
+                                        <li>Did they `knowingly` entice, persuade, or take a child under 18?</li>
+                                        <li>Was the child taken from a parent, guardian, or similar custodian?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> An adult who is not a parent or guardian convinces a 15-year-old to leave home and come stay with them, without the parents' permission.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.06" target="_blank" class="text-blue-600 hover:underline">25.06. Harboring Runaway Child</a></h3>
+                                <p>A person knowingly harbors a child and is criminally negligent about whether the child (younger than 18) is a runaway or has escaped from custody.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `knowingly harbor` (shelter) a child?</li>
+                                        <li>Were they `criminally negligent` about whether the child (under 18) was a runaway?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> An adult lets their child's 16-year-old friend, who they know has run away from home, stay at their house for a week without notifying the parents or police.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.15.htm#15.032" target="_blank" class="text-blue-600 hover:underline">15.032. Child Grooming</a></h3>
+                                <p>With intent that a sexual offense be committed, a person knowingly persuades, entices, or coerces a child younger than 18 to engage in specific conduct that would constitute that sexual offense.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span>, enhanced to a <span class="punishment-level felony-2">2nd Degree Felony</span> if the actor has a previous conviction for certain sexual offenses.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person act with the `intent` that a sexual offense be committed?</li>
+                                        <li>Did they `knowingly` persuade, entice, or coerce a child under 18?</li>
+                                        <li>Was the goal to make the child engage in conduct that would be a sexual offense?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> An adult communicates with a 15-year-old online, developing a relationship with the intent to eventually persuade them to meet for a sexual act. The act of persuading/enticing with that intent is Child Grooming.</div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="card p-0">
+                        <summary>Sale & Purchase of a Child</summary>
+                         <div class="p-6 border-t">
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.08" target="_blank" class="text-blue-600 hover:underline">25.08. Sale or Purchase of Child</a></h3>
+                                <p>A person offers to accept or accepts a thing of value for the delivery or possession of a child for the purposes of adoption.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person possess, or have custody of, a child under 18?</li>
+                                        <li>Did they offer to accept, or accept, a `thing of value`?</li>
+                                        <li>Was this in exchange for delivering the child to another for the purpose of `adoption`? (Also applies to the buyer).</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A person offers another person $10,000 to acquire their infant child for an illegal adoption. Both the person offering and the person accepting have committed the offense.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm#25.09" target="_blank" class="text-blue-600 hover:underline">25.09. Advertising for Placement of Child</a></h3>
+                                <p>A person advertises in public media to place, provide, or obtain a child for adoption.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span>.</p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `advertise` in public media (including internet)?</li>
+                                        <li>Was the advertisement to place, provide, or obtain a child for `adoption`?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A person posts on a public social media page that they are looking to "find a good home for" their child in exchange for money, outside of any legal adoption agency process.</div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-public-order" class="tab-pane hidden">
+                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Public Order & Gambling</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Public Nuisance & Safety</summary>
+                        <div class="p-6 border-t">
+                           <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm#42.061" target="_blank" class="text-blue-600 hover:underline">42.061. Silent or Abusive Calls to 9-1-1 Service</a></h3>
+                                <p>A person makes a call to a 9-1-1 service when there is no emergency and knowingly/intentionally remains silent or makes abusive/harassing statements.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-b">Class B Misdemeanor</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person call 9-1-1 when there was `no emergency`?</li>
+                                        <li>Did they `knowingly or intentionally` remain silent OR make abusive/harassing statements?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> A person repeatedly calls 9-1-1 to complain about their neighbor's dog barking, tying up emergency lines.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm#42.14" target="_blank" class="text-blue-600 hover:underline">42.14. Illumination of Aircraft by Intense Light</a></h3>
+                                <p>A person intentionally directs a light from a laser pointer at an aircraft.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-c">Class C Misdemeanor</span>. Enhanced to <span class="punishment-level class-a">Class A</span> if it impairs the operator's ability to control the aircraft.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `intentionally` direct a light at an aircraft?</li>
+                                        <li>Was the light from a `laser pointer` or other intense source?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> A person on the ground aims a green laser pointer at a helicopter flying overhead.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.48.htm#48.05" target="_blank" class="text-blue-600 hover:underline">48.05. Prohibited Camping</a></h3>
+                                <p>A person intentionally or knowingly camps in a public place without the effective consent of the agency managing the place.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-c">Class C Misdemeanor</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `intentionally or knowingly` "camp" (reside temporarily with shelter)?</li>
+                                        <li>Was it in a `public place`?</li>
+                                        <li>Was it `without effective consent` from the managing authority?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A person sets up a tent and sleeping bag on a public sidewalk and lives there for several days without permission from the city.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.50.htm#50.02" target="_blank" class="text-blue-600 hover:underline">50.02. Unlawful Use of Fireworks</a></h3>
+                                <p>A person explodes or ignites fireworks with the intent to interfere with a law enforcement officer or flee from a lawful arrest/detention.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level sjf">State Jail Felony</span>. Enhanced to <span class="punishment-level felony-1">1st Degree Felony</span> if it causes SBI to an officer.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person explode or ignite `fireworks`?</li>
+                                        <li>Did they do so with the `intent to interfere` with an officer's duties OR `flee` from a lawful arrest?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> As an officer attempts to arrest a suspect, the suspect's friend begins shooting Roman candles at the officer to create a distraction and help the suspect get away.</div>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Gambling</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.47.htm#47.02" target="_blank" class="text-blue-600 hover:underline">47.02. Gambling</a></h3>
+                                <p>A person: 1) makes a bet on a game/contest, or 2) plays and bets for money at any game with cards, dice, etc.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-c">Class C Misdemeanor</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person make a `bet` on the outcome of a game, contest, or election? OR</li>
+                                        <li>Did they play and bet for `money or other thing of value` at a game?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Two people bet $20 on the outcome of a football game.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.47.htm#47.03" target="_blank" class="text-blue-600 hover:underline">47.03. Gambling Promotion</a></h3>
+                                <p>A person intentionally or knowingly operates or participates in the earnings of a gambling place or engages in bookmaking.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `intentionally or knowingly` do one of the following:</li>
+                                        <li>A) Operate or share in the profits of a `gambling place`?</li>
+                                        <li>B) Engage in `bookmaking`?</li>
+                                        <li>C) For gain, become a custodian of bet money?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> The owner of an illegal "game room" profits from the electronic slot machines operating inside.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.47.htm#47.04" target="_blank" class="text-blue-600 hover:underline">47.04. Keeping a Gambling Place</a></h3>
+                                <p>A person knowingly uses or permits another to use property they own or control as a gambling place.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `knowingly` use property they own/control as a gambling place? OR</li>
+                                        <li>Did they `knowingly` permit another to use it as a gambling place?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A property owner knowingly rents out a warehouse to a person who is using it to run an illegal casino.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.47.htm#47.05" target="_blank" class="text-blue-600 hover:underline">47.05. Communicating Gambling Information</a></h3>
+                                <p>With intent to further gambling, a person knowingly communicates information on bets or odds.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person act with `intent to further gambling`?</li>
+                                        <li>Did they `knowingly communicate` information about bets, odds, etc.?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A bookie sends out text messages with the point spreads for upcoming basketball games.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.47.htm#47.06" target="_blank" class="text-blue-600 hover:underline">47.06. Possession of Gambling Device, Equipment, or Paraphernalia</a></h3>
+                                <p>With intent to further gambling, a person knowingly possesses a gambling device or altered equipment (e.g., loaded dice).</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level class-a">Class A Misdemeanor</span>.</p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person act with `intent to further gambling`?</li>
+                                        <li>Did they `knowingly` own, make, transfer, or possess a `gambling device`, `altered equipment`, or `paraphernalia`?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> During a raid on an illegal poker game, officers find a player in possession of a deck of marked cards.</div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-organized-crime" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Inchoate & Organized Crime</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Inchoate (Preparatory) Offenses</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.15.htm#15.02" target="_blank" class="text-blue-600 hover:underline">15.02. Criminal Conspiracy</a></h3>
+                                <p>A person, with intent that a felony be committed, agrees with one or more persons to engage in the conduct, AND one of them performs an overt act in pursuance of the agreement.</p>
+                                <p><strong>Punishment:</strong> One category lower than the object felony.</p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Was there an `intent` for a felony to be committed?</li>
+                                        <li>Did the person `agree` with at least one other person to commit the felony?</li>
+                                        <li>Did at least one of the conspirators perform an `overt act` to further the agreement?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> Alice and Bob agree to rob a bank. Bob then goes and buys ski masks and a getaway car. Both have committed Criminal Conspiracy because there was an agreement and an overt act (buying masks/car).</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.15.htm#15.03" target="_blank" class="text-blue-600 hover:underline">15.03. Criminal Solicitation</a></h3>
+                                <p>With intent that a capital felony or 1st degree felony be committed, a person requests, commands, or attempts to induce another to engage in the conduct.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-2">2nd Degree</span> (for a 1st Degree Felony) or <span class="punishment-level felony-1">1st Degree</span> (for a Capital Felony).</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person act with `intent` that a Capital or 1st Degree Felony be committed?</li>
+                                        <li>Did they `request, command, or attempt to induce` another person to commit it?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> Mario calls Dormir and tells him he "needs some thieving cockroach to sleep with the fishes," offering his "normal fee." Mario has solicited Dormir to commit murder.</div>
+                            </div>
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.15.htm#15.031" target="_blank" class="text-blue-600 hover:underline">15.031. Criminal Solicitation of a Minor</a></h3>
+                                <p>With intent that a listed offense be committed (e.g., Murder, Aggravated Robbery), a person requests or attempts to induce a minor (under 17) to engage in the conduct.</p>
+                                <p><strong>Punishment:</strong> One category lower than the solicited offense (with exceptions for gang members).</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person act with `intent` for a serious felony to be committed?</li>
+                                        <li>Did they request, command, or attempt to induce a `minor` (under 17) to commit it?</li>
+                                    </ul>
+                                </div>
+                                 <div class="example-block"><strong>Example:</strong> A gang leader tells a 16-year-old prospective member to go rob a convenience store to prove his loyalty.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.15.htm#15.04" target="_blank" class="text-blue-600 hover:underline">15.04. Renunciation Defense</a></h3>
+                                <p>An affirmative defense where the actor voluntarily and completely renounces their criminal objective and makes a substantial effort to prevent the offense.</p>
+                                 <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Is this for an `inchoate` offense (Attempt, Conspiracy, Solicitation)?</li>
+                                        <li>Did the actor `voluntarily and completely` renounce their criminal objective?</li>
+                                        <li>Did they take `affirmative action` that prevented the commission of the crime?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> After agreeing to a burglary, one conspirator has a change of heart, calls the police to report the plan, and talks the other conspirators out of it before the crime occurs.</div>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Organized Crime & Terrorism</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.71.htm#71.02" target="_blank" class="text-blue-600 hover:underline">71.02. Engaging in Organized Criminal Activity</a></h3>
+                                <p>With intent to establish, maintain, or participate in a combination (3+ people) or criminal street gang, the person commits or conspires to commit one or more listed offenses.</p>
+                                <p><strong>Punishment:</strong> One category higher than the most serious offense committed.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person act with `intent to participate` in a `combination` (3+ people) or `criminal street gang`?</li>
+                                        <li>While having that intent, did they `commit or conspire to commit` one of the offenses listed in the statute?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A person commits a Burglary of a Habitation (a 2nd Degree Felony). If it's proven they did this with the intent to participate in a criminal street gang they are a member of, the charge is enhanced to a 1st Degree Felony under this statute.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.71.htm#71.022" target="_blank" class="text-blue-600 hover:underline">71.022. Coercing, Inducing, or Soliciting Membership in a Gang</a></h3>
+                                <p>A person knowingly recruits or solicits another to become a member of a criminal street gang, requiring an offense as a condition of membership.</p>
+                                <p><strong>Punishment:</strong> <span class="punishment-level felony-3">3rd Degree Felony</span>.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person `knowingly` coerce, recruit, or solicit someone into a `criminal street gang`?</li>
+                                        <li>Did joining the gang require the commission of a crime?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A gang member tells a teenager they can join the gang, but only after they successfully steal a car.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl"><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.76.htm#76.02" target="_blank" class="text-blue-600 hover:underline">76.02. Terrorism</a></h3>
+                                <p>A person commits a listed offense (e.g., Murder, Arson, Aggravated Robbery) with the intent to intimidate or coerce the public or influence government policy.</p>
+                                <p><strong>Punishment:</strong> One category higher than the underlying offense, with minimum terms of confinement.</p>
+                                <div class="elements-checklist">
+                                    <h4 class="font-semibold">Elements Checklist:</h4>
+                                    <ul>
+                                        <li>Did the person commit (or conspire to commit) one of the listed offenses (like Murder, Arson, etc.)?</li>
+                                        <li>Did they do it with the specific `intent to intimidate/coerce the public` OR `influence government policy`?</li>
+                                    </ul>
+                                </div>
+                                <div class="example-block"><strong>Example:</strong> A person commits Arson by setting fire to a government building with the stated goal of influencing a piece of legislation. The Arson charge can be enhanced under the Terrorism statute.</div>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+             <div id="tab-federal" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Federal Law & Civil Penalties</h2>
+                <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Federal Criminal Civil Rights Statutes</summary>
+                        <div class="p-6 border-t">
+                            <div class="offense-block">
+                                <h3 class="font-bold text-xl">18 U.S.C. § 241 - Conspiracy Against Rights</h3>
+                                <p>Makes it unlawful for two or more persons to conspire to injure, oppress, threaten, or intimidate any person in the free exercise of any right secured by the U.S. Constitution or laws.</p>
+                                <div class="example-block"><strong>Example:</strong> Two or more officers agree ahead of time to plant evidence on a suspect to ensure a conviction.</div>
+                            </div>
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl">18 U.S.C. § 242 - Deprivation of Rights Under Color of Law</h3>
+                                <p>Makes it a crime for any person acting "under color of law" to willfully deprive a person of a right or privilege protected by the U.S. Constitution or laws.</p>
+                                <div class="example-block"><strong>Example:</strong> An officer willfully uses excessive force during an arrest, resulting in bodily injury. This is the primary statute used to criminally prosecute individual officers for such civil rights violations.</div>
+                            </div>
+                        </div>
+                    </details>
+                     <details class="card p-0">
+                        <summary>Civil Penalties & Sexual Harassment</summary>
+                         <div class="p-6 border-t">
+                             <div class="offense-block">
+                                <h3 class="font-bold text-xl">Civil Liability</h3>
+                                <p>In addition to criminal charges, officers can be subject to civil lawsuits. The most common is a <strong>42 U.S.C. § 1983</strong> lawsuit for civil rights violations.</p>
+                                <p>Sexual harassment can also lead to civil penalties for the officer and their department under rules from the Equal Employment Opportunity Commission (EEOC) and the Texas Commission on Human Rights.</p>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+            <div id="tab-resources" class="tab-pane hidden">
+                 <h2 class="text-3xl font-bold text-gray-800 mb-6">Resources</h2>
+                 <div class="space-y-6">
+                    <details class="card p-0" open>
+                        <summary>Texas Statute Links</summary>
+                        <div class="p-6 border-t">
+                             <ul class="list-disc list-inside space-y-2">
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.15.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 15 - Preparatory Offenses</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.25.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 25 - Offenses Against the Family</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.36.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 36 - Bribery and Corrupt Influence</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.37.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 37 - Perjury and Other Falsification</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.39.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 39 - Abuse of Office</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.42.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 42 - Disorderly Conduct and Related Offenses</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.47.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 47 - Gambling</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.48.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 48 - Conduct Affecting Public Health</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.50.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 50 - Unlawful Use of Fireworks</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.71.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 71 - Organized Crime</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/PE/htm/PE.76.htm" target="_blank" class="text-blue-600 hover:underline font-medium">Penal Code Chapter 76 - Terrorism</a></li>
+                                <li><a href="https://statutes.capitol.texas.gov/Docs/CR/htm/CR.49.htm#49.18" target="_blank" class="text-blue-600 hover:underline font-medium">Code of Criminal Procedure Art. 49.18 - Inquest Upon Death in Custody</a></li>
+                            </ul>
+                        </div>
+                    </details>
+                 </div>
+            </div>
+
+            <div id="tab-quiz" class="tab-pane hidden">
+                <h2 class="text-3xl font-bold text-gray-800 mb-6">Knowledge Check</h2>
+                <div id="quiz-container" class="space-y-8"></div>
+                <div id="quiz-results" class="mt-8 text-center hidden">
+                    <h3 class="text-2xl font-bold">Quiz Complete!</h3>
+                    <p id="quiz-score" class="text-4xl font-bold my-4"></p>
+                    <button id="retake-quiz" class="bg-slate-600 text-white font-semibold py-2 px-6 rounded-md hover:bg-slate-700">Retake Quiz</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tab-button');
+    const tabPanes = document.querySelectorAll('.tab-pane');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            tabPanes.forEach(pane => {
+                pane.classList.add('hidden');
+                if (pane.id === tab.dataset.tab) {
+                    pane.classList.remove('hidden');
+                }
+            });
+            if (tab.dataset.tab === 'tab-quiz') {
+                buildQuiz();
+            }
+        });
+    });
+
+    const quizData = [
+        {
+            question: "An officer stops a driver for a traffic violation. The driver offers the officer $100 to 'make it go away'. What is the punishment for this offense?",
+            options: ["Class A Misdemeanor", "3rd Degree Felony", "2nd Degree Felony", "State Jail Felony"],
+            answer: "2nd Degree Felony",
+            explanation: "The driver offered a benefit as consideration for the officer's decision. This is Bribery (36.02), a 2nd Degree Felony."
+        },
+        {
+            question: "A public servant acting under color of office intentionally subjects another to an unlawful arrest. What offense has been committed?",
+            options: ["Abuse of Official Capacity", "Official Oppression", "Bribery", "Coercion of Public Servant"],
+            answer: "Official Oppression",
+            explanation: "The officer, acting under color of office, intentionally subjected another to an arrest he knows is unlawful. This is Official Oppression (39.03), a Class A Misdemeanor."
+        },
+         {
+            question: "Four people collaborate to commit a series of thefts. With intent to participate in this 'combination', one of them commits a Class A Misdemeanor theft. What is the punishment for that individual under Chapter 71?",
+            options: ["Class A Misdemeanor", "State Jail Felony", "3rd Degree Felony", "The punishment is not enhanced"],
+            answer: "State Jail Felony",
+            explanation: "Under Engaging in Organized Criminal Activity (71.02), the punishment is enhanced one category higher than the most serious offense committed. A Class A Misdemeanor is enhanced to a State Jail Felony."
+        },
+        {
+            question: "A person knowingly takes their 10-year-old child from the custody of their ex-spouse, in direct violation of a court order. What is the punishment for this offense?",
+            options: ["Class A Misdemeanor", "State Jail Felony", "3rd Degree Felony", "2nd Degree Felony"],
+            answer: "State Jail Felony",
+            explanation: "This is Interference with Child Custody (25.03), which is a State Jail Felony."
+        },
+        {
+            question: "An adult, with intent to commit a sexual offense, spends weeks talking to a 16-year-old online to persuade them to meet in person. What is the most appropriate inchoate offense?",
+            options: ["Criminal Solicitation", "Criminal Conspiracy", "Child Grooming", "Enticing a Child"],
+            answer: "Child Grooming",
+            explanation: "With intent that a sexual offense be committed, the person knowingly persuades or entices a child younger than 18. This is Child Grooming (15.032)."
+        },
+        {
+            question: "Which of the following scenarios is MOST likely to be covered by the defense to Gambling (47.02)?",
+            options: ["A backroom poker game where the house takes a 5% 'rake' from each pot.", "An organized fantasy football league where the commissioner takes a fee to manage the league.", "A weekly poker game among friends at a private residence where there is no cover charge and all money is paid out to the winners.", "A slot machine at a local bar that pays out in cash."],
+            answer: "A weekly poker game among friends at a private residence where there is no cover charge and all money is paid out to the winners.",
+            explanation: "PC 47.02 (Gambling) provides a defense if it occurred in a private place, no one received an economic benefit other than personal winnings, and the risks were the same for all participants."
+        },
+        {
+            question: "A person intentionally harms a witness to prevent them from testifying in an upcoming trial for Aggravated Robbery (a 1st Degree Felony). What is the punishment for Tampering with Witness in this case?",
+            options: ["3rd Degree Felony", "2nd Degree Felony", "1st Degree Felony", "State Jail Felony"],
+            answer: "1st Degree Felony",
+            explanation: "Under Tampering with Witness (36.05), if the official proceeding is part of a criminal case, the offense is the same category as the most serious offense charged. In this case, it is a 1st Degree Felony."
+        },
+        {
+            question: "Under Chapter 71, what is the minimum number of people required to be considered a 'Combination' or a 'Criminal Street Gang'?",
+            options: ["Two", "Three", "Five", "There is no minimum number"],
+            answer: "Three",
+            explanation: "PC 71.01 defines both a 'Combination' and a 'Criminal Street Gang' as requiring three or more persons."
+        },
+        {
+            question: "A person shoots fireworks at an officer with the intent to help their friend escape from a lawful detention. The act causes no injury. What offense was committed?",
+            options: ["Disorderly Conduct", "Aggravated Assault on a Public Servant", "Unlawful Use of Fireworks", "Terroristic Threat"],
+            answer: "Unlawful Use of Fireworks",
+            explanation: "The person exploded fireworks with the intent to interfere with an officer or flee. Under PC 50.02, this is a State Jail Felony."
+        },
+        {
+            question: "A person pays a hitman to kill their spouse. The solicited offense is Capital Murder. What offense has the person committed and what is the punishment?",
+            options: ["Murder, Capital Felony", "Criminal Conspiracy, 1st Degree Felony", "Criminal Solicitation, 2nd Degree Felony", "Criminal Solicitation, 1st Degree Felony"],
+            answer: "Criminal Solicitation, 1st Degree Felony",
+            explanation: "With intent that a capital felony be committed, the person requested another to engage in the conduct. Under Criminal Solicitation (15.03), if the solicited offense is a capital offense, the punishment is a 1st Degree Felony."
+        }
+    ];
+
+    const quizContainer = document.getElementById('quiz-container');
+    const quizResultsContainer = document.getElementById('quiz-results');
+    const quizScoreEl = document.getElementById('quiz-score');
+    const retakeBtn = document.getElementById('retake-quiz');
+
+    function buildQuiz() {
+        quizContainer.innerHTML = '';
+        quizResultsContainer.classList.add('hidden');
+        
+        quizData.forEach((currentQuestion, questionNumber) => {
+            const options = currentQuestion.options.map(option =>
+                `<div class="quiz-option border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100 cursor-pointer" data-question="${questionNumber}">${option}</div>`
+            ).join('');
+
+            const questionEl = document.createElement('div');
+            questionEl.classList.add('card', 'p-6');
+            questionEl.innerHTML = `
+                <p class="text-lg font-semibold mb-4">Question ${questionNumber + 1}: ${currentQuestion.question}</p>
+                <div class="space-y-3" id="options-${questionNumber}">${options}</div>
+                <div class="explanation-container mt-4 hidden"></div>
+            `;
+            quizContainer.appendChild(questionEl);
+        });
+
+        quizContainer.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', selectAnswer);
+        });
+    }
+
+    let score = 0;
+    let answeredQuestions = 0;
+
+    function selectAnswer(e) {
+        const selectedOption = e.target;
+        const questionNumber = selectedOption.dataset.question;
+        const currentQuestion = quizData[questionNumber];
+        const correctAnswer = currentQuestion.answer;
+        const optionContainer = document.getElementById(`options-${questionNumber}`);
+        
+        if (optionContainer.dataset.answered) return;
+        optionContainer.dataset.answered = 'true';
+
+        if (selectedOption.textContent === correctAnswer) {
+            selectedOption.classList.add('correct');
+            score++;
+        } else {
+            selectedOption.classList.add('incorrect');
+            optionContainer.querySelectorAll('.quiz-option').forEach(opt => {
+                if(opt.textContent === correctAnswer) opt.classList.add('correct');
+            });
+        }
+        
+        const explanationContainer = optionContainer.parentElement.querySelector('.explanation-container');
+        explanationContainer.classList.remove('hidden');
+        explanationContainer.innerHTML = `<div class="p-3 mt-4 bg-gray-100 border border-gray-300 rounded-lg text-sm text-gray-700">${currentQuestion.explanation}</div>`;
+
+        answeredQuestions++;
+        if (answeredQuestions === quizData.length) {
+            showResults();
+        }
+    }
+    
+    function showResults() {
+        setTimeout(() => {
+            quizResultsContainer.classList.remove('hidden');
+            quizScoreEl.textContent = `Your Score: ${score} / ${quizData.length}`;
+            const percentage = (score / quizData.length) * 100;
+            if(percentage >= 80) quizScoreEl.style.color = '#15803d';
+            else if (percentage >= 50) quizScoreEl.style.color = '#a16207';
+            else quizScoreEl.style.color = '#b91c1c';
+        }, 1000);
+    }
+    
+    retakeBtn.addEventListener('click', () => {
+        score = 0;
+        answeredQuestions = 0;
+        buildQuiz();
+    });
+
+    // Automatically build quiz if tab is active on load
+    if(document.querySelector('.tab-button.active')?.dataset.tab === 'tab-quiz') {
+        buildQuiz();
+    }
+});
+</script>
+
+</body>
+</html>
+

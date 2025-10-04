@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Order & Corruption Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Public Order & Corruption Quiz (Final Boss Version)</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 56 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "A person commits the offense of Bribery (PC 36.02) if they offer a benefit as consideration for a public servant's decision, opinion, recommendation, or vote. What is the penalty for this offense?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Felony of the third degree", "Felony of the second degree"],
+                answer: "Felony of the second degree",
+                explanation: "Bribery is a serious offense aimed at corrupting public officials. The penalty is a second-degree felony regardless of the value of the benefit.",
+                reference: "Handout Page 1: 36.02. BRIBERY (e)"
+            },
+            {
+                question: "Is it a defense to Bribery that the public servant the actor sought to influence was not qualified to act in the desired way?",
+                options: ["Yes, if the public servant had no jurisdiction.", "No, it is no defense to prosecution.", "Yes, if the public servant had not yet assumed office.", "Only if the benefit was a political contribution."],
+                answer: "No, it is no defense to prosecution.",
+                explanation: "PC 36.02(b) explicitly states that it is not a defense that the person sought to be influenced was not qualified to act, for any reason.",
+                reference: "Handout Page 1: 36.02. BRIBERY (b)"
+            },
+            {
+                question: "A person commits Coercion of a Public Servant or Voter (PC 36.03) if by means of coercion they influence or attempt to influence a public servant in their official duty. What is the penalty for this offense?",
+                options: ["Class C Misdemeanor", "Class A Misdemeanor, unless the coercion is a threat to commit a felony", "State Jail Felony", "Felony of the second degree"],
+                answer: "Class A Misdemeanor, unless the coercion is a threat to commit a felony",
+                explanation: "The base offense is a Class A Misdemeanor, but it is enhanced to a third-degree felony if the coercion involves a threat to commit a felony.",
+                reference: "Handout Page 2: 36.03. COERCION OF PUBLIC SERVANT OR VOTER (b)"
+            },
+            {
+                question: "A person commits the offense of Offering Gift to Public Servant (PC 36.09) if they offer a benefit to a public servant that they know the public servant is what?",
+                options: ["Not interested in.", "Going to refuse.", "Prohibited by law from accepting.", "Going to report to a supervisor."],
+                answer: "Prohibited by law from accepting.",
+                explanation: "The key element of this offense is the actor's knowledge that the public servant is legally barred from accepting the specific gift being offered. The penalty is a Class A Misdemeanor.",
+                reference: "Handout Page 2: 36.09. OFFERING GIFT TO PUBLIC SERVANT (a)"
+            },
+            {
+                question: "A person commits Tampering with Witness (PC 36.05) if, with intent to influence, they offer a benefit to a witness to get them to do what?",
+                options: ["Testify truthfully", "Appear in court as summoned", "Testify falsely or withhold testimony", "Provide a written statement"],
+                answer: "Testify falsely or withhold testimony",
+                explanation: "This offense covers various acts intended to corrupt the legal process, including bribing a witness to lie, hide evidence, or elude legal process.",
+                reference: "Handout Page 3: 36.05. TAMPERING WITH WITNESS (a)"
+            },
+            {
+                question: "Under Tampering with Witness (PC 36.05), if the official proceeding is a criminal case, what is the penalty for the offense?",
+                options: ["Always a Class A Misdemeanor", "Always a third-degree felony", "The same category of offense as the most serious offense charged in that criminal case", "One level lower than the offense charged"],
+                answer: "The same category of offense as the most serious offense charged in that criminal case",
+                explanation: "This is a 'stackable' offense. The penalty is tied to the severity of the underlying case. If the case is a first-degree felony, the tampering offense is also a first-degree felony.",
+                reference: "Handout Page 3: 36.05. TAMPERING WITH WITNESS (d)"
+            },
+            {
+                question: "A person commits Obstruction or Retaliation (PC 36.06) if they intentionally harm or threaten to harm another by an unlawful act in retaliation for what?",
+                options: ["A personal insult", "The service or status of another as a public servant, witness, or informant", "A business dispute", "A traffic violation"],
+                answer: "The service or status of another as a public servant, witness, or informant",
+                explanation: "This statute protects individuals who participate in the justice system by criminalizing retaliation against them for their role or for reporting a crime.",
+                reference: "Handout Page 3: 36.06. OBSTRUCTION OR RETALIATION (a)(1)"
+            },
+            {
+                question: "What is the penalty for Obstruction or Retaliation (PC 36.06)?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Felony of the third degree", "Felony of the second degree"],
+                answer: "Felony of the third degree",
+                explanation: "The base penalty is a third-degree felony, but it is enhanced to a second-degree felony if the victim was a juror.",
+                reference: "Handout Page 4: 36.06. OBSTRUCTION OR RETALIATION (c)"
+            },
+            {
+                question: "A person commits Impersonating Public Servant (PC 37.11) if they impersonate a public servant with what intent?",
+                options: ["To tell a joke", "To get a discount", "To induce another to submit to their pretended official authority", "To impress a friend"],
+                answer: "To induce another to submit to their pretended official authority",
+                explanation: "The core of this offense is not just pretending to be a public servant, but doing so with the specific intent to make someone obey or rely on that pretended authority.",
+                reference: "Handout Page 4: 37.11. IMPERSONATING PUBLIC SERVANT (a)(1)"
+            },
+            {
+                question: "What is the penalty for Impersonating Public Servant (PC 37.11)?",
+                options: ["Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony", "Felony of the third degree"],
+                answer: "Felony of the third degree",
+                explanation: "Due to the potential for abuse of public trust, impersonating a public servant is a third-degree felony.",
+                reference: "Handout Page 4: 37.11. IMPERSONATING PUBLIC SERVANT (b)"
+            },
+            {
+                question: "A person commits False Identification as Peace Officer (PC 37.12) if they make, provide, or possess an item bearing a law enforcement insignia knowing that the person identified...",
+                options: ["...is retired.", "...is off-duty.", "...is not commissioned as a peace officer.", "...works for a different agency."],
+                answer: "...is not commissioned as a peace officer.",
+                explanation: "This offense targets the creation and possession of fake police identification or insignia when the possessor knows the person identified is not a real officer. The penalty is a Class B Misdemeanor.",
+                reference: "Handout Page 5: 37.12. FALSE IDENTIFICATION AS PEACE OFFICER (a)"
+            },
+            {
+                question: "What does 'Misuse' mean in the context of Abuse of Official Capacity (PC 39.01)?",
+                options: ["To use property for its intended purpose.", "To deal with property contrary to an agreement, law, or limited purpose.", "To accidentally damage property.", "To report property as stolen."],
+                answer: "To deal with property contrary to an agreement, law, or limited purpose.",
+                explanation: "PC 39.01 defines misuse as dealing with government property in a way that is contrary to law, employment agreements, or the specific purpose for which it was provided.",
+                reference: "Handout Page 5: 39.01 DEFINITIONS (2)"
+            },
+            {
+                question: "A public servant commits Abuse of Official Capacity (PC 39.02) if, with intent to obtain a benefit or harm another, they intentionally violate a law relating to their office or what else?",
+                options: ["Take a long lunch break", "Misuse government property, services, or personnel", "Disagree with a supervisor", "File a grievance"],
+                answer: "Misuse government property, services, or personnel",
+                explanation: "This offense covers two main types of conduct: violating a law related to one's office, or misusing government resources for personal benefit or to harm someone.",
+                reference: "Handout Page 6: 39.02. ABUSE OF OFFICIAL CAPACITY (a)"
+            },
+            {
+                question: "If a public servant commits Abuse of Official Capacity by misusing government property, how is the penalty level determined?",
+                options: ["It is always a Class A Misdemeanor.", "It is based on the value of the thing misused.", "It is based on the public servant's rank.", "It is always a state jail felony."],
+                answer: "It is based on the value of the thing misused.",
+                explanation: "The penalty for misusing government property follows the standard theft value ladder, ranging from a Class C Misdemeanor for misuse under $100 to a first-degree felony for misuse of $300,000 or more.",
+                reference: "Handout Page 6: 39.02. ABUSE OF OFFICIAL CAPACITY (c)"
+            },
+            {
+                question: "A public servant acting under color of office commits Official Oppression (PC 39.03) if they intentionally subject another to what?",
+                options: ["A lawful arrest.", "Mistreatment or to arrest, detention, or search that they know is unlawful.", "A standard traffic stop.", "A routine investigation."],
+                answer: "Mistreatment or to arrest, detention, or search that they know is unlawful.",
+                explanation: "This offense criminalizes the abuse of power by public servants, specifically when they knowingly subject someone to an unlawful arrest, search, seizure, or other mistreatment.",
+                reference: "Handout Page 6: 39.03. OFFICIAL OPPRESSION (a)(1)"
+            },
+            {
+                question: "What is the general penalty for Official Oppression (PC 39.03)?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "Official Oppression is a serious breach of public trust and is classified as a Class A Misdemeanor.",
+                reference: "Handout Page 6: 39.03. OFFICIAL OPPRESSION (d)"
+            },
+            {
+                question: "An official or employee of a correctional facility commits an offense under PC 39.04 if they intentionally engage in sexual contact with an individual in custody. What is the penalty for this offense?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Felony of the third degree", "Felony of the second degree"],
+                answer: "Felony of the second degree",
+                explanation: "To protect vulnerable populations, sexual contact with a person in custody is a second-degree felony, and is enhanced to a first-degree felony if the victim is a juvenile.",
+                reference: "Handout Page 7: 39.04. VIOLATIONS OF THE CIVIL RIGHTS... (b)"
+            },
+            {
+                question: "A person commits Failure to Report Death of Prisoner (PC 39.05) if they are required by CCP Art. 49.18 to investigate and file a report but fail to do so. What is the penalty?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class B Misdemeanor",
+                explanation: "This statute ensures accountability for in-custody deaths by making it a Class B Misdemeanor to fail to conduct the required investigation or file the necessary report.",
+                reference: "Handout Page 8: 39.05. FAILURE TO REPORT DEATH OF PRISONER (c)"
+            },
+            {
+                question: "A public servant commits Misuse of Official Information (PC 39.06) if, in reliance on non-public information, they do what?",
+                options: ["Acquire a pecuniary interest in property that may be affected by the information.", "Speculate on the basis of the information.", "Aid another to do either of the above.", "All of the above."],
+                answer: "All of the above.",
+                explanation: "This 'insider trading' law for public servants makes it illegal to use confidential government information for personal financial gain, either directly or by aiding another. The penalty is a third-degree felony.",
+                reference: "Handout Page 8: 39.06. MISUSE OF OFFICIAL INFORMATION (a)"
+            },
+            {
+                question: "Which federal statute makes it a crime for two or more persons to conspire to injure, oppress, threaten, or intimidate any person in the free exercise of their constitutional rights?",
+                options: ["18 USC 241: Conspiracy Against Rights", "18 USC 242: Deprivation of Rights Under Color of Law", "42 USC 1983: Civil Action for Deprivation of Rights", "Texas Penal Code 39.03: Official Oppression"],
+                answer: "18 USC 241: Conspiracy Against Rights",
+                explanation: "This federal law specifically targets conspiracies to violate civil rights and can be used to prosecute groups of officers or individuals who plan to deprive someone of their rights.",
+                reference: "Handout Page 9: 18 USC 241: Conspiracy Against Rights"
+            },
+            {
+                question: "Which federal statute makes it a crime for a person acting 'under color of law' to willfully deprive someone of a right secured by the Constitution?",
+                options: ["18 USC 241: Conspiracy Against Rights", "18 USC 242: Deprivation of Rights Under Color of Law", "42 USC 1983: Civil Action for Deprivation of Rights", "Texas Penal Code 39.02: Abuse of Official Capacity"],
+                answer: "18 USC 242: Deprivation of Rights Under Color of Law",
+                explanation: "This is the primary federal criminal statute used to prosecute individual government officials, including police officers, who willfully violate a person's civil rights.",
+                reference: "Handout Page 9: 18 USC 242: Deprivation of Rights Under Color of Law"
+            },
+            {
+                question: "What is the EEOC definition of sexual harassment?",
+                options: ["Any compliment on a coworker's appearance", "Unwelcome sexual advances, requests for sexual favors, and other verbal or physical conduct of a sexual nature", "Asking a coworker on a date", "Displaying a picture of one's spouse"],
+                answer: "Unwelcome sexual advances, requests for sexual favors, and other verbal or physical conduct of a sexual nature",
+                explanation: "This is the standard definition used in civil law, focusing on conduct that is unwelcome and of a sexual nature, especially when it affects employment.",
+                reference: "Handout Page 10: Civil penalties for inappropriate conduct"
+            },
+            {
+                question: "A person commits Bigamy (PC 25.01) if they are legally married and purport to marry or live with another person under the appearance of being married. What is the penalty?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Felony of the third degree", "Felony of the second degree"],
+                answer: "Felony of the third degree",
+                explanation: "The base offense for Bigamy is a third-degree felony. It is enhanced to a second-degree or first-degree felony if the other person is under 18 or 17, respectively.",
+                reference: "Handout Page 12: 25.01: BIGAMY (e)"
+            },
+            {
+                question: "A person commits Enticing a Child (PC 25.04) if, with intent to interfere with lawful custody, they knowingly entice, persuade, or take a child younger than:",
+                options: ["16 years", "17 years", "18 years", "21 years"],
+                answer: "18 years",
+                explanation: "This statute protects the custodial rights of parents and guardians of children under the age of 18. The offense is a Class B Misdemeanor, enhanced to a third-degree felony if the actor intended to commit a felony against the child.",
+                reference: "Handout Page 12: Sec. 25.04. ENTICING A CHILD (a)"
+            },
+            {
+                question: "A person commits Interference with Child Custody (PC 25.03) if they take or retain a child younger than 18 knowing the action violates a court order. What is the penalty?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Felony of the third degree", "Felony of the second degree"],
+                answer: "State Jail Felony",
+                explanation: "Interference with a court's custody order is a serious offense and is classified as a State Jail Felony.",
+                reference: "Handout Page 13: 25.03: INTERFERENCE WITH CHILD CUSTODY (a)"
+            },
+            {
+                question: "A person commits Agreement to Abduct from Custody (PC 25.031) if they agree, for remuneration (payment), to abduct a child. What is the penalty?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Felony of the third degree", "Felony of the second degree"],
+                answer: "State Jail Felony",
+                explanation: "This statute specifically targets 'kidnapping for hire' situations involving children and is a State Jail Felony.",
+                reference: "Handout Page 14: Sec. 25.031. AGREEMENT TO ABDUCT FROM CUSTODY (b)"
+            },
+            {
+                question: "A person commits Harboring Runaway Child (PC 25.06) if they knowingly harbor a child under 18 who is voluntarily absent from home without parental consent. What is the penalty?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "Harboring a runaway is a Class A Misdemeanor. It is a defense if the actor is a close relative or if they notified law enforcement within 24 hours.",
+                reference: "Handout Page 14: Sec. 25.06. HARBORING RUNAWAY CHILD (d)"
+            },
+            {
+                question: "An individual commits Criminal Nonsupport (PC 25.05) if they intentionally or knowingly fail to provide support for their child who is younger than 18. What is the penalty?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Felony of the third degree", "Felony of the second degree"],
+                answer: "State Jail Felony",
+                explanation: "The failure to provide court-ordered or required child support is a State Jail Felony.",
+                reference: "Handout Page 15: Sec. 25.05. CRIMINAL NONSUPPORT (f)"
+            },
+            {
+                question: "A person commits Sale or Purchase of a Child (PC 25.08) if they offer to accept, or accept, a thing of value for the delivery of a child for the purposes of adoption. What is the penalty?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Felony of the third degree", "Felony of the second degree"],
+                answer: "Felony of the third degree",
+                explanation: "The base offense is a third-degree felony. It is enhanced to a second-degree felony if done with the intent to commit certain other offenses like trafficking or compelling prostitution.",
+                reference: "Handout Page 15: Sec. 25.08. SALE OR PURCHASE OF CHILD (c)"
+            },
+            {
+                question: "A person commits the offense of Advertising for Placement of Child (PC 25.09) if they advertise in public media to place, provide, or obtain a child for adoption. What is the penalty?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "This offense is a Class A Misdemeanor for a first offense, and is enhanced to a third-degree felony for a subsequent conviction. Licensed child-placing agencies are exempt.",
+                reference: "Handout Page 15: Sec. 25.09. ADVERTISING FOR PLACEMENT OF CHILD (c)"
+            },
+            {
+                question: "A person commits Silent or Abusive Calls to 9-1-1 Service (PC 42.061) if they make a call when there is no emergency and remain silent or make abusive statements. What is the penalty?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class B Misdemeanor",
+                explanation: "Misusing the 9-1-1 system is a serious public safety issue and is classified as a Class B Misdemeanor.",
+                reference: "Handout Page 17: 42.061. SILENT OR ABUSIVE CALLS TO 9-1-1 SERVICE (d)"
+            },
+            {
+                question: "A person commits Illumination of Aircraft by Intense Light (PC 42.14) if they intentionally direct a laser pointer at an aircraft. What is the penalty if the light impairs the operator's ability to control the aircraft?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "The base offense is a Class C Misdemeanor, but if the light is intense enough to actually impair the pilot's ability to fly, it is enhanced to a Class A Misdemeanor.",
+                reference: "Handout Page 17: 42.14. ILLUMINATION OF AIRCRAFT BY INTENSE LIGHT (c)"
+            },
+            {
+                question: "A person commits an offense under Smoking Tobacco (PC 48.01) if they smoke in which of the following public places?",
+                options: ["A public park", "An outdoor restaurant patio", "An elevator, enclosed theater, or hospital", "On a public sidewalk"],
+                answer: "An elevator, enclosed theater, or hospital",
+                explanation: "The statute lists specific enclosed public places where smoking is prohibited by state law, including schools, hospitals, and public transportation. The penalty is a Class C Misdemeanor.",
+                reference: "Handout Page 17: 48.01. SMOKING TOBACCO (a-1)"
+            },
+            {
+                question: "A person commits an offense under Prohibitions Relating to Certain Cigarettes (PC 48.015) if they possess for sale cigarettes that do not comply with federal law. What is the penalty?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "Selling or possessing for sale non-compliant or unstamped cigarettes is a Class A Misdemeanor.",
+                reference: "Handout Page 18: 48.015. PROHIBITIONS RELATING TO CERTAIN CIGARETTES (b)"
+            },
+            {
+                question: "A person commits Prohibited Camping (PC 48.05) if they intentionally or knowingly camp in a public place without effective consent. What is the penalty?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "No offense"],
+                answer: "Class C Misdemeanor",
+                explanation: "This statute makes it a Class C Misdemeanor to reside temporarily in a public place with shelter without authorization.",
+                reference: "Handout Page 18: 48.05. PROHIBITED CAMPING (e)"
+            },
+            {
+                question: "Before issuing a citation for Prohibited Camping, what must a peace officer make a reasonable effort to do?",
+                options: ["Arrest the person", "Advise the person of an alternative place to lawfully camp and contact a service provider", "Seize all of the person's property", "Ignore the situation"],
+                answer: "Advise the person of an alternative place to lawfully camp and contact a service provider",
+                explanation: "PC 48.05(g) requires an officer to attempt to connect the person with resources and advise them of a legal alternative before issuing a citation, unless there is an imminent threat to health or safety.",
+                reference: "Handout Page 19: 48.05. PROHIBITED CAMPING (g)"
+            },
+            {
+                question: "A person commits Unlawful Use of Fireworks (PC 50.02) if they explode fireworks with the intent to interfere with a law enforcement officer. What is the base penalty?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Felony of the third degree", "Felony of the second degree"],
+                answer: "State Jail Felony",
+                explanation: "Using fireworks to interfere with or flee from an officer is a State Jail Felony, with enhancements if a non-consumer firework is used or if it causes serious bodily injury to an officer.",
+                reference: "Handout Page 19: 50.02. UNLAWFUL USE OF FIREWORKS (b)"
+            },
+            {
+                question: "Under the Gambling definitions (PC 47.01), a 'bet' does not include:",
+                options: ["An agreement to win or lose something of value by chance.", "Contracts of indemnity or insurance.", "An offer of a prize to contestants in a bona fide contest of skill.", "Both B and C."],
+                answer: "Both B and C.",
+                explanation: "The law specifically excludes insurance contracts and prizes for legitimate contests of skill (like a race or a spelling bee) from the definition of a 'bet'.",
+                reference: "Handout Page 20: 47.01. GAMBLING DEFINITIONS (1)"
+            },
+            {
+                question: "A 'Private place' for the purposes of the gambling statute (PC 47.01) is a place to which the public does not have access. Which of the following is NOT considered a private place?",
+                options: ["A person's bedroom", "A private office", "Restaurants, taverns, and nightclubs", "A members-only club with restricted entry"],
+                answer: "Restaurants, taverns, and nightclubs",
+                explanation: "The statute explicitly excludes places like restaurants and taverns from the definition of a 'private place,' meaning gambling in these locations is not protected by the private place defense.",
+                reference: "Handout Page 21: 47.01. GAMBLING DEFINITIONS (8)"
+            },
+            {
+                question: "A person commits Gambling (PC 47.02) if they make a bet on the result of a game or play and bet for money at a game played with cards or dice. What is the penalty?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class C Misdemeanor",
+                explanation: "The act of simple gambling is a Class C Misdemeanor in Texas.",
+                reference: "Handout Page 21: 47.02. GAMBLING (d)"
+            },
+            {
+                question: "It is a defense to prosecution for Gambling (PC 47.02) if the actor was gambling in a private place, no person received an economic benefit other than personal winnings, and what other condition was met?",
+                options: ["The total amount bet was less than $100.", "The risks of losing and chances of winning were the same for all participants (except for skill or luck).", "No alcohol was served.", "Everyone present was over 21."],
+                answer: "The risks of losing and chances of winning were the same for all participants (except for skill or luck).",
+                explanation: "This three-pronged test defines the 'friendly game' defense. To be legal, the game must be private, nobody can be taking a 'cut' or 'rake' from the pot, and the game must be fair (no cheating).",
+                reference: "Handout Page 21: 47.02. GAMBLING (b)"
+            },
+            {
+                question: "A person commits Gambling Promotion (PC 47.03) if they intentionally or knowingly operate or participate in the earnings of a gambling place. What is the penalty?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "Promoting gambling by running a game, acting as a bookie, or selling lottery chances is a more serious offense than simple gambling, and is a Class A Misdemeanor.",
+                reference: "Handout Page 22: 47.03. GAMBLING PROMOTION (b)"
+            },
+            {
+                question: "A person commits Keeping a Gambling Place (PC 47.04) if they knowingly use or permit another to use property under their control as a gambling place. What is the penalty?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "Similar to gambling promotion, providing the location for illegal gambling is a Class A Misdemeanor.",
+                reference: "Handout Page 22: 47.04. KEEPING A GAMBLING PLACE (c)"
+            },
+            {
+                question: "A person commits Communicating Gambling Information (PC 47.05) if, with intent to further gambling, they knowingly communicate information as to bets or betting odds. What is the penalty?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "Transmitting information for the purpose of facilitating illegal betting is a Class A Misdemeanor.",
+                reference: "Handout Page 22: 47.05. COMMUNICATING GAMBLING INFORMATION (c)"
+            },
+            {
+                question: "A person commits Possession of Gambling Device, Equipment, or Paraphernalia (PC 47.06) if, with intent to further gambling, they knowingly own or possess any gambling device. What is the penalty?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "Possessing items like slot machines, altered dice, or bookmaking records with the intent to use them for gambling is a Class A Misdemeanor.",
+                reference: "Handout Page 23: 47.06. POSSESSION OF GAMBLING DEVICE... (e)"
+            },
+            {
+                question: "The term 'Inchoate' means:",
+                options: ["Complete and finished", "Related to organized crime", "Imperfect, partial, or unfinished", "A type of legal defense"],
+                answer: "Imperfect, partial, or unfinished",
+                explanation: "In criminal law, inchoate offenses are crimes that are begun but not completed, such as attempt, conspiracy, and solicitation.",
+                reference: "Handout Page 24: Introduction"
+            },
+            {
+                question: "A person commits Criminal Conspiracy (PC 15.02) if, with intent that a felony be committed, they agree with one or more persons to engage in the conduct, and what else happens?",
+                options: ["The felony is actually committed.", "They or one of them performs an overt act in pursuance of the agreement.", "They are paid for the agreement.", "They tell a police officer about the plan."],
+                answer: "They or one of them performs an overt act in pursuance of the agreement.",
+                explanation: "A conspiracy requires two elements: an agreement to commit a felony, and at least one overt act (any step, no matter how small) taken by any member of the conspiracy to further the plan.",
+                reference: "Handout Page 24: 15.02. CRIMINAL CONSPIRACY (a)"
+            },
+            {
+                question: "What is the general penalty for Criminal Conspiracy (PC 15.02)?",
+                options: ["One category lower than the most serious felony that is the object of the conspiracy.", "The same category as the object felony.", "Always a state jail felony.", "Always a Class A misdemeanor."],
+                answer: "One category lower than the most serious felony that is the object of the conspiracy.",
+                explanation: "For example, a conspiracy to commit a second-degree felony would be punished as a third-degree felony.",
+                reference: "Handout Page 24: 15.02. CRIMINAL CONSPIRACY (d)"
+            },
+            {
+                question: "A person commits Criminal Solicitation (PC 15.03) if, with intent that a capital felony or first-degree felony be committed, they do what?",
+                options: ["Think about the crime.", "Encourage the crime in general terms.", "Request, command, or attempt to induce another to engage in the specific conduct.", "Witness the crime and do not report it."],
+                answer: "Request, command, or attempt to induce another to engage in the specific conduct.",
+                explanation: "Solicitation is the act of asking, commanding, or trying to get another person to commit a specific, serious felony.",
+                reference: "Handout Page 25: 15.03. CRIMINAL SOLICITATION (a)"
+            },
+            {
+                question: "What is the Renunciation Defense (PC 15.04)?",
+                options: ["Claiming you did not know the conduct was illegal.", "An affirmative defense where the actor voluntarily and completely renounces their criminal objective and prevents the crime.", "Blaming a co-conspirator for the crime.", "Pleading guilty to a lesser charge."],
+                answer: "An affirmative defense where the actor voluntarily and completely renounces their criminal objective and prevents the crime.",
+                explanation: "This defense allows a person to avoid guilt for an inchoate offense if they have a true change of heart and take affirmative steps to stop the planned crime from happening.",
+                reference: "Handout Page 27: 15.04. RENUNCIATION DEFENSE (a) & (b)"
+            },
+            {
+                question: "For the Renunciation Defense to be valid, the renunciation cannot be motivated by what?",
+                options: ["A genuine change of conscience.", "A decision to postpone the crime or pick a different victim.", "A desire to help law enforcement.", "A fear of getting caught because circumstances have changed."],
+                answer: "A decision to postpone the crime or pick a different victim.",
+                explanation: "The renunciation is not considered voluntary if it's motivated by an increased risk of getting caught or is simply a decision to delay the crime. It must be a complete abandonment of the criminal objective.",
+                reference: "Handout Page 27: 15.04. RENUNCIATION DEFENSE (c)"
+            },
+            {
+                question: "Under Organized Crime definitions (PC 71.01), a 'Combination' means how many people collaborating in criminal activities?",
+                options: ["Two or more", "Three or more", "Five or more", "Ten or more"],
+                answer: "Three or more",
+                explanation: "The threshold for a criminal 'combination' under Texas law is three or more individuals.",
+                reference: "Handout Page 27: 71.01. DEFINITIONS (a)"
+            },
+            {
+                question: "A 'Criminal street gang' is defined as three or more persons having a common identifying sign or symbol and who do what?",
+                options: ["Live in the same neighborhood.", "Continuously or regularly associate in the commission of criminal activities.", "Wear the same color clothing.", "Listen to the same music."],
+                answer: "Continuously or regularly associate in the commission of criminal activities.",
+                explanation: "The key elements are: three or more people, a common identifier, and a continuous association for the purpose of committing crimes.",
+                reference: "Handout Page 28: 71.01. DEFINITIONS (d)"
+            },
+            {
+                question: "A person commits Engaging in Organized Criminal Activity (PC 71.02) if, with intent to participate in a combination or as a member of a gang, they commit or conspire to commit one of a list of specified offenses. What is the general penalty?",
+                options: ["The same as the underlying offense.", "One category lower than the underlying offense.", "One category higher than the most serious underlying offense.", "Always a first-degree felony."],
+                answer: "One category higher than the most serious underlying offense.",
+                explanation: "This statute provides a significant penalty enhancement. For example, committing a Class A misdemeanor assault as part of a gang becomes a state jail felony.",
+                reference: "Handout Page 29: 71.02. ENGAGING IN ORGANIZED CRIMINAL ACTIVITY (b)"
+            },
+            {
+                question: "A person commits an offense under PC 71.022 if they knowingly cause, enable, or solicit another person to become a member of a criminal street gang which requires the commission of an offense as a condition of membership. What is the penalty?",
+                options: ["Class A Misdemeanor", "State Jail Felony", "Felony of the third degree", "Felony of the second degree"],
+                answer: "Felony of the third degree",
+                explanation: "Recruiting for a criminal street gang is a third-degree felony for a first offense, and a second-degree felony for subsequent offenses.",
+                reference: "Handout Page 29: 71.022. COERCING, INDUCING, OR SOLICITING... (b)"
+            },
+            {
+                question: "A person commits Terrorism (PC 76.02) if they commit a specified underlying offense (like murder or aggravated assault) with what specific intent?",
+                options: ["To obtain money.", "To intimidate or coerce the public or influence government policy.", "To get revenge on an individual.", "To further the goals of a criminal street gang."],
+                answer: "To intimidate or coerce the public or influence government policy.",
+                explanation: "The terrorism statute requires not just the commission of a predicate felony, but also the specific intent to intimidate the public or coerce the government through that act.",
+                reference: "Handout Page 30: 76.02. TERRORISM (a)(2)"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
+

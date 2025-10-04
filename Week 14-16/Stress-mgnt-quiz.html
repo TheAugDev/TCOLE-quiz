@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stress Management Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Stress Management Quiz (Final Boss Version)</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 50 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "What is the definition of Stress?",
+                options: ["A state of complete relaxation.", "A pleasant or unpleasant demand placed on the mind and body.", "A biochemical process that only affects physical functioning.", "A reaction exclusive to negative events."],
+                answer: "A pleasant or unpleasant demand placed on the mind and body.",
+                explanation: "Stress is the natural reaction of the mind and body to any demand, whether positive or negative. It involves both biochemical and hormonal processes.",
+                reference: "Handout Page 1: Stress Definition"
+            },
+            {
+                question: "A stressor that is perceived as positive, such as a promotion or getting married, is known as:",
+                options: ["Distress", "Chronic Stress", "Eustress", "Acute Stress"],
+                answer: "Eustress",
+                explanation: "Eustress is defined as a stressor that is perceived as positive, providing flavor, challenge, and opportunity.",
+                reference: "Handout Page 1: Eustress vs. Distress"
+            },
+            {
+                question: "A stressor that is perceived as negative, such as an injury, illness, or being fired, is known as:",
+                options: ["Eustress", "Distress", "Acute Stress", "CIS"],
+                answer: "Distress",
+                explanation: "Distress is the term for stressors that are perceived as negative and can have harmful effects if unmanaged.",
+                reference: "Handout Page 1: Eustress vs. Distress"
+            },
+            {
+                question: "Short-term stress with a quick resolution, which the body handles best, is called:",
+                options: ["Chronic Stress", "Distress", "Eustress", "Acute Stress"],
+                answer: "Acute Stress",
+                explanation: "Acute stress is the body's immediate 'fight or flight' response to a short-term threat. The body gears up, handles the stress, and then settles down.",
+                reference: "Handout Page 1: Acute vs. Chronic Stress"
+            },
+            {
+                question: "Prolonged, unrelieved stress, also called cumulative stress, is known as:",
+                options: ["Acute Stress", "Eustress", "Chronic Stress", "CIS"],
+                answer: "Chronic Stress",
+                explanation: "Chronic stress is described as prolonged wear and tear resulting from too many demands, which can lead to burnout if unrelieved.",
+                reference: "Handout Page 1: Acute vs. Chronic Stress"
+            },
+            {
+                question: "Heavy-duty, incident-specific stress that causes psychological and physical discomfort for 2 days to 1 month is called:",
+                options: ["PTSD", "Chronic Stress", "Critical Incident Stress (CIS)", "Distress"],
+                answer: "Critical Incident Stress (CIS)",
+                explanation: "CIS is considered a normal response to an abnormal, extreme incident, such as working a gruesome accident or being involved in a shooting.",
+                reference: "Handout Page 1: Critical Incident Stress (CIS)"
+            },
+            {
+                question: "A disorder that creates major distress and long-lasting disruptive changes in a person's life, with symptoms prolonged past 1 month, is known as:",
+                options: ["Acute Stress", "Critical Incident Stress (CIS)", "Eustress", "Post Traumatic Stress Disorder (PTSD)"],
+                answer: "Post Traumatic Stress Disorder (PTSD)",
+                explanation: "PTSD is distinguished from CIS by the duration of symptoms. It's a long-term condition where the person is unable to make the traumatic event a part of their past.",
+                reference: "Handout Page 1: Post Traumatic Stress Disorder (PTSD)"
+            },
+            {
+                question: "Which part of the nervous system is the command center, consisting of the brain and spinal cord?",
+                options: ["Sympathetic Nervous System", "Parasympathetic Nervous System", "Central Nervous System", "Peripheral Nervous System"],
+                answer: "Central Nervous System",
+                explanation: "The Central Nervous System (CNS) is the body's main processing center that perceives and interprets threats, initiating the stress response.",
+                reference: "Handout Page 2: The nervous system has three parts"
+            },
+            {
+                question: "Which part of the nervous system creates biochemical changes to prepare the body to respond to a threat (fight or flight)?",
+                options: ["Central Nervous System", "Parasympathetic Nervous System", "Sympathetic Nervous System", "Enteric Nervous System"],
+                answer: "Sympathetic Nervous System",
+                explanation: "The Sympathetic Nervous System acts like the body's accelerator, gearing it up for immediate physical action in response to a perceived threat.",
+                reference: "Handout Page 2: The nervous system has three parts"
+            },
+            {
+                question: "Which part of the nervous system is responsible for rest, digestion, and nutrients?",
+                options: ["Central Nervous System", "Sympathetic Nervous System", "Parasympathetic Nervous System", "Somatic Nervous System"],
+                answer: "Parasympathetic Nervous System",
+                explanation: "The Parasympathetic Nervous System is responsible for calming the body down after a threat has passed, allowing it to rest, digest, and repair.",
+                reference: "Handout Page 2: The nervous system has three parts"
+            },
+            {
+                question: "During the 'Fight or Flight' response, the Sympathetic Nervous System is activated and the Parasympathetic Nervous System is:",
+                options: ["Also activated", "Unaffected", "Reduced or turned off", "Boosted"],
+                answer: "Reduced or turned off",
+                explanation: "To prepare for a threat, the body prioritizes immediate survival functions by activating the Sympathetic NS and suppressing non-critical functions like digestion, which are controlled by the Parasympathetic NS.",
+                reference: "Handout Page 2: When the Central Nervous System perceives a threat..."
+            },
+            {
+                question: "Which of the following is an effect of Sympathetic Nervous System activation?",
+                options: ["Decreased heart rate", "Increased digestion", "Increased alertness and muscle tension", "Constricted pupils"],
+                answer: "Increased alertness and muscle tension",
+                explanation: "Activation of the Sympathetic NS causes increases in heart rate, breathing, sweating, muscle tension, and alertness to prepare the body to fight or flee.",
+                reference: "Handout Page 2: Affects of Sympathetic Nervous System..."
+            },
+            {
+                question: "During a stress response, blood is shunted away from which non-critical organs?",
+                options: ["Brain and lungs", "Heart and legs", "Stomach, liver, and intestines", "Arms and muscles"],
+                answer: "Stomach, liver, and intestines",
+                explanation: "To maximize energy for survival, blood flow is redirected from organs not needed for immediate action (like digestion) to the muscles and brain.",
+                reference: "Handout Page 2: Huge blood flow changes"
+            },
+            {
+                question: "Long-term chronic stress can cause the smooth transition between the Sympathetic and Parasympathetic systems to be impaired, leading to what symptoms?",
+                options: ["Low blood pressure and calmness", "Improved sleep and sexual function", "High blood pressure, irritability, and digestive disorders", "Enhanced immune system"],
+                answer: "High blood pressure, irritability, and digestive disorders",
+                explanation: "When the body cannot properly switch back to the 'rest and digest' state, the prolonged state of arousal leads to chronic health problems.",
+                reference: "Handout Page 3: The Sympathetic Nervous System cannot stay in high alert..."
+            },
+            {
+                question: "Which of the following is a common COGNITIVE/EMOTIONAL symptom of stress?",
+                options: ["Digestive disorders", "High blood pressure", "Impaired decision making and memory", "Sleep disorders"],
+                answer: "Impaired decision making and memory",
+                explanation: "Stress directly impacts cognitive functions, making it harder to focus, make clear decisions, and recall information. The other options are physical symptoms.",
+                reference: "Handout Page 3: Cognitive / Emotional"
+            },
+            {
+                question: "Which of the following is a common PHYSICAL symptom of stress?",
+                options: ["Alcoholism", "Argumentativeness", "Headaches and excessive illnesses", "Depression"],
+                answer: "Headaches and excessive illnesses",
+                explanation: "Physical symptoms like headaches, digestive issues, high blood pressure, and a compromised immune system are common results of chronic stress. The other options are cognitive/emotional symptoms.",
+                reference: "Handout Page 3: Physical"
+            },
+            {
+                question: "Which of the following is an example of a stressor EXTERNAL to a law enforcement agency?",
+                options: ["Offensive department policies", "Poor training", "Negative or distorted media coverage", "Excessive paperwork"],
+                answer: "Negative or distorted media coverage",
+                explanation: "External stressors are those that originate outside the police department, such as the judicial system, public perception, and media portrayal.",
+                reference: "Handout Page 3: Stress external to agency"
+            },
+            {
+                question: "Poor training, inconsistent discipline, and perceived favoritism are examples of what type of stressor?",
+                options: ["External to agency", "Internal to agency", "Stressors in the work itself", "Individual officer stressors"],
+                answer: "Internal to agency",
+                explanation: "Internal stressors are policies, procedures, and cultural issues within the law enforcement agency itself that create stress for officers.",
+                reference: "Handout Page 3: Internal to agency"
+            },
+            {
+                question: "Frequent exposure to life's hardships and boredom interrupted by the need for sudden action are examples of what type of stressor?",
+                options: ["External to agency", "Internal to agency", "Stressors in the work itself", "Individual officer stressors"],
+                answer: "Stressors in the work itself",
+                explanation: "These stressors are inherent to the nature of police work, regardless of the specific agency or external factors.",
+                reference: "Handout Page 4: Stressors in work itself"
+            },
+            {
+                question: "Fears regarding job competence and the necessity to conform to the occupational subculture are examples of what type of stressor?",
+                options: ["External to agency", "Internal to agency", "Stressors in the work itself", "Stressors confronting the individual officer"],
+                answer: "Stressors confronting the individual officer",
+                explanation: "These are personal or internal pressures and fears that an individual officer faces in relation to their job and their place within the police culture.",
+                reference: "Handout Page 4: Stressors confronting the individual officer"
+            },
+            {
+                question: "The elevated alertness of surroundings required of law enforcement officers for survival is known as:",
+                options: ["Paranoia", "Hypervigilance", "Anxiety", "Situational Awareness"],
+                answer: "Hypervigilance",
+                explanation: "Hypervigilance is a state of enhanced sensory sensitivity and alertness, which is a necessary survival tool on duty but can cause issues in off-duty life.",
+                reference: "Handout Page 4: Hypervigilance and the Biological Rollercoaster"
+            },
+            {
+                question: "What is the 'biological rollercoaster' for a hypervigilant officer when they go off duty?",
+                options: ["They remain alert and energetic at home.", "They experience extreme fatigue, detachment, and emotional withdrawal.", "Their senses become even more acute.", "They have trouble sleeping but are otherwise fine."],
+                answer: "They experience extreme fatigue, detachment, and emotional withdrawal.",
+                explanation: "After being in a state of high arousal (Sympathetic NS) on duty, the body's Parasympathetic NS overcompensates off duty, leading to a 'crash' characterized by withdrawal and fatigue.",
+                reference: "Handout Page 4: Hypervigilance and the Biological Rollercoaster"
+            },
+            {
+                question: "What is the key to stress management?",
+                options: ["Eliminating all stress from your life.", "Controlling your reaction to an event.", "Ignoring stressors until they go away.", "Using alcohol to relax."],
+                answer: "Controlling your reaction to an event.",
+                explanation: "The handout emphasizes that while you can't always avoid a stressful event, you can control your reaction to it, which is the foundation of managing stress.",
+                reference: "Handout Page 5: Recognize strategies to manage stress"
+            },
+            {
+                question: "The three basic approaches to stress management are: Avoid, Alter, and ?",
+                options: ["Ignore", "Confront", "Adapt/Accept", "Analyze"],
+                answer: "Adapt/Accept",
+                explanation: "The three core strategies are: 1) Avoid the stressor, 2) Alter the stressor, and 3) Adapt or Accept the stressor by building resistance or changing your perspective.",
+                reference: "Handout Page 5: Three basic approaches to stress management"
+            },
+            {
+                question: "Leaving early to avoid traffic or learning to say 'no' are examples of which stress management approach?",
+                options: ["Avoid", "Alter", "Adapt/Accept", "Confront"],
+                answer: "Avoid",
+                explanation: "This approach involves reducing or eliminating your exposure to a known stressor.",
+                reference: "Handout Page 5: Avoid"
+            },
+            {
+                question: "Using time management or problem-solving to minimize the physiological response to a stressor is an example of which approach?",
+                options: ["Avoid", "Alter", "Adapt/Accept", "Ignore"],
+                answer: "Alter",
+                explanation: "This approach involves changing something about the situation to reduce its stressful impact.",
+                reference: "Handout Page 5: Alter"
+            },
+            {
+                question: "Building resistance to stress by nurturing a balance in psychological, physical, social, and spiritual well-being is which approach?",
+                options: ["Avoid", "Alter", "Adapt/Accept", "Analyze"],
+                answer: "Adapt/Accept",
+                explanation: "This approach focuses on strengthening your ability to withstand stress by building a broad base of support and resilience in all areas of your life.",
+                reference: "Handout Page 5: Adapt/Accept"
+            },
+            {
+                question: "Which relaxation technique involves guided daydreaming to elicit a relaxation response?",
+                options: ["Tactical Breathing", "Progressive Muscular Relaxation", "Thought Stopping", "Visualization / Guided Imagery"],
+                answer: "Visualization / Guided Imagery",
+                explanation: "This technique uses mental imagery, such as imagining a peaceful place, to engage the senses and calm the mind and body.",
+                reference: "Handout Page 6: Relaxation Techniques"
+            },
+            {
+                question: "Which relaxation technique involves forcing your mind off stressors by refusing to dwell on them?",
+                options: ["Tactical Breathing", "Progressive Muscular Relaxation", "Thought Stopping / Blocking / Focusing", "Guided Imagery"],
+                answer: "Thought Stopping / Blocking / Focusing",
+                explanation: "This is a cognitive technique where you consciously interrupt a stressful thought and redirect your focus to something specific and neutral.",
+                reference: "Handout Page 6: Relaxation Techniques"
+            },
+            {
+                question: "Breathing in for a count of 4, holding for 4, and exhaling for 4 using diaphragm breathing is known as:",
+                options: ["Hyperventilation", "Tactical Breathing", "Shallow Breathing", "Progressive Muscular Relaxation"],
+                answer: "Tactical Breathing",
+                explanation: "This specific deep breathing technique is designed to kick in the Parasympathetic Nervous System, which lowers heart rate and blood pressure, inducing relaxation.",
+                reference: "Handout Page 6: Relaxation Techniques"
+            },
+            {
+                question: "The Inverted-U Principle describes the relationship between an officer's heart rate and what else?",
+                options: ["Time on shift", "Performance", "Blood pressure", "Stress level"],
+                answer: "Performance",
+                explanation: "The Inverted-U Principle illustrates that as heart rate and arousal increase, performance improves up to an optimal point, after which it begins to decline rapidly.",
+                reference: "Handout Page 6: Effects of Stress on Performance"
+            },
+            {
+                question: "According to the Inverted-U Principle, at what heart rate do fine motor skills begin to deteriorate?",
+                options: ["About 115 BPM", "About 145 BPM", "About 175 BPM", "Above 200 BPM"],
+                answer: "About 115 BPM",
+                explanation: "Fine motor skills, such as those needed for writing or double-locking handcuffs, are the first to degrade as the heart rate begins to climb under stress.",
+                reference: "Handout Page 6: Inverted U Principle"
+            },
+            {
+                question: "At heart rates above 145 BPM, an officer begins to experience a deterioration of complex motor skills and what other changes?",
+                options: ["Improved hearing", "Changes in vision, such as tunnel vision", "Faster reaction time", "Perfect memory recall"],
+                answer: "Changes in vision, such as tunnel vision",
+                explanation: "As stress and heart rate escalate past 145 BPM, significant sensory changes occur, including loss of peripheral vision (tunnel vision) and depth perception.",
+                reference: "Handout Page 6: Inverted U Principle"
+            },
+            {
+                question: "At heart rates above 175 BPM, an officer may experience auditory changes, loss of peripheral vision, and what other critical decline?",
+                options: ["Increased strength", "A declining ability to process information", "Enhanced fine motor skills", "A sense of calm"],
+                answer: "A declining ability to process information",
+                explanation: "At this extreme level of arousal, the brain's cognitive functions are severely impaired, making rational decision-making very difficult.",
+                reference: "Handout Page 7: Inverted U Principle"
+            },
+            {
+                question: "During a critical incident, it is common for time to appear to:",
+                options: ["Speed up", "Slow down", "Stop completely", "Be irrelevant"],
+                answer: "Slow down",
+                explanation: "This perceptual distortion, known as tachypsychia, is a common effect of the stress response, where an event can be recalled frame-by-frame.",
+                reference: "Handout Page 7: Symptoms associated with high engagement of Sympathetic NS"
+            },
+            {
+                question: "After a critical incident, memory lapses are common. When does most memory typically begin to return?",
+                options: ["Immediately", "Within an hour", "In 24 to 48 hours", "After one week"],
+                answer: "In 24 to 48 hours",
+                explanation: "Due to the hormonal and psychological effects of a critical incident, memory can be fragmented. It often takes 1-2 sleep cycles for the brain to begin consolidating and accurately recalling the event.",
+                reference: "Handout Page 7: Memory lapses may occur."
+            },
+            {
+                question: "Which of the five phases of transition after a traumatic event is often the longest?",
+                options: ["Denial", "Anger", "Bargaining", "Depression"],
+                answer: "Depression",
+                explanation: "The depression phase, characterized by feelings of sadness and loss, is often the most prolonged phase as an individual works through the emotional impact of the trauma.",
+                reference: "Handout Page 8: Five phases of transition"
+            },
+            {
+                question: "The phase of transition where a person gets over the total preoccupation with a traumatic event and resumes a normal life is:",
+                options: ["Denial", "Bargaining", "Depression", "Acceptance"],
+                answer: "Acceptance",
+                explanation: "Acceptance is the final phase, where the individual has integrated the event into their life story and is able to move forward.",
+                reference: "Handout Page 8: Five phases of transition"
+            },
+            {
+                question: "When assisting someone after a critical incident, what is the first priority?",
+                options: ["Get a detailed statement for the report.", "Assist with basic needs and ensure their safety.", "Encourage them to forget about the incident.", "Leave them alone to process."],
+                answer: "Assist with basic needs and ensure their safety.",
+                explanation: "The immediate focus should be on practical support: ensuring they are safe, helping notify family, and taking care of logistical needs to reduce their immediate stress.",
+                reference: "Handout Page 8: Assist with basic needs first"
+            },
+            {
+                question: "According to statistics cited in the handout, what percentage of people who die by suicide have a diagnosable and treatable psychiatric disorder?",
+                options: ["25%", "50%", "75%", "90%"],
+                answer: "90%",
+                explanation: "This statistic underscores the fact that suicide is most often linked to an underlying mental health condition, which highlights the importance of treatment.",
+                reference: "Handout Page 9: Increase awareness of prevalence of suicide"
+            },
+            {
+                question: "What does the 'A' in the AID LIFE model for suicide intervention stand for?",
+                options: ["Analyze", "Ask", "Assume", "Act"],
+                answer: "Ask",
+                explanation: "AID LIFE stands for Ask, Intervene, Don't keep it a secret, Locate help, Inform supervisor, Find someone to stay with them, Expedite. The first step is to directly ask, 'Are you thinking of hurting or killing yourself?'",
+                reference: "Handout Page 9: Identify strategies to assist a coworker"
+            },
+            {
+                question: "What does the 'I' in the AID LIFE model for suicide intervention stand for?",
+                options: ["Ignore", "Intervene immediately", "Investigate", "Isolate"],
+                answer: "Intervene immediately",
+                explanation: "AID LIFE: Ask, Intervene, Don't keep it a secret, Locate help, Inform supervisor, Find someone to stay with them, Expedite. Intervention means taking action and not leaving the person alone.",
+                reference: "Handout Page 9: Identify strategies to assist a coworker"
+            },
+            {
+                question: "What does the 'D' in the AID LIFE model for suicide intervention stand for?",
+                options: ["Delay", "Document", "Don't keep it a secret", "Diagnose"],
+                answer: "Don't keep it a secret",
+                explanation: "AID LIFE: Ask, Intervene, Don't keep it a secret, Locate help, Inform supervisor, Find someone to stay with them, Expedite. Secrecy can be deadly; it's crucial to get others involved.",
+                reference: "Handout Page 9: Identify strategies to assist a coworker"
+            },
+            {
+                question: "What does the 'L' in the AID LIFE model for suicide intervention stand for?",
+                options: ["Listen", "Leave them alone", "Locate help", "Lecture"],
+                answer: "Locate help",
+                explanation: "AID LIFE: Ask, Intervene, Don't keep it a secret, Locate help, Inform supervisor, Find someone to stay with them, Expedite. This means connecting the person with professional resources.",
+                reference: "Handout Page 9: Identify strategies to assist a coworker"
+            },
+            {
+                question: "What does the 'F' in the AID LIFE model for suicide intervention stand for?",
+                options: ["Forget about it", "Follow up later", "Find someone to stay with the person", "Force them to get help"],
+                answer: "Find someone to stay with the person",
+                explanation: "AID LIFE: Ask, Intervene, Don't keep it a secret, Locate help, Inform supervisor, Find someone to stay with them, Expedite. Never leave a person who is suicidal alone.",
+                reference: "Handout Page 9: Identify strategies to assist a coworker"
+            },
+            {
+                question: "What does the 'E' in the AID LIFE model for suicide intervention stand for?",
+                options: ["Evaluate", "Encourage", "Expedite", "Explain"],
+                answer: "Expedite",
+                explanation: "AID LIFE: Ask, Intervene, Don't keep it a secret, Locate help, Inform supervisor, Find someone to stay with them, Expedite. This means getting help immediately.",
+                reference: "Handout Page 9: Identify strategies to assist a coworker"
+            },
+            {
+                question: "Which statement about alcoholism is a REALITY, not a myth?",
+                options: ["Alcoholism is a disease for which recovery is possible.", "Alcohol helps you sleep better.", "All alcoholics are skid-row drunks.", "Alcoholics drink every day."],
+                answer: "Alcoholism is a disease for which recovery is possible.",
+                explanation: "The handout dispels several myths and confirms that alcoholism is a treatable disease and recovery is possible if the person commits to a program.",
+                reference: "Handout Page 10: Explain myths and realities of alcoholism"
+            },
+            {
+                question: "Which of the following is a sign or symptom of drug/alcohol abuse?",
+                options: ["Difficulty enjoying life without alcohol or drugs.", "Hiding alcohol or drugs.", "Black outs or lapses in memory.", "All of the above."],
+                answer: "All of the above.",
+                explanation: "These are all classic indicators of a substance abuse problem, showing a psychological and physical dependence on the substance.",
+                reference: "Handout Page 10: Discuss signs and symptoms of drug / alcohol abuse"
+            },
+            {
+                question: "When a coworker is suspected of having a substance abuse problem, what is the recommended approach?",
+                options: ["Ignore the problem and hope it goes away.", "Confront them and offer your diagnosis.", "Focus on their performance and safety, and encourage them to seek help.", "Cover for them so they don't get in trouble."],
+                answer: "Focus on their performance and safety, and encourage them to seek help.",
+                explanation: "The handout advises focusing on objective issues like safety and job performance, rather than making a diagnosis. The goal is to encourage them to get professional help while maintaining workplace safety.",
+                reference: "Handout Page 11: Assisting Co-workers"
+            },
+            {
+                question: "What are some of the physical and psychological consequences of steroid abuse?",
+                options: ["Decreased cholesterol and lower risk of liver cancer.", "Mood swings and increased aggressiveness ('roid rage').", "Decreased body hair and a higher voice in females.", "Loss of muscle mass."],
+                answer: "Mood swings and increased aggressiveness ('roid rage').",
+                explanation: "Steroid abuse is known to cause significant psychological changes, including increased hostility and aggression, along with severe physical health risks like liver damage and hypertension.",
+                reference: "Handout Page 11: Discuss consequences of steroid abuse"
+            }
+        ];
+        
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
+

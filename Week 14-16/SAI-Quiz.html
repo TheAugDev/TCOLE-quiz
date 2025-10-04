@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sexual Assault Investigation Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Sexual Assault Investigation Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 49 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "According to Texas Penal Code 22.011, which of the following acts constitutes Sexual Assault?",
+                options: ["Unwanted touching of the clothing.", "Causing the penetration of the mouth of another person by the sexual organ of the actor, without consent.", "Making an offensive sexual comment.", "Stalking a person after a breakup."],
+                answer: "Causing the penetration of the mouth of another person by the sexual organ of the actor, without consent.",
+                explanation: "This is a direct element of the Sexual Assault statute, PC 22.011(a)(1)(B). The other options describe different offenses or are not criminal.",
+                reference: "Handout Page 1: TX PC 22.011(a)(1)(B)"
+            },
+            {
+                question: "Under PC 22.011(b)(1), a sexual assault is without the consent of the other person if the actor compels them by using what?",
+                options: ["Persuasion or flattery.", "Physical force, violence, or coercion.", "A promise of a future reward.", "Emotional manipulation in a dating relationship."],
+                answer: "Physical force, violence, or coercion.",
+                explanation: "The use of physical force, violence, or coercion to compel submission is a primary way the law defines a lack of consent in a sexual assault.",
+                reference: "Handout Page 1: TX PC 22.011(b)(1)"
+            },
+            {
+                question: "It is considered a sexual assault if the other person has not consented and the actor knows the other person is:",
+                options: ["Unconscious or physically unable to resist.", "Slightly tipsy but still walking.", "In a bad mood.", "Having second thoughts."],
+                answer: "Unconscious or physically unable to resist.",
+                explanation: "A person who is unconscious or otherwise physically unable to resist cannot legally give consent. An actor who knows this and proceeds commits sexual assault.",
+                reference: "Handout Page 1: TX PC 22.011(b)(3)"
+            },
+             {
+                question: "Under PC 22.011, consent is also considered absent if the actor is a public servant who does what to the other person to make them submit?",
+                options: ["Asks them politely.", "Offers them a ride.", "Coerces them.", "Arrests them on a valid warrant."],
+                answer: "Coerces them.",
+                explanation: "PC 22.011(b)(8) specifies that if a public servant coerces the other person to submit or participate, it is a sexual assault. This prevents abuse of power.",
+                reference: "Handout Page 1: TX PC 22.011(b)(8)"
+            },
+            {
+                question: "According to the Penal Code, who is defined as a 'Mental health services provider'?",
+                options: ["Any hospital employee.", "A school counselor.", "A member of the clergy or a licensed professional counselor.", "A volunteer at a crisis hotline."],
+                answer: "A member of the clergy or a licensed professional counselor.",
+                explanation: "PC 22.011(c)(4) provides a specific list of professionals, including clergy and various licensed counselors and therapists, who fall under this definition, which is relevant for assaults where a provider exploits a patient's emotional dependency.",
+                reference: "Handout Page 2: TX PC 22.011(c)(4)"
+            },
+            {
+                question: "For the purposes of the Sexual Assault statute (PC 22.011), what is the legal definition of a 'Child'?",
+                options: ["A person younger than 18 years of age.", "A person younger than 17 years of age.", "A person younger than 16 years of age.", "A person who has not graduated high school."],
+                answer: "A person younger than 17 years of age.",
+                explanation: "The Penal Code defines a child as being under 17 for this offense, which is a crucial distinction from the Family Code definition used in juvenile justice.",
+                reference: "Handout Page 3: TX PC 22.011(c)(1)"
+            },
+            {
+                question: "What is the 'Romeo and Juliet' affirmative defense to prosecution for Sexual Assault of a Child?",
+                options: ["The actor was in love with the child.", "The actor was not more than three years older than the victim, and the victim was 14 years of age or older.", "The parents of both parties consented to the relationship.", "The act was consensual and no penetration occurred."],
+                answer: "The actor was not more than three years older than the victim, and the victim was 14 years of age or older.",
+                explanation: "This affirmative defense (PC 22.011(e)) applies to cases of near-peer sexual activity, provided certain conditions are met, such as the age difference, the victim's age (14+), and the actor not being a registered sex offender.",
+                reference: "Handout Page 3 & 4: TX PC 22.011(e)(2)"
+            },
+            {
+                question: "An offense under the sexual assault statute is elevated to a felony of the first degree if the victim was a person with whom the actor was prohibited from engaging in sexual intercourse under which statute?",
+                options: ["PC 25.01 (Bigamy)", "PC 25.02 (Prohibited Sexual Conduct)", "PC 21.08 (Indecent Exposure)", "PC 22.04 (Injury to a Child)"],
+                answer: "PC 25.02 (Prohibited Sexual Conduct)",
+                explanation: "If the sexual assault occurs between individuals in a prohibited relationship (e.g., ancestor/descendant, brother/sister), the penalty is enhanced to a first-degree felony.",
+                reference: "Handout Page 3: TX PC 22.011(f)(1)(B)"
+            },
+            {
+                question: "According to general considerations, most child sexual abusers choose victims they...",
+                options: ["do not know.", "meet online randomly.", "have easy access to and spend time establishing trust with.", "perceive as physically strong."],
+                answer: "have easy access to and spend time establishing trust with.",
+                explanation: "The majority of child sexual abuse is perpetrated by someone the child knows and trusts, which is the mechanism the abuser uses to gain access and opportunity.",
+                reference: "Handout Page 4: General considerations"
+            },
+            {
+                question: "Under Texas law, which of the following is NOT considered consent?",
+                options: ["An enthusiastic 'yes'.", "The victim is silent.", "The victim actively participates.", "The victim gives verbal agreement."],
+                answer: "The victim is silent.",
+                explanation: "Consent must be a positive, affirmative agreement ('assent in fact'). Silence or lack of resistance does not constitute legal consent.",
+                reference: "Handout Page 4: 'It is not consent if... The victim is silent.'"
+            },
+            {
+                question: "When interacting with a high-risk population, such as immigrants, what is a critical consideration for an officer?",
+                options: ["Assume their legal status is undocumented.", "Do not assume a victim's legal status.", "Only offer resources available to citizens.", "Allow a family member to act as an interpreter."],
+                answer: "Do not assume a victim's legal status.",
+                explanation: "A trauma-informed approach requires officers to be sensitive and knowledgeable. An officer should not make assumptions about legal status, as this can create fear and inhibit cooperation.",
+                reference: "Handout Page 5: High Risk Populations - Immigrants"
+            },
+            {
+                question: "When interacting with a member of the LGBTQ+ community who is a victim, why should an officer not assume friends and family are aware of the individual's sexual orientation?",
+                options: ["It is not relevant to the investigation.", "To avoid 'outing' the victim, which could cause additional trauma or danger.", "The family's awareness is confidential information.", "The officer should only speak with the victim."],
+                answer: "To avoid 'outing' the victim, which could cause additional trauma or danger.",
+                explanation: "Disclosing a victim's sexual orientation or gender identity to others without their consent can have serious negative consequences, including loss of housing, employment, or family support.",
+                reference: "Handout Page 5: High Risk Populations - LGBTQ+ community"
+            },
+            {
+                question: "When interacting with a male survivor of sexual assault, providing information about the prevalence of male sexual assault can be helpful for what reason?",
+                options: ["To show off your statistical knowledge.", "To prove that men are assaulted more than women.", "To convey that the victim is believed and not alone.", "To suggest that his experience is not unique or serious."],
+                answer: "To convey that the victim is believed and not alone.",
+                explanation: "Male survivors often face unique societal stigmas and may feel isolated. Acknowledging that this happens to other men can help validate their experience and reduce feelings of shame.",
+                reference: "Handout Page 5: High Risk Populations - Males"
+            },
+            {
+                question: "When dealing with a person with disabilities who has been victimized, what should an officer do?",
+                options: ["Assume the disability is visible.", "Speak loudly to ensure they can hear.", "Ask about necessary accommodations prior to a meeting if possible.", "Disregard the disability and proceed with the standard interview."],
+                answer: "Ask about necessary accommodations prior to a meeting if possible.",
+                explanation: "Proactively asking about accommodations shows respect and ensures the victim can communicate effectively and comfortably during the interview process.",
+                reference: "Handout Page 5: High Risk Populations - People with disabilities"
+            },
+            {
+                question: "If an officer suspects a victim who is a sex worker is also a victim of human trafficking, what should the officer do?",
+                options: ["Arrest the victim for prostitution.", "Follow their agency or department reporting protocols for human trafficking.", "Ignore the possibility of trafficking.", "Tell the victim to contact the FBI on their own."],
+                answer: "Follow their agency or department reporting protocols for human trafficking.",
+                explanation: "Identifying a potential human trafficking victim triggers specific investigative protocols that prioritize victim safety and a broader investigation into the trafficking organization.",
+                reference: "Handout Page 5: High Risk Populations - Sex workers"
+            },
+            {
+                question: "A trauma-informed approach is beneficial because it...",
+                options: ["Guarantees a conviction.", "Reduces re-traumatization of victims and increases their participation in the criminal justice process.", "Makes the investigation go faster.", "Helps the officer diagnose the victim's psychological condition."],
+                answer: "Reduces re-traumatization of victims and increases their participation in the criminal justice process.",
+                explanation: "By understanding the effects of trauma, officers can interact with victims more effectively, which builds trust, encourages cooperation, and avoids causing further harm.",
+                reference: "Handout Page 6: Define a Trauma Informed Approach"
+            },
+            {
+                question: "To build rapport with a victim, why is it recommended to wait at least two full sleep cycles between the initial statement and the full investigative interview?",
+                options: ["To give the officer a break.", "To allow the victim's memory to consolidate, potentially leading to a more coherent and detailed account.", "To see if the victim changes their story.", "To allow time for the suspect to be arrested."],
+                answer: "To allow the victim's memory to consolidate, potentially leading to a more coherent and detailed account.",
+                explanation: "Neuroscience shows that sleep plays a critical role in memory consolidation. Allowing time for this process can help a trauma victim recall the event more clearly and completely.",
+                reference: "Handout Page 6 & 8: Building Rapport with Victims"
+            },
+            {
+                question: "When meeting a victim's basic needs, which of the following is an appropriate question or offer?",
+                options: ["'Is there anything specific you need right now, like medication or a jacket?'", "'You need to calm down right now.'", "'Why were you out so late?'", "'Let's get your statement written down immediately.'"],
+                answer: "'Is there anything specific you need right now, like medication or a jacket?'",
+                explanation: "Attending to a victim's physical and comfort needs (safety, warmth, etc.) is a primary step in stabilizing the situation and building trust.",
+                reference: "Handout Page 8: Meet victim's basic needs and concerns"
+            },
+            {
+                question: "What should an officer do if a victim requires an interpreter?",
+                options: ["Use a suspect or family member to interpret.", "Use a professional, neutral interpreter and not a family member, friend, or suspect.", "Try to communicate using gestures.", "Tell the victim they must find their own interpreter."],
+                answer: "Use a professional, neutral interpreter and not a family member, friend, or suspect.",
+                explanation: "Using family, friends, or suspects as interpreters compromises confidentiality, accuracy, and the victim's safety. Professional interpreters are required.",
+                reference: "Handout Page 8: Offer the victim language services"
+            },
+            {
+                question: "What is the proper way to question a victim, according to trauma-informed principles?",
+                options: ["Infer that they are being untruthful to see how they react.", "Explain why you are asking questions, emphasizing it is to establish elements of the crime, not to question their credibility.", "Ask them to sign a written statement immediately.", "Threaten them with prosecution for false reporting if their story changes."],
+                answer: "Explain why you are asking questions, emphasizing it is to establish elements of the crime, not to question their credibility.",
+                explanation: "This approach, a form of tactical transparency, helps the victim understand the process and reduces the feeling that they are being interrogated or disbelieved.",
+                reference: "Handout Page 8: 'Explain why you are asking questions...'"
+            },
+            {
+                question: "An officer is legally required to offer a victim an advocate from a sexual assault program to be present during which phase of the investigation?",
+                options: ["The initial 911 call.", "The preliminary on-scene interview.", "The investigative interview.", "The trial."],
+                answer: "The investigative interview.",
+                explanation: "While a victim has a right to an advocate at any point, the law specifically mandates that the officer must offer an advocate for the formal investigative interview.",
+                reference: "Handout Page 9: Respect their right to choose"
+            },
+            {
+                question: "Instead of asking a victim 'Why didn't you leave?', what is a more trauma-informed way to ask the question?",
+                options: ["'Were you too scared to leave?'", "'What was stopping you from leaving?'", "'Tell me about the conditions that prevented you from leaving/escaping.'", "'Leaving would have been the smart thing to do, right?'"],
+                answer: "'Tell me about the conditions that prevented you from leaving/escaping.'",
+                explanation: "'Why' questions can sound blaming. Rephrasing the question in an open-ended way focuses on the circumstances rather than the victim's choices, which is less judgmental.",
+                reference: "Handout Page 9: Use non-judgmental language"
+            },
+            {
+                question: "Why should an officer generally avoid having a victim prepare a written statement immediately after an assault?",
+                options: ["It is not admissible in court.", "The officer should write the statement for them.", "Inconsistencies between the initial written statement and a later, more detailed interview may be used against the victim by the defense.", "It takes too long."],
+                answer: "Inconsistencies between the initial written statement and a later, more detailed interview may be used against the victim by the defense.",
+                explanation: "A trauma victim's memory is often fragmented initially. A hastily written statement may have gaps or inconsistencies that a defense attorney can exploit in court to question the victim's credibility.",
+                reference: "Handout Page 10: Notes on documentation"
+            },
+            {
+                question: "In report writing, officers should use what kind of language to clearly depict the crime?",
+                options: ["Judgmental language", "Non-consensual language", "Vague language", "Medical terminology"],
+                answer: "Non-consensual language",
+                explanation: "Using clear, non-consensual language (e.g., 'He forced her...' instead of 'They had intercourse...') accurately reflects the elements of the crime and avoids ambiguity.",
+                reference: "Handout Page 10: Notes on documentation"
+            },
+            {
+                question: "When interviewing a victim, why should an officer avoid prompts like 'Start at the beginning and tell me what happened'?",
+                options: ["It is too demanding.", "Trauma affects how the brain stores memories, causing the victim to likely not recall the incident in chronological order.", "It gives the victim too much control.", "It is not an open-ended question."],
+                answer: "Trauma affects how the brain stores memories, causing the victim to likely not recall the incident in chronological order.",
+                explanation: "Traumatic memories are often stored in sensory fragments, not as a linear narrative. Forcing a chronological account can be frustrating for the victim and less effective for gathering information.",
+                reference: "Handout Page 10: 'Trauma affects how the brain stores memories...'"
+            },
+            {
+                question: "What is a Child Advocacy Center (CAC)?",
+                options: ["A foster home.", "A juvenile detention center.", "A multi-disciplinary center that provides forensic interviews, medical exams, and advocacy for child abuse victims.", "A private school for at-risk youth."],
+                answer: "A multi-disciplinary center that provides forensic interviews, medical exams, and advocacy for child abuse victims.",
+                explanation: "CACs are a best-practice model that brings together all the professionals and agencies needed to investigate and respond to child abuse in one child-friendly facility, reducing trauma to the child.",
+                reference: "Handout Page 10: Child Advocacy Centers (CACs)"
+            },
+            {
+                question: "When building rapport with a child victim, what is a recommended technique?",
+                options: ["Tower over the child to establish authority.", "Use a calm and soothing tone of voice and avoid technical language.", "Insist on an immediate, detailed statement.", "Display shock or horror to show you believe them."],
+                answer: "Use a calm and soothing tone of voice and avoid technical language.",
+                explanation: "Getting on the child's level (physically and linguistically), being patient, and maintaining a calm, reassuring demeanor are essential for building trust with a child victim.",
+                reference: "Handout Page 11: Identify trauma-informed strategies to build rapport with child victims"
+            },
+            {
+                question: "Under CCP Art. 56A.403, what must a peace officer provide to a sexual assault victim at the initial contact?",
+                options: ["A ride home.", "The officer's personal phone number.", "A written notice of their rights and a referral to the nearest sexual assault program.", "A copy of the police report."],
+                answer: "A written notice of their rights and a referral to the nearest sexual assault program.",
+                explanation: "This is a mandatory duty. The written notice informs the victim of their specific rights, including the right to a forensic exam and information about the evidence tracking system.",
+                reference: "Handout Page 12 & 13: CCP 56A.403"
+            },
+            {
+                question: "A sexual assault victim has the right to a forensic medical examination (SANE exam) within how many hours of the assault?",
+                options: ["24 hours", "48 hours", "72 hours", "120 hours"],
+                answer: "120 hours",
+                explanation: "The law provides a 120-hour (5-day) window for a victim to obtain a forensic medical exam at no cost, even if they choose not to report the crime to law enforcement.",
+                reference: "Handout Page 14: CCP 56A.303"
+            },
+            {
+                question: "Can a victim be charged for their forensic medical examination?",
+                options: ["Yes, they must pay upfront.", "Yes, but they can be reimbursed later.", "No, there is no cost for the forensic medical examination.", "Only if they do not press charges."],
+                answer: "No, there is no cost for the forensic medical examination.",
+                explanation: "CCP Art. 56A.303 clearly states that the victim cannot be charged for the exam. The cost is covered by law enforcement or the state.",
+                reference: "Handout Page 14: CCP 56A.303"
+            },
+            {
+                question: "The statewide electronic tracking system for sexual assault evidence collection kits is known as:",
+                options: ["SAK-Track", "Evidence.com", "Track-Kit", "CODIS"],
+                answer: "Track-Kit",
+                explanation: "Track-Kit (Gov. Code 420.034) allows survivors to anonymously track the status and location of their evidence kit as it moves through the criminal justice process.",
+                reference: "Handout Page 14: Texas Government Code, Sec. 420.034"
+            },
+            {
+                question: "Can a victim use a pseudonym (a fictitious name) in public files and records concerning a sex offense case?",
+                options: ["No, their real name must always be used.", "Yes, under CCP Chapter 58, a victim can request to use a pseudonym to protect their identity.", "Only if the victim is a minor.", "Only with the defendant's permission."],
+                answer: "Yes, under CCP Chapter 58, a victim can request to use a pseudonym to protect their identity.",
+                explanation: "This right allows victims to protect their privacy by preventing their real name from appearing in publicly accessible court records and police reports related to the case.",
+                reference: "Handout Page 17: CCP, Ch. 58 Subchapter C"
+            },
+            {
+                question: "What is the primary purpose of the perpetrator in a sexual assault?",
+                options: ["Sexual desire", "To exercise power and control over the victim", "To find a romantic partner", "To obtain money or property"],
+                answer: "To exercise power and control over the victim",
+                explanation: "Sexual assault is fundamentally an act of violence, power, and control, not a crime of sexual desire.",
+                reference: "Handout Page 18: Sexual Assaults are acts of violence"
+            },
+            {
+                question: "What is the first priority for an officer arriving on the scene of a sexual assault?",
+                options: ["Interview the suspect.", "Aid the victim (address injuries and provide emotional support).", "Collect all evidence immediately.", "Prepare the preliminary report."],
+                answer: "Aid the victim (address injuries and provide emotional support).",
+                explanation: "The victim's safety, medical needs, and emotional well-being are the immediate priority. All other investigative steps follow after ensuring the victim is cared for.",
+                reference: "Handout Page 18: Aid the victim"
+            },
+            {
+                question: "Sexual Assault is a felony of the second degree, except when it is elevated to a first degree felony if the victim is a person the actor is prohibited from marrying under which Penal Code section?",
+                options: ["25.01", "22.011", "25.02", "21.11"],
+                answer: "25.01",
+                explanation: "PC 22.011(f)(1)(A) specifies that a sexual assault is enhanced to a first-degree felony if it's committed against a person with whom the actor is prohibited from marrying, as defined in PC 25.01 (Bigamy). Note the handout also refers to 25.02, but 25.01 is also listed as a direct enhancer.",
+                reference: "Handout page 3: TX PC 22.011(f)(1)(A)"
+            },
+            {
+                question: "The Family Code's definition of a 'child' for juvenile justice purposes is a person who is:",
+                options: ["Under 18", "Under 17", "10 years or older and under 17", "Under 16"],
+                answer: "10 years or older and under 17",
+                explanation: "This specific age range (10-16) defines who is subject to the jurisdiction of the juvenile court for delinquent conduct.",
+                reference: "Handout page 3: TX FC 51.02"
+            },
+            {
+                question: "According to PC 1.07, what is the definition of 'consent'?",
+                options: ["A verbal agreement", "A written contract", "Assent in fact, whether expressed or apparent", "The absence of a 'no'"],
+                answer: "Assent in fact, whether expressed or apparent",
+                explanation: "This legal definition is foundational. Consent must be a positive agreement, which can be communicated verbally or through actions, but it must be clear and unambiguous.",
+                reference: "Handout page 4: TX PC 1.07 (11)"
+            },
+            {
+                question: "It is an affirmative defense to prosecution for sexual assault of a child if the actor was the child's ______ at the time of the offense.",
+                options: ["teacher", "coach", "spouse", "cousin"],
+                answer: "spouse",
+                explanation: "PC 22.011(e)(1) provides a specific affirmative defense if the actor and the child were legally married at the time of the offense.",
+                reference: "Handout page 3: TX PC 22.011(e)(1)"
+            },
+            {
+                question: "The 'Romeo and Juliet' defense requires that the actor was not more than three years older than the victim. Which other condition must be met?",
+                options: ["The victim was 13 years of age or older", "The victim was 14 years of age or older", "The victim was 15 years of age or older", "The victim was 16 years of age or older"],
+                answer: "The victim was 14 years of age or older",
+                explanation: "For the near-peer defense to apply, the victim cannot be younger than 14 years old.",
+                reference: "Handout page 4: (B)(i)"
+            },
+            {
+                question: "Which high-risk population may have access to specific resources like traditional healers and tribal courts?",
+                options: ["Elderly", "People with disabilities", "Tribal communities", "Sex workers"],
+                answer: "Tribal communities",
+                explanation: "Sovereign tribal nations often have their own justice systems, social services, and culturally specific resources available to their members.",
+                reference: "Handout page 6: Tribal communities"
+            },
+            {
+                question: "A 'trauma-informed approach' is based on:",
+                options: ["Officer opinion and experience", "Traditional interrogation methods", "Scientific research in the field", "Victim advocacy group policies"],
+                answer: "Scientific research in the field",
+                explanation: "This approach is evidence-based, drawing on neuroscience and psychology to understand the impact of trauma on the brain and behavior.",
+                reference: "Handout page 6: Define a trauma-informed approach"
+            },
+            {
+                question: "An officer should allow at least how many full sleep cycles between a victim's initial statement and the investigative interview?",
+                options: ["One", "Two", "Three", "Four"],
+                answer: "Two",
+                explanation: "Allowing two sleep cycles gives the brain time to process the trauma and consolidate memories, which can lead to a more complete and accurate account.",
+                reference: "Handout page 6: 'Allow at least two full sleep cycles...'"
+            },
+            {
+                question: "It is important not to use judgmental language when discussing a victim's relationship with the offender because:",
+                options: ["The relationship is irrelevant.", "There are often mitigating circumstances, like financial or emotional dependence, as to why victims may stay.", "It is against department policy.", "It could make the offender angry."],
+                answer: "There are often mitigating circumstances, like financial or emotional dependence, as to why victims may stay.",
+                explanation: "Victims of domestic or intimate partner violence often face complex barriers to leaving. A non-judgmental approach is crucial for building trust and understanding their situation.",
+                reference: "Handout page 9: '...important not to use judgmental language...'"
+            },
+            {
+                question: "When a child victim discloses abuse, the first responder's primary role is to:",
+                options: ["Conduct a detailed forensic interview.", "Protect the child and refrain from interviewing unless absolutely unavoidable.", "Get a written confession from the child.", "Immediately confront the suspect."],
+                answer: "Protect the child and refrain from interviewing unless absolutely unavoidable.",
+                explanation: "The patrol officer's job is to ensure the child's immediate safety and report the abuse. The detailed interview should be left to a specially trained forensic interviewer at a Child Advocacy Center to avoid re-traumatizing the child and compromising the investigation.",
+                reference: "Handout page 10: First responders...should refrain from interviewing the child."
+            },
+            {
+                question: "Texas law requires every county to establish a:",
+                options: ["Special Victims Unit (SVU)", "Sexual Assault Response Team (SART)", "Child Advocacy Center (CAC)", "Victim Compensation Fund"],
+                answer: "Sexual Assault Response Team (SART)",
+                explanation: "Texas Local Government Code §351.252 mandates the creation of a SART, which is a multi-disciplinary team that collaborates to provide comprehensive services to sexual assault victims.",
+                reference: "Handout page 13: Texas Local Government Code §351.252"
+            },
+            {
+                question: "A victim's right to a forensic medical exam also includes the right to test for:",
+                options: ["All STDs", "Pregnancy", "Acquired immune deficiency syndrome (AIDS) and/or human immunodeficiency virus (HIV) infection", "Drug intoxication"],
+                answer: "Acquired immune deficiency syndrome (AIDS) and/or human immunodeficiency virus (HIV) infection",
+                explanation: "CCP Art. 56A.052 specifically grants victims of sexual assault the right to HIV/AIDS testing as part of their care following the assault.",
+                reference: "Handout page 14: CCP Art. 56A.052"
+            },
+            {
+                question: "What is the minimum age for a child to legally refuse a medical examination in Texas?",
+                options: ["10", "14", "16", "18"],
+                answer: "16",
+                explanation: "In the case of child victims, a medical forensic exam is strongly recommended. A child must be at least 16 to have the legal capacity to refuse such an examination.",
+                reference: "Handout page 14: 'Children must be at least 16 years old to refuse any medical examination.'"
+            },
+            {
+                question: "Information maintained by a family violence shelter or sexual assault program is:",
+                options: ["Public information under the Texas Public Information Act.", "Exempt from being public information.", "Available to law enforcement upon request.", "Available to the defense attorney in a case."],
+                answer: "Exempt from being public information.",
+                explanation: "Texas Government Code § 552.138 provides a specific exception to protect the confidentiality and safety of victims and staff at these centers.",
+                reference: "Handout page 14: Texas Government Code, Sec. 552.138"
+            },
+            {
+                question: "The means of control used by a perpetrator, such as administering drugs or using threats, is of importance in the classification of the offense.",
+                options: ["True", "False"],
+                answer: "True",
+                explanation: "The specific means of control used by the offender are key elements of the crime that can elevate a charge (e.g., from Sexual Assault to Aggravated Sexual Assault) and help prove the lack of consent.",
+                reference: "Handout page 18: 'Means of control is of importance...'"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
+

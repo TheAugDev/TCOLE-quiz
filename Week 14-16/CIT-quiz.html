@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crisis Intervention Training (CIT) Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Crisis Intervention Training (CIT) Quiz</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 125 questions covering every detail from your handouts. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "What is the primary goal of Crisis Intervention Training (CIT)?",
+                options: ["To ensure that all individuals with mental illness are incarcerated.", "To calm persons with mental illness who are in crisis and refer them to mental health care services, rather than incarcerating them.", "To train officers to diagnose specific mental illnesses in the field.", "To eliminate the need for force in all police encounters."],
+                answer: "To calm persons with mental illness who are in crisis and refer them to mental health care services, rather than incarcerating them.",
+                explanation: "The core philosophy of CIT is to de-escalate crisis situations and divert individuals from the criminal justice system to the healthcare system, improving outcomes for both the individual and the officer.",
+                reference: "29 CIT-Mental Illness... Handout, Page 2"
+            },
+            {
+                question: "According to the Treatment Advocacy Center, the risk of being killed when approached by law enforcement is how much higher for individuals with untreated serious mental illness compared to other civilians?",
+                options: ["2 times higher", "8 times higher", "16 times higher", "50 times higher"],
+                answer: "16 times higher",
+                explanation: "This statistic highlights the significant disparity and the critical need for specialized training like CIT to reduce fatalities in encounters with individuals in mental health crisis.",
+                reference: "29 CIT-Mental Illness... Handout, Page 1"
+            },
+            {
+                question: "The CIT program was originally conceived in which city, following a fatal police shooting of a man with a mental illness?",
+                options: ["Dallas, TX", "Los Angeles, CA", "Memphis, TN", "New York, NY"],
+                answer: "Memphis, TN",
+                explanation: "The 'Memphis Model' of CIT was developed in 1988 as a direct response to a tragic incident, creating a new framework for law enforcement response to mental health crises.",
+                reference: "29 CIT-Mental Illness... Handout, Page 2"
+            },
+            {
+                question: "Texas Senate Bill 1849 mandated that law enforcement officers learn what type of techniques to reduce the use of force?",
+                options: ["Advanced firearms techniques", "Crowd control tactics", "De-escalation techniques", "High-speed pursuit maneuvers"],
+                answer: "De-escalation techniques",
+                explanation: "SB 1849 was a landmark piece of legislation in Texas that made de-escalation training a mandatory part of every officer's continuing education and basic licensing curriculum.",
+                reference: "29 CIT-Mental Illness... Handout, Page 2"
+            },
+            {
+                question: "What is the definition of a 'crisis' as it pertains to CIT?",
+                options: ["Any violation of the law.", "A situation where a person is angry.", "An emotionally significant event or radical change of status in a person's life.", "A planned protest or demonstration."],
+                answer: "An emotionally significant event or radical change of status in a person's life.",
+                explanation: "A crisis is a perception or experience of an event or situation as an intolerable difficulty that exceeds the person's current resources and coping mechanisms. It is a subjective experience.",
+                reference: "29 CIT-Mental Illness... Handout, Page 4"
+            },
+            {
+                question: "What is the difference between 'mental illness' and 'insanity'?",
+                options: ["There is no difference; the terms are interchangeable.", "'Mental illness' is a medical term, while 'insanity' is a legal term.", "'Insanity' is a mild form of mental illness.", "'Mental illness' applies to adults, while 'insanity' applies to juveniles."],
+                answer: "'Mental illness' is a medical term, while 'insanity' is a legal term.",
+                explanation: "'Mental illness' is a diagnosable condition affecting mood, thinking, or behavior. 'Insanity' is a legal defense to prosecution (defined in Penal Code 8.01) stating that due to a severe mental disease or defect, the actor did not know their conduct was wrong.",
+                reference: "29 CIT-Mental Illness... Handout, Page 5"
+            },
+            {
+                question: "Approximately what percentage of U.S. adults experience some form of mental illness in a given year?",
+                options: ["1 in 50 (2%)", "1 in 25 (4%)", "1 in 10 (10%)", "1 in 5 (20%)"],
+                answer: "1 in 5 (20%)",
+                explanation: "Statistics from the National Institute of Mental Health (NIMH) show that mental illness is common, affecting about 1 in 5 adults in the U.S. annually (17.9% is cited).",
+                reference: "29 CIT-Mental Illness... Handout, Page 5"
+            },
+            {
+                question: "The policy of relocating people with severe mental illness out of residential facilities, which began in 1955, is known as:",
+                options: ["Institutionalization", "Deinstitutionalization", "Decriminalization", "Diversion"],
+                answer: "Deinstitutionalization",
+                explanation: "Deinstitutionalization led to the closure of many state mental hospitals. Without adequate community-based care to replace them, many individuals with serious mental illness ended up homeless or incarcerated.",
+                reference: "29 CIT-Mental Illness... Handout, Page 8"
+            },
+            {
+                question: "What is the estimated percentage of homeless individuals in the U.S. who have a serious mental illness?",
+                options: ["5%", "10%", "25%", "50%"],
+                answer: "25%",
+                explanation: "At a minimum, a quarter of the homeless population is estimated to be seriously mentally ill, highlighting the strong link between untreated mental illness and homelessness.",
+                reference: "29 CIT-Mental Illness... Handout, Page 8"
+            },
+            {
+                question: "People with severe mental illnesses are how many times more likely to be victims of violent crime than the general population?",
+                options: ["2 times more likely", "5 times more likely", "Over 10 times more likely", "They are less likely to be victims."],
+                answer: "Over 10 times more likely",
+                explanation: "This statistic dispels the myth that people with mental illness are inherently dangerous. In fact, they are far more likely to be victims of crime than perpetrators.",
+                reference: "29 CIT-Mental Illness... Handout, Page 9"
+            },
+            {
+                question: "A personality disorder is an enduring pattern of thinking, feeling, and behaving that is relatively over time.",
+                options: ["Flexible and adaptive", "Stable and inflexible", "Improving", "Situational"],
+                answer: "Stable and inflexible",
+                explanation: "The key feature of a personality disorder is its inflexible and pervasive nature across a broad range of personal and social situations, which is stable and of long duration.",
+                reference: "29 CIT-Mental Illness... Handout, Page 10"
+            },
+            {
+                question: "Which personality disorder is characterized by a pervasive pattern of disregard for and violation of the rights of others, deceitfulness, and a lack of remorse?",
+                options: ["Paranoid Personality Disorder", "Narcissistic Personality Disorder", "Borderline Personality Disorder", "Antisocial Personality Disorder"],
+                answer: "Antisocial Personality Disorder",
+                explanation: "These are the hallmark traits of Antisocial Personality Disorder, which is frequently associated with criminal behavior.",
+                reference: "29 CIT-Mental Illness... Handout, Page 11"
+            },
+            {
+                question: "Which personality disorder is characterized by a pervasive pattern of instability in interpersonal relationships, self-image, emotional expression, and poor impulse control?",
+                options: ["Paranoid Personality Disorder", "Narcissistic Personality Disorder", "Borderline Personality Disorder", "Antisocial Personality Disorder"],
+                answer: "Borderline Personality Disorder",
+                explanation: "Instability is the core feature of BPD. Individuals may have frantic efforts to avoid abandonment, unstable relationships, and recurrent suicidal behavior.",
+                reference: "29 CIT-Mental Illness... Handout, Page 11"
+            },
+            {
+                question: "Bipolar Disorder is a mental illness involving cycles between extreme emotional highs (mania) and what else?",
+                options: ["Psychosis", "Anxiety", "Depression", "Paranoia"],
+                answer: "Depression",
+                explanation: "Bipolar disorder is characterized by these extreme shifts in mood, from manic episodes (high energy, euphoria, irritability) to major depressive episodes (low energy, sadness, hopelessness).",
+                reference: "29 CIT-Mental Illness... Handout, Page 13"
+            },
+            {
+                question: "An illness involving a distortion of reality that may be accompanied by delusions and/or hallucinations is known as:",
+                options: ["Anxiety", "Depression", "Psychosis", "A personality disorder"],
+                answer: "Psychosis",
+                explanation: "Psychosis is a symptom, not an illness, characterized by a break with reality. It can be a component of various thought disorders like schizophrenia or bipolar disorder.",
+                reference: "29 CIT-Mental Illness... Handout, Page 14"
+            },
+            {
+                question: "Fixed false beliefs that are maintained despite overwhelming evidence to the contrary are called:",
+                options: ["Hallucinations", "Delusions", "Illusions", "Confabulations"],
+                answer: "Delusions",
+                explanation: "A delusion is a disorder of thought content. A non-bizarre delusion could be 'the FBI is following me,' while a bizarre delusion could be 'aliens have replaced my organs.'",
+                reference: "29 CIT-Mental Illness... Handout, Page 14"
+            },
+            {
+                question: "Distortions in sensory input, causing an individual to see, hear, feel, or smell something that is not there, are called:",
+                options: ["Hallucinations", "Delusions", "Flashbacks", "Daydreams"],
+                answer: "Hallucinations",
+                explanation: "Hallucinations are sensory experiences in the absence of external stimuli. The most common type is auditory (hearing voices).",
+                reference: "29 CIT-Mental Illness... Handout, Page 14"
+            },
+            {
+                question: "A Traumatic Brain Injury (TBI) can be caused by:",
+                options: ["Impact to the head", "Proximity to a blast", "Penetrating injuries", "All of the above"],
+                answer: "All of the above",
+                explanation: "TBI results from an external force causing damage to the brain. This can include direct impact, the rapid movement of the brain within the skull from a blast wave, or an object penetrating the skull.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 1"
+            },
+            {
+                question: "Which of the following is a symptom of Post-Traumatic Stress (PTSD)?",
+                options: ["Recurrent unwanted dreams, images, or memories (Intrusion)", "Avoidance of reminders of the trauma", "Negative changes in mood and thought patterns", "All of the above"],
+                answer: "All of the above",
+                explanation: "PTSD is characterized by a cluster of symptoms across several domains, including re-experiencing the trauma, avoiding reminders, negative alterations in cognitions and mood, and alterations in arousal and reactivity.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 2"
+            },
+            {
+                question: "The term for sensory stimuli that cause a person to recall a previous traumatic memory and have a physiological reaction to a threat is:",
+                options: ["Flashbacks", "Memories", "Triggers", "Nightmares"],
+                answer: "Triggers",
+                explanation: "Triggers can be any sight, sound, smell, taste, or touch that reminds a person of the trauma and can provoke an intense emotional and physiological reaction.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 3"
+            },
+            {
+                question: "The damage done to one's conscience when a person perpetrates, witnesses, or fails to prevent acts that violate their own morals or ethics is known as:",
+                options: ["Survivor's Guilt", "Moral Injury", "Depression", "Combat Stress"],
+                answer: "Moral Injury",
+                explanation: "Moral injury is a distinct form of trauma that results from a violation of one's core moral beliefs, often leading to shame, guilt, and alienation.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 4"
+            },
+            {
+                question: "Which of the following is a known and quantifiable suicide risk factor?",
+                options: ["Having a strong support system", "Feelings of hopelessness, helplessness, or powerlessness", "Being employed", "Connection to a spiritual faith"],
+                answer: "Feelings of hopelessness, helplessness, or powerlessness",
+                explanation: "Hopelessness is one of the most significant predictors of suicide. When a person feels their situation is unbearable and cannot be improved, the risk increases dramatically.",
+                reference: "29 CIT-Mental Illness... Handout, Page 23"
+            },
+            {
+                question: "In the suicide risk assessment model 'PLAN', what is the officer trying to determine?",
+                options: ["If the person has a specific plan to commit suicide.", "If the person has the means to carry out the plan.", "How determined the person is to follow through with the plan.", "If the person has attempted suicide before."],
+                answer: "If the person has a specific plan to commit suicide.",
+                explanation: "The first step in the assessment is to move from general suicidal thoughts ('ideation') to whether the person has developed a specific plan of action.",
+                reference: "29 CIT-Mental Illness... Handout, Page 24"
+            },
+            {
+                question: "Under Texas Health and Safety Code 573.001, a peace officer may take a person into custody without a warrant (Police Officer Emergency Commitment) if the officer believes the person is mentally ill and what other condition exists?",
+                options: ["The person has committed any criminal offense.", "The person is homeless.", "There is a substantial risk of serious harm to the person or others unless immediately restrained.", "The person's family requests it."],
+                answer: "There is a substantial risk of serious harm to the person or others unless immediately restrained.",
+                explanation: "This is the legal standard for an involuntary emergency detention. The officer must have reason to believe the person is mentally ill AND that they pose a substantial risk of harm to themselves or others.",
+                reference: "29 CIT-Mental Illness... Handout, Page 25"
+            },
+            {
+                question: "What is the 'least restrictive alternative' in the context of mental health treatment?",
+                options: ["The cheapest treatment option.", "The treatment setting that is no more restrictive of a person's liberties than is necessary to provide effective treatment and protection.", "Outpatient treatment for all cases.", "Involuntary commitment to a state hospital."],
+                answer: "The treatment setting that is no more restrictive of a person's liberties than is necessary to provide effective treatment and protection.",
+                explanation: "This is a legal and ethical principle (HSC 571.004) requiring that individuals be treated in the most integrated, least restrictive setting appropriate to their needs.",
+                reference: "29 CIT-Mental Illness... Handout, Page 26"
+            },
+            {
+                question: "What is the primary goal of jail diversion programs?",
+                options: ["To reduce prison overcrowding.", "To decriminalize persons with mental illness by redirecting them from the justice system to the health care system.", "To ensure all offenders serve their full sentences.", "To provide mental health treatment inside jails."],
+                answer: "To decriminalize persons with mental illness by redirecting them from the justice system to the health care system.",
+                explanation: "Jail diversion aims to break the cycle of arrest and incarceration for individuals whose criminal conduct is linked to their mental illness, offering treatment as an alternative.",
+                reference: "29 CIT-Mental Illness... Handout, Page 32"
+            },
+            {
+                question: "The three-phase process for effective communication in a crisis is: Safety, Stability, and what else?",
+                options: ["Arrest", "Problem Solving", "Diagnosis", "Documentation"],
+                answer: "Problem Solving",
+                explanation: "Once the scene is safe and the person is somewhat stabilized, the officer's goal is to engage the person's rational brain to collaboratively solve the immediate problem.",
+                reference: "29 CIT-Mental Illness... Handout, Page 35"
+            },
+            {
+                question: "What are the components of the initial 'Three-Point Assessment'?",
+                options: ["Name, Date of Birth, Address", "Comprehension, Behavior, Emotion", "Threats, Weapons, Escape Routes", "Intoxication, Injury, Criminal History"],
+                answer: "Comprehension, Behavior, Emotion",
+                explanation: "This quick assessment helps an officer get a baseline understanding of the person's mental state by observing their ability to understand, their general behavior and self-care, and their prevailing emotional state.",
+                reference: "29 CIT-Mental Illness... Handout, Page 36"
+            },
+            {
+                question: "Which of the following is one of the '5 Universal Truths of Human Interaction'?",
+                options: ["All people respond to threats of force.", "All people would rather be asked than told what to do.", "All people want to be left alone.", "All people are naturally deceptive."],
+                answer: "All people would rather be asked than told what to do.",
+                explanation: "This principle highlights the power of using requests instead of commands to gain voluntary compliance and build rapport.",
+                reference: "29 CIT-Mental Illness... Handout, Page 37"
+            },
+            {
+                question: "What does the 'E' in the LEAPS model of communication stand for?",
+                options: ["Engage", "Evaluate", "Empathize", "Execute"],
+                answer: "Empathize",
+                explanation: "LEAPS stands for Listen, Empathize, Ask, Paraphrase, Summarize. Empathizing involves understanding and acknowledging the person's perspective and feelings without judgment.",
+                reference: "29 CIT-Mental Illness... Handout, Page 39"
+            },
+            {
+                question: "Explaining an action before initiating it so the person knows what to expect is a de-escalation technique known as:",
+                options: ["Rapport Building", "Tactical Transparency", "Active Listening", "Paraphrasing"],
+                answer: "Tactical Transparency",
+                explanation: "This technique reduces uncertainty and surprises, which can be triggers for people in crisis. For example, 'I am going to reach for my radio now so I can call for an ambulance.'",
+                reference: "29 CIT-Mental Illness... Handout, Page 41"
+            },
+            {
+                question: "A person in crisis may be more prone to acting ___________ rather than with logical thought.",
+                options: ["Rationally", "Instinctually", "Slowly", "Cooperatively"],
+                answer: "Instinctually",
+                explanation: "A crisis can overwhelm a person's rational thinking, causing them to revert to instinctual, self-preservation behaviors. Understanding this helps officers interpret non-compliance.",
+                reference: "29 CIT-Mental Illness... Handout, Page 4"
+            },
+            {
+                question: "According to the Texas Penal Code, the term 'mental disease or defect' does NOT include an abnormality manifested only by:",
+                options: ["Hallucinations or delusions", "Severe depression", "Repeated criminal or otherwise antisocial conduct", "Bipolar disorder"],
+                answer: "Repeated criminal or otherwise antisocial conduct",
+                explanation: "This is a key exclusion in the legal definition of insanity. A person cannot claim insanity simply because they have a history of being a criminal; there must be a severe mental disease or defect underlying the conduct.",
+                reference: "29 CIT-Mental Illness... Handout, Page 5"
+            },
+            {
+                question: "Nearly what fraction of people with a diagnosable mental illness do NOT seek treatment?",
+                options: ["One-quarter", "One-third", "One-half", "Two-thirds"],
+                answer: "Two-thirds",
+                explanation: "This statistic highlights a major public health challenge, as many individuals who could benefit from treatment do not receive it, often due to stigma, cost, or lack of access.",
+                reference: "29 CIT-Mental Illness... Handout, Page 6"
+            },
+            {
+                question: "What is 'stigma' in the context of mental illness?",
+                options: ["A legal diagnosis", "A mark of disgrace or shame", "A type of medication", "A symptom of psychosis"],
+                answer: "A mark of disgrace or shame",
+                explanation: "Stigma refers to the negative attitudes and stereotypes that lead to discrimination against people with mental health conditions.",
+                reference: "29 CIT-Mental Illness... Handout, Page 6"
+            },
+            {
+                question: "The vast majority of people with mental health problems are NOT more likely to be violent than anyone else. Only what percentage of violent acts can be attributed to individuals with a serious mental illness?",
+                options: ["3% - 5%", "10% - 15%", "25% - 30%", "Over 50%"],
+                answer: "3% - 5%",
+                explanation: "This statistic directly counters the common myth and stigma that people with mental illness are inherently dangerous.",
+                reference: "29 CIT-Mental Illness... Handout, Page 6"
+            },
+            {
+                question: "Which personality disorder is characterized by a persistent grandiosity, a need for admiration, and a lack of empathy?",
+                options: ["Paranoid Personality Disorder", "Antisocial Personality Disorder", "Borderline Personality Disorder", "Narcissistic Personality Disorder"],
+                answer: "Narcissistic Personality Disorder",
+                explanation: "These are the core features of Narcissistic Personality Disorder, which can include an exaggerated sense of self-importance and a belief that one is 'special' and entitled.",
+                reference: "29 CIT-Mental Illness... Handout, Page 12"
+            },
+            {
+                question: "What is the average age of onset for Major Depressive Disorder?",
+                options: ["Early childhood", "Adolescence", "Mid-twenties", "Late adulthood (65+)"],
+                answer: "Mid-twenties",
+                explanation: "While it can occur at any age, the mid-twenties is the average age when the first major depressive episode occurs.",
+                reference: "29 CIT-Mental Illness... Handout, Page 12"
+            },
+            {
+                question: "In the manic phase of Bipolar Disorder, a person may experience:",
+                options: ["Low energy and fatigue", "Prolonged feelings of sadness", "A decreased need for sleep and racing thoughts", "Loss of interest in usual activities"],
+                answer: "A decreased need for sleep and racing thoughts",
+                explanation: "The manic phase is characterized by high energy levels, inflated self-esteem, reduced need for sleep, and accelerated thinking and speech.",
+                reference: "29 CIT-Mental Illness... Handout, Page 13"
+            },
+            {
+                question: "A person experiencing 'word salad' (nonsense speech or rambling narratives) is likely experiencing a symptom of what type of disorder?",
+                options: ["Mood Disorder", "Personality Disorder", "Thought Disorder", "Anxiety Disorder"],
+                answer: "Thought Disorder",
+                explanation: "Disorganized speech like 'word salad' is a hallmark symptom of psychosis, which is a key feature of thought disorders like schizophrenia.",
+                reference: "29 CIT-Mental Illness... Handout, Page 14"
+            },
+            {
+                question: "A medication capable of affecting the mind, emotions, and behavior is known as what?",
+                options: ["An antibiotic", "An analgesic", "A psychotropic medication", "An antihistamine"],
+                answer: "A psychotropic medication",
+                explanation: "This is the general term for any medication prescribed to treat mental health conditions by altering brain chemistry.",
+                reference: "29 CIT-Mental Illness... Handout, Page 15"
+            },
+            {
+                question: "CNS Depressants, such as alcohol or Valium, have what effect on the body?",
+                options: ["They speed up the operations of the brain and body.", "They slow down the operations of the brain and the body.", "They cause hallucinations.", "They have no physical effect."],
+                answer: "They slow down the operations of the brain and the body.",
+                explanation: "As their name implies, depressants slow down central nervous system functions, leading to symptoms like sluggishness, slurred speech, and disorientation.",
+                reference: "29 CIT-Mental Illness... Handout, Page 16"
+            },
+            {
+                question: "Which drug category includes PCP and ketamine, and is known for inhibiting pain by cutting off the brain's perception of it?",
+                options: ["Hallucinogens", "Dissociative Anesthetics", "Narcotic Analgesics", "Stimulants"],
+                answer: "Dissociative Anesthetics",
+                explanation: "These drugs create a feeling of detachment (dissociation) from one's body and reality, and they have strong anesthetic properties.",
+                reference: "29 CIT-Mental Illness... Handout, Page 17"
+            },
+            {
+                question: "What is a common sign of Narcotic Analgesic (e.g., heroin, morphine) use?",
+                options: ["Dilated pupils and high energy", "Droopy eyelids (ptosis), facial itching, and slow, low, raspy speech", "Body tremors and hallucinations", "Increased appetite and reddening of the eyes"],
+                answer: "Droopy eyelids (ptosis), facial itching, and slow, low, raspy speech",
+                explanation: "These are classic signs of opioid intoxication, reflecting the drug's depressant effects on the central nervous system.",
+                reference: "29 CIT-Mental Illness... Handout, Page 17"
+            },
+            {
+                question: "The active ingredient in cannabis is:",
+                options: ["CBD (cannabidiol)", "THC (delta-9-tetrahydrocannabinol)", "Psilocybin", "Mescaline"],
+                answer: "THC (delta-9-tetrahydrocannabinol)",
+                explanation: "THC is the primary psychoactive component in marijuana that produces the 'high'.",
+                reference: "29 CIT-Mental Illness... Handout, Page 18"
+            },
+            {
+                question: "A significant cognitive decline in areas like memory, attention, and executive function is characteristic of what type of disorder?",
+                options: ["Thought Disorder", "Mood Disorder", "Cognitive Disorder", "Personality Disorder"],
+                answer: "Cognitive Disorder",
+                explanation: "Cognitive disorders, such as dementia and Alzheimer's Disease, are primarily defined by a decline in cognitive abilities.",
+                reference: "29 CIT-Mental Illness... Handout, Page 18"
+            },
+            {
+                question: "Up to half of all people over what age are affected by some form of dementia?",
+                options: ["65", "75", "85", "95"],
+                answer: "85",
+                explanation: "While dementia is not a normal part of aging, the risk increases significantly in advanced age, with up to 50% of those over 85 being affected.",
+                reference: "29 CIT-Mental Illness... Handout, Page 19"
+            },
+            {
+                question: "Which of the following is an effective communication method for an individual with dementia?",
+                options: ["Speak loudly and quickly.", "Use complex, multi-step commands.", "Use 'yes' or 'no' questions and be patient.", "Argue with them if they are confused about reality."],
+                answer: "Use 'yes' or 'no' questions and be patient.",
+                explanation: "Simple, clear communication is key. Simplifying questions and allowing ample time for a response can help reduce confusion and frustration.",
+                reference: "29 CIT-Mental Illness... Handout, Page 19"
+            },
+            {
+                question: "A condition present since birth or childhood that prevents full social or vocational independence in adulthood is known as a:",
+                options: ["Mood Disorder", "Personality Disorder", "Developmental Disorder", "Thought Disorder"],
+                answer: "Developmental Disorder",
+                explanation: "This category includes conditions like Autism Spectrum Disorder and Intellectual Disability, which are lifelong conditions that originate early in development.",
+                reference: "29 CIT-Mental Illness... Handout, Page 20"
+            },
+            {
+                question: "A person with an IQ in the 50-69 range would be classified as having what degree of intellectual disability?",
+                options: ["Borderline", "Mild", "Moderate", "Severe"],
+                answer: "Mild",
+                explanation: "This is the classification for the IQ range of 50-69. Individuals in this range can often live independently with minimal support.",
+                reference: "29 CIT-Mental Illness... Handout, Page 22"
+            },
+            {
+                question: "Suicide is the leading cause of death among 15-24 year-olds.",
+                options: ["First", "Second", "Third", "Fifth"],
+                answer: "Second",
+                explanation: "For this age group, suicide is tragically the second leading cause of death, second only to accidents (unintentional injuries).",
+                reference: "29 CIT-Mental Illness... Handout, Page 23"
+            },
+            {
+                question: "A key protective factor against suicide is:",
+                options: ["Recent loss of a job", "Substance intoxication", "Feelings of hopelessness", "Having a healthy support system"],
+                answer: "Having a healthy support system",
+                explanation: "Connection to family, friends, and community is a powerful protective factor that can buffer against suicidal thoughts and behaviors.",
+                reference: "29 CIT-Mental Illness... Handout, Page 23"
+            },
+            {
+                question: "When an officer transports someone for an emergency detention, they must file what document with the receiving facility?",
+                options: ["An arrest warrant", "A probable cause affidavit", "A notification of detention", "A civil citation"],
+                answer: "A notification of detention",
+                explanation: "This form serves as the legal document for the detention, outlining the officer's observations and the reasons for believing the person meets the criteria for an emergency commitment.",
+                reference: "29 CIT-Mental Illness... Handout, Page 25"
+            },
+            {
+                question: "What does the 'A' in the LEAPS model stand for?",
+                options: ["Assess", "Act", "Ask", "Argue"],
+                answer: "Ask",
+                explanation: "LEAPS stands for Listen, Empathize, Ask, Paraphrase, Summarize. Asking questions helps clarify the situation and shows you are engaged.",
+                reference: "29 CIT-Mental Illness... Handout, Page 39"
+            },
+            {
+                question: "What does the 'P' in the LEAPS model stand for?",
+                options: ["Protect", "Persuade", "Paraphrase", "Problem-solve"],
+                answer: "Paraphrase",
+                explanation: "LEAPS stands for Listen, Empathize, Ask, Paraphrase, Summarize. Paraphrasing ('So, what I'm hearing is...') confirms you understand and builds rapport.",
+                reference: "29 CIT-Mental Illness... Handout, Page 39"
+            },
+            {
+                question: "'Calm down' and 'What's your problem?' are examples of what kind of communication phrases?",
+                options: ["Pro-LEAPS", "Rapport-building", "Anti-LEAPS", "Reflecting"],
+                answer: "Anti-LEAPS",
+                explanation: "These phrases are counter-productive. They often invalidate the person's feelings and can escalate a situation by creating defensiveness.",
+                reference: "29 CIT-Mental Illness... Handout, Page 40"
+            },
+            {
+                question: "'I see...' and 'Tell me more about that' are examples of what kind of statements?",
+                options: ["'You' statements", "Accusatory statements", "Reflecting statements", "Anti-LEAPS statements"],
+                answer: "Reflecting statements",
+                explanation: "These are neutral, open-ended prompts designed to encourage the person to continue talking, which allows the officer to gather more information and build rapport.",
+                reference: "29 CIT-Mental Illness... Handout, Page 40"
+            },
+            {
+                question: "Which type of statement is generally more effective for de-escalation because it is less accusatory and gives the speaker responsibility?",
+                options: ["'You' statements", "'They' statements", "'I' statements", "Command statements"],
+                answer: "'I' statements",
+                explanation: "Using 'I' statements (e.g., 'I am concerned for your safety') instead of 'You' statements (e.g., 'You are acting dangerously') reduces defensiveness and helps build rapport.",
+                reference: "29 CIT-Mental Illness... Handout, Page 41"
+            },
+            {
+                question: "What is the 80/20 rule in crisis communication?",
+                options: ["Talk 80% of the time, listen 20%", "Listen 80% of the time, talk 20%", "80% of calls involve mental illness", "Spend 80% of your time on scene"],
+                answer: "Listen 80% of the time, talk 20%",
+                explanation: "This rule emphasizes the importance of active listening. By letting the person in crisis do most of the talking, the officer can gather information, allow the person to vent, and build rapport.",
+                reference: "29 CIT-Mental Illness... Handout, Page 38"
+            },
+            {
+                question: "What is the core of PERF's Critical Decision-Making Model (CDM)?",
+                options: ["Officer Safety", "Agency Policy", "Ethics and Values", "Legal Authority"],
+                answer: "Ethics and Values",
+                explanation: "The CDM is built around a core of ethics, values, proportionality, and the sanctity of human life, which should guide every step of the decision-making process.",
+                reference: "29 CIT-Mental Illness... Handout, Page 35"
+            },
+            {
+                question: "What is the first step in the 5-step Critical Decision-Making Model?",
+                options: ["Act, Review, and Re-assess", "Identify Options", "Assess Situation, Threats, and Risks", "Collect Information"],
+                answer: "Collect Information",
+                explanation: "The first step is to gather as much information as possible from dispatch, witnesses, and observations to form an accurate picture of the situation.",
+                reference: "29 CIT-Mental Illness... Handout, Page 36"
+            },
+            {
+                question: "What is 'emotional contagion' in a crisis situation?",
+                options: ["The idea that emotions can be transmitted from person to person.", "A symptom of a mood disorder.", "A de-escalation technique.", "A legal term for a shared delusion."],
+                answer: "The idea that emotions can be transmitted from person to person.",
+                explanation: "An officer's calm and professional demeanor can help calm an agitated person, while an officer's own agitation can escalate the situation further. Emotions are contagious.",
+                reference: "29 CIT-Mental Illness... Handout, Page 42 (Behavioral Change Staircase)"
+            },
+            {
+                question: "According to the Behavioral Change Staircase model, what step comes immediately after Empathy?",
+                options: ["Influence", "Introduction", "Rapport", "Behavioral Change"],
+                answer: "Rapport",
+                explanation: "The sequence is: Introduction -> Empathy -> Rapport -> Influence -> Behavioral Change. Rapport (a harmonious connection) is built upon the foundation of empathy.",
+                reference: "29 CIT-Mental Illness... Handout, Page 42 (Behavioral Change Staircase)"
+            },
+            {
+                question: "In the Behavioral Change Staircase, you cannot problem-solve until you have some _______ over the person.",
+                options: ["Control", "Authority", "Influence", "Physical advantage"],
+                answer: "Influence",
+                explanation: "Influence is the step where the rapport you've built allows you to begin guiding the person toward a positive behavioral change. You cannot effectively solve the problem until you have gained this level of influence.",
+                reference: "29 CIT-Mental Illness... Handout, Page 42 (Behavioral Change Staircase)"
+            },
+            {
+                question: "Using an 'I-When-Because' statement is a technique for what purpose?",
+                options: ["Building rapport", "Expressing empathy", "Giving instructions", "Assessing suicide risk"],
+                answer: "Giving instructions",
+                explanation: "This structured statement is a clear and non-confrontational way to give a directive. 'I need you to drop the knife (instruction), when I count to three (timing), because it will keep both of us safe (reason).'",
+                reference: "29 CIT-Mental Illness... Handout, Page 42 (Behavioral Change Staircase)"
+            },
+            {
+                question: "What is a 'moral injury' in the context of veterans?",
+                options: ["A physical injury that affects one's morals.", "The damage done to one's conscience from acts that violate their moral beliefs.", "A type of PTSD.", "A dishonorable discharge."],
+                answer: "The damage done to one's conscience from acts that violate their moral beliefs.",
+                explanation: "This is the specific definition of moral injury, which can result from perpetrating, failing to prevent, or witnessing acts that transgress deeply held moral beliefs.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 4"
+            },
+            {
+                question: "The feeling a person may have when they survive a traumatic event that others did not is known as:",
+                options: ["PTSD", "Moral Injury", "Survivor's Guilt", "Depression"],
+                answer: "Survivor's Guilt",
+                explanation: "Survivor's guilt is a specific symptom or feeling where an individual feels they have done something wrong by surviving a traumatic event when others did not.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 5"
+            },
+            {
+                question: "Which PTSD symptom cluster is an officer most likely to encounter with a veteran?",
+                options: ["Intrusion symptoms", "Avoidance symptoms", "Negative thoughts or mood", "Hyperarousal / Hypervigilance"],
+                answer: "Hyperarousal / Hypervigilance",
+                explanation: "This symptom cluster manifests as being 'on edge,' having a heightened startle response, and being constantly on the lookout for danger, which can lead to volatile interactions with law enforcement.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 5"
+            },
+            {
+                question: "Interpersonal Violence (IPV) is the leading cause of what for women?",
+                options: ["Mental illness", "Homelessness", "Female homicides and injury-related deaths during pregnancy", "Substance abuse"],
+                answer: "Female homicides and injury-related deaths during pregnancy",
+                explanation: "This statistic highlights the extreme danger that IPV poses to women, particularly during pregnancy.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 7"
+            },
+            {
+                question: "According to Badge of Life, what is a leading cause of death for police officers?",
+                options: ["Shootings", "Traffic accidents", "Suicide", "Heart attacks"],
+                answer: "Suicide",
+                explanation: "The data indicates that more officers die by suicide than from felonious assaults and accidents combined, highlighting a critical mental health crisis within the profession.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 7"
+            },
+            {
+                question: "The suicide rate for police officers is how many times higher than for firefighters?",
+                options: ["The same", "Two times higher", "Four times higher", "Ten times higher"],
+                answer: "Four times higher",
+                explanation: "This comparison underscores the unique stressors and mental health challenges faced by law enforcement officers.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 7"
+            },
+            {
+                question: "What is a 'stigma' in relation to mental illness?",
+                options: ["A symptom of psychosis", "A mark of disgrace or shame that leads to discrimination", "A type of therapy", "A legal term for incompetence"],
+                answer: "A mark of disgrace or shame that leads to discrimination",
+                explanation: "Stigma is a major barrier to treatment, as it involves negative stereotypes and prejudice against people with mental health conditions.",
+                reference: "29 CIT-Mental Illness... Handout, Page 6"
+            },
+            {
+                question: "A person with a mental illness is also intellectually challenged.",
+                options: ["Always True", "Myth: The conditions are fundamentally different, though a dual diagnosis can exist.", "Always False", "True only for schizophrenia"],
+                answer: "Myth: The conditions are fundamentally different, though a dual diagnosis can exist.",
+                explanation: "Mental illness and intellectual disability are distinct conditions. A person can have one without the other, or both. One does not imply the other.",
+                reference: "29 CIT-Mental Illness... Handout, Page 7"
+            },
+            {
+                question: "A 'crisis' for one person may not be a crisis for another.",
+                options: ["True", "False"],
+                answer: "True",
+                explanation: "A crisis is a subjective experience. It depends on the individual's perception of the event and their personal coping skills and resources.",
+                reference: "29 CIT-Mental Illness... Handout, Page 4"
+            },
+            {
+                question: "Which of the following is NOT a type of Traumatic Brain Injury (TBI) severity?",
+                options: ["Mild", "Moderate", "Severe", "Chronic"],
+                answer: "Chronic",
+                explanation: "The severity of a TBI is categorized as mild, moderate, or severe. While the effects can be chronic, 'chronic' is not a severity level itself.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 1"
+            },
+            {
+                question: "Military Sexual Trauma (MST) is unique in that it is perpetrated by:",
+                options: ["An enemy combatant", "A foreign national", "A trusted brother or sister-in-arms", "A civilian contractor"],
+                answer: "A trusted brother or sister-in-arms",
+                explanation: "This betrayal by a fellow service member is a key factor that makes MST a particularly damaging form of trauma.",
+                reference: "Basic Peace Officer Course │ Chapter 29│ Crisis Intervention Training (CIT).pdf, Page 4"
+            },
+            {
+                question: "Which is a protective factor against suicide?",
+                options: ["Previous suicide attempts", "Substance intoxication", "Access to local health services", "Feelings of hopelessness"],
+                answer: "Access to local health services",
+                explanation: "The ability to get help is a key protective factor. The other options are all significant risk factors.",
+                reference: "29 CIT-Mental Illness... Handout, Page 23"
+            },
+            {
+                question: "If an officer takes a person into custody for an emergency detention, where should they be transported?",
+                options: ["The nearest jail", "The officer's station", "The nearest appropriate inpatient mental health facility", "Their own home"],
+                answer: "The nearest appropriate inpatient mental health facility",
+                explanation: "HSC 573.001 mandates transport to an appropriate medical or mental health facility for evaluation, not a jail (except in extreme emergencies).",
+                reference: "29 CIT-Mental Illness... Handout, Page 27"
+            },
+            {
+                question: "Communication between a patient and a mental health professional is:",
+                options: ["Public record", "Confidential", "Shared with all law enforcement", "Only confidential for adults"],
+                answer: "Confidential",
+                explanation: "Health and Safety Code Chapter 611 establishes the confidentiality of mental health records, with specific, limited exceptions.",
+                reference: "29 CIT-Mental Illness... Handout, Page 26"
+            },
+            {
+                question: "What is an exception to mental health confidentiality?",
+                options: ["If the officer is curious.", "If there is a probability of imminent physical injury by the patient to self or others.", "If the patient's family asks for the information.", "If the patient has been arrested before."],
+                answer: "If there is a probability of imminent physical injury by the patient to self or others.",
+                explanation: "This is a key exception, often referred to as the 'duty to protect' or 'Tarasoff' warning. Confidentiality can be broken to prevent imminent harm.",
+                reference: "29 CIT-Mental Illness... Handout, Page 26"
+            },
+            {
+                question: "What does the 'S' in the LEAPS model stand for?",
+                options: ["Safety", "Stabilize", "Summarize", "Secure"],
+                answer: "Summarize",
+                explanation: "LEAPS stands for Listen, Empathize, Ask, Paraphrase, Summarize. The final step is to summarize the conversation to confirm understanding and outline the next steps.",
+                reference: "29 CIT-Mental Illness... Handout, Page 40"
+            },
+            {
+                question: "What is the average age for kids to begin experimenting with illegal substances?",
+                options: ["10", "13", "16", "18"],
+                answer: "13",
+                explanation: "This statistic from the 'Force, Firearms, and Police Driving Review' highlights that substance use often begins in the early teenage years.",
+                reference: "Force, Firearms, and Police Driving Review, Page 40"
+            },
+            {
+                question: "Which of the following is a general sign of drug use?",
+                options: ["Consistent school or work attendance", "Stable moods", "An abrupt change in attendance or quality of work", "Maintaining a neat physical appearance"],
+                answer: "An abrupt change in attendance or quality of work",
+                explanation: "Sudden, unexplained changes in behavior, performance, and appearance are often indicators of potential substance abuse.",
+                reference: "Force, Firearms, and Police Driving Review, Page 40"
+            },
+            {
+                question: "Chronic use of methamphetamine can lead to a condition known as:",
+                options: ["Amphetamine Psychosis", "Opiate Overdose", "Alcohol Poisoning", "Serotonin Syndrome"],
+                answer: "Amphetamine Psychosis",
+                explanation: "Prolonged use of high-dose stimulants like meth can induce a psychotic state characterized by paranoia, hallucinations, and erratic behavior.",
+                reference: "Force, Firearms, and Police Driving Review, Page 41"
+            },
+            {
+                question: "Slow, shallow breathing, clammy skin, seizures, and coma are signs of overdose for which drug category?",
+                options: ["CNS Stimulants", "Hallucinogens", "Narcotic Analgesics", "Cannabis"],
+                answer: "Narcotic Analgesics",
+                explanation: "These are classic signs of an opioid overdose, which is a life-threatening medical emergency caused by severe respiratory depression.",
+                reference: "Force, Firearms, and Police Driving Review, Page 41"
+            },
+            {
+                question: "Agitation, a very high body temperature, hallucinations, and seizures are signs of overdose for which drug category?",
+                options: ["CNS Depressants", "CNS Stimulants", "Narcotic Analgesics", "Inhalants"],
+                answer: "CNS Stimulants",
+                explanation: "Overdose from stimulants like cocaine or methamphetamine causes the body's systems to go into overdrive, leading to these dangerous symptoms.",
+                reference: "Force, Firearms, and Police Driving Review, Page 41"
+            },
+            {
+                question: "Marked reddening of the conjunctiva (the whites of the eyes) is a common sign of recent use of which substance?",
+                options: ["Alcohol", "Cocaine", "Heroin", "Cannabis"],
+                answer: "Cannabis",
+                explanation: "The THC in cannabis causes blood vessels in the eyes to dilate, leading to the characteristic bloodshot appearance.",
+                reference: "Force, Firearms, and Police Driving Review, Page 42"
+            },
+            {
+                question: "What is the primary function of a Victim Assistance Coordinator?",
+                options: ["To investigate the crime.", "To prosecute the defendant.", "To ensure that victims are afforded their rights and to work with other agencies on their behalf.", "To provide financial compensation to victims."],
+                answer: "To ensure that victims are afforded their rights and to work with other agencies on their behalf.",
+                explanation: "The Victim Assistance Coordinator, typically located in the prosecutor's office, serves as a central point of contact to guide victims through the criminal justice process and ensure their rights are upheld.",
+                reference: "Victims of Crime Law Handout, Page 21"
+            },
+            {
+                question: "What is a 'collateral source' in relation to Crime Victims' Compensation?",
+                options: ["A secondary crime scene.", "Any benefit source like insurance or restitution that a claimant has already received.", "A corroborating witness.", "A fund for officer training."],
+                answer: "Any benefit source like insurance or restitution that a claimant has already received.",
+                explanation: "Crime Victims' Compensation is a 'payer of last resort.' It covers expenses not already paid by other sources. The amount of compensation is reduced by the amount received from these collateral sources.",
+                reference: "Victim of Crime Law Handout, Page 8"
+            },
+            {
+                question: "An 'intervenor' who is injured while trying to prevent a crime is eligible for Crime Victims' Compensation.",
+                options: ["True", "False"],
+                answer: "True",
+                explanation: "The law recognizes and provides for 'Good Samaritans' who are harmed in a good faith effort to help a crime victim or prevent a crime.",
+                reference: "Victim of Crime Law Handout, Page 11"
+            },
+            {
+                question: "Under CCP 56A.051, a victim has the right to a separate or secure waiting area at all public court proceedings.",
+                options: ["True", "False"],
+                answer: "True",
+                explanation: "This right is crucial for protecting victims from intimidation or unwanted contact with the defendant or the defendant's family and friends at the courthouse.",
+                reference: "Victim of Crime Law Handout, Page 12"
+            },
+            {
+                question: "According to the Family Code, a 'dating relationship' is defined as a continuing relationship of what nature?",
+                options: ["A business or social nature", "A casual acquaintanceship", "A romantic or intimate nature", "A relationship between roommates"],
+                answer: "A romantic or intimate nature",
+                explanation: "This is the core of the legal definition, which distinguishes it from other types of relationships. The existence is determined by the length, nature, and frequency of interaction.",
+                reference: "Threatening & Assaultive Offenses Handout, Page 1"
+            },
+            {
+                question: "A person commits which offense if they threaten violence with the intent to place any person in fear of imminent serious bodily injury?",
+                options: ["Assault", "Harassment", "Terroristic Threat", "Disorderly Conduct"],
+                answer: "Terroristic Threat",
+                explanation: "Under PC 22.07(a)(2), a threat of violence intended to place someone in fear of imminent SBI is a Terroristic Threat, a Class B Misdemeanor (or higher if against a family member or public servant).",
+                reference: "Threatening & Assaultive Offenses Handout, Page 2"
+            },
+            {
+                question: "A person commits which offense if, with intent to harass, they threaten to inflict bodily injury on a person in a manner reasonably likely to alarm them?",
+                options: ["Assault", "Harassment", "Terroristic Threat", "Stalking"],
+                answer: "Harassment",
+                explanation: "PC 42.07(a)(2) defines this as Harassment. The key difference from Terroristic Threat is the specific intent ('intent to harass') and the lower level of threatened harm ('bodily injury' vs. 'serious bodily injury').",
+                reference: "Threatening & Assaultive Offenses Handout, Page 2"
+            },
+            {
+                question: "A person commits the offense of Stalking if, on more than one occasion, they knowingly engage in conduct that they know or reasonably should know the other person will regard as threatening bodily injury or death.",
+                options: ["True", "False"],
+                answer: "True",
+                explanation: "This is a core element of the stalking statute (PC 42.072). It requires a course of conduct (more than one occasion) that causes fear in a reasonable person.",
+                reference: "Threatening & Assaultive Offenses Handout, Page 3"
+            },
+            {
+                question: "Intentionally or knowingly causing physical contact with another when the person knows the other will regard the contact as offensive or provocative is what offense?",
+                options: ["Assault by Threat", "Assault causing Bodily Injury", "Assault by Offensive Contact", "Harassment"],
+                answer: "Assault by Offensive Contact",
+                explanation: "This is the definition of the lowest level of assault under PC 22.01(a)(3), a Class C Misdemeanor.",
+                reference: "Threatening & Assaultive Offenses Handout, Page 5"
+            },
+            {
+                question: "An assault causing bodily injury (PC 22.01(a)(1)) is what level of offense?",
+                options: ["Class C Misdemeanor", "Class B Misdemeanor", "Class A Misdemeanor", "State Jail Felony"],
+                answer: "Class A Misdemeanor",
+                explanation: "This is the base penalty level for an assault that causes pain or injury, though it can be enhanced under various circumstances.",
+                reference: "Threatening & Assaultive Offenses Handout, Page 5"
+            },
+            {
+                question: "An assault becomes an Aggravated Assault if the person commits assault and causes serious bodily injury OR...",
+                options: ["causes any bodily injury.", "the victim is a family member.", "uses or exhibits a deadly weapon.", "has a prior assault conviction."],
+                answer: "uses or exhibits a deadly weapon.",
+                explanation: "These are the two primary ways an assault is elevated to Aggravated Assault under PC 22.02: causing serious bodily injury OR using/exhibiting a deadly weapon.",
+                reference: "Threatening & Assaultive Offenses Handout, Page 20"
+            },
+            {
+                question: "A person commits which offense if they recklessly engage in conduct that places another in imminent danger of serious bodily injury?",
+                options: ["Assault", "Aggravated Assault", "Terroristic Threat", "Deadly Conduct"],
+                answer: "Deadly Conduct",
+                explanation: "This offense (PC 22.05) covers reckless behavior that creates a serious risk of harm, even if no one is actually injured. A common example is randomly firing a gun into the air.",
+                reference: "Threatening & Assaultive Offenses Handout, Page 21"
+            },
+            {
+                question: "A person commits Kidnapping if they intentionally or knowingly another person.",
+                options: ["restrain", "assault", "abduct", "threaten"],
+                answer: "abduct",
+                explanation: "The key element that elevates Unlawful Restraint to Kidnapping is 'abduction,' which means to restrain a person with the intent to prevent their liberation by secreting them, or by using or threatening to use deadly force.",
+                reference: "Threatening & Assaultive Offenses Handout, Page 22"
+            },
+            {
+                question: "What is an affirmative defense to Kidnapping?",
+                options: ["The victim was a family member.", "The actor was a relative of the person abducted and their sole intent was to assume lawful control.", "The victim consented to being moved.", "The actor did not use a weapon."],
+                answer: "The actor was a relative of the person abducted and their sole intent was to assume lawful control.",
+                explanation: "PC 20.03 provides this affirmative defense for parental abduction-type scenarios, but it requires that the actor was a relative and only intended to assume lawful control, without the intent to use deadly force.",
+                reference: "Threatening & Assaultive Offenses Handout, Page 22"
+            },
+            {
+                question: "A person commits Aggravated Kidnapping if they abduct another person with the intent to:",
+                options: ["Hold them for ransom or reward.", "Use them as a shield or hostage.", "Facilitate the commission of a felony.", "All of the above."],
+                answer: "All of the above.",
+                explanation: "PC 20.04 lists several specific intents that elevate Kidnapping to Aggravated Kidnapping, a first-degree felony. These include holding for ransom, using as a hostage, or to facilitate another felony.",
+                reference: "Threatening & Assaultive Offenses Handout, Page 22"
+            },
+            {
+                question: "If an actor is justified in using force under PC Chapter 9, is he protected from a civil lawsuit?",
+                options: ["Yes, Chapter 9 provides complete civil immunity.", "No, the fact that conduct is justified does not abolish or impair any remedy available in a civil suit.", "Only if the actor is a peace officer.", "Only if no serious bodily injury occurred."],
+                answer: "No, the fact that conduct is justified does not abolish or impair any remedy available in a civil suit.",
+                explanation: "PC 9.06 makes it clear that criminal justification is separate from civil liability. While CPRC 83.001 later grants civil immunity for justified force, Chapter 9 itself does not.",
+                reference: "Threatening & Assaultive Offenses Handout, Page 9"
+            },
+            {
+                question: "Deadly force is justified to protect property to prevent the imminent commission of arson, burglary, robbery, or theft during the __________.",
+                options: ["daytime", "nighttime", "weekend", "holiday"],
+                answer: "nighttime",
+                explanation: "PC 9.42 places a strict limitation on the use of deadly force to protect property. For theft and criminal mischief, it must occur at night.",
+                reference: "Threatening & Assaultive Offenses Handout, Page 24"
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
+

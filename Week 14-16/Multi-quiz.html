@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiculturalism and Human Relations Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .correct {
+            background-color: #d1fae5; /* green-100 */
+            border-color: #10b981; /* green-500 */
+        }
+        .incorrect {
+            background-color: #fee2e2; /* red-100 */
+            border-color: #ef4444; /* red-500 */
+        }
+        .explanation {
+            background-color: #f3f4f6; /* gray-100 */
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div id="quiz-container" class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8">
+        <div class="bg-white p-8 rounded-2xl shadow-lg">
+            <h1 class="text-3xl font-bold text-center text-gray-900 mb-2">Multiculturalism and Human Relations Quiz (Final Boss Version)</h1>
+            <p class="text-center text-gray-500 mb-8">Practice Version: Review answers as you go.</p>
+
+            <div id="start-screen">
+                <p class="text-lg mb-6 text-center">This ultimate final practice quiz now contains 37 questions covering every detail from your handout. After each answer, you'll see a detailed explanation with references. Click "Start Practice" to begin.</p>
+                <button id="start-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 text-lg">Start Practice</button>
+            </div>
+
+            <div id="quiz-screen" class="hidden">
+                <div class="flex justify-between items-center mb-4">
+                    <div id="question-counter" class="text-sm font-semibold text-gray-600"></div>
+                    <div id="score-counter" class="text-sm font-semibold text-gray-600">Score: 0 / 0</div>
+                </div>
+                <div id="question-card" class="mb-6 p-6 bg-gray-50 rounded-xl border border-gray-200">
+                    <h2 id="question-text" class="text-xl font-semibold mb-5"></h2>
+                    <div id="options-container" class="space-y-3"></div>
+                </div>
+                <button id="next-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300 disabled:bg-gray-400" disabled>Next Question</button>
+            </div>
+
+            <div id="result-screen" class="hidden text-center">
+                <h2 class="text-2xl font-bold mb-4">Practice Complete!</h2>
+                <p class="text-5xl font-bold mb-4" id="final-score"></p>
+                <p class="text-lg text-gray-600 mb-8" id="score-message"></p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <button id="restart-btn" class="w-full sm:w-auto bg-indigo-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300">Restart Practice</button>
+                    <button id="review-btn" class="w-full sm:w-auto bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors duration-300">Review All Answers</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="review-section" class="hidden mt-8">
+             <h2 class="text-2xl font-bold text-center mb-6">Answer Review</h2>
+             <div id="review-container" class="space-y-6"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const startBtn = document.getElementById('start-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewBtn = document.getElementById('review-btn');
+        
+        const questionCounter = document.getElementById('question-counter');
+        const scoreCounter = document.getElementById('score-counter');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        
+        const finalScore = document.getElementById('final-score');
+        const scoreMessage = document.getElementById('score-message');
+        
+        const reviewSection = document.getElementById('review-section');
+        const reviewContainer = document.getElementById('review-container');
+
+        // --- Quiz Data with References ---
+        const quizData = [
+            {
+                question: "What is defined as a cognitive position based on a person's knowledge, feelings, and experiences about someone or something?",
+                options: ["Prejudice", "Attitude", "Culture", "Ethnicity"],
+                answer: "Attitude",
+                explanation: "An attitude is a cognitive position that influences behavior. The handout notes that attitudes can change because of life experiences.",
+                reference: "Handout Page 1: Definitions"
+            },
+            {
+                question: "Which term refers to groups of people with common ancestry and physical characteristics?",
+                options: ["Culture", "Ethnicity", "Race", "Society"],
+                answer: "Race",
+                explanation: "While the handout notes the concept is in dispute, 'race' generally refers to physical commonalities and ancestry.",
+                reference: "Handout Page 1: Definitions"
+            },
+            {
+                question: "Shared culture and background, including common ancestry, language, and religion, is the definition of:",
+                options: ["Race", "Ethnicity", "Ethnocentrism", "Culture"],
+                answer: "Ethnicity",
+                explanation: "Ethnicity is distinct from race as it focuses on shared cultural patterns and background rather than just physical characteristics.",
+                reference: "Handout Page 1: Definitions"
+            },
+            {
+                question: "What is the act of regarding one's own culture as the 'center of the universe'?",
+                options: ["Prejudice", "Discrimination", "Ethnocentrism", "Stereotyping"],
+                answer: "Ethnocentrism",
+                explanation: "Ethnocentrism is the belief in the inherent superiority of one's own ethnic group or culture, using it as the standard to judge all others.",
+                reference: "Handout Page 1: Definitions"
+            },
+            {
+                question: "An adverse judgment or opinion formed beforehand or without knowledge of the facts is known as:",
+                options: ["Attitude", "Prejudice", "Culture", "Discrimination"],
+                answer: "Prejudice",
+                explanation: "This is the core definition of prejudice: a pre-judgment or bias formed without a factual basis.",
+                reference: "Handout Page 1: Definitions"
+            },
+            {
+                question: "A way of thinking and acting based on tradition, or learned behavior passed down through generations, is called:",
+                options: ["Race", "Ethnicity", "Culture", "Attitude"],
+                answer: "Culture",
+                explanation: "Culture encompasses the learned behaviors, traditions, and ways of thinking shared by a group of people.",
+                reference: "Handout Page 1: Definitions"
+            },
+            {
+                question: "What is the term for acting on the basis of prejudice?",
+                options: ["Ethnocentrism", "Stereotyping", "Discrimination", "Projection"],
+                answer: "Discrimination",
+                explanation: "Prejudice is the thought or attitude, while discrimination is the action taken based on that prejudice.",
+                reference: "Handout Page 1: Definitions"
+            },
+            {
+                question: "According to the handout, who is prejudiced?",
+                options: ["Only uneducated people.", "Only members of the majority group.", "It is a universal ill; all of us have some kind of prejudice.", "Only people who act on their biases."],
+                answer: "It is a universal ill; all of us have some kind of prejudice.",
+                explanation: "The document states that prejudice is universal and that everyone has some form of it. The key is to be aware of it and prevent it from affecting job performance.",
+                reference: "Handout Page 1: Who is prejudiced?"
+            },
+            {
+                question: "Which function of prejudice provides a source of egotistic satisfaction through comparing others with oneself?",
+                options: ["Scapegoat", "Projection", "Stereotype", "Ethnocentrism"],
+                answer: "Ethnocentrism",
+                explanation: "By viewing one's own culture as superior (the 'center of the universe'), an individual can derive a sense of egotistic satisfaction.",
+                reference: "Handout Page 1: The Functions of Prejudice"
+            },
+            {
+                question: "Which function of prejudice affords a convenient grouping for people of whom one is not knowledgeable?",
+                options: ["Stereotype and Categorical Treatment", "Scapegoat", "Projection", "Authoritarian personality"],
+                answer: "Stereotype and Categorical Treatment",
+                explanation: "Stereotyping serves as a mental shortcut, allowing individuals to lump people together under a simplified description, saving the time and effort of learning about them individually.",
+                reference: "Handout Page 1: The Functions of Prejudice"
+            },
+            {
+                question: "Blaming a convenient group or person when things go wrong in one's personal life or community is known as:",
+                options: ["Projection", "Scapegoating", "Ethnocentrism", "Stereotyping"],
+                answer: "Scapegoating",
+                explanation: "The 'scapegoat' function of prejudice provides a target for blame, deflecting responsibility from oneself or from the actual cause of a problem.",
+                reference: "Handout Page 1: The Functions of Prejudice"
+            },
+            {
+                question: "Providing an outlet for projecting one's own tensions and frustrations onto other people is which function of prejudice?",
+                options: ["Projection", "Authoritarian personality", "Societal Strain", "Scapegoat"],
+                answer: "Projection",
+                explanation: "This psychological defense mechanism involves attributing one's own unacceptable feelings or impulses to someone else.",
+                reference: "Handout Page 1: The Functions of Prejudice"
+            },
+            {
+                question: "When prejudice symbolizes one's affiliation with a more dominant group, which function is it serving?",
+                options: ["Scapegoat", "Projection", "Authoritarian personality", "Stereotype"],
+                answer: "Authoritarian personality",
+                explanation: "This function describes how prejudice can be used to align oneself with a perceived dominant or powerful group.",
+                reference: "Handout Page 2: The Functions of Prejudice"
+            },
+            {
+                question: "The function of prejudice that leads to justification for various types of discrimination considered to be of advantage to the dominant group is called:",
+                options: ["Projection", "Societal Strain", "Scapegoat", "Ethnocentrism"],
+                answer: "Societal Strain",
+                explanation: "This function describes how prejudice is used to rationalize discriminatory practices that benefit the dominant group, often under the guise of maintaining social order or norms.",
+                reference: "Handout Page 2: The Functions of Prejudice"
+            },
+            {
+                question: "Which feeling harbored by prejudiced persons is frequently expressed in inappropriate jokes and disparaging remarks?",
+                options: ["Fear", "Feeling of superiority", "Proprietary claims", "Others are strange and different"],
+                answer: "Feeling of superiority",
+                explanation: "This self-assured belief that one is better than others often manifests as jokes or remarks that suggest others are lazy, stupid, deceitful, etc.",
+                reference: "Handout Page 2: Four Basic Feelings or Attitudes..."
+            },
+            {
+                question: "The feeling that another group is alien or different, which promotes social exclusion, is known as:",
+                options: ["Fear", "Feeling of superiority", "Proprietary claims", "Others are strange and different"],
+                answer: "Others are strange and different",
+                explanation: "This feeling fosters aversion and dislike, blocking acceptance of individuals on their own merit and creating a social distance between groups.",
+                reference: "Handout Page 2: Four Basic Feelings or Attitudes..."
+            },
+            {
+                question: "The belief that as a member of a group, an individual is entitled to exclusive or prior rights in a certain area is called:",
+                options: ["Fear", "Feeling of superiority", "Proprietary claims", "Others are strange and different"],
+                answer: "Proprietary claims",
+                explanation: "This is a sense of ownership or entitlement over jobs, neighborhoods, or positions in society that a prejudiced person feels should belong exclusively to their group.",
+                reference: "Handout Page 2: Four Basic Feelings or Attitudes..."
+            },
+            {
+                question: "Which basic feeling of prejudice excites emotions to the point of overshadowing rational judgment?",
+                options: ["Fear", "Feeling of superiority", "Proprietary claims", "Others are strange and different"],
+                answer: "Fear",
+                explanation: "Fear is described as basic to prejudice. It's the belief that someone is trying to intrude or threaten things that belong to one's own group, leading to an emotional and irrational response.",
+                reference: "Handout Page 2: Four Basic Feelings or Attitudes..."
+            },
+            {
+                question: "Prejudice and discrimination can be based on which of the following?",
+                options: ["Race and Gender", "Political affiliation and Sexual orientation", "Religion and Age", "All of the above"],
+                answer: "All of the above",
+                explanation: "The handout lists numerous forms and targets of prejudice, showing that it can be based on a wide variety of personal and group characteristics.",
+                reference: "Handout Page 2: Forms and targets of prejudice"
+            },
+            {
+                question: "The handout lists 'Authority figures' as a target of prejudice. Which of the following is given as an example?",
+                options: ["Doctors", "Police, government, teachers, parents", "Celebrities", "Athletes"],
+                answer: "Police, government, teachers, parents",
+                explanation: "This shows that prejudice is not only directed at minority groups but can also be directed towards those in positions of authority.",
+                reference: "Handout Page 2: Forms and targets of prejudice"
+            },
+            {
+                question: "Which of the following is listed as a form or target of prejudice?",
+                options: ["Economic/occupational", "Weight", "Physically challenged", "All of the above"],
+                answer: "All of the above",
+                explanation: "The document provides a comprehensive list demonstrating that prejudice can target many different attributes, including socioeconomic status, physical appearance, and abilities.",
+                reference: "Handout Page 2: Forms and targets of prejudice"
+            },
+            {
+                question: "Which concept from social scientists states that 'The right to be free implies the right to be...' what?",
+                options: ["...the same as everyone else.", "...different.", "...always right.", "...in charge."],
+                answer: "...different.",
+                explanation: "This principle emphasizes that a free society must tolerate and respect differences among its people.",
+                reference: "Handout Page 2: Concepts about human relations..."
+            },
+            {
+                question: "What are the common needs shared by all people, according to the handout?",
+                options: ["Wealth, fame, and power", "Social needs, health, employment, shelter, food, and a positive self-image", "Advanced education and political influence", "Complete independence and solitude"],
+                answer: "Social needs, health, employment, shelter, food, and a positive self-image",
+                explanation: "Social scientists point out that regardless of cultural differences, all human beings share these fundamental needs.",
+                reference: "Handout Page 2: Concepts about human relations..."
+            },
+            {
+                question: "The tendency to categorize people and make judgments about them rather than evaluating them on individual character can lead to what?",
+                options: ["Fairness", "Stereotyping", "Empathy", "Understanding"],
+                answer: "Stereotyping",
+                explanation: "This is a key concept in human relations. Categorizing is a mental shortcut that can easily lead to the error of stereotyping, where we apply group assumptions to individuals.",
+                reference: "Handout Page 2: Concepts about human relations..."
+            },
+            {
+                question: "Which function of discrimination tends to reinforce prejudice concerning a group's alleged inferiority?",
+                options: ["It limits the other group's effectiveness in business and politics.", "It provides an avenue for economic exploitation.", "It creates disadvantages that are then used as 'proof' of inferiority.", "All of the above"],
+                answer: "All of the above",
+                explanation: "Discrimination functions in several ways. It limits opportunities, allows for economic exploitation, and creates a self-perpetuating cycle where the negative results of discrimination are used to justify the prejudice.",
+                reference: "Handout Page 3: Functions of Discrimination"
+            },
+            {
+                question: "What does 'impartial enforcement of the law' require?",
+                options: ["Treating friends more favorably.", "That no person be treated unfairly, unjustly, or with bias or prejudice.", "Giving harsher punishments to certain groups.", "Ignoring minor laws for the sake of community relations."],
+                answer: "That no person be treated unfairly, unjustly, or with bias or prejudice.",
+                explanation: "Impartiality is the cornerstone of legitimate policing. It means that the law is applied equally to all persons without favoritism or bias.",
+                reference: "Handout Page 3: Evaluate and discuss the importance..."
+            },
+            {
+                question: "The principle of impartial enforcement requires that no person be given more favorable treatment, better service, or more lenient punishment than any other person in the same situation.",
+                options: ["True", "False"],
+                answer: "True",
+                explanation: "This statement accurately reflects the definition of impartiality provided in the handout. The critical guideline is not favoring one more than another in the same situation.",
+                reference: "Handout Page 3: Evaluate and discuss the importance..."
+            },
+            {
+                question: "Impartial enforcement of the law refers to the interaction between the law and the citizen, and also to what other interaction?",
+                options: ["The interaction between officers of different ranks.", "The interaction between different law enforcement agencies.", "The interaction of citizens when law enforcement becomes involved.", "The interaction between police and the media."],
+                answer: "The interaction of citizens when law enforcement becomes involved.",
+                explanation: "This point emphasizes that an officer must be a neutral and impartial party when mediating disputes or handling situations involving multiple citizens.",
+                reference: "Handout Page 3: Evaluate and discuss the importance..."
+            },
+            {
+                question: "Why does a peace officer have an especially sensitive position regarding impartial enforcement?",
+                options: ["They have the power to arrest.", "They often work alone and make decisions without direct supervision.", "Their treatment of citizens shapes the public's impression of the justice system.", "All of the above."],
+                answer: "All of the above.",
+                explanation: "The handout lists several reasons, including working alone, facing temptations for partiality, and being the public's primary point of contact with the justice system.",
+                reference: "Handout Page 3: The peace officer has an especially sensitive position..."
+            },
+            {
+                question: "To apply the principles of impartiality, a peace officer should base their enforcement action on what?",
+                options: ["The individual's attitude", "The nature of the situation and the severity of the offense", "The person's race or ethnicity", "Whether the person is respectful"],
+                answer: "The nature of the situation and the severity of the offense",
+                explanation: "This is the principle of objective, non-biased policing. Enforcement decisions should be based on facts and the law, not on personal feelings or characteristics of the individual.",
+                reference: "Handout Page 3: To apply these principles of impartiality..."
+            },
+            {
+                question: "Impartiality requires that a peace officer communicate by word and action that...",
+                options: ["...they are in charge.", "...all personnel of criminal justice agencies are equally subject to the law.", "...citizens should not question their authority.", "...some laws are more important than others."],
+                answer: "...all personnel of criminal justice agencies are equally subject to the law.",
+                explanation: "This principle reinforces that no one is above the law, including police officers themselves. This builds public trust and legitimacy.",
+                reference: "Handout Page 3: To apply these principles of impartiality..."
+            },
+            {
+                question: "What is a key benefit of impartial role performance for a peace officer?",
+                options: ["It makes the job easier.", "It builds respect and cooperation within the community.", "It guarantees that no one will file a complaint.", "It allows the officer to make more arrests."],
+                answer: "It builds respect and cooperation within the community.",
+                explanation: "When the public believes the system is impartial and fair, it fosters trust and legitimacy, which is essential for effective policing and crime reduction.",
+                reference: "Handout Page 4: Benefits from impartial role performance"
+            },
+            {
+                question: "Which of the following is an important skill for demonstrating sensitivity to the feelings and needs of others?",
+                options: ["Being judgmental", "Ignoring differences", "Showing warmth, genuine interest, and empathy", "Communicating as little as possible"],
+                answer: "Showing warmth, genuine interest, and empathy",
+                explanation: "These are crucial interpersonal skills for building rapport and treating people with dignity, which is a positive consequence of sensitivity.",
+                reference: "Handout Page 4: Important skills that should be used"
+            },
+            {
+                question: "An important skill for sensitivity is to 'tolerate ambiguity.' What does this mean?",
+                options: ["To ignore confusing messages.", "To accept approaches and messages that are different from your own.", "To demand clear and direct answers immediately.", "To be indecisive."],
+                answer: "To accept approaches and messages that are different from your own.",
+                explanation: "This skill involves being patient and open-minded when encountering different communication styles or perspectives, without immediately judging them as wrong.",
+                reference: "Handout Page 4: Important skills that should be used"
+            },
+            {
+                question: "What is a potential adverse consequence of insensitivity by a peace officer?",
+                options: ["Hurt feelings and anger", "Loss of personal and professional respect", "Ineffective performance", "All of the above"],
+                answer: "All of the above",
+                explanation: "Insensitive behavior can damage community trust, harm the officer's reputation, and hinder their ability to do their job effectively.",
+                reference: "Handout Page 4: Adverse consequences of insensitivity"
+            },
+            {
+                question: "Which of the following is listed as a positive consequence of sensitivity?",
+                options: ["More arrests", "Fewer reports to write", "Self-respect and respect from the community", "Less need for backup"],
+                answer: "Self-respect and respect from the community",
+                explanation: "Acting with sensitivity earns respect from the public and fellow professionals, supports democratic principles, and enhances an officer's own self-respect.",
+                reference: "Handout Page 4: Positive consequences of sensitivity"
+            },
+            {
+                question: "The field of study that focuses on how people of differing cultures communicate with each other is called:",
+                options: ["Sociology", "Psychology", "Cross-cultural communication", "Anthropology"],
+                answer: "Cross-cultural communication",
+                explanation: "This is the definition provided in the handout, emphasizing its importance for law enforcement in a multicultural society.",
+                reference: "Handout Page 4: Discuss cross-cultural communication..."
+            }
+        ];
+
+        // --- State Variables ---
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let originalOrder = [];
+
+        // --- Functions ---
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            reviewSection.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            
+            // Store original order for review, then shuffle
+            originalOrder = [...quizData];
+            quizData.sort(() => Math.random() - 0.5);
+            
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = [];
+            
+            showQuestion();
+            updateScoreCounter();
+        }
+
+        function showQuestion() {
+            resetState();
+            const currentQuestion = quizData[currentQuestionIndex];
+            questionText.innerText = currentQuestion.question;
+            questionCounter.innerText = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            
+            // Create and display options
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.innerText = option;
+                button.classList.add('w-full', 'text-left', 'p-4', 'border', 'rounded-lg', 'transition-colors', 'duration-200', 'hover:bg-indigo-100', 'hover:border-indigo-400');
+                button.addEventListener('click', () => selectAnswer(button, option));
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function resetState() {
+            nextBtn.disabled = true;
+            nextBtn.innerText = 'Next Question';
+            while (optionsContainer.firstChild) {
+                optionsContainer.removeChild(optionsContainer.firstChild);
+            }
+        }
+
+        function selectAnswer(button, selectedOption) {
+            const currentQuestion = quizData[currentQuestionIndex];
+            const correct = selectedOption === currentQuestion.answer;
+
+            // Find the original index of the current question for storing the answer
+            const originalIndex = originalOrder.findIndex(q => q.question === currentQuestion.question);
+            userAnswers[originalIndex] = {
+                question: currentQuestion.question,
+                selected: selectedOption,
+                correctAnswer: currentQuestion.answer,
+                isCorrect: correct,
+                explanation: currentQuestion.explanation,
+                reference: currentQuestion.reference
+            };
+
+            if (correct) {
+                score++;
+            }
+            scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex + 1}`;
+            
+            Array.from(optionsContainer.children).forEach(child => {
+                child.disabled = true;
+                if (child.innerText === currentQuestion.answer) {
+                    child.classList.add('correct', 'font-bold');
+                } else if (child.innerText === selectedOption) {
+                    child.classList.add('incorrect', 'font-bold');
+                }
+            });
+
+            const explanationEl = document.createElement('div');
+            explanationEl.innerHTML = `
+                <p class="font-semibold mt-4">Explanation:</p>
+                <p>${currentQuestion.explanation}</p>
+                <div class="mt-2 pt-2 border-t border-gray-300">
+                    <p class="font-semibold">Reference:</p>
+                    <p class="text-sm">${currentQuestion.reference}</p>
+                </div>
+            `;
+            explanationEl.classList.add('explanation', 'p-4', 'rounded-lg', 'mt-4');
+            optionsContainer.appendChild(explanationEl);
+
+            nextBtn.disabled = false;
+            if (currentQuestionIndex === quizData.length - 1) {
+                nextBtn.innerText = 'Show Results';
+            }
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            finalScore.innerText = `${score} / ${quizData.length}`;
+            
+            const percentage = (score / quizData.length) * 100;
+            if (percentage >= 80) {
+                scoreMessage.innerText = "Excellent work! You have a strong grasp of the material.";
+            } else if (percentage >= 60) {
+                scoreMessage.innerText = "Good job! A little more review could be beneficial.";
+            } else {
+                scoreMessage.innerText = "It might be a good idea to review the handout again. Keep trying!";
+            }
+        }
+        
+        function updateScoreCounter() {
+             scoreCounter.innerText = `Score: ${score} / ${currentQuestionIndex}`;
+        }
+
+        function showReview() {
+            reviewContainer.innerHTML = ''; 
+            
+            // Use the userAnswers array which is now indexed correctly
+            userAnswers.forEach((answer, index) => {
+                if (!answer) return; // Skip if a question was somehow not answered
+
+                const card = document.createElement('div');
+                card.classList.add('bg-white', 'p-6', 'rounded-xl', 'shadow-md');
+                
+                const isCorrect = answer.isCorrect;
+                const resultClass = isCorrect ? 'text-green-600' : 'text-red-600';
+                const resultText = isCorrect ? 'Correct' : 'Incorrect';
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800">Question ${index + 1}</h3>
+                        <span class="font-bold ${resultClass}">${resultText}</span>
+                    </div>
+                    <p class="font-medium text-gray-700 mb-4">${answer.question}</p>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Your Answer:</strong> <span class="${!isCorrect ? 'text-red-600' : ''}">${answer.selected}</span></p>
+                        <p><strong>Correct Answer:</strong> <span class="text-green-700">${answer.correctAnswer}</span></p>
+                        <div class="explanation p-3 rounded-md mt-3">
+                            <p class="font-semibold">Explanation:</p>
+                            <p>${answer.explanation}</p>
+                            <div class="mt-2 pt-2 border-t border-gray-300">
+                                <p class="font-semibold">Reference:</p>
+                                <p class="text-sm">${answer.reference}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                reviewContainer.appendChild(card);
+            });
+            reviewSection.classList.remove('hidden');
+            reviewSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Event Listeners ---
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', handleNextButton);
+        restartBtn.addEventListener('click', startQuiz);
+        reviewBtn.addEventListener('click', showReview);
+
+    </script>
+</body>
+</html>
+
